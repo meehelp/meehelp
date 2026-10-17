@@ -69,7 +69,7 @@ test("every service answers the core customer questions", () => {
 
 test("service-city pages have genuinely local content, not city-swapped copy", () => {
   const names = cities
-    .flatMap((c) => [c.name, c.displayName, ...c.includes, c.descriptors.areas, c.descriptors.cuisine, c.descriptors.festivals, c.descriptors.festival, c.descriptors.languages])
+    .flatMap((c) => [c.name, c.displayName, ...c.includes, c.descriptors.areas])
     .map((n) => n.toLowerCase())
     .sort((a, b) => b.length - a.length);
   const mask = (text: string) => names.reduce((t, n) => t.replaceAll(n, "{x}"), text.toLowerCase());

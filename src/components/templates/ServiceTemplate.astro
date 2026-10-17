@@ -11,6 +11,8 @@ import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
 import Icon from "@/components/content/Icon.astro";
 import LinkList from "@/components/content/LinkList.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import { factsFor } from "@/data/product-facts";
 import Section from "@/components/content/Section.astro";
 import ServiceCards from "@/components/content/ServiceCards.astro";
 import Steps from "@/components/content/Steps.astro";
@@ -36,6 +38,7 @@ const path = servicePath(service.slug);
 const cityPages = getBuiltServiceCities(undefined, "marketplace").filter((sc) => sc.service === service.slug);
 const related = getServiceCategories().filter((c) => c.service.slug !== service.slug && c.href);
 const onDemandBuilt = isBuilt(serviceHubStatus(service, "onDemand"));
+const appFacts = factsFor(service.slug, "marketplace");
 const schema = [
   ...(schemaSettings.service ? [serviceSchema({ service, path, name: service.name, description: service.seo.description })] : []),
   ...(schemaSettings.faqPage ? [faqPageSchema(service.faqs)] : []),
@@ -81,6 +84,10 @@ const schema = [
     <Steps steps={marketplaceSteps} />
   </Section>
 
+  <Section id="in-the-app" title="What you see and choose in the app" tone="tint">
+    <ProductFacts facts={appFacts} />
+  </Section>
+
   <Section id="plans" title="Plans for contacting helpers" tone="warm">
     <Claims model="marketplace" />
     <PlansSummary placement={`${service.slug}_plans`} />
@@ -124,7 +131,7 @@ const schema = [
       href={servicePath(service.slug, "onDemand")}
       heading="Only need help for a few hours?"
       body={`If you don't need a regular arrangement, you can book ${service.onDemand.bookingNoun} through the MeeHelp app instead.`}
-      label={`${service.onDemand.name}: book instantly or schedule`}
+      label={`${service.onDemand.name}: ${service.onDemand.bookNow ? "book now or schedule" : "schedule a booking"}`}
     />
   ) : null
 }

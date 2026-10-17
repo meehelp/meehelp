@@ -18,9 +18,16 @@ export const marketplaceSteps: Step[] = [
 /** ON-DEMAND journey (confirmed: instant, scheduled and hourly booking for every category). */
 export const onDemandSteps: Step[] = [
   { title: "Choose the help you need", body: "Pick the type of help in the MeeHelp app." },
-  { title: "Book now or schedule", body: "Book instantly, or choose a date and time that suits you." },
+  { title: "Book now or schedule", body: "Book now where the app offers it, or choose a date and time that suits you." },
   { title: "Choose the hours", body: "Book for as many hours as the work needs." },
   { title: "Confirm in the app", body: "Review the details and confirm your booking." },
+];
+
+/** Steps for a category whose bookings are scheduled only (evidence impl.instant-scope). */
+export const scheduledOnlySteps: Step[] = [
+  onDemandSteps[0]!,
+  { title: "Schedule the visit", body: "Choose a date and a start time, at least 2 hours ahead." },
+  ...onDemandSteps.slice(2),
 ];
 
 /** The three booking types of the on-demand model. */
@@ -41,6 +48,13 @@ export const hiringArrangements: Record<HiringArrangement, { name: string; body:
     body: "A helper for most of the day, with hours, meal breaks and a weekly off agreed with them.",
   },
 };
+
+/** Practical advice for a one-off booking (on-demand pages). Makes no claims about MeeHelp checks. */
+export const bookingSafeguards: string[] = [
+  "Check the helper's details in the app before they arrive, and share the start PIN only when they're at your door.",
+  "Approve the helper's entry with your society or building security before the booked time.",
+  "Keep cash, jewellery and important documents locked away during the visit.",
+];
 
 /** Practical hiring advice for customers. Makes no claims about MeeHelp checks. */
 export const sharedSafeguards: string[] = [

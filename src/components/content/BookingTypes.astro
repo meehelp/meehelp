@@ -11,7 +11,7 @@ const { service } = Astro.props;
 const types = bookingTypes.filter(
   (t) =>
     !service ||
-    (t.key === "instant" && service.models.instantBooking === true) ||
+    (t.key === "instant" && service.models.instantBooking === true && service.onDemand.bookNow) ||
     (t.key === "scheduled" && service.models.scheduledBooking === true) ||
     (t.key === "hourly" && service.models.hourlyBooking === true),
 );

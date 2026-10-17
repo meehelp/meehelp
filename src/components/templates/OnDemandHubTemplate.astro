@@ -1,7 +1,7 @@
 ---
-/** On-demand service hub (/hourly-maid/): book help by the hour — instantly or scheduled. */
+/** On-demand service hub (/hourly-maid/): book help in the app — now (where the app offers it) or scheduled. */
 import { schemaSettings } from "@/data/business";
-import { onDemandSteps } from "@/data/how-it-works";
+import { onDemandSteps, scheduledOnlySteps } from "@/data/how-it-works";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
 import BookingTypes from "@/components/content/BookingTypes.astro";
 import BulletList from "@/components/content/BulletList.astro";
@@ -11,6 +11,8 @@ import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
 import Icon from "@/components/content/Icon.astro";
 import LinkList from "@/components/content/LinkList.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import { factsFor } from "@/data/product-facts";
 import Section from "@/components/content/Section.astro";
 import Steps from "@/components/content/Steps.astro";
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
@@ -33,6 +35,7 @@ const path = servicePath(service.slug, "onDemand");
 const cityPages = getBuiltServiceCities(undefined, "onDemand").filter((sc) => sc.service === service.slug);
 const related = getServiceCategories(undefined, "onDemand").filter((c) => c.service.slug !== service.slug && c.href);
 const marketplaceBuilt = isBuilt(serviceHubStatus(service, "marketplace"));
+const appFacts = factsFor(service.slug, "onDemand");
 const schema = [
   ...(schemaSettings.service ? [serviceSchema({ service, path, name: od.name, description: od.seo.description })] : []),
   ...(schemaSettings.faqPage ? [faqPageSchema(od.faqs)] : []),
@@ -50,14 +53,16 @@ const schema = [
       <h1>{od.headline}</h1>
       {od.description.map((p) => <p class="lead">{p}</p>)}
       <div class="cta-row">
-        <Cta ctaKey="bookNow" placement={`${od.slug}_hero`} />
-        <Cta ctaKey="scheduleHelp" placement={`${od.slug}_hero_schedule`} variant="secondary" />
+        {od.bookNow ? <Cta ctaKey="bookNow" placement={`${od.slug}_hero`} /> : null}
+        <Cta ctaKey="scheduleHelp" placement={`${od.slug}_hero_schedule`} variant={od.bookNow ? "secondary" : undefined} />
       </div>
     </div>
   </section>
 
-  <Section id="booking-types" title="Book instantly, schedule ahead, or book by the hour" tone="tint">
+  <Section id="booking-types" title={od.bookNow ? "Book now or schedule ahead" : "Schedule ahead, for the hours you need"} tone="tint">
     <BookingTypes service={service} />
+    <h3>How it works in the app</h3>
+    <ProductFacts facts={appFacts} />
   </Section>
 
   <Section id="use-cases" title={`When people book ${od.bookingNoun}`}>
@@ -79,13 +84,13 @@ const schema = [
   </Section>
 
   <Section id="how-booking-works" title="How booking works">
-    <Steps steps={onDemandSteps} />
+    <Steps steps={od.bookNow ? onDemandSteps : scheduledOnlySteps} />
   </Section>
 
   {
     cityPages.length > 0 ? (
       <Section id="cities" title={`${od.name} across our cities`} tone="warm">
-        <p>On-demand bookings are available in all the cities below. Whether someone is free at a particular time depends on who is near you.</p>
+        <p>Bookings are available in all the cities below. Whether someone is free at a particular time depends on who is near you.</p>
         <LinkList
           label={`${od.name} by city`}
           links={cityPages.map((sc) => ({
@@ -100,7 +105,7 @@ const schema = [
   <Section id="safety" title="Booking safely">
     <VerificationSummary />
     <h3>Tips for your booking</h3>
-    <Safeguards extra={od.safeguards} />
+    <Safeguards extra={od.safeguards} kind="booking" />
   </Section>
 
   <Section id="faqs" title={`${od.name}: frequently asked questions`} tone="tint">
@@ -113,7 +118,7 @@ const schema = [
     <CrossLink
       targetModel="marketplace"
       href={servicePath(service.slug)}
-      heading="Looking for someone regular?"
+      heading="Want the same person every week?"
       body={`If you'd like the same person every day or every week, you can find ${service.roleWithArticle} on MeeHelp and agree the arrangement with them directly.`}
       label={`${service.name}: find and hire`}
     />

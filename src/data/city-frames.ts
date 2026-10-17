@@ -2,8 +2,8 @@ import type { BusinessModel, CityPageFrame, ServiceSlug } from "@/lib/content/ty
 
 /**
  * How each service's city pages are framed, per model. Placeholders are
- * filled from src/data/cities.ts: {city} (name), {cityFull} (display name),
- * {areas}, {cuisine}, {festivals}, {festival} (one festival, for short copy), {languages}.
+ * filled from src/data/cities.ts: {city} (name), {cityFull} (display name), {areas}.
+ * (Phase 4.5: cuisine, festival and language placeholders were removed.)
  *
  * Frames are deliberately SHORT. A city page's substance comes from the
  * city's tagged facts and FAQs, not from repeating the same paragraphs
@@ -36,15 +36,15 @@ export const cityFrames: Record<ServiceSlug, Record<BusinessModel, CityPageFrame
         "Cover while your regular maid is on leave",
         "A deep clean of the kitchen or bathrooms",
       ],
-      title: "Hourly Maid in {city} – Instant or Scheduled | MeeHelp",
-      description: "Book an hourly maid in {areas} with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before {festival}.",
+      title: "Hourly Maid in {city} – Book a One-Time Clean | MeeHelp",
+      description: "Book an hourly maid in {areas} with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
     },
   },
   cook: {
     marketplace: {
       headline: "Find a home cook in {cityFull}",
       intro: [
-        "Search MeeHelp for cooks in {areas} — for {cuisine} cooking or everyday family meals. Contact cooks directly, ask for a trial meal and agree the salary with them yourself.",
+        "Search MeeHelp for cooks in {areas}, part-time for one or two meals or live-in. Contact cooks directly, agree a trial meal and settle the salary with them yourself.",
       ],
       points: [
         "Breakfast and tiffins before office and school",
@@ -52,20 +52,20 @@ export const cityFrames: Record<ServiceSlug, Record<BusinessModel, CityPageFrame
         "Cooking for a family member with dietary needs",
       ],
       title: "Cook in {city} – Hire a Home Cook Directly | MeeHelp",
-      description: "Hire a home cook in {areas} for {cuisine} meals. Contact cooks directly and agree the salary on MeeHelp.",
+      description: "Hire a home cook in {areas} for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
     },
     onDemand: {
       headline: "Book a cook by the hour in {cityFull}",
       intro: [
-        "Book a cook through the MeeHelp app in {areas} for the hours you need — for guests, a festival meal or a day when you can't cook. Book now or schedule ahead.",
+        "Book a cook through the MeeHelp app in {areas} for the hours you need — for guests, a family meal or a few days of meal prep. Schedule it up to 5 days ahead.",
       ],
       points: [
         "Cooking for guests or a small family gathering",
-        "Festival dishes",
+        "Your regular cook is away for a few days",
         "A few days of meals prepared in one visit",
       ],
       title: "Hourly Cook in {city} – Book a Cook for Guests | MeeHelp",
-      description: "Book a cook by the hour in {areas} — instantly or scheduled — for guests, {festival} cooking or a family meal on MeeHelp.",
+      description: "Book a cook by the hour in {areas} through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
     },
   },
   "babysitter-nanny": {
@@ -85,7 +85,7 @@ export const cityFrames: Record<ServiceSlug, Record<BusinessModel, CityPageFrame
     onDemand: {
       headline: "Book an hourly babysitter in {cityFull}",
       intro: [
-        "Book a babysitter by the hour through the MeeHelp app in {areas} — for an evening out, a work call or a busy afternoon. Book now or schedule ahead.",
+        "Book a babysitter by the hour through the MeeHelp app in {areas} — for an evening out, a work call or a busy afternoon. Schedule it at least 2 hours ahead.",
       ],
       points: [
         "An evening out or a family function",
@@ -93,7 +93,7 @@ export const cityFrames: Record<ServiceSlug, Record<BusinessModel, CityPageFrame
         "Cover when your regular nanny is away",
       ],
       title: "Hourly Babysitter in {city} – Book Childcare | MeeHelp",
-      description: "Book a babysitter by the hour in {areas} — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      description: "Book a babysitter by the hour in {areas} on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
     },
   },
   "elder-care": {
@@ -121,7 +121,7 @@ export const cityFrames: Record<ServiceSlug, Record<BusinessModel, CityPageFrame
         "Cover when a regular carer is away",
       ],
       title: "Hourly Elder Care in {city} – Book an Attendant | MeeHelp",
-      description: "Book elder care by the hour in {areas} — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      description: "Book hourly elder care in {areas} on MeeHelp: company and help with the daily routine for an older parent while you're out.",
     },
   },
   "patient-care": {
@@ -149,7 +149,7 @@ export const cityFrames: Record<ServiceSlug, Record<BusinessModel, CityPageFrame
         "A break for a family member who is caring full-time",
       ],
       title: "Hourly Patient Care in {city} – Book an Attendant | MeeHelp",
-      description: "Book a patient attendant by the hour in {areas} — instantly or scheduled — after a discharge or to give family carers a break.",
+      description: "Book hourly patient care in {areas} on MeeHelp: personal care for a family member who is unwell or recovering at home.",
     },
   },
 };

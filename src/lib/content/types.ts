@@ -100,6 +100,12 @@ export interface OnDemandContent {
   shortName: string;
   /** With article, for sentences: "an hourly maid", "a cook by the hour". */
   bookingNoun: string;
+  /**
+   * Whether the app offers "Book now" (instant) for this category today
+   * (evidence impl.instant-scope). When false, copy describes scheduled
+   * booking only, even though the business has confirmed instant booking.
+   */
+  bookNow: boolean;
   headline: string;
   description: string[];
   useCases: string[];
@@ -187,11 +193,6 @@ export interface City {
   descriptors: {
     /** e.g. "Mumbai, Thane and Navi Mumbai". */
     areas: string;
-    languages: string;
-    cuisine: string;
-    festivals: string;
-    /** The single best-known festival, for short copy such as meta descriptions. */
-    festival: string;
   };
   facts: CityFact[];
   faqs: CityFaq[];

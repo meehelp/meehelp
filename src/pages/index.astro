@@ -28,9 +28,8 @@ import Testimonials from "@/components/trust/Testimonials.astro";
 import TrustMetrics from "@/components/trust/TrustMetrics.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getServiceCategories, getServiceCity, serviceCityStatus } from "@/lib/content";
-import { serviceCityPath } from "@/lib/content/paths";
-import { isBuilt, isIndexable } from "@/lib/content/publishing";
+import { getServiceCategories } from "@/lib/content";
+import { isIndexable } from "@/lib/content/publishing";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/seo/schema";
 
@@ -42,14 +41,11 @@ const categories = hire.map((h, i) => ({ service: h.service, hireHref: h.href, b
 const activeCities = cities.filter((c) => c.marketActive === true);
 const { marketplace, onDemand } = businessModels;
 
-/** Each city's lead pages (maid, both models) — only when built. */
-const cityLinks = activeCities.map((city) => {
-  const link = (model: "marketplace" | "onDemand") => {
-    const sc = getServiceCity("maid", city.slug, model);
-    return sc && isBuilt(serviceCityStatus(sc)) ? serviceCityPath("maid", city.slug, model) : null;
-  };
-  return { city, hire: link("marketplace"), book: link("onDemand") };
-});
+/**
+ * Phase 4.5 linking review: the home page links to the 10 hubs (path cards
+ * and category grid) and pricing. City pages are reached from their hub, so
+ * no single category is promoted city by city from the home page.
+ */
 const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPage ? [faqPageSchema(home.faqs)] : [])];
 ---
 
@@ -165,29 +161,15 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
     activeCities.length > 0 ? (
       <Section id="coverage" title="Cities where MeeHelp operates" tone="tint">
         <ul class="city-list">
-          {cityLinks.map(({ city, hire: hireLink, book: bookLink }) => (
+          {activeCities.map((city) => (
             <li class="city-list__item">
               <h3 class="city-list__name">
                 <Icon name="arrow" size={16} class="city-list__icon" /> {city.displayName}
               </h3>
-              {hireLink || bookLink ? (
-                <ul class="city-list__links">
-                  {hireLink ? (
-                    <li>
-                      <a href={hireLink}>Find a maid in {city.name}</a>
-                    </li>
-                  ) : null}
-                  {bookLink ? (
-                    <li>
-                      <a href={bookLink}>Hourly maid in {city.name}</a>
-                    </li>
-                  ) : null}
-                </ul>
-              ) : null}
             </li>
           ))}
         </ul>
-        <p>Every category is available in all eight cities. Search or book from your address in the app to see what's available near you.</p>
+        <p>Every category is available in all eight cities. The app checks your address when you search or book, and each service page links to its city pages.</p>
       </Section>
     ) : null
   }

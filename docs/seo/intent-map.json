@@ -81,7 +81,7 @@
       "kind": "service",
       "model": "marketplace",
       "title": "Cook Near You – Find & Hire a Home Cook | MeeHelp",
-      "metaDescription": "Find a home cook near you for daily meals and tiffins — veg, non-veg or Jain. Contact cooks directly, try them out and hire the right one with MeeHelp.",
+      "metaDescription": "Hire a home cook near you for daily meals and tiffins, part-time or live-in. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -94,10 +94,10 @@
         "cook near me",
         "home cook",
         "hire cook",
-        "veg cook",
-        "jain cook"
+        "live-in cook",
+        "part-time cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook near you"
     },
     {
@@ -175,14 +175,14 @@
       "canonical": "https://meehelp.in/hourly-maid/",
       "kind": "service",
       "model": "onDemand",
-      "title": "Hourly Maid – Book House Help by the Hour | MeeHelp",
-      "metaDescription": "Book an hourly maid through the MeeHelp app — instantly or for a scheduled time — for cleaning, dishes, laundry or a thorough clean before guests arrive.",
+      "title": "Hourly Maid – Book a One-Time Clean at Home | MeeHelp",
+      "metaDescription": "Book an hourly maid in the MeeHelp app for dishes, bathrooms, floors or laundry — book now or schedule a visit. Keep your own cleaning supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": null,
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled",
       "primaryKeyword": "hourly maid near me",
       "supportingKeywords": [
         "instant maid",
@@ -192,7 +192,7 @@
         "hourly house help",
         "scheduled maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid for cleaning at home"
     },
     {
@@ -200,22 +200,22 @@
       "canonical": "https://meehelp.in/hourly-cook/",
       "kind": "service",
       "model": "onDemand",
-      "title": "Hourly Cook – Book a Cook for a Meal or Party | MeeHelp",
-      "metaDescription": "Book a cook by the hour with MeeHelp — instantly or scheduled — for guests, festivals, a family meal or a few days of meal prep, cooked in your own kitchen.",
+      "title": "Hourly Cook – Book a Cook for Guests or Meal Prep | MeeHelp",
+      "metaDescription": "Book a cook by the hour in the MeeHelp app for guests, family meals or a few days of meal prep, cooked in your own kitchen. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": null,
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep",
       "primaryKeyword": "hourly cook",
       "supportingKeywords": [
         "book cook",
-        "instant cook",
         "cook for party at home",
-        "cook for a day"
+        "cook for a day",
+        "cook for guests"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour"
     },
     {
@@ -223,8 +223,8 @@
       "canonical": "https://meehelp.in/hourly-babysitter/",
       "kind": "service",
       "model": "onDemand",
-      "title": "Hourly Babysitter – Book Childcare by the Hour | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour through the MeeHelp app — instantly or for a scheduled time — for an evening out, a work call or a busy day at home.",
+      "title": "Hourly Babysitter – Book Baby Care by the Hour | MeeHelp",
+      "metaDescription": "Book a babysitter by the hour in the MeeHelp app for an evening out, a work call or errands. Schedule 2 hours to 5 days ahead and leave your child's routine.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -237,7 +237,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book a babysitter by the hour"
     },
     {
@@ -245,8 +245,8 @@
       "canonical": "https://meehelp.in/hourly-elder-care/",
       "kind": "service",
       "model": "onDemand",
-      "title": "Hourly Elder Care at Home – Book an Attendant | MeeHelp",
-      "metaDescription": "Book an elder care attendant by the hour — instantly or scheduled — for company, mobility help or a trip to the doctor while you're away. Book on MeeHelp.",
+      "title": "Hourly Elder Care – An Attendant for Your Parent | MeeHelp",
+      "metaDescription": "Book hourly elder care in the MeeHelp app: company, a steady arm and help with the daily routine for an older parent while you're out. Non-medical support.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -259,16 +259,16 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
-      "h1": "Hourly elder care at home"
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
+      "h1": "Hourly elder care for an older parent at home"
     },
     {
       "path": "/hourly-patient-care/",
       "canonical": "https://meehelp.in/hourly-patient-care/",
       "kind": "service",
       "model": "onDemand",
-      "title": "Hourly Patient Care – Book an Attendant at Home | MeeHelp",
-      "metaDescription": "Book a patient care attendant by the hour on MeeHelp — instantly or scheduled — for help after a hospital discharge, personal care or a break for family carers.",
+      "title": "Hourly Patient Care – Personal Care at Home | MeeHelp",
+      "metaDescription": "Book a patient care attendant by the hour in the MeeHelp app for washing, changing and moving a patient who is unwell or recovering. Non-medical care.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -281,8 +281,8 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
-      "h1": "Hourly patient care attendants at home"
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
+      "h1": "Hourly patient care during recovery at home"
     },
     {
       "path": "/maid/mumbai/",
@@ -290,7 +290,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Maid Service in Mumbai – Find House Help Near You | MeeHelp",
-      "metaDescription": "Looking for a maid in Mumbai? Find part-time or full-time house help near your building for cleaning, dishes and laundry, through the MeeHelp app.",
+      "metaDescription": "Find a part-time or live-in maid in Mumbai, Thane or Navi Mumbai for cleaning, dishes and laundry. See helpers near your building on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -315,7 +315,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Maid Service in Delhi NCR – House Help Near You | MeeHelp",
-      "metaDescription": "Find a maid in Delhi, Gurugram or Noida for daily cleaning, dishes and laundry. Part-time or full-time house help near you through the MeeHelp app.",
+      "metaDescription": "Find a maid in Delhi, Gurugram or Noida for daily cleaning, dishes and laundry. Part-time or live-in house help near you through the MeeHelp app.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -490,7 +490,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Mumbai – Hire a Home Cook Near You | MeeHelp",
-      "metaDescription": "Hire a home cook in Mumbai for breakfast, tiffins or dinner — veg, non-veg, Gujarati or Jain food. Find cooks near you through the MeeHelp app.",
+      "metaDescription": "Hire a home cook in Mumbai, Thane or Navi Mumbai for breakfast, tiffins or dinner — part-time or live-in. Find cooks near you through the MeeHelp app.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -505,7 +505,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Home cooks in Mumbai for everyday family meals"
     },
     {
@@ -514,7 +514,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Delhi NCR – Hire a Home Cook Directly | MeeHelp",
-      "metaDescription": "Hire a home cook in Delhi, Gurugram and Noida for North Indian and Punjabi meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "metaDescription": "Hire a home cook in Delhi, Gurugram and Noida for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -529,7 +529,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook in Delhi NCR"
     },
     {
@@ -538,7 +538,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Bengaluru – Hire a Home Cook Directly | MeeHelp",
-      "metaDescription": "Hire a home cook in Bengaluru for South Indian, North Indian and everyday family meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "metaDescription": "Hire a home cook in Bengaluru for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -553,7 +553,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook in Bengaluru"
     },
     {
@@ -562,7 +562,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Hyderabad – Hire a Home Cook Directly | MeeHelp",
-      "metaDescription": "Hire a home cook in Hyderabad and Secunderabad for Hyderabadi, Andhra and North Indian meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "metaDescription": "Hire a home cook in Hyderabad and Secunderabad for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -577,7 +577,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook in Hyderabad"
     },
     {
@@ -586,7 +586,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Chennai – Hire a Home Cook Directly | MeeHelp",
-      "metaDescription": "Hire a home cook in Chennai for South Indian vegetarian and Chettinad meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "metaDescription": "Hire a home cook in Chennai for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -601,7 +601,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook in Chennai"
     },
     {
@@ -610,7 +610,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Pune – Hire a Home Cook Directly | MeeHelp",
-      "metaDescription": "Hire a home cook in Pune and Pimpri-Chinchwad for Maharashtrian and North Indian meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "metaDescription": "Hire a home cook in Pune and Pimpri-Chinchwad for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -625,7 +625,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook in Pune"
     },
     {
@@ -634,7 +634,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Kolkata – Hire a Home Cook Directly | MeeHelp",
-      "metaDescription": "Hire a home cook in Kolkata, Salt Lake and New Town for Bengali and Marwari vegetarian meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "metaDescription": "Hire a home cook in Kolkata, Salt Lake and New Town for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -649,7 +649,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook in Kolkata"
     },
     {
@@ -658,7 +658,7 @@
       "kind": "service-city",
       "model": "marketplace",
       "title": "Cook in Ahmedabad – Hire a Home Cook Directly | MeeHelp",
-      "metaDescription": "Hire a home cook in Ahmedabad and Gandhinagar for Gujarati vegetarian and Jain meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "metaDescription": "Hire a home cook in Ahmedabad and Gandhinagar for daily meals and tiffins. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -673,7 +673,7 @@
         "cook near me",
         "home cook"
       ],
-      "proposition": "Search cooks, contact them directly, trial a meal, agree the salary yourself",
+      "proposition": "Search cooks by household size, contact them directly, agree a trial meal and the salary yourself",
       "h1": "Find a home cook in Ahmedabad"
     },
     {
@@ -921,8 +921,8 @@
       "canonical": "https://meehelp.in/elder-care/bengaluru/",
       "kind": "service-city",
       "model": "marketplace",
-      "title": "Elder Care at Home in Bengaluru – Attendants | MeeHelp",
-      "metaDescription": "Find an elder care attendant in Bengaluru for company, mobility help, personal care and medicine reminders at home. Connect through MeeHelp.",
+      "title": "Elder Care in Bengaluru – Find an Attendant at Home | MeeHelp",
+      "metaDescription": "Find an elder care attendant in Bengaluru for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -938,7 +938,7 @@
         "caretaker for elderly"
       ],
       "proposition": "Search attendants, contact them directly, agree routine and salary",
-      "h1": "Elder care at home in Bengaluru for parents living with or near you"
+      "h1": "Elder care attendants in Bengaluru"
     },
     {
       "path": "/elder-care/hyderabad/",
@@ -1257,14 +1257,14 @@
       "canonical": "https://meehelp.in/hourly-maid/mumbai/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Mumbai – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Mumbai, Thane and Navi Mumbai with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Ganesh Chaturthi.",
+      "title": "Hourly Maid in Mumbai – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Mumbai, Thane and Navi Mumbai with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "mumbai",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Mumbai & MMR",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Mumbai & MMR",
       "primaryKeyword": "hourly maid in Mumbai",
       "supportingKeywords": [
         "book maid in Mumbai",
@@ -1273,7 +1273,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Mumbai & MMR"
     },
     {
@@ -1281,14 +1281,14 @@
       "canonical": "https://meehelp.in/hourly-maid/delhi-ncr/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Delhi NCR – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Delhi, Gurugram and Noida with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Diwali.",
+      "title": "Hourly Maid in Delhi NCR – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Delhi, Gurugram and Noida with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "delhi-ncr",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Delhi NCR",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Delhi NCR",
       "primaryKeyword": "hourly maid in Delhi NCR",
       "supportingKeywords": [
         "book maid in Delhi NCR",
@@ -1297,7 +1297,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Delhi NCR"
     },
     {
@@ -1305,14 +1305,14 @@
       "canonical": "https://meehelp.in/hourly-maid/bengaluru/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Bengaluru – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Bengaluru with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Ugadi.",
+      "title": "Hourly Maid in Bengaluru – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Bengaluru with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "bengaluru",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Bengaluru",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Bengaluru",
       "primaryKeyword": "hourly maid in Bengaluru",
       "supportingKeywords": [
         "book maid in Bengaluru",
@@ -1321,7 +1321,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Bengaluru"
     },
     {
@@ -1329,14 +1329,14 @@
       "canonical": "https://meehelp.in/hourly-maid/hyderabad/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Hyderabad – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Hyderabad and Secunderabad with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Sankranti.",
+      "title": "Hourly Maid in Hyderabad – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Hyderabad and Secunderabad with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "hyderabad",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Hyderabad",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Hyderabad",
       "primaryKeyword": "hourly maid in Hyderabad",
       "supportingKeywords": [
         "book maid in Hyderabad",
@@ -1345,7 +1345,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Hyderabad"
     },
     {
@@ -1353,14 +1353,14 @@
       "canonical": "https://meehelp.in/hourly-maid/chennai/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Chennai – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Chennai with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Pongal.",
+      "title": "Hourly Maid in Chennai – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Chennai with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "chennai",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Chennai",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Chennai",
       "primaryKeyword": "hourly maid in Chennai",
       "supportingKeywords": [
         "book maid in Chennai",
@@ -1369,7 +1369,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Chennai"
     },
     {
@@ -1377,14 +1377,14 @@
       "canonical": "https://meehelp.in/hourly-maid/pune/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Pune – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Pune and Pimpri-Chinchwad with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Ganeshotsav.",
+      "title": "Hourly Maid in Pune – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Pune and Pimpri-Chinchwad with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "pune",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Pune",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Pune",
       "primaryKeyword": "hourly maid in Pune",
       "supportingKeywords": [
         "book maid in Pune",
@@ -1393,7 +1393,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Pune"
     },
     {
@@ -1401,14 +1401,14 @@
       "canonical": "https://meehelp.in/hourly-maid/kolkata/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Kolkata – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Kolkata, Salt Lake and New Town with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Durga Puja.",
+      "title": "Hourly Maid in Kolkata – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Kolkata, Salt Lake and New Town with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "kolkata",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Kolkata",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Kolkata",
       "primaryKeyword": "hourly maid in Kolkata",
       "supportingKeywords": [
         "book maid in Kolkata",
@@ -1417,7 +1417,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Kolkata"
     },
     {
@@ -1425,14 +1425,14 @@
       "canonical": "https://meehelp.in/hourly-maid/ahmedabad/",
       "kind": "service-city",
       "model": "onDemand",
-      "title": "Hourly Maid in Ahmedabad – Instant or Scheduled | MeeHelp",
-      "metaDescription": "Book an hourly maid in Ahmedabad and Gandhinagar with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Navratri.",
+      "title": "Hourly Maid in Ahmedabad – Book a One-Time Clean | MeeHelp",
+      "metaDescription": "Book an hourly maid in Ahmedabad and Gandhinagar with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "maid",
       "city": "ahmedabad",
-      "primaryIntent": "Book a maid for a few hours — instantly or scheduled in Ahmedabad",
+      "primaryIntent": "Book a one-time clean or a few hours of house help — now or scheduled in Ahmedabad",
       "primaryKeyword": "hourly maid in Ahmedabad",
       "supportingKeywords": [
         "book maid in Ahmedabad",
@@ -1441,7 +1441,7 @@
         "maid for 2 hours",
         "book maid"
       ],
-      "proposition": "Book cleaning help by the hour in the app, now or for a chosen time",
+      "proposition": "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
       "h1": "Book an hourly maid in Ahmedabad"
     },
     {
@@ -1450,22 +1450,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Mumbai – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — for guests, Ganesh Chaturthi cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Mumbai, Thane and Navi Mumbai through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "mumbai",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Mumbai & MMR",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Mumbai & MMR",
       "primaryKeyword": "hourly cook in Mumbai",
       "supportingKeywords": [
         "book cook in Mumbai",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Mumbai & MMR"
     },
     {
@@ -1474,22 +1474,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Delhi NCR – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Delhi, Gurugram and Noida — instantly or scheduled — for guests, Diwali cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Delhi, Gurugram and Noida through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "delhi-ncr",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Delhi NCR",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Delhi NCR",
       "primaryKeyword": "hourly cook in Delhi NCR",
       "supportingKeywords": [
         "book cook in Delhi NCR",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Delhi NCR"
     },
     {
@@ -1498,22 +1498,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Bengaluru – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Bengaluru — instantly or scheduled — for guests, Ugadi cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Bengaluru through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "bengaluru",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Bengaluru",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Bengaluru",
       "primaryKeyword": "hourly cook in Bengaluru",
       "supportingKeywords": [
         "book cook in Bengaluru",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Bengaluru"
     },
     {
@@ -1522,22 +1522,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Hyderabad – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Hyderabad and Secunderabad — instantly or scheduled — for guests, Sankranti cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Hyderabad and Secunderabad through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "hyderabad",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Hyderabad",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Hyderabad",
       "primaryKeyword": "hourly cook in Hyderabad",
       "supportingKeywords": [
         "book cook in Hyderabad",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Hyderabad"
     },
     {
@@ -1546,22 +1546,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Chennai – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Chennai — instantly or scheduled — for guests, Pongal cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Chennai through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "chennai",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Chennai",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Chennai",
       "primaryKeyword": "hourly cook in Chennai",
       "supportingKeywords": [
         "book cook in Chennai",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Chennai"
     },
     {
@@ -1570,22 +1570,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Pune – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — for guests, Ganeshotsav cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Pune and Pimpri-Chinchwad through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "pune",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Pune",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Pune",
       "primaryKeyword": "hourly cook in Pune",
       "supportingKeywords": [
         "book cook in Pune",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Pune"
     },
     {
@@ -1594,22 +1594,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Kolkata – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — for guests, Durga Puja cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Kolkata, Salt Lake and New Town through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "kolkata",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Kolkata",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Kolkata",
       "primaryKeyword": "hourly cook in Kolkata",
       "supportingKeywords": [
         "book cook in Kolkata",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Kolkata"
     },
     {
@@ -1618,22 +1618,22 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Cook in Ahmedabad – Book a Cook for Guests | MeeHelp",
-      "metaDescription": "Book a cook by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — for guests, Navratri cooking or a family meal on MeeHelp.",
+      "metaDescription": "Book a cook by the hour in Ahmedabad and Gandhinagar through MeeHelp for guests, a family meal or meal prep. Schedule up to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "cook",
       "city": "ahmedabad",
-      "primaryIntent": "Book a cook for a meal, guests or a festival — by the hour in Ahmedabad",
+      "primaryIntent": "Book a cook by the hour for guests, a family meal or meal prep in Ahmedabad",
       "primaryKeyword": "hourly cook in Ahmedabad",
       "supportingKeywords": [
         "book cook in Ahmedabad",
         "hourly cook",
         "book cook",
-        "instant cook",
-        "cook for party at home"
+        "cook for party at home",
+        "cook for a day"
       ],
-      "proposition": "Book a cook by the hour in the app, now or scheduled",
+      "proposition": "Schedule a cook by the hour in the app (2–12 hours, up to 5 days ahead)",
       "h1": "Book a cook by the hour in Ahmedabad"
     },
     {
@@ -1642,7 +1642,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Mumbai – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Mumbai, Thane and Navi Mumbai on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1657,7 +1657,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Mumbai & MMR"
     },
     {
@@ -1666,7 +1666,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Delhi NCR – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Delhi, Gurugram and Noida — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Delhi, Gurugram and Noida on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1681,7 +1681,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Delhi NCR"
     },
     {
@@ -1690,7 +1690,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Bengaluru – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Bengaluru — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Bengaluru on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1705,7 +1705,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Bengaluru"
     },
     {
@@ -1714,7 +1714,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Hyderabad – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Hyderabad and Secunderabad — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Hyderabad and Secunderabad on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1729,7 +1729,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Hyderabad"
     },
     {
@@ -1738,7 +1738,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Chennai – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Chennai — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Chennai on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1753,7 +1753,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Chennai"
     },
     {
@@ -1762,7 +1762,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Pune – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Pune and Pimpri-Chinchwad on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1777,7 +1777,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Pune"
     },
     {
@@ -1786,7 +1786,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Kolkata – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Kolkata, Salt Lake and New Town on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1801,7 +1801,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Kolkata"
     },
     {
@@ -1810,7 +1810,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Babysitter in Ahmedabad – Book Childcare | MeeHelp",
-      "metaDescription": "Book a babysitter by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "metaDescription": "Book a babysitter by the hour in Ahmedabad and Gandhinagar on MeeHelp for an evening out, a work call or nanny cover. Schedule 2 hours to 5 days ahead.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1825,7 +1825,7 @@
         "book babysitter",
         "evening babysitter"
       ],
-      "proposition": "Book childcare by the hour in the app, now or scheduled",
+      "proposition": "Schedule baby care by the hour in the app (at least 2 hours ahead)",
       "h1": "Book an hourly babysitter in Ahmedabad"
     },
     {
@@ -1834,7 +1834,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Mumbai – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Mumbai, Thane and Navi Mumbai on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1848,7 +1848,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Mumbai & MMR"
     },
     {
@@ -1857,7 +1857,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Delhi NCR – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Delhi, Gurugram and Noida — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Delhi, Gurugram and Noida on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1871,7 +1871,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Delhi NCR"
     },
     {
@@ -1880,7 +1880,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Bengaluru – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Bengaluru — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Bengaluru on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1894,7 +1894,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Bengaluru"
     },
     {
@@ -1903,7 +1903,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Hyderabad – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Hyderabad and Secunderabad — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Hyderabad and Secunderabad on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1917,7 +1917,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Hyderabad"
     },
     {
@@ -1926,7 +1926,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Chennai – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Chennai — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Chennai on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1940,7 +1940,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Chennai"
     },
     {
@@ -1949,7 +1949,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Pune – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Pune and Pimpri-Chinchwad on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1963,7 +1963,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Pune"
     },
     {
@@ -1972,7 +1972,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Kolkata – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Kolkata, Salt Lake and New Town on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -1986,7 +1986,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Kolkata"
     },
     {
@@ -1995,7 +1995,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Elder Care in Ahmedabad – Book an Attendant | MeeHelp",
-      "metaDescription": "Book elder care by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "metaDescription": "Book hourly elder care in Ahmedabad and Gandhinagar on MeeHelp: company and help with the daily routine for an older parent while you're out.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2009,7 +2009,7 @@
         "attendant for doctor visit",
         "elder care for few hours"
       ],
-      "proposition": "Book an elder care attendant by the hour, now or scheduled",
+      "proposition": "Schedule non-medical elder care (company, routine) by the hour in the app",
       "h1": "Hourly elder care in Ahmedabad"
     },
     {
@@ -2018,7 +2018,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Mumbai – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Mumbai, Thane and Navi Mumbai on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2032,7 +2032,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Mumbai & MMR"
     },
     {
@@ -2041,7 +2041,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Delhi NCR – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Delhi, Gurugram and Noida — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Delhi, Gurugram and Noida on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2055,7 +2055,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Delhi NCR"
     },
     {
@@ -2064,7 +2064,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Bengaluru – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Bengaluru — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Bengaluru on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2078,7 +2078,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Bengaluru"
     },
     {
@@ -2087,7 +2087,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Hyderabad – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Hyderabad and Secunderabad — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Hyderabad and Secunderabad on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2101,7 +2101,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Hyderabad"
     },
     {
@@ -2110,7 +2110,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Chennai – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Chennai — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Chennai on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2124,7 +2124,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Chennai"
     },
     {
@@ -2133,7 +2133,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Pune – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Pune and Pimpri-Chinchwad on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2147,7 +2147,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Pune"
     },
     {
@@ -2156,7 +2156,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Kolkata – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Kolkata, Salt Lake and New Town on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2170,7 +2170,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Kolkata"
     },
     {
@@ -2179,7 +2179,7 @@
       "kind": "service-city",
       "model": "onDemand",
       "title": "Hourly Patient Care in Ahmedabad – Book an Attendant | MeeHelp",
-      "metaDescription": "Book a patient attendant by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — after a discharge or to give family carers a break.",
+      "metaDescription": "Book hourly patient care in Ahmedabad and Gandhinagar on MeeHelp: personal care for a family member who is unwell or recovering at home.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -2193,7 +2193,7 @@
         "attendant after discharge",
         "caregiver relief"
       ],
-      "proposition": "Book non-medical patient care by the hour, now or scheduled",
+      "proposition": "Schedule non-medical personal care for a patient by the hour in the app",
       "h1": "Hourly patient care in Ahmedabad"
     }
   ]

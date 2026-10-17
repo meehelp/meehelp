@@ -12,6 +12,8 @@ import CrossLink from "@/components/content/CrossLink.astro";
 import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
 import LinkList from "@/components/content/LinkList.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import { factsFor } from "@/data/product-facts";
 import Section from "@/components/content/Section.astro";
 import StepsInline from "@/components/content/StepsInline.astro";
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
@@ -36,6 +38,9 @@ const sameServiceElsewhere = built.filter((sc) => sc.service === service.slug &&
 const counterpart = getServiceCity(service.slug, city.slug, "onDemand");
 const counterpartBuilt = counterpart ? isBuilt(serviceCityStatus(counterpart)) : false;
 const placement = `${service.slug}_${city.slug}`;
+const facts = factsFor(service.slug, "marketplace");
+const keyFacts = facts.filter((f) => ["m.hours", "m.contact"].includes(f.id));
+const coverage = facts.filter((f) => f.id === "b.coverage");
 const schema = [
   ...(schemaSettings.service
     ? [serviceSchema({ service, path, city, name: `${service.name} in ${city.name}`, description: content.seo.description })]
@@ -66,13 +71,10 @@ const schema = [
     </div>
   </section>
 
-  {
-    content.localNotes.length > 0 ? (
-      <Section id="local-info" title={`Hiring in ${city.name}: good to know`} tone="warm">
-        <BulletList items={content.localNotes} />
-      </Section>
-    ) : null
-  }
+  <Section id="local-info" title={`Hiring in ${city.name}: good to know`} tone="warm">
+    <ProductFacts facts={coverage} />
+    {content.localNotes.length > 0 ? <BulletList items={content.localNotes} /> : null}
+  </Section>
 
   <Section id="requirements" title={`What ${city.name} households usually ask for`}>
     <BulletList items={content.points} />
@@ -90,6 +92,7 @@ const schema = [
   }
 
   <Section id="how-it-works" title="How direct hiring works" tone="tint">
+    {keyFacts.length > 0 ? <ProductFacts facts={keyFacts} /> : null}
     <StepsInline
       steps={marketplaceSteps}
       moreHref={`${servicePath(service.slug)}#how-it-works`}
@@ -116,7 +119,7 @@ const schema = [
       targetModel="onDemand"
       href={serviceCityPath(service.slug, city.slug, "onDemand")}
       heading={`Need help in ${city.name} for just a few hours?`}
-      body={`You can also book ${service.onDemand.bookingNoun} in ${city.name} through the MeeHelp app — instantly or for a scheduled time.`}
+      body={`You can also book ${service.onDemand.bookingNoun} in ${city.name} through the MeeHelp app${service.onDemand.bookNow ? " — now or for a scheduled time" : " for a scheduled time"}.`}
       label={`${service.onDemand.shortName} in ${city.name}`}
     />
   ) : null

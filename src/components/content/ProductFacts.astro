@@ -1,0 +1,17 @@
+---
+/**
+ * Evidence-backed statements about how the app works (src/data/product-facts.ts).
+ * Each item carries data-evidence="id,id" so `npm run report` can count them.
+ */
+import type { ProductFact } from "@/data/product-facts";
+
+interface Props {
+  facts: ProductFact[];
+}
+
+const { facts } = Astro.props;
+---
+
+<ul class="bullets product-facts">
+  {facts.map((f) => <li data-evidence={f.evidence.join(",")}>{f.text}</li>)}
+</ul>

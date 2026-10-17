@@ -15,10 +15,13 @@ import Steps from "@/components/content/Steps.astro";
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
 import PlanCards from "@/components/pricing/PlanCards.astro";
 import Claims from "@/components/trust/Claims.astro";
+import { getServiceCategories } from "@/lib/content";
 import { pricingPath } from "@/lib/content/paths";
 import { getSegments } from "@/lib/pricing";
 
 const segments = getSegments();
+/** Contextual links back to the marketplace hubs a contact plan is used on (built pages only). */
+const hubs = getServiceCategories(undefined, "marketplace").filter((c) => c.href);
 ---
 
 <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Plans", path: pricingPath }]} />
@@ -49,6 +52,23 @@ const segments = getSegments();
         <PlanCards segment={segment.id} placement={`pricing_${segment.id}`} />
       </Section>
     ))
+  }
+
+  {
+    hubs.length > 0 ? (
+      <Section id="what-plans-are-for" title="What you can use a plan for">
+        <p>
+          One plan covers every kind of helper. Use your contacts to find{" "}
+          {hubs.map((c, i) => (
+            <>
+              <a href={c.href!}>{c.service.roleWithArticle}</a>
+              {i < hubs.length - 2 ? ", " : i === hubs.length - 2 ? " or " : ""}
+            </>
+          ))}
+          , and mix them as you like.
+        </p>
+      </Section>
+    ) : null
   }
 
   <Section id="how-it-works" title="How contact plans work" tone="warm">

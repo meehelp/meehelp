@@ -5,12 +5,13 @@
  * for on-demand bookings.
  */
 import { schemaSettings } from "@/data/business";
-import { onDemandSteps } from "@/data/how-it-works";
+import { onDemandSteps, scheduledOnlySteps } from "@/data/how-it-works";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
-import BookingTypes from "@/components/content/BookingTypes.astro";
 import BulletList from "@/components/content/BulletList.astro";
 import CrossLink from "@/components/content/CrossLink.astro";
 import Cta from "@/components/content/Cta.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import { factsFor } from "@/data/product-facts";
 import FaqList from "@/components/content/FaqList.astro";
 import LinkList from "@/components/content/LinkList.astro";
 import Section from "@/components/content/Section.astro";
@@ -37,6 +38,9 @@ const sameServiceElsewhere = built.filter((sc) => sc.service === service.slug &&
 const counterpart = getServiceCity(service.slug, city.slug, "marketplace");
 const counterpartBuilt = counterpart ? isBuilt(serviceCityStatus(counterpart)) : false;
 const placement = `${od.slug}_${city.slug}`;
+const facts = factsFor(service.slug, "onDemand");
+const keyFacts = facts.filter((f) => ["o.baby.task", "o.elder.task", "o.patient.task", "o.cook.members", "o.otg.when", "o.otg.length", "o.hourly.when", "o.hourly.length"].includes(f.id));
+const coverage = facts.filter((f) => f.id === "b.coverage");
 const schema = [
   ...(schemaSettings.service
     ? [serviceSchema({ service, path, city, name: `${od.name} in ${city.name}`, description: content.seo.description })]
@@ -61,19 +65,16 @@ const schema = [
       <h1>{content.headline}</h1>
       {content.introduction.map((para) => <p class="lead">{para}</p>)}
       <div class="cta-row">
-        <Cta ctaKey="bookNow" placement={`${placement}_hero`} />
-        <Cta ctaKey="scheduleHelp" placement={`${placement}_hero_schedule`} variant="secondary" />
+        {od.bookNow ? <Cta ctaKey="bookNow" placement={`${placement}_hero`} /> : null}
+        <Cta ctaKey="scheduleHelp" placement={`${placement}_hero_schedule`} variant={od.bookNow ? "secondary" : undefined} />
       </div>
     </div>
   </section>
 
-  {
-    content.localNotes.length > 0 ? (
-      <Section id="local-info" title={`Booking in ${city.name}: good to know`} tone="warm">
-        <BulletList items={content.localNotes} />
-      </Section>
-    ) : null
-  }
+  <Section id="local-info" title={`Booking in ${city.name}: good to know`} tone="warm">
+    <ProductFacts facts={coverage} />
+    {content.localNotes.length > 0 ? <BulletList items={content.localNotes} /> : null}
+  </Section>
 
   <Section id="use-cases" title={`When people in ${city.name} book ${od.bookingNoun}`}>
     <BulletList items={content.points} />
@@ -83,9 +84,9 @@ const schema = [
   </Section>
 
   <Section id="how-booking-works" title="How booking works" tone="tint">
-    <BookingTypes service={service} />
+    <ProductFacts facts={keyFacts} />
     <StepsInline
-      steps={onDemandSteps}
+      steps={od.bookNow ? onDemandSteps : scheduledOnlySteps}
       moreHref={`${servicePath(service.slug, "onDemand")}#how-booking-works`}
       moreLabel={`How booking ${od.bookingNoun} works`}
     />
@@ -105,7 +106,7 @@ const schema = [
     <CrossLink
       targetModel="marketplace"
       href={serviceCityPath(service.slug, city.slug, "marketplace")}
-      heading={`Looking for someone regular in ${city.name}?`}
+      heading={`Want the same person every week in ${city.name}?`}
       body={`If you'd like the same person every day or every week, you can find ${service.roleWithArticle} in ${city.name} on MeeHelp and agree the arrangement with them directly.`}
       label={`${service.shortName} in ${city.name}: find and hire`}
     />

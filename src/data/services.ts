@@ -12,7 +12,13 @@ import { onDemandContent } from "./on-demand";
  * scheduled and hourly booking.
  *
  * `publishStatus` is "review" for every page: the copy was rewritten in
- * Phase 4 and has not been approved for public indexing. Confirming the
+ * Phase 4/4.5 and has not been approved for public indexing.
+ *
+ * Phase 4.5: task lists describe the role in general terms — the app's own
+ * task names live in the admin panel (evidence cat.task-names-server) and
+ * need business approval (Q-TASKS). App mechanics come from
+ * src/data/product-facts.ts. Elder care has no marketplace helper category in
+ * the product code (Q-ELDER), so its marketplace pages are held. Confirming the
  * models must not publish unreviewed copy as a side effect.
  * Prices never appear in this file; they come from src/data/plans.ts.
  */
@@ -36,8 +42,8 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
     models: { ...confirmedBothModels },
     headline: "Find a maid or house help near you",
     description: [
-      "Looking for someone to handle sweeping and mopping, dishes and laundry every day? On MeeHelp you review profiles of house help near you, contact the helpers you like, and hire them directly.",
-      "You decide the tasks and the hours, and agree the salary with the helper yourself — so the arrangement fits your home and your routine.",
+      "Hire house help for daily sweeping and mopping, dishes, bathrooms and laundry: part-time for a few hours each day, or full-time help who lives in. On MeeHelp you see profiles of helpers near your address, contact the ones you like and hire them directly.",
+      "You decide the tasks and the hours, and agree the salary with the helper yourself. MeeHelp doesn't place the helper or take a cut of their salary.",
     ],
     customerProblems: [
       "Your regular maid has left and you need someone new.",
@@ -73,7 +79,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       {
         question: "Can I hire a maid for just a few hours a day?",
         answer:
-          "Yes. Many households hire house help for a fixed number of hours each morning or evening, or only on certain days of the week. Discuss the hours you need when you speak to helpers.",
+          "Yes. Part-time help can be hired for 2 to 12 hours a day — choose the hours when you search, then agree the exact time slot with the helper.",
       },
       {
         question: "Who decides the maid's salary?",
@@ -83,7 +89,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       {
         question: "Can I try a maid before hiring?",
         answer:
-          "Yes. Once you have contacted a helper, you can call them for a trial before you decide whether to hire them.",
+          "Yes, if you agree it with the helper. The app doesn't arrange trials: once you've spoken to a helper, agree a trial day with them directly and agree what you'll pay for it.",
       },
       {
         question: "What if it doesn't work out?",
@@ -109,8 +115,8 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
     models: { ...confirmedBothModels },
     headline: "Find a home cook near you",
     description: [
-      "Home-cooked food every day, without spending your evenings in the kitchen. On MeeHelp you review profiles of cooks near you and contact the ones you want to speak to — vegetarian or non-vegetarian, regional or everyday cooking.",
-      "Talk to the cook about how many people you cook for, which meals you need and your food preferences, and agree the salary with them directly.",
+      "Hire a cook for the meals your family eats every day — part-time for one or two meals, or a full-time cook who lives in. On MeeHelp you tell the app how many people the cook will be cooking for, see cooks near your address and contact the ones you want to speak to.",
+      "Profiles don't list food preferences, so talk to each cook about the food you eat, your rules in the kitchen and the meal times you need, and agree the salary with them directly.",
     ],
     customerProblems: [
       "You want healthy home food instead of ordering in.",
@@ -145,7 +151,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       {
         question: "Can I find a cook for vegetarian-only or Jain food?",
         answer:
-          "Yes. Look for cooks whose profiles match your food preference, and discuss specific rules — such as Jain food or no onion and garlic — with the cook before they start.",
+          "Profiles don't show food preferences, so ask about it on your first call. Explain your rules — such as Jain food or no onion and garlic — and ask for a trial meal before you decide.",
       },
       {
         question: "How is a cook's salary decided?",
@@ -160,13 +166,13 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       {
         question: "How do I know a cook will suit my family's taste?",
         answer:
-          "Call the cook for a trial before you decide, and give honest feedback on spice, salt and oil in the first week.",
+          "Agree a trial meal with the cook before you decide, and give honest feedback on spice, salt and oil in the first week.",
       },
     ],
     seo: {
       title: "Cook Near You – Find & Hire a Home Cook | MeeHelp",
       description:
-        "Find a home cook near you for daily meals and tiffins — veg, non-veg or Jain. Contact cooks directly, try them out and hire the right one with MeeHelp.",
+        "Hire a home cook near you for daily meals and tiffins, part-time or live-in. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
     },
     publishStatus: "review",
     updatedAt: "2026-10-17",
@@ -182,7 +188,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
     headline: "Find a babysitter or nanny near you",
     description: [
       "Leaving your child with someone new is a big decision. On MeeHelp you review profiles of babysitters and nannies near you, contact the ones you like, and take your time to speak to them and meet them before you decide.",
-      "Whether you need someone part-time while you work from home or a nanny for the whole day, you agree the schedule, responsibilities and salary directly with them.",
+      "Hire part-time for the hours you work, or a full-time nanny who lives in. You agree the schedule, the responsibilities and the salary directly with them.",
     ],
     customerProblems: [
       "You are going back to work and need dependable care at home.",
@@ -249,7 +255,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
     models: { ...confirmedBothModels },
     headline: "Elder care at home for your parents",
     description: [
-      "Many older people want to stay in their own homes, but need someone around for daily routines, company and safety. On MeeHelp you review profiles of elder care attendants near you, contact them directly and choose who to hire.",
+      "Many older people want to stay in their own homes, but need someone around for company, a steady hand and their daily routine. On MeeHelp you can look for an attendant near you, contact them directly and choose who to hire.",
       "This is non-medical, day-to-day support. If your parent needs nursing or medical care, speak to their doctor about qualified nursing help.",
     ],
     customerProblems: [
@@ -280,7 +286,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       {
         question: "What does an elder care attendant do?",
         answer:
-          "An attendant helps with everyday life: company, moving around safely, bathing and dressing, meals, medicine reminders and going out with your parent. They do not provide medical treatment.",
+          "An attendant helps with everyday life: company, moving around safely, bathing and dressing, meals, medicine reminders and going out with your parent. Medical treatment isn't part of their role.",
       },
       {
         question: "Is an elder care attendant the same as a nurse?",
@@ -316,7 +322,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
     models: { ...confirmedBothModels },
     headline: "Patient care attendants at home",
     description: [
-      "Recovering at home after a hospital stay, surgery or illness often means needing someone by your side through the day. On MeeHelp you review profiles of patient care attendants near you, contact them directly and choose who to hire.",
+      "Recovering at home after a hospital stay, surgery or illness often means needing someone by your side through the day — or night. On MeeHelp you see attendants near your address, contact them directly and hire part-time or a full-time attendant who lives in.",
       "An attendant helps with personal care, moving around and daily routines, following your doctor's advice. Medical procedures should always be done by a qualified nurse.",
     ],
     customerProblems: [
@@ -362,7 +368,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       {
         question: "Is patient care the same as elder care?",
         answer:
-          "They overlap. Patient care focuses on someone recovering from an illness, injury or surgery. Elder care is day-to-day support for an older person who may not be unwell.",
+          "No. Patient care is hands-on personal care for someone who is unwell, recovering or bedridden, at any age. Elder care is company and routine support for an older person who is managing day to day.",
       },
     ],
     seo: {

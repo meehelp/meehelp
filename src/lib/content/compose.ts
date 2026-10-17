@@ -18,11 +18,7 @@ export function fillCity(template: CityTemplate, city: City): string {
   return template
     .replaceAll("{cityFull}", city.displayName)
     .replaceAll("{city}", city.name)
-    .replaceAll("{areas}", city.descriptors.areas)
-    .replaceAll("{cuisine}", city.descriptors.cuisine)
-    .replaceAll("{festivals}", city.descriptors.festivals)
-    .replaceAll("{festival}", city.descriptors.festival)
-    .replaceAll("{languages}", city.descriptors.languages);
+    .replaceAll("{areas}", city.descriptors.areas);
 }
 
 const applies = (item: CityFact | CityFaq, sc: Pick<ServiceCity, "service" | "model">) =>
@@ -49,11 +45,11 @@ function coverageFaq(service: Service, city: City, model: ServiceCity["model"]):
   return city.includes.length > 0
     ? {
         question: `Can I book ${noun} in ${includes}?`,
-        answer: `Yes. On-demand bookings are available across ${city.displayName}, including ${includes}. Whether someone is free at a particular time depends on who is near you, so you can also schedule ahead.`,
+        answer: `Yes. Bookings are available across ${city.displayName}, including ${includes}. The app checks your address when you book, and whether someone is free at a particular time depends on who is near you.`,
       }
     : {
         question: `Can I book ${noun} anywhere in ${city.name}?`,
-        answer: `On-demand bookings are available across ${city.name}. Whether someone is free at a particular time depends on who is near you, so schedule ahead when you can.`,
+        answer: `Bookings are available across ${city.name}. The app checks your address when you book, and whether someone is free at a particular time depends on who is near you.`,
       };
 }
 
@@ -76,7 +72,7 @@ export function composeServiceCity(sc: ServiceCity, service: Service, city: City
           }
         : {
             heading: `Book ${service.onDemand.bookingNoun} in ${city.name}`,
-            body: `Download the MeeHelp app to book instantly or schedule a visit in ${city.descriptors.areas}.`,
+            body: `Download the MeeHelp app to ${service.onDemand.bookNow ? "book now or schedule a visit" : "schedule a booking"} in ${city.descriptors.areas}.`,
           },
     seo: { title: fill(frame.title), description: fill(frame.description) },
   };
