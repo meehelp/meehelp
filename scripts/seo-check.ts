@@ -81,7 +81,7 @@ for (const r of routes) if (!pagePaths.includes(r.path)) error(r.path, "Route is
 
 // ---------- Claims / wording / pricing guards ----------
 // Built from the business configuration, so enabling a fact later relaxes its guard.
-const wordingRules = [...guards.verificationRules(), ...guards.commercialRules()];
+const wordingRules = [...guards.verificationRules(), ...guards.commercialRules(), ...guards.unsupportedClaimRules()];
 const placeholderText = /\[DEV PLACEHOLDER\]|\[DRAFT\]|lorem ipsum|TODO/i;
 const priceStrings = allowedPriceStrings();
 const homePrices = new Set(priceStrings.home);

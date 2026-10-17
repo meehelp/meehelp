@@ -158,3 +158,53 @@ export function findViolations(text: string, rules: WordingRule[]): { rule: Word
   }
   return hits;
 }
+
+/**
+ * Product claims the evidence ledger (src/data/evidence.ts) does NOT support.
+ * Phase 4.5: the app has no experience/age/language/salary/skill filters, no
+ * live tracking or SOS, no trial feature, unreliable ratings, and its care
+ * categories are non-medical. Patterns are claim-shaped so honest advice
+ * ("this is not nursing care", "agree a trial with the helper") passes.
+ */
+export function unsupportedClaimRules(): WordingRule[] {
+  return [
+    {
+      id: "filter-claim",
+      reason: "evidence mkt.no-filters: the app does not filter by these attributes",
+      pattern: /\bfilter(?:s|ed|ing)?\s+(?:helpers?\s+|profiles?\s+|results?\s+|cooks?\s+|nannies\s+|attendants?\s+)?by\s+(?:their\s+)?(?:experience|age|language|religion|caste|salary|skills?|cuisine)\b/i,
+    },
+    {
+      id: "tracking-claim",
+      reason: "evidence od.no-tracking: no live tracking or SOS in the customer app",
+      pattern: /\b(?:live|real[- ]time)\s+(?:tracking|location)\b|\btrack\s+(?:your|the)\s+helper\b|\bSOS\b/i,
+    },
+    {
+      id: "rating-claim",
+      reason: "evidence trust.ratings-default: ratings are not a reliable public signal",
+      pattern: /\b(?:top|highly|best|5[- ]star)[- ]rated\b|\b\d(?:\.\d)?\s?(?:★|stars?)\s+(?:rating|rated|average)\b|\brated\s+\d(?:\.\d)?\b/i,
+    },
+    {
+      id: "training-claim",
+      reason: "no evidence of training or certification of helpers",
+      pattern: /\b(?:trained|certified|skilled and verified|professionally trained)\s+(?:maids?|helpers?|cooks?|nann(?:y|ies)|babysitters?|caregivers?|attendants?|professionals?|staff|nurses?)\b/i,
+    },
+    {
+      id: "clinical-claim",
+      reason: "care categories are non-medical; clinical services need business approval and evidence",
+      pattern: /\b(?:provides?|offers?|gives?|performs?|delivers?|includes?)\s+(?:professional\s+)?(?:nursing|medical|clinical|ICU)\s+(?:care|services?|treatment|procedures?|support)\b|\b(?:qualified|registered|trained)\s+nurses?\s+(?:from|on|through)\s+MeeHelp\b|\bhome\s+nursing\s+services?\b/i,
+    },
+    {
+      id: "trial-feature",
+      reason: "evidence mkt.no-trial-feature: trials are arranged with the helper, not in the app",
+      pattern: /\bfree\s+trial\b|\btrial\s+(?:period|feature|booking|guarantee)\b|\bbook\s+a\s+trial\s+(?:in|through|on)\s+(?:the\s+)?(?:app|MeeHelp)\b/i,
+    },
+  ];
+}
+
+/**
+ * Local "filler" that made city pages look different without helping the
+ * customer (Phase 4.5 brief §3). Used by tests on city facts and composed
+ * city pages.
+ */
+export const cityFillerPattern =
+  /\b(?:diwali|holi|ganesh(?:a)?\s?chaturthi|ganeshotsav|navratri|navaratri|durga\s+puja|kali\s+puja|pongal|onam|ugadi|sankranti|bonalu|eid|festivals?|monsoon|heatwave|humidity|fog|air\s+quality|pollution|aqi|cuisine|chettinad|hyderabadi|konkani|maharashtrian|bengali\s+food|tourist|famous\s+for|population)\b/i;

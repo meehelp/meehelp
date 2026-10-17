@@ -114,7 +114,8 @@ test("on-demand content never uses marketplace wording", () => {
 });
 
 test("no prices or free-view counts are typed into copy — they come from src/data/plans.ts", () => {
-  const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts"));
+  const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts") && !f.endsWith("src/data/evidence.ts"));
+  // The evidence ledger quotes app copy (including prices) as documentation; it is never rendered.
   // The promotion's own config and the guard that blocks it are the only places it may be named.
   const ruleFiles = ["src/data/promotions.ts", "src/lib/guards/claims.ts"];
   assert.ok(files.some((f) => f.endsWith(".astro")), "Astro components must be scanned");
