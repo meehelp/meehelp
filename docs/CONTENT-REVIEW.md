@@ -21,10 +21,24 @@ Approvals are recorded in the data files themselves (`approvedBy` / `approvedOn`
 | Claim: no placement agency fee | `src/data/business.ts` | **enabled (confirmed)** | yes, marketplace sections |
 | All CTA labels | `src/data/ctas.ts` | proposed | used, listed by `npm run seo` |
 
-Per-page readiness, word counts and similarity risk: `docs/seo/QUALITY-REPORT.md` (`npm run report`).
+Per-page readiness (READY / REVIEW / HOLD), evidence counts and similarity: `docs/seo/QUALITY-REPORT.md` (`npm run report`).
+Which product facts are grounded in code, and which are assumptions: `docs/seo/CONTENT-EVIDENCE.md` (`npm run evidence`).
 Intent targets per page: `docs/seo/intent-map.json` (`npm run intent-map`).
+Recommended first public release (not published): `src/data/release-plan.ts`.
 
 ## Questions for the business
+
+### From the Phase 4.5 evidence review (see CONTENT-EVIDENCE.md for sources)
+- [ ] **Q-ELDER** — Is Elder Care a marketplace category? Helpers register under Maid/Cook/Patient Care/Baby Care only;
+      elder care exists only as an hourly task. `/elder-care/` and its city pages are HOLD until answered.
+- [ ] **Q-INSTANT** — "Book now" exists for one-time cleaning only; hourly bookings (cooking, baby, elder, patient care)
+      are scheduled ≥ 2 hours ahead. Copy follows the app (`bookNow` in `src/data/on-demand.ts`).
+- [ ] **Q-VERIFY / Q-ADDRESS** — reconfirm "Aadhaar verified" and "permanent address on record": the customer app's
+      guidelines say document checks are the employer's responsibility, Aadhaar uploads can set the verified flag
+      without an API check, and the helper app collects one address.
+- [ ] **Q-PRICE** — on-demand price basis and one authoritative cancellation policy (both stay unknown on the site).
+- [ ] **Q-299** — the app's onboarding says "Plans start at Rs 299"; the confirmed lowest plan is ₹499.
+- [ ] **Q-TASKS / Q-CARE-TASKS** — approve task names and supply the app's included/excluded text for care tasks.
 
 ### Before publishing expanded pages
 - [ ] Approve copy page by page, starting with the pages marked "ready-for-approval" in the quality report.

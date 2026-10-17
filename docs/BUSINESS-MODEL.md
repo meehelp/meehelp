@@ -21,6 +21,20 @@ the other proposition's wording or CTAs, or if a marketplace page contains any o
 A hub is built on production only when its model is `true` **and** its copy is `published`. All copy is in `review` today,
 so production still builds the home page only.
 
+### How the product implements it (Phase 4.5, `docs/seo/CONTENT-EVIDENCE.md`)
+
+| | Marketplace (hire directly) | On-demand (book) |
+|---|---|---|
+| Maid | Part-time 2–12 h/day or full-time live-in; house size 1–5 BHK; gender preference | One-time clean: ≥ 2 tasks, 120/150/180 min, **book now** or schedule ≤ 5 days, 7 AM–8 PM; hourly deep-clean tasks |
+| Cook | Same, with household members 1–5 | Hourly cooking task (members 1–5), scheduled ≥ 2 h ahead |
+| Babysitter / nanny | "Baby Care" helper category | Hourly "baby care" task, scheduled |
+| Elder care | **no helper category in code** | Hourly "elder care" task, scheduled |
+| Patient care | "Patient Care" helper category | Hourly "patient care" task, scheduled |
+
+Hourly bookings: 2–12 hours in 2-hour steps, start 7 AM–8 PM, booked 2 hours to 5 days ahead. Prices, fees and
+cancellation terms are server-configured and **not** published. The search has no experience/age/language/salary
+filters, and the app has no trial feature, tracking or SOS — guards in `src/lib/guards/claims.ts` block those claims.
+
 ## Per-city availability (`src/data/cities.ts`)
 
 `marketActive: true` for all 8 cities and `availability[service][model] = "available"` for every service in both models

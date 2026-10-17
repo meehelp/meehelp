@@ -9,4 +9,8 @@ Static Astro 7 marketing site. Read `README.md` first. The business rules are in
   `cities[].availability`, CTA `wording` or `pricingSettings.publishPrices`.
 - **Keep the propositions separate.** Marketplace and on-demand content each go in their own `data-model` section.
 - Prices only in `src/data/plans.ts`; verification wording only via `src/data/verification.ts`.
+- **Only evidenced product claims.** App mechanics go in `src/data/product-facts.ts` and must cite
+  `src/data/evidence.ts` (read `docs/seo/CONTENT-EVIDENCE.md` first). No city filler (festivals, weather, cuisine),
+  no clinical claims for care, no on-demand prices. Other MeeHelp repos are READ-ONLY sources.
+- After content changes: `npm run evidence`, `npm run intent-map`, `npm run report` (commit the regenerated docs/seo files).
 - Before committing: `npm run check` (astro check, unit tests, production and preview SEO validation).

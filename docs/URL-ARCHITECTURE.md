@@ -63,10 +63,13 @@ No B2B, locality, blog, competitor or synonym pages are built.
 
 ## Internal linking
 
-- Home → all 10 hubs (in the two path cards and the category grid), `/pricing/`, and both maid pages for each of the 8 cities.
+- Home → all 10 hubs (two path cards and the category grid) and `/pricing/`. Since Phase 4.5 the home page lists the
+  8 cities **without** per-city links: it used to link only maid pages in every city, which overweighted one category.
+  City pages are reached from their hub (topical cluster: hub → its 8 cities).
 - Hub → its 8 city pages, plus one cross-link to the same service's hub in the other model.
 - City page → parent hub (breadcrumb and body), the same service in the other model for the same city
   (one `aside[data-cross-model]` block, outside the main content), and the other services in the same city and model.
+- `/pricing/` → the marketplace hubs, in a "What you can use a plan for" paragraph (contacts work for any category).
 - Header: "Find and hire" / "Book by the hour" groups plus Plans. Footer: no city links.
 - Office/Business plans are linked only from `/pricing/` and the future B2B pages.
 

@@ -77,6 +77,9 @@ src/
     service-cities.ts        the 80 service × city × model pages (+ hand-written overrides)
     localities.ts            locality model (draft examples)
     intent-map.ts            intent targets per service × model (not volume estimates)
+    evidence.ts              evidence ledger: every product claim, its source file/lines, confidence, approval
+    product-facts.ts         the only place app mechanics are stated; each fact cites evidence ids
+    release-plan.ts          recommended first public release (recommendation only — publishes nothing)
     plans.ts                 all 9 marketplace plans, pricing page copy, asterisk/tax settings
     promotions.ts            temporary promotions (never in evergreen copy)
     verification.ts          helper verification facts (the only source of verification wording)
@@ -96,6 +99,7 @@ scripts/
   seo-check.ts               `npm run seo` validator
   content-report.ts          `npm run report` → docs/seo/quality-report.json + QUALITY-REPORT.md
   intent-map.ts              `npm run intent-map` → docs/seo/intent-map.json
+  evidence.ts                `npm run evidence` → docs/seo/CONTENT-EVIDENCE.json + CONTENT-EVIDENCE.md
   lib/similarity.ts          shingle-based similarity used by the validator and report
   measure-js.mjs             `npm run measure:js`
   serve-static.mjs           local static server
@@ -144,6 +148,9 @@ allows it. A locality page also needs the locality and its per-service content t
   - any price followed by "*" (the app's asterisk has no meaning and is removed);
   - any plan or price on an on-demand page.
 - **Promotions** (free profile views) and **tax wording** never appear in evergreen copy, titles or metas.
+- **Content truth** (Phase 4.5): product mechanics only via `src/data/product-facts.ts` with evidence ids;
+  tests block city filler (festivals, weather, cuisine), clinical claims for care, unsupported filters, tracking,
+  ratings or trial claims, instant-booking promises the app doesn't make, and durations that aren't app values.
 - **Doorway guard**: `npm run seo` warns on every city page at high similarity risk; `npm run report`
   scores every page and marks it ready-for-approval or needs-content.
 - Claims need `approvedBy`/`approvedOn`. Trust metrics need value, source, source URL, date
