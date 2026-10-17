@@ -8,11 +8,12 @@ Approvals are recorded in the data files themselves (`approvedBy` / `approvedOn`
 | Content | File | Status | Built on production? |
 |---|---|---|---|
 | Home page | `src/data/home.ts` | published | **yes — the only production page today** |
-| 5 marketplace service hubs | `src/data/services.ts` | published copy, but `models.marketplace = null` | no (preview only) until marketplace support is confirmed per category |
-| 8 cities | `src/data/cities.ts` | review; `marketActive: true`; availability `unknown` | — (no city pages) |
-| maid/mumbai, maid/delhi-ncr, cook/mumbai, elder-care/bengaluru (marketplace) | `src/data/service-cities.ts` | review | no |
-| `/pricing/` | `src/data/plans.ts` | review; prices gated | no, until the price note is confirmed |
+| 5 marketplace hubs (`/maid/` …) | `src/data/services.ts` | review; `models.marketplace = true` | no (preview only) |
+| 5 on-demand hubs (`/hourly-maid/` …) | `src/data/on-demand.ts` | review; `models.onDemand = true` | no (preview only) |
+| 80 city pages (5 services × 8 cities × 2 models) | `src/data/service-cities.ts`, `cities.ts`, `city-frames.ts` | review; all cities `available` | no (preview only) |
+| `/pricing/` | `src/data/plans.ts` | review; `publishPrices: true` | no (preview only) |
 | Localities (andheri-west, powai) | `src/data/localities.ts` | draft | never (examples of the model) |
+| Free profile view promotion | `src/data/promotions.ts` | never rendered | blocked in evergreen copy |
 | Testimonials | `src/data/testimonials.ts` | 2 dev placeholders | never |
 | Trust metrics | `src/data/business.ts` | all empty | hidden |
 | Verification: OTP mobile, Aadhaar, current/permanent address | `src/data/verification.ts` | **enabled (confirmed)** | yes, via `VerificationSummary` |
@@ -20,25 +21,25 @@ Approvals are recorded in the data files themselves (`approvedBy` / `approvedOn`
 | Claim: no placement agency fee | `src/data/business.ts` | **enabled (confirmed)** | yes, marketplace sections |
 | All CTA labels | `src/data/ctas.ts` | proposed | used, listed by `npm run seo` |
 
+Per-page readiness, word counts and similarity risk: `docs/seo/QUALITY-REPORT.md` (`npm run report`).
+Intent targets per page: `docs/seo/intent-map.json` (`npm run intent-map`).
+
 ## Questions for the business
 
-### Blocking production pages
-- [ ] **Marketplace support per category**: is the marketplace live for maid, cook, babysitter/nanny, elder care and
-      patient care? → `services[].models.marketplace` (one `true` publishes that hub on production).
-- [ ] **On-demand support per category** and booking types (instant / scheduled / hourly) → `services[].models`.
-- [ ] **Availability per city × service × model** → `cities[].availability`. Which service-city pages to publish first.
-- [ ] **The asterisk (\*) beside plan prices in the app** — what does it mean? Until answered, prices are not shown on
-      production and no tax/GST wording may be used → `pricingSettings.priceNote`, then `publishPrices`.
+### Before publishing expanded pages
+- [ ] Approve copy page by page, starting with the pages marked "ready-for-approval" in the quality report.
+- [ ] City pages at high doorway risk need real local information (areas actually served, local demand notes,
+      timing/transport details the team can stand behind) — not rewritten templates.
+- [ ] Confirmed areas/localities served per city → `areasServed` (empty today, so the section is hidden).
+- [ ] On-demand: price basis and minimum booking duration (not stated anywhere on the site today).
 
 ### Approvals
 - [ ] CTA wording in `src/data/ctas.ts` (all "proposed").
 - [ ] Marketplace journey steps (`src/data/how-it-works.ts`), especially the "contact helpers directly" / "call for a trial" wording.
-- [ ] On-demand steps ("Pick a time — instantly, scheduled or by the hour"; "Confirm in the app").
-- [ ] Whether to show "You can view your first helper profile free" (`freeProfileViews.showOnWebsite`).
+- [ ] On-demand steps ("Choose the help you need"; "Book now or schedule"; "Choose the hours"; "Confirm in the app").
 - [ ] Plan display names ("Home Plan 1" …) and segment descriptions ("For households/offices/businesses").
 - [ ] Plan effective dates (`effectiveDate`, currently unknown).
 - [ ] Service hub, city and service-city copy.
-- [ ] Areas served per city (only real, supplied areas) → `areasServed`.
 
 ### Proof
 - [ ] Current Google Play / App Store rating, review count and download band — value, source URL and date checked.

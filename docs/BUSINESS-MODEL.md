@@ -8,7 +8,7 @@ Everything below is configuration in `src/data/`. Page copy never repeats prices
 |---|---|---|
 | Business level | confirmed | confirmed (instant, scheduled, hourly) |
 | Customer pays | a contact plan; salary agreed directly with the helper | a booking in the app |
-| Pages today | service hubs, service × city, `/pricing/` | home page section only |
+| Pages (preview) | `/{service}/`, `/{service}/{city}/`, `/pricing/` | `/hourly-{service}/`, `/hourly-{service}/{city}/` — no plans, no prices |
 | CTAs | findHelpers, findService, exploreHelpers, viewHelpers, choosePlan | bookNow, bookHourly, bookInstant, scheduleHelp |
 
 Sections are marked `data-model="marketplace"` / `data-model="onDemand"`. `npm run seo` fails if a section contains
@@ -17,13 +17,15 @@ the other proposition's wording or CTAs, or if a marketplace page contains any o
 ## Per-service support (`src/data/services.ts` → `models`)
 
 `marketplace`, `onDemand`, `instantBooking`, `scheduledBooking`, `hourlyBooking` are each `true` / `false` / `null`.
-**All are `null` (not confirmed) today.** `null` holds pages in review; `false` removes them. A service hub is built on
-production only when `models.marketplace === true`.
+**All are `true` for all five services (confirmed in the Phase 4 brief).** `null` holds pages in review; `false` removes them.
+A hub is built on production only when its model is `true` **and** its copy is `published`. All copy is in `review` today,
+so production still builds the home page only.
 
 ## Per-city availability (`src/data/cities.ts`)
 
-`marketActive: true` for all 8 cities (confirmed). `availability[service][model]` is `"unknown"` everywhere.
-A service × city page publishes only when its availability is `available` or `limited`, as well as all the other conditions.
+`marketActive: true` for all 8 cities and `availability[service][model] = "available"` for every service in both models
+(confirmed in the Phase 4 brief). A service × city page publishes only when its own copy, its hub and its city are all
+`published` as well.
 
 ## Marketplace plans (`src/data/plans.ts`)
 
@@ -42,14 +44,26 @@ A service × city page publishes only when its availability is `available` or `l
 (INR. The table is documentation only; the site reads `src/data/plans.ts`.)
 
 - Fields: id, segment, displayName, contacts, currentPrice, previousPrice, discountPercent, validity {value, unit},
-  bestValue, active, displayOrder, effectiveDate, lastReviewed, priceNote, ctaKey.
-- `freeProfileViews: 1` is rendered only by `PlansSummary`.
-- **Price note:** the app shows "*" beside prices; its meaning is unconfirmed. `priceNote.status = "pending"`,
-  `publishPrices = false`. Until both change, production pages show plan contacts and validity **without prices**,
-  and `/pricing/` is not built on production. Preview shows prices with a visible "Pending" note.
+  bestValue, active, displayOrder, effectiveDate, lastReviewed, ctaKey.
+- **Asterisk:** the "*" the app shows beside prices has no business meaning and is removed
+  (`pricingSettings.asterisk.show = false`). `npm test` and `npm run seo` fail on any price followed by "*".
+- **Tax:** no tax statement has been provided (`taxStatement: null`), so no GST/tax wording of any kind is allowed.
+- `publishPrices: true`. `/pricing/` is still held in `review`, so it is built on preview only.
+- What the pricing page says: a plan is paid to MeeHelp, not to the helper; one contact = one helper's contact details;
+  the helper's salary is agreed separately and is not included; there is no replacement guarantee.
+
+## Promotions (`src/data/promotions.ts`)
+
+`freeProfileViews` (currently 1) is a **temporary, dynamic promotion**. It is never rendered: `evergreenCopyAllowed: false`
+blocks free-profile-view wording in all copy, titles and meta descriptions (`promo-free-profile` rule).
 - Consumer pages show **Home** plans only. Office/Business appear only on `/pricing/` (enforced by `npm run seo`).
 - Guards: tests fail if any price string appears outside `src/data/plans.ts`; `npm run seo` fails if a page shows a price
-  that isn't configured, or any price on production while the note is unconfirmed.
+  that isn't configured, a priced asterisk, or any plan/price on an on-demand page.
+
+## Marketplace journey (`src/data/how-it-works.ts`)
+
+Search for helpers → choose a contact plan → contact helpers directly → discuss and agree terms → arrange a trial →
+hire directly. On-demand: choose the help → book now or schedule → choose the hours → confirm in the app.
 
 ## Verification (`src/data/verification.ts`)
 
