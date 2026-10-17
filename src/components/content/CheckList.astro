@@ -1,0 +1,21 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  items: string[];
+  variant?: "check" | "cross";
+}
+
+const { items, variant = "check" } = Astro.props;
+---
+
+<ul class={`checklist checklist--${variant}`}>
+  {
+    items.map((item) => (
+      <li>
+        <Icon name={variant} size={20} class="checklist__icon" />
+        <span>{item}</span>
+      </li>
+    ))
+  }
+</ul>

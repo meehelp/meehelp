@@ -1,0 +1,22 @@
+---
+/** A page section with an H2 and aria-labelledby, for a consistent heading outline. */
+interface Props {
+  id: string;
+  title: string;
+  intro?: string;
+  tone?: "plain" | "tint" | "warm";
+  /** Marks the section as belonging to one proposition (checked by `npm run seo`). */
+  model?: "marketplace" | "onDemand";
+}
+
+const { id, title, intro, tone = "plain", model } = Astro.props;
+const headingId = `${id}-heading`;
+---
+
+<section id={id} aria-labelledby={headingId} class={`section section--${tone}`} data-model={model}>
+  <div class="container">
+    <h2 id={headingId} class="section__title">{title}</h2>
+    {intro ? <p class="section__intro">{intro}</p> : null}
+    <slot />
+  </div>
+</section>

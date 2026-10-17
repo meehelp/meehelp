@@ -1,0 +1,28 @@
+---
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import Section from "@/components/content/Section.astro";
+import ServiceCards from "@/components/content/ServiceCards.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getServiceCategories } from "@/lib/content";
+import { buildNotFoundMetadata } from "@/lib/seo/metadata";
+
+const meta = buildNotFoundMetadata(
+  "Page not found | MeeHelp",
+  "The page you were looking for doesn't exist. Find maids, cooks, nannies, elder care and patient care attendants with MeeHelp.",
+);
+---
+
+<BaseLayout meta={meta}>
+  <section class="hero hero--compact">
+    <div class="container">
+      <h1>Sorry, we couldn't find that page</h1>
+      <p class="lead">
+        The link may be out of date. Try one of the options below, or go to the <a href="/">home page</a>.
+      </p>
+    </div>
+  </section>
+  <Section id="services" title="Our services">
+    <ServiceCards items={getServiceCategories()} />
+  </Section>
+  <AppDownloadSection model="both" placement="not_found" />
+</BaseLayout>

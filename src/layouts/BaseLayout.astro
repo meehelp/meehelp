@@ -1,0 +1,43 @@
+---
+/**
+ * The HTML shell for every page: SEO head tags, skip link, header, <main>,
+ * footer, mobile app bar and (inactive) analytics. Static HTML only — no
+ * client JavaScript is bundled or hydrated.
+ */
+import "@/styles/global.css";
+import { business } from "@/data/business";
+import Analytics from "@/components/analytics/Analytics.astro";
+import StickyAppBar from "@/components/app/StickyAppBar.astro";
+import SiteFooter from "@/components/layout/SiteFooter.astro";
+import SiteHeader from "@/components/layout/SiteHeader.astro";
+import SeoHead from "@/components/seo/SeoHead.astro";
+import type { PageMeta } from "@/lib/seo/metadata";
+
+interface Props {
+  meta: PageMeta;
+}
+
+const { meta } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="/fonts/Lexend-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href={business.logo.src} as="image" fetchpriority="high" />
+    <meta name="theme-color" content="#ffffff" />
+    <SeoHead meta={meta} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <SiteHeader />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+    <StickyAppBar />
+    <Analytics />
+  </body>
+</html>

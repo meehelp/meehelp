@@ -1,0 +1,29 @@
+---
+/** Visible FAQs. Answers are in the HTML (inside native <details>), so they are crawlable and need no JS. */
+import type { Faq } from "@/lib/content/types";
+
+interface Props {
+  faqs: Faq[];
+}
+
+const { faqs } = Astro.props;
+---
+
+{
+  faqs.length > 0 ? (
+    <div class="faq">
+      {faqs.map((faq) => (
+        <details class="faq__item">
+          <summary class="faq__question">
+            <h3>{faq.question}</h3>
+          </summary>
+          <div class="faq__answer">
+            {faq.answer.split(/\n\s*\n/).map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        </details>
+      ))}
+    </div>
+  ) : null
+}

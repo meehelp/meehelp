@@ -1,0 +1,30 @@
+---
+/** Marketing claims for a page of the given model. Every claim is disabled unless approved in src/data/business.ts. */
+import type { ClaimKey } from "@/data/business";
+import type { BusinessModel } from "@/lib/content/types";
+import { getActiveClaims } from "@/lib/trust";
+import Icon from "@/components/content/Icon.astro";
+
+interface Props {
+  model: BusinessModel | "both";
+  keys?: ClaimKey[];
+}
+
+const active = getActiveClaims(Astro.props.model, Astro.props.keys);
+---
+
+{
+  active.length > 0 ? (
+    <ul class="claims">
+      {active.map((c) => (
+        <li class="claims__item">
+          <Icon name="check" size={20} />
+          <span>
+            <strong>{c.text}</strong>
+            {c.detail ? <span class="claims__detail">{c.detail}</span> : null}
+          </span>
+        </li>
+      ))}
+    </ul>
+  ) : null
+}

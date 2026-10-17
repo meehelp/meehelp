@@ -1,0 +1,16 @@
+---
+import StoreButton from "./StoreButton.astro";
+
+interface Props {
+  placement: string;
+  align?: "start" | "center";
+  size?: "regular" | "compact";
+}
+
+const { placement, align = "start", size = "regular" } = Astro.props;
+---
+
+<div class={`store-buttons store-buttons--${align}${size === "compact" ? " store-buttons--compact" : ""}`}>
+  <StoreButton platform="android" placement={placement} />
+  <StoreButton platform="ios" placement={placement} />
+</div>

@@ -1,9 +1,9 @@
 /**
- * Minimal local server for the static export in out/ (no dependencies).
+ * Minimal local server for the static export in dist/ (no dependencies).
  * Mirrors the intended production behaviour so it can be reviewed locally:
  *   - /maid        → 308 redirect to /maid/   (trailing-slash policy)
- *   - /maid/       → out/maid/index.html
- *   - unknown path → out/404.html with HTTP 404
+ *   - /maid/       → dist/maid/index.html
+ *   - unknown path → dist/404.html with HTTP 404
  *   - gzip for text responses when the client accepts it (like a CDN would)
  * Usage: npm run serve  (PORT=4000 npm run serve)
  * Local review only — not a production server.
@@ -13,7 +13,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize } from "node:path";
 import { gzipSync } from "node:zlib";
 
-const root = join(process.cwd(), "out");
+const root = join(process.cwd(), process.env.SERVE_DIR || "dist");
 const port = Number(process.env.PORT || 4000);
 const types = {
   ".html": "text/html; charset=utf-8",
@@ -30,7 +30,7 @@ const types = {
 };
 
 if (!existsSync(root)) {
-  console.error("out/ not found. Run `npm run build` (or build:preview / build:production) first.");
+  console.error("dist/ not found. Run `npm run build` (or build:preview / build:production) first.");
   process.exit(1);
 }
 
@@ -56,7 +56,8 @@ createServer((req, res) => {
   }
 
   const ext = extname(file);
-  const immutable = file.includes(`${join("_next", "static")}`);
+  // Astro writes content-hashed assets to /_astro/.
+  const immutable = file.includes(`${join(root, "_astro")}`);
   const compressible = [".html", ".js", ".css", ".txt", ".xml", ".json", ".svg", ".ttf"].includes(ext);
   const gzip = compressible && /\bgzip\b/.test(String(req.headers["accept-encoding"] ?? ""));
   const body = readFileSync(file);
@@ -66,4 +67,4 @@ createServer((req, res) => {
     ...(gzip ? { "Content-Encoding": "gzip", Vary: "Accept-Encoding" } : {}),
   });
   res.end(gzip ? gzipSync(body) : body);
-}).listen(port, () => console.log(`Serving out/ at http://localhost:${port}`));
+}).listen(port, () => console.log(`Serving dist/ at http://localhost:${port}`));

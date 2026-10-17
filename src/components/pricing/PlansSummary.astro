@@ -1,0 +1,37 @@
+---
+/**
+ * Consumer plan summary for marketplace pages: HOME plans only.
+ * Office and Business plans appear only on the pricing page.
+ * The free-profile-view count is rendered here and nowhere else.
+ */
+import { pricingSettings } from "@/data/plans";
+import { pricingPageStatus } from "@/lib/content";
+import { pricingPath } from "@/lib/content/paths";
+import { isBuilt } from "@/lib/content/publishing";
+import PlanCards from "./PlanCards.astro";
+
+interface Props {
+  placement: string;
+  linkToAllPlans?: boolean;
+}
+
+const { placement, linkToAllPlans = true } = Astro.props;
+const { freeProfileViews } = pricingSettings;
+const pricingBuilt = isBuilt(pricingPageStatus());
+const intro =
+  freeProfileViews.showOnWebsite && freeProfileViews.value > 0
+    ? `You can view ${freeProfileViews.value === 1 ? "your first helper profile" : `your first ${freeProfileViews.value} helper profiles`} free. After that, choose a plan for the number of helpers you want to contact. `
+    : "Choose a plan for the number of helpers you want to contact. ";
+---
+
+<div class="plans-summary">
+  <p>{intro}You agree the salary directly with the helper you hire.</p>
+  <PlanCards segment="home" placement={placement} />
+  {
+    pricingBuilt && linkToAllPlans ? (
+      <p class="note">
+        Hiring for an office or business? <a href={pricingPath}>See all MeeHelp plans</a>.
+      </p>
+    ) : null
+  }
+</div>

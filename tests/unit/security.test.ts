@@ -4,8 +4,8 @@ import { extname, join } from "node:path";
 import { test } from "node:test";
 
 const root = process.cwd();
-const skipDirs = new Set(["node_modules", ".next", "out", ".git", "reports", "screenshots"]);
-const textExt = new Set([".ts", ".tsx", ".js", ".mjs", ".json", ".md", ".css", ".txt", ".example", ".yml", ".yaml", ""]);
+const skipDirs = new Set(["node_modules", ".astro", "dist", ".git", "reports", "screenshots"]);
+const textExt = new Set([".ts", ".tsx", ".astro", ".js", ".mjs", ".json", ".md", ".css", ".txt", ".example", ".yml", ".yaml", ""]);
 const forbiddenFiles = /\.(pem|p8|p12|jks|keystore|key)$|firebase-adminsdk|google-services\.json|GoogleService-Info\.plist/i;
 
 const secretPatterns: [string, RegExp][] = [
@@ -47,7 +47,7 @@ test("no secrets appear in source files", () => {
 test("no connection to the production backend or legacy link domains", () => {
   const banned = /meehelp\.co\.in|api\.meehelp\.in|meehelp\.online|app\.link\b/;
   const hits = files
-    .filter((f) => [".ts", ".tsx", ".mjs", ".js"].includes(extname(f)) && !f.endsWith("security.test.ts"))
+    .filter((f) => [".ts", ".tsx", ".astro", ".mjs", ".js"].includes(extname(f)) && !f.endsWith("security.test.ts"))
     .filter((f) => banned.test(readFileSync(f, "utf8")));
   assert.deepEqual(hits, []);
 });

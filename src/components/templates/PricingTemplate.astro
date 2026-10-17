@@ -1,0 +1,53 @@
+---
+/**
+ * Marketplace plans for all three segments. The only page that shows Office
+ * and Business plans. Held in review until prices may be shown on production
+ * (see src/data/plans.ts — the meaning of the app's "*" is unconfirmed).
+ */
+import { marketplaceSteps } from "@/data/how-it-works";
+import { pricingPage } from "@/data/plans";
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import Cta from "@/components/content/Cta.astro";
+import Section from "@/components/content/Section.astro";
+import Steps from "@/components/content/Steps.astro";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
+import PlanCards from "@/components/pricing/PlanCards.astro";
+import PlansSummary from "@/components/pricing/PlansSummary.astro";
+import Claims from "@/components/trust/Claims.astro";
+import { pricingPath } from "@/lib/content/paths";
+import { getSegments } from "@/lib/pricing";
+
+const b2b = getSegments("b2b");
+---
+
+<Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Plans", path: pricingPath }]} />
+<div data-model="marketplace">
+  <section class="hero hero--compact">
+    <div class="container">
+      <h1>{pricingPage.headline}</h1>
+      {pricingPage.intro.map((p) => <p class="lead">{p}</p>)}
+      <div class="cta-row">
+        <Cta ctaKey="choosePlan" placement="pricing_hero" />
+      </div>
+    </div>
+  </section>
+
+  <Section id="home-plans" title="Home plans" intro="For households hiring help at home." tone="tint">
+    <Claims model="marketplace" />
+    <PlansSummary placement="pricing_home" linkToAllPlans={false} />
+  </Section>
+
+  {
+    b2b.map((segment) => (
+      <Section id={`${segment.id}-plans`} title={`${segment.name} plans`} intro={segment.description}>
+        <PlanCards segment={segment.id} placement={`pricing_${segment.id}`} />
+      </Section>
+    ))
+  }
+
+  <Section id="how-it-works" title="How contact plans work" tone="warm">
+    <Steps steps={marketplaceSteps} />
+  </Section>
+
+  <AppDownloadSection model="marketplace" placement="pricing_app_section" title="Choose a plan in the MeeHelp app" />
+</div>

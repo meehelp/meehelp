@@ -5,32 +5,29 @@
   "type": "module",
   "description": "MeeHelp Website V2 \u2014 SEO-first static marketing site. Independent of production systems.",
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.22.0"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "tsx scripts/build.ts",
-    "build:preview": "SITE_STAGE=preview tsx scripts/build.ts",
-    "build:production": "SITE_STAGE=production tsx scripts/build.ts",
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:preview": "SITE_STAGE=preview astro build",
+    "build:production": "SITE_STAGE=production astro build",
     "serve": "node scripts/serve-static.mjs",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "astro check",
     "test": "tsx --test tests/unit/*.test.ts",
     "seo": "tsx scripts/seo-check.ts",
     "seo:preview": "tsx scripts/seo-check.ts --stage=preview",
-    "check": "npm run typecheck && npm test && npm run seo && npm run seo:preview",
-    "measure:js": "node scripts/measure-js.mjs"
-  },
-  "dependencies": {
-    "next": "16.3.8",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "measure:js": "node scripts/measure-js.mjs",
+    "check": "npm run typecheck && npm test && npm run seo && npm run seo:preview"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.10",
     "@types/node": "22.20.5",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.7",
     "node-html-parser": "9.0.4",
     "tsx": "4.23.15",
     "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "astro": "7.3.5"
   }
 }

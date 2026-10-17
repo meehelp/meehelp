@@ -1,0 +1,23 @@
+---
+import type { Step } from "@/lib/content/types";
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+<ol class="steps">
+  {
+    steps.map((step, i) => (
+      <li class="steps__item">
+        <span class="steps__number" aria-hidden="true">
+          {i + 1}
+        </span>
+        <h3 class="steps__title">{step.title}</h3>
+        <p>{step.body}</p>
+      </li>
+    ))
+  }
+</ol>

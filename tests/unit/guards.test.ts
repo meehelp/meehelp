@@ -103,14 +103,17 @@ test("marketplace content never uses on-demand wording", () => {
   assert.deepEqual(hits, []);
 });
 
-test("no prices or free-view counts are typed into copy — they come from data/plans.ts", () => {
-  const dirs = ["data", "components", "app"];
-  const files = dirs.flatMap((d) => walk(d)).filter((f) => /\.(ts|tsx)$/.test(f) && !f.endsWith("data/plans.ts"));
+test("no prices or free-view counts are typed into copy — they come from src/data/plans.ts", () => {
+  const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts"));
+  assert.ok(files.some((f) => f.endsWith(".astro")), "Astro components must be scanned");
   const priceHits: string[] = [];
   const freeHits: string[] = [];
   for (const f of files) {
     // Comments may explain the rule; only code and copy are checked.
-    const text = readFileSync(f, "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+    const text = readFileSync(f, "utf8")
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/<!--[\s\S]*?-->/g, "")
+      .replace(/^\s*\/\/.*$/gm, "");
     if (text.match(priceStringPattern)) priceHits.push(f);
     if (/\b(?:1|one|first)\s+(?:free\s+)?(?:helper\s+)?profile view|free profile view/i.test(text)) freeHits.push(f);
   }

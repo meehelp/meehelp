@@ -1,6 +1,6 @@
 /**
  * Measures the browser JavaScript each generated page asks the browser to load.
- * Usage: node scripts/measure-js.mjs [outDir] [--json]
+ * Usage: node scripts/measure-js.mjs [distDir] [--json]
  *
  * Per page it counts:
  *   - external module scripts (<script src> without nomodule): raw + gzip bytes
@@ -13,7 +13,7 @@ import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { gzipSync } from "node:zlib";
 
-const outDir = process.argv[2] && !process.argv[2].startsWith("--") ? process.argv[2] : "out";
+const outDir = process.argv[2] && !process.argv[2].startsWith("--") ? process.argv[2] : "dist";
 const asJson = process.argv.includes("--json");
 if (!existsSync(outDir)) {
   console.error(`${outDir} not found — build first.`);

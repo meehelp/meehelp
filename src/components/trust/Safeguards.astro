@@ -1,0 +1,13 @@
+---
+/** Practical advice for hiring safely. Makes no claims about MeeHelp checks. */
+import { sharedSafeguards } from "@/data/how-it-works";
+import BulletList from "@/components/content/BulletList.astro";
+
+interface Props {
+  extra?: string[];
+}
+
+const { extra = [] } = Astro.props;
+---
+
+<BulletList items={[...extra, ...sharedSafeguards]} />

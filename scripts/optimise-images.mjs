@@ -1,7 +1,7 @@
 /**
- * Generates web assets from assets/source/ into public/ and app/.
+ * Generates web assets from assets/source/ into public/.
  * Run manually when brand assets change:  node scripts/optimise-images.mjs
- * Uses `sharp` (installed with Next.js).
+ * Uses `sharp` (installed as an optional dependency of Astro).
  */
 import sharp from "sharp";
 import { mkdir } from "node:fs/promises";
@@ -23,8 +23,8 @@ const iconBase = sharp({ create: { width: 512, height: 512, channels: 4, backgro
   { input: await sharp(mark).resize(440, 440).toBuffer(), top: 36, left: 36 },
 ]);
 const icon512 = await iconBase.png().toBuffer();
-await sharp(icon512).resize(192, 192).png().toFile("app/icon.png");
-await sharp(icon512).resize(180, 180).png().toFile("app/apple-icon.png");
+await sharp(icon512).resize(192, 192).png().toFile("public/icon.png");
+await sharp(icon512).resize(180, 180).png().toFile("public/apple-icon.png");
 
 // Open Graph image 1200x630.
 const ogSvg = `

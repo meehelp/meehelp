@@ -68,9 +68,9 @@ No on-demand, B2B or locality pages are built.
 ## How the code supports this
 
 - `ServiceCity.model` and `LocalityServiceContent.model` record the proposition for every page entry.
-- `lib/content/index.ts` requires `services[].models[model] === true` and
+- `src/lib/content/index.ts` requires `services[].models[model] === true` and
   `cities[].availability[service][model]` to be `available`/`limited` before a page can be published.
 - On-demand entries are rejected (`serviceCityStatus` → `draft`) until their own route and template exist.
-- The route registry (`getSiteRoutes`) drives static params, the sitemap and the validator, so a new route family
+- The route registry (`getSiteRoutes`) drives `getStaticPaths` (src/pages/[service]/[...rest].astro), the sitemap and the validator, so a new route family
   is added in one place.
 - `npm run seo` fails if marketplace pages contain on-demand wording or CTAs (and vice versa).

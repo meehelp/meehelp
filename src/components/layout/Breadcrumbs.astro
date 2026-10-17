@@ -1,0 +1,25 @@
+---
+/** Visible breadcrumb trail + matching BreadcrumbList JSON-LD. The last item is the current page. */
+import { schemaSettings } from "@/data/business";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import { breadcrumbSchema, type BreadcrumbItem } from "@/lib/seo/schema";
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <div class="container">
+    <ol>
+      {
+        items.map((item, i) => (
+          <li>{i === items.length - 1 ? <span aria-current="page">{item.name}</span> : <a href={item.path}>{item.name}</a>}</li>
+        ))
+      }
+    </ol>
+  </div>
+</nav>
+{schemaSettings.breadcrumbs ? <JsonLd data={breadcrumbSchema(items)} /> : null}

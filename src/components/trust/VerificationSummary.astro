@@ -1,0 +1,38 @@
+---
+/**
+ * The only component that renders verification wording. Lists enabled,
+ * approved checks from src/data/verification.ts, followed by a scope note so
+ * identity checks are not mistaken for police or background checks.
+ */
+import { verificationScope } from "@/data/verification";
+import { getActiveVerificationChecks } from "@/lib/trust";
+import Icon from "@/components/content/Icon.astro";
+
+interface Props {
+  headingLevel?: 2 | 3;
+}
+
+const checks = getActiveVerificationChecks();
+const Heading = Astro.props.headingLevel === 2 ? "h2" : "h3";
+---
+
+{
+  checks.length > 0 ? (
+    <div class="verification">
+      <Heading class="verification__title">{verificationScope.heading}</Heading>
+      <p>{verificationScope.intro}</p>
+      <ul class="claims">
+        {checks.map((c) => (
+          <li class="claims__item">
+            <Icon name="check" size={20} />
+            <span>
+              <strong>{c.claim}</strong>
+              <span class="claims__detail">{c.detail}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="note">{verificationScope.limitation}</p>
+    </div>
+  ) : null
+}

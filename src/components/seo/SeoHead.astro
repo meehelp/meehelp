@@ -1,0 +1,62 @@
+---
+/**
+ * All <head> SEO tags for a page, from a PageMeta object (src/lib/seo/metadata.ts).
+ * Matches the tag set of the previous Next.js build: title, description,
+ * robots/googlebot, canonical, Smart App Banner, Open Graph, Twitter, icons,
+ * and Search Console verification when configured.
+ */
+import { appLinks } from "@/data/app-links";
+import { business } from "@/data/business";
+import { analyticsConfig } from "@/lib/analytics/config";
+import type { PageMeta } from "@/lib/seo/metadata";
+
+interface Props {
+  meta: PageMeta;
+}
+
+const { meta } = Astro.props;
+const og = meta.openGraph;
+const tw = meta.twitter;
+---
+
+<title>{meta.title}</title>
+<meta name="description" content={meta.description} />
+<meta name="application-name" content={business.brandName} />
+<meta name="robots" content={meta.robots} />
+{meta.googlebot ? <meta name="googlebot" content={meta.googlebot} /> : null}
+{meta.canonical ? <link rel="canonical" href={meta.canonical} /> : null}
+{appLinks.ios.smartAppBanner ? <meta name="apple-itunes-app" content={`app-id=${appLinks.ios.appId}`} /> : null}
+<meta name="format-detection" content="telephone=no" />
+{
+  analyticsConfig.googleSiteVerification ? (
+    <meta name="google-site-verification" content={analyticsConfig.googleSiteVerification} />
+  ) : null
+}
+{
+  og ? (
+    <>
+      <meta property="og:title" content={og.title} />
+      <meta property="og:description" content={og.description} />
+      <meta property="og:url" content={og.url} />
+      <meta property="og:site_name" content={og.siteName} />
+      <meta property="og:locale" content={og.locale} />
+      <meta property="og:image" content={og.image.url} />
+      <meta property="og:image:width" content={String(og.image.width)} />
+      <meta property="og:image:height" content={String(og.image.height)} />
+      <meta property="og:image:alt" content={og.image.alt} />
+      <meta property="og:type" content={og.type} />
+    </>
+  ) : null
+}
+{
+  tw ? (
+    <>
+      <meta name="twitter:card" content={tw.card} />
+      <meta name="twitter:title" content={tw.title} />
+      <meta name="twitter:description" content={tw.description} />
+      <meta name="twitter:image" content={tw.image} />
+    </>
+  ) : null
+}
+<link rel="icon" href="/icon.png" sizes="192x192" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" type="image/png" />

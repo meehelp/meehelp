@@ -4,12 +4,13 @@ Nothing has been deployed, and no DNS, redirect or hosting configuration has bee
 
 ## Hosting
 
-`npm run build:production` writes a fully static site to `out/`. Any static host or CDN
-works (e.g. Cloudflare Pages, Netlify, Vercel static, S3 + CloudFront). No server,
-database or secrets are required at runtime.
+`npm run build:production` (Astro, `output: "static"`) writes a fully static site to `dist/`.
+Any static host or CDN works (e.g. Cloudflare Pages, Netlify, Vercel static, S3 + CloudFront).
+No server, database, secrets or client JavaScript are required at runtime.
 
 Build command: `SITE_STAGE=production SITE_URL=https://meehelp.in npm run build`
-Output directory: `out`
+Output directory: `dist`
+Node.js: ≥ 22.22.0 (Astro 7 requirement)
 Run `npm run check` in CI before every deploy.
 
 ## Recommended rollout
@@ -33,16 +34,16 @@ Run `npm run check` in CI before every deploy.
 
 All page URLs end with `/` (`trailingSlash: true`); canonicals, internal links and the sitemap all use it.
 The host must 301/308 `/maid` → `/maid/` (`npm run serve` demonstrates this behaviour).
-Most static hosts do this automatically for `out/maid/index.html`.
+Most static hosts do this automatically for `dist/maid/index.html`.
 
 ## 404 handling
 
-`out/404.html` must be served with HTTP **404** for unknown paths (not a 200 "soft 404").
+`dist/404.html` must be served with HTTP **404** for unknown paths (not a 200 "soft 404").
 Cloudflare Pages, Netlify and Vercel do this automatically for `404.html`.
 
 ## Redirects that will be needed (configure at the host/CDN)
 
-`output: "export"` cannot define redirects in `next.config.ts`; configure them at the edge.
+Astro static output cannot set HTTP redirects or headers itself; configure them at the edge.
 
 1. Host canonicalisation (above).
 2. **Legacy URL map**: crawl the current meehelp.in and export Search Console "Pages",
@@ -71,7 +72,9 @@ Longer term, move the admin to its own subdomain and add `X-Robots-Tag: noindex`
 ## Response headers (configure at the host)
 
 ```
-/_next/static/*   Cache-Control: public, max-age=31536000, immutable
+/_astro/*         Cache-Control: public, max-age=31536000, immutable   (content-hashed; none emitted today)
+/fonts/*, /brand/*, /og/*, /*.png
+                  Cache-Control: public, max-age=604800
 /*.html, /        Cache-Control: public, max-age=0, must-revalidate
 /*                X-Content-Type-Options: nosniff
                   Referrer-Policy: strict-origin-when-cross-origin
@@ -79,9 +82,15 @@ Longer term, move the admin to its own subdomain and add `X-Robots-Tag: noindex`
                   X-Frame-Options: SAMEORIGIN
 ```
 
-Add a Content-Security-Policy once analytics choices are final. Next.js uses inline
-scripts, so allow `'unsafe-inline'` for scripts or use hashes, and allow
-`https://www.googletagmanager.com` if GA4/GTM is enabled.
+The site runs no JavaScript (JSON-LD blocks are data, not executed), so a strict policy works today:
+
+```
+Content-Security-Policy: default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline';
+  img-src 'self' data:; font-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'
+```
+
+`style-src 'unsafe-inline'` is needed because the stylesheet is inlined into each page. If GA4/GTM is enabled
+later, allow `https://www.googletagmanager.com` and the inline analytics snippet's hash in `script-src`.
 
 ## Analytics
 

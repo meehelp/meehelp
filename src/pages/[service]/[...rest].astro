@@ -1,0 +1,37 @@
+---
+/**
+ * One route for every service-based URL:
+ *   /maid/                      service hub (marketplace)
+ *   /maid/mumbai/               service × city (explicitly listed combinations only)
+ *   /maid/mumbai/andheri-west/  locality (explicitly "published" only — none today)
+ *   /pricing/                   marketplace plans (held until prices may be published)
+ *
+ * Only paths returned by getStaticPaths are built — the same registry that
+ * produces the sitemap. An empty list (e.g. production today) builds nothing.
+ */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LocalityTemplate from "@/components/templates/LocalityTemplate.astro";
+import PricingTemplate from "@/components/templates/PricingTemplate.astro";
+import ServiceCityTemplate from "@/components/templates/ServiceCityTemplate.astro";
+import ServiceTemplate from "@/components/templates/ServiceTemplate.astro";
+import { getServiceRouteParams, resolveRoute, type ResolvedRoute } from "@/lib/content/resolve";
+import { routeMetadata } from "@/lib/seo/route-meta";
+
+export function getStaticPaths() {
+  return getServiceRouteParams().map(({ service, rest }) => ({
+    params: { service, rest: rest.length > 0 ? rest.join("/") : undefined },
+  }));
+}
+
+const { service, rest } = Astro.params;
+const resolved = resolveRoute([service!, ...(rest ? rest.split("/") : [])]);
+if (!resolved) throw new Error(`No content for /${service}/${rest ?? ""} — getStaticPaths and resolveRoute disagree`);
+const route: ResolvedRoute = resolved;
+---
+
+<BaseLayout meta={routeMetadata(route)}>
+  {route.kind === "pricing" ? <PricingTemplate /> : null}
+  {route.kind === "service" ? <ServiceTemplate route={route} /> : null}
+  {route.kind === "service-city" ? <ServiceCityTemplate route={route} /> : null}
+  {route.kind === "locality" ? <LocalityTemplate route={route} /> : null}
+</BaseLayout>

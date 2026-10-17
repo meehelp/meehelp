@@ -1,0 +1,30 @@
+---
+/**
+ * Analytics loader. Renders NOTHING unless the build stage is "production"
+ * and GTM_CONTAINER_ID or GA4_MEASUREMENT_ID is set (see .env.example).
+ * No IDs are configured, so today this outputs no script at all.
+ * When enabled it emits plain inline/async tags (is:inline — never bundled).
+ */
+import { activeAnalytics } from "@/lib/analytics/config";
+
+const active = activeAnalytics();
+
+// One delegated listener for every element carrying data-track (store buttons and CTAs).
+const clickTracking = `document.addEventListener('click',function(e){var el=e.target.closest&&e.target.closest('[data-track]');if(!el)return;var p={platform:el.dataset.platform,cta:el.dataset.cta,cta_model:el.dataset.ctaModel,placement:el.dataset.placement,page_path:location.pathname};if(window.gtag)window.gtag('event',el.dataset.track,p);else if(window.dataLayer)window.dataLayer.push(Object.assign({event:el.dataset.track},p));},{passive:true});`;
+const gtm = active?.kind === "gtm"
+  ? `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${active.id}');`
+  : "";
+const ga4 = active?.kind === "ga4"
+  ? `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${active.id}');`
+  : "";
+---
+
+{active?.kind === "gtm" ? <script is:inline id="analytics" set:html={gtm + clickTracking} /> : null}
+{
+  active?.kind === "ga4" ? (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${active.id}`} />
+      <script is:inline id="analytics" set:html={ga4 + clickTracking} />
+    </>
+  ) : null
+}

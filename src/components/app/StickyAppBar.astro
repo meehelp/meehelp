@@ -1,0 +1,12 @@
+---
+/**
+ * Small fixed bar on mobile screens only (hidden on wide screens via CSS).
+ * Static HTML with both stores: no JavaScript and no layout shift.
+ */
+import StoreButtons from "./StoreButtons.astro";
+---
+
+<aside class="sticky-app-bar" aria-label="Get the MeeHelp app">
+  <p class="sticky-app-bar__text">Get the MeeHelp app</p>
+  <StoreButtons placement="sticky_bar" size="compact" />
+</aside>

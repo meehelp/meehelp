@@ -1,0 +1,42 @@
+---
+/** Locality pages exist only when explicitly "published" at every level (see src/lib/content). None today. */
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import Cta from "@/components/content/Cta.astro";
+import FaqList from "@/components/content/FaqList.astro";
+import Section from "@/components/content/Section.astro";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
+import { localityPath, serviceCityPath, servicePath } from "@/lib/content/paths";
+import type { ResolvedRoute } from "@/lib/content/resolve";
+
+interface Props {
+  route: Extract<ResolvedRoute, { kind: "locality" }>;
+}
+
+const { page, service, city } = Astro.props.route;
+const path = localityPath(page.service, city.slug, page.locality.slug);
+const placement = `${service.slug}_${city.slug}_${page.locality.slug}`;
+---
+
+<Breadcrumbs
+  items={[
+    { name: "Home", path: "/" },
+    { name: service.name, path: servicePath(service.slug) },
+    { name: city.name, path: serviceCityPath(service.slug, city.slug) },
+    { name: page.locality.name, path },
+  ]}
+/>
+<div data-model={page.content.model}>
+  <section class="hero hero--compact">
+    <div class="container">
+      <h1>{page.content.headline}</h1>
+      {page.content.introduction.map((para) => <p class="lead">{para}</p>)}
+      <div class="cta-row">
+        <Cta ctaKey="findService" role={service.roleWithArticle} placement={`${placement}_hero`} />
+      </div>
+    </div>
+  </section>
+  <Section id="faqs" title="Frequently asked questions">
+    <FaqList faqs={page.content.localFaqs} />
+  </Section>
+  <AppDownloadSection model={page.content.model} placement={`${placement}_app_section`} />
+</div>

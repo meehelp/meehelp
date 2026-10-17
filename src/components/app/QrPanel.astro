@@ -1,0 +1,30 @@
+---
+/**
+ * Desktop QR code for "scan to download". Shown only on wide screens (CSS).
+ * Until an approved QR image exists, a labelled placeholder is shown on
+ * development/preview builds and nothing is rendered on production.
+ */
+import { appLinks } from "@/data/app-links";
+import { isProductionStage } from "@/lib/site";
+
+const { qr } = appLinks;
+---
+
+{
+  qr.enabled && qr.imageSrc ? (
+    <figure class="qr-panel">
+      <img src={qr.imageSrc} width={140} height={140} alt="QR code to download the MeeHelp app" loading="lazy" />
+      <figcaption>Scan with your phone camera to get the app</figcaption>
+    </figure>
+  ) : isProductionStage ? null : (
+    <div class="qr-panel qr-panel--placeholder" role="note">
+      <span class="qr-panel__box" aria-hidden="true">
+        QR
+      </span>
+      <span>
+        <strong>Placeholder:</strong> desktop QR code. Add an approved image and smart link in{" "}
+        <code>src/data/app-links.ts</code>.
+      </span>
+    </div>
+  )
+}

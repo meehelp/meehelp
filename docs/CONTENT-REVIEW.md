@@ -7,18 +7,18 @@ Approvals are recorded in the data files themselves (`approvedBy` / `approvedOn`
 
 | Content | File | Status | Built on production? |
 |---|---|---|---|
-| Home page | `data/home.ts` | published | **yes — the only production page today** |
-| 5 marketplace service hubs | `data/services.ts` | published copy, but `models.marketplace = null` | no (preview only) until marketplace support is confirmed per category |
-| 8 cities | `data/cities.ts` | review; `marketActive: true`; availability `unknown` | — (no city pages) |
-| maid/mumbai, maid/delhi-ncr, cook/mumbai, elder-care/bengaluru (marketplace) | `data/service-cities.ts` | review | no |
-| `/pricing/` | `data/plans.ts` | review; prices gated | no, until the price note is confirmed |
-| Localities (andheri-west, powai) | `data/localities.ts` | draft | never (examples of the model) |
-| Testimonials | `data/testimonials.ts` | 2 dev placeholders | never |
-| Trust metrics | `data/business.ts` | all empty | hidden |
-| Verification: OTP mobile, Aadhaar, current/permanent address | `data/verification.ts` | **enabled (confirmed)** | yes, via `VerificationSummary` |
-| Verification: police, criminal background, references, employment history | `data/verification.ts` | disabled | blocked |
-| Claim: no placement agency fee | `data/business.ts` | **enabled (confirmed)** | yes, marketplace sections |
-| All CTA labels | `data/ctas.ts` | proposed | used, listed by `npm run seo` |
+| Home page | `src/data/home.ts` | published | **yes — the only production page today** |
+| 5 marketplace service hubs | `src/data/services.ts` | published copy, but `models.marketplace = null` | no (preview only) until marketplace support is confirmed per category |
+| 8 cities | `src/data/cities.ts` | review; `marketActive: true`; availability `unknown` | — (no city pages) |
+| maid/mumbai, maid/delhi-ncr, cook/mumbai, elder-care/bengaluru (marketplace) | `src/data/service-cities.ts` | review | no |
+| `/pricing/` | `src/data/plans.ts` | review; prices gated | no, until the price note is confirmed |
+| Localities (andheri-west, powai) | `src/data/localities.ts` | draft | never (examples of the model) |
+| Testimonials | `src/data/testimonials.ts` | 2 dev placeholders | never |
+| Trust metrics | `src/data/business.ts` | all empty | hidden |
+| Verification: OTP mobile, Aadhaar, current/permanent address | `src/data/verification.ts` | **enabled (confirmed)** | yes, via `VerificationSummary` |
+| Verification: police, criminal background, references, employment history | `src/data/verification.ts` | disabled | blocked |
+| Claim: no placement agency fee | `src/data/business.ts` | **enabled (confirmed)** | yes, marketplace sections |
+| All CTA labels | `src/data/ctas.ts` | proposed | used, listed by `npm run seo` |
 
 ## Questions for the business
 
@@ -31,8 +31,8 @@ Approvals are recorded in the data files themselves (`approvedBy` / `approvedOn`
       production and no tax/GST wording may be used → `pricingSettings.priceNote`, then `publishPrices`.
 
 ### Approvals
-- [ ] CTA wording in `data/ctas.ts` (all "proposed").
-- [ ] Marketplace journey steps (`data/how-it-works.ts`), especially the "contact helpers directly" / "call for a trial" wording.
+- [ ] CTA wording in `src/data/ctas.ts` (all "proposed").
+- [ ] Marketplace journey steps (`src/data/how-it-works.ts`), especially the "contact helpers directly" / "call for a trial" wording.
 - [ ] On-demand steps ("Pick a time — instantly, scheduled or by the hour"; "Confirm in the app").
 - [ ] Whether to show "You can view your first helper profile free" (`freeProfileViews.showOnWebsite`).
 - [ ] Plan display names ("Home Plan 1" …) and segment descriptions ("For households/offices/businesses").

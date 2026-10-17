@@ -1,0 +1,80 @@
+---
+import { business } from "@/data/business";
+import StoreButtons from "@/components/app/StoreButtons.astro";
+import { getBuiltCitiesWithPages, getBuiltServices, getService } from "@/lib/content";
+import { serviceCityPath, servicePath } from "@/lib/content/paths";
+
+const services = getBuiltServices();
+const cities = getBuiltCitiesWithPages();
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <img
+        src={business.logo.src}
+        width={155}
+        height={60}
+        alt={business.logo.alt}
+        loading="lazy"
+        class="site-footer__logo"
+      />
+      <p class="site-footer__summary">{business.summary}</p>
+      <StoreButtons placement="footer" />
+    </div>
+
+    {
+      /* Rendered only when there are service pages to link to (no empty navigation landmark). */
+      services.length > 0 ? (
+        <nav aria-labelledby="footer-services">
+          <h2 id="footer-services" class="site-footer__heading">
+            Services
+          </h2>
+          <ul>
+            {services.map((s) => (
+              <li>
+                <a href={servicePath(s.slug)}>{s.name}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : null
+    }
+
+    {
+      cities.length > 0 ? (
+        <nav aria-labelledby="footer-cities">
+          <h2 id="footer-cities" class="site-footer__heading">
+            Cities
+          </h2>
+          <ul>
+            {cities.flatMap(({ city, pages }) =>
+              pages.map((p) => (
+                <li>
+                  <a href={serviceCityPath(p.service, p.city)}>
+                    {getService(p.service)?.shortName} in {city.name}
+                  </a>
+                </li>
+              )),
+            )}
+          </ul>
+        </nav>
+      ) : null
+    }
+
+    {
+      business.contact.email.enabled ? (
+        <div>
+          <h2 class="site-footer__heading">Contact</h2>
+          <p>
+            <a href={`mailto:${business.contact.email.value}`}>{business.contact.email.value}</a>
+          </p>
+        </div>
+      ) : null
+    }
+  </div>
+  <div class="container site-footer__legal">
+    <p>© {year} {business.legalName ?? business.brandName}</p>
+  </div>
+</footer>

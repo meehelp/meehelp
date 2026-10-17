@@ -1,0 +1,34 @@
+---
+/**
+ * App-store CTA. A plain link (no JS). `placement` feeds Play Store
+ * install-referrer attribution and analytics `data-track` attributes.
+ * Official store badge artwork can replace the text button later; follow
+ * Google's and Apple's badge guidelines when doing so.
+ */
+import { appLinks, storeUrl, type Platform } from "@/data/app-links";
+import { analyticsEvents } from "@/lib/analytics/config";
+import Icon from "@/components/content/Icon.astro";
+
+interface Props {
+  platform: Platform;
+  placement: string;
+}
+
+const { platform, placement } = Astro.props;
+const isAndroid = platform === "android";
+const store = isAndroid ? appLinks.android.storeName : appLinks.ios.storeName;
+---
+
+<a
+  class={`store-button store-button--${platform}`}
+  href={storeUrl(platform, placement)}
+  data-track={analyticsEvents.appDownload}
+  data-platform={platform}
+  data-placement={placement}
+>
+  <Icon name={isAndroid ? "play" : "phone"} size={22} class="store-button__icon" />
+  <span class="store-button__text">
+    <span class="store-button__small">{isAndroid ? "Get it on" : "Download on the"}</span>
+    <span class="store-button__store">{store}</span>
+  </span>
+</a>

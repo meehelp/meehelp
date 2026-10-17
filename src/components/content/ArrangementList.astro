@@ -1,0 +1,21 @@
+---
+import { hiringArrangements } from "@/data/how-it-works";
+import type { HiringArrangement } from "@/lib/content/types";
+
+interface Props {
+  keys: HiringArrangement[];
+}
+
+const { keys } = Astro.props;
+---
+
+<ul class="cards cards--2">
+  {
+    keys.map((key) => (
+      <li class="card">
+        <h3 class="card__title">{hiringArrangements[key].name}</h3>
+        <p>{hiringArrangements[key].body}</p>
+      </li>
+    ))
+  }
+</ul>

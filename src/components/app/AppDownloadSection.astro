@@ -1,0 +1,35 @@
+---
+/** The page's #get-the-app target. CTA buttons across the page scroll here. */
+import Section from "@/components/content/Section.astro";
+import AppRatings from "@/components/trust/AppRatings.astro";
+import type { BusinessModel } from "@/lib/content/types";
+import QrPanel from "./QrPanel.astro";
+import StoreButtons from "./StoreButtons.astro";
+
+interface Props {
+  title?: string;
+  body?: string;
+  model: BusinessModel | "both";
+  placement: string;
+}
+
+const defaultBody = {
+  marketplace:
+    "Finding helpers happens in the MeeHelp app. Download it, sign up with your mobile number and start reviewing helper profiles near you.",
+  onDemand: "On-demand bookings happen in the MeeHelp app. Download it and sign up with your mobile number.",
+  both: "Finding helpers and booking on-demand help both happen in the MeeHelp app. Download it and sign up with your mobile number.",
+};
+
+const { title = "Get the MeeHelp app", body, model, placement } = Astro.props;
+---
+
+<Section id="get-the-app" title={title} tone="tint" model={model === "both" ? undefined : model}>
+  <div class="app-download">
+    <div class="app-download__copy">
+      <p class="lead">{body ?? defaultBody[model]}</p>
+      <StoreButtons placement={placement} />
+      <AppRatings />
+    </div>
+    <QrPanel />
+  </div>
+</Section>

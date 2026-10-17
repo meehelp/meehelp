@@ -2,7 +2,7 @@
 
 ## Current implementation
 
-- Store CTAs use the official listings (`data/app-links.ts`):
+- Store CTAs use the official listings (`src/data/app-links.ts`):
   - Google Play: `https://play.google.com/store/apps/details?id=com.meehelp.meehelp&hl=en_IN`
   - App Store: `https://apps.apple.com/in/app/meehelp-find-helpers-near-you/id1625634794`
 - Play links append an install referrer (`utm_source=meehelp_website`, `utm_medium=organic`,
@@ -10,7 +10,7 @@
 - Safari Smart App Banner: `<meta name="apple-itunes-app" content="app-id=1625634794">`.
 - The mobile sticky bar shows both store buttons, server-rendered (no JS, no layout shift). Device-specific store
   selection was removed in Phase 3 because it needed a client component and caused CLS; a smart link will do this server-side once deep linking is reviewed.
-- Proposition CTAs (`data/ctas.ts`, e.g. "Find a maid", "Choose a plan", "Book now") link to the page's `#get-the-app`
+- Proposition CTAs (`src/data/ctas.ts`, e.g. "Find a maid", "Choose a plan", "Book now") link to the page's `#get-the-app`
   section today. Each has a `journey` (marketplace-search, marketplace-plans, on-demand-booking) for future deep links.
 - `QrPanel` is a desktop placeholder (preview only) until an approved QR image exists.
 - Store buttons have `data-track="app_download_click"`; proposition CTAs have `data-track="cta_click"`, `data-cta` and

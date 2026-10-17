@@ -1,0 +1,23 @@
+---
+/** Business statistics. Renders nothing until approved, sourced, dated numbers exist in src/data/business.ts. */
+import { getDisplayableMetrics } from "@/lib/trust";
+
+interface Props {
+  keys?: string[];
+}
+
+const metrics = getDisplayableMetrics(Astro.props.keys);
+---
+
+{
+  metrics.length > 0 ? (
+    <dl class="metrics">
+      {metrics.map((m) => (
+        <div class="metrics__item">
+          <dt>{m.metric}</dt>
+          <dd>{m.value}</dd>
+        </div>
+      ))}
+    </dl>
+  ) : null
+}

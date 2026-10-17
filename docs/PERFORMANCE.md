@@ -1,4 +1,57 @@
-# Client JavaScript review (Phase 3)
+# Performance
+
+## Astro migration result (migration phase, before Phase 4)
+
+Same method as Phase 3:
+- Preview build, every template page.
+- `npm run measure:js`.
+- Lighthouse 13.5.0, mobile preset with simulated throttling, Chromium 141.0.7390.37.
+- Median of 3 runs per page, served by `npm run serve` with gzip.
+
+Lab numbers on a local machine show **relative** differences. They are not field data.
+
+### Script bytes per page
+
+| | Module script files | JS gzip | Inline JS | HTML gzip (home / `/maid/` / `/pricing/`) |
+|---|---|---|---|---|
+| Next.js 16.3.8 (before) | 6 | 133.5 KB (+38.6 KB `nomodule`) | 67–102 KB (RSC payload) | 22.4 / 22.4 / 16.9 KB |
+| **Astro 7.3.5 (after)** | **0** | **0 KB** | **0 KB** (JSON-LD data only) | **9.6 / 9.7 / 7.3 KB** |
+
+### Lighthouse mobile (median of 3)
+
+| Page | Build | Score | FCP | LCP | TBT | CLS | JS transfer | Total transfer |
+|---|---|---|---|---|---|---|---|---|
+| `/` | Next.js | 98 | 878 ms | 2,319 ms | 72 ms | 0.000 | 135.5 KB | 236.4 KB |
+| `/` | **Astro** | **100** | 706 ms | **1,360 ms** | **0 ms** | 0.000 | **0 KB** | **73.0 KB** |
+| `/maid/` | Next.js | 98 | 1,058 ms | 2,299 ms | 45 ms | 0.000 | 135.5 KB | 236.5 KB |
+| `/maid/` | **Astro** | **100** | 700 ms | **1,355 ms** | **0 ms** | 0.000 | **0 KB** | **73.1 KB** |
+| `/maid/mumbai/` | Next.js | 99 | 1,055 ms | 1,853 ms | 65 ms | 0.000 | 135.5 KB | 242.6 KB |
+| `/maid/mumbai/` | **Astro** | **100** | 678 ms | **1,354 ms** | **0 ms** | 0.000 | **0 KB** | **72.4 KB** |
+| `/pricing/` | Next.js | 99 | 1,056 ms | 1,956 ms | 83 ms | 0.000 | 135.5 KB | 230.9 KB |
+| `/pricing/` | **Astro** | **100** | 676 ms | **1,352 ms** | **0 ms** | 0.000 | **0 KB** | **70.8 KB** |
+
+- **Accessibility / Best Practices:** 100 / 100 on all four pages in both builds.
+- **SEO:** the production home page scores 100 in both. Preview pages score 69 in both, because they are deliberately `noindex`.
+- **Visual parity:** full-page screenshots at desktop 1366 px and mobile 390 px @2x were pixel-diffed for home, `/maid/`, `/maid/mumbai/`, `/pricing/` and 404.
+  - Page dimensions are identical on every preview page.
+  - At most 0.034% of pixels differ, all sub-pixel glyph anti-aliasing (text-node boundaries).
+  - The only intended change: production no longer renders the empty "Services" navigation landmarks while no service pages are published.
+
+### Client components after migration
+
+None. Every component is a server-rendered `.astro` component.
+- The mobile menu and FAQs use native `<details>`.
+- The sticky app bar is CSS.
+- Store buttons and CTAs are plain links.
+- JSON-LD is emitted as `is:inline` data blocks.
+- Analytics renders nothing until IDs are configured.
+
+Tests (`tests/unit/framework.test.ts`) and `npm run seo` fail if client JavaScript is introduced.
+
+---
+
+# Phase 3 review (historical — Next.js)
+
 
 ## Method
 

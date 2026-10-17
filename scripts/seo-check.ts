@@ -3,7 +3,7 @@
  *
  *   npm run seo                     production build (default)
  *   npm run seo -- --stage=preview  preview build (everything must be noindex)
- *   npm run seo -- --no-build       validate the existing out/ folder
+ *   npm run seo -- --no-build       validate the existing dist/ folder
  *
  * Checks every generated page for: title, meta description, canonical,
  * robots, exactly one H1, heading order, Open Graph/Twitter tags, valid
@@ -29,11 +29,11 @@ const stage = stageArg;
 const skipBuild = args.includes("--no-build");
 
 process.env.SITE_STAGE = stage;
-const OUT = join(process.cwd(), "out");
+const OUT = join(process.cwd(), "dist");
 
 if (!skipBuild) {
   console.log(`\n▶ Building static site (SITE_STAGE=${stage}) …\n`);
-  execSync("npx tsx scripts/build.ts", { stdio: "inherit", env: { ...process.env, SITE_STAGE: stage } });
+  execSync("npx astro build", { stdio: "inherit", env: { ...process.env, SITE_STAGE: stage, ASTRO_TELEMETRY_DISABLED: "1" } });
 }
 
 // Import after SITE_STAGE is set, so the registry reflects the same stage as the build.
@@ -58,7 +58,7 @@ function walk(dir: string, out: string[] = []): string[] {
 }
 
 if (!existsSync(OUT)) {
-  console.error("out/ not found — run without --no-build.");
+  console.error("dist/ not found — run without --no-build.");
   process.exit(2);
 }
 
@@ -220,6 +220,15 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
     if (id && !root.querySelector(`[id="${id}"]`)) error(page, `In-page link #${id} has no target`);
   }
 
+  // Zero client JavaScript: only JSON-LD data blocks (and analytics, when configured) may appear.
+  for (const sc of root.querySelectorAll("script")) {
+    const type = sc.getAttribute("type");
+    const isData = type === "application/ld+json";
+    const isAnalytics = sc.getAttribute("id") === "analytics" || /googletagmanager\.com/.test(sc.getAttribute("src") ?? "");
+    if (!isData && !isAnalytics) error(page, `Client script found: <script${type ? ` type="${type}"` : ""}${sc.getAttribute("src") ? ` src="${sc.getAttribute("src")}"` : ""}>`);
+  }
+  if (root.querySelector('link[rel="modulepreload"], link[rel="preload"][as="script"]')) error(page, "Script preload found");
+
   const body = root.querySelector("body");
   if (!body) return;
   const visible = visibleText(body);
@@ -236,7 +245,7 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   const prices = visible.match(guards.priceStringPattern) ?? [];
   for (const price of prices) {
     const normalised = price.replace(/\s/g, "");
-    if (!allPrices.has(normalised)) error(page, `Price "${price}" is not from data/plans.ts`);
+    if (!allPrices.has(normalised)) error(page, `Price "${price}" is not from src/data/plans.ts`);
     else if (page !== "/pricing/" && !homePrices.has(normalised)) error(page, `Office/Business price "${price}" outside /pricing/`);
   }
   if (stage === "production" && !pricesPublishable && prices.length > 0) {
@@ -283,6 +292,9 @@ for (const page of pagePaths) {
 const notFoundFile = join(OUT, "404.html");
 if (!existsSync(notFoundFile)) error("/404.html", "Missing 404.html");
 else checkPage("/404.html", readFileSync(notFoundFile, "utf8"), false, true);
+
+// ---------- No JavaScript files in the build ----------
+for (const f of allFiles.filter((x) => /\.(m?js)$/.test(x))) error("/" + relative(OUT, f), "JavaScript file in build output");
 
 // ---------- Duplicates ----------
 for (const [title, pages] of titles) if (pages.length > 1) error(pages.join(", "), `Duplicate title "${title}"`);

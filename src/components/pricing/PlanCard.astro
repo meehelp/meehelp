@@ -1,0 +1,39 @@
+---
+import type { Plan } from "@/data/plans";
+import Cta from "@/components/content/Cta.astro";
+import { formatInr, formatValidity } from "@/lib/pricing";
+
+interface Props {
+  plan: Plan;
+  showPrices: boolean;
+  placement: string;
+}
+
+const { plan, showPrices, placement } = Astro.props;
+const headingId = `plan-${plan.id}`;
+---
+
+<li class={`plan${plan.bestValue ? " plan--best" : ""}`} aria-labelledby={headingId}>
+  {plan.bestValue ? <p class="plan__flag">Best value</p> : null}
+  <h3 id={headingId} class="plan__name">{plan.displayName}</h3>
+  <p class="plan__contacts"><strong>{plan.contacts}</strong> helper contacts</p>
+  <p class="plan__validity">Valid for {formatValidity(plan.validity)}</p>
+  {
+    showPrices ? (
+      <p class="plan__price">
+        <span class="plan__current">{formatInr(plan.currentPrice)}</span>
+        {plan.previousPrice !== null ? (
+          <>
+            {" "}
+            <del class="plan__previous">
+              <span class="visually-hidden">was </span>
+              {formatInr(plan.previousPrice)}
+            </del>
+          </>
+        ) : null}
+        {plan.discountPercent !== null ? <span class="plan__discount"> {plan.discountPercent}% off</span> : null}
+      </p>
+    ) : null
+  }
+  <Cta ctaKey={plan.ctaKey} placement={`${placement}_${plan.id}`} variant="secondary" />
+</li>
