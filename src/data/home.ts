@@ -15,9 +15,9 @@ export const home: {
   publishStatus: PublishStatus;
   updatedAt: string;
 } = {
-  headline: "Find domestic helpers near you, or book help at home",
+  headline: "Hire a helper directly, or book help by the hour",
   intro:
-    "MeeHelp gives you two ways to get help at home: find and hire a helper directly, or book on-demand help through the app.",
+    "MeeHelp gives you two ways to get help at home: find a maid, cook, nanny or care attendant and hire them yourself — or book help for a few hours, instantly or scheduled.",
   audiences: [
     {
       title: "Working households",
@@ -40,38 +40,38 @@ export const home: {
     {
       question: "What is MeeHelp?",
       answer:
-        "MeeHelp is a mobile app with two ways to get help at home. You can find domestic helpers — maids, cooks, babysitters and nannies, elder care and patient care attendants — and hire them directly. You can also book on-demand help through the app.",
+        "MeeHelp is a mobile app with two ways to get help at home. You can find domestic helpers — maids, cooks, babysitters and nannies, elder care and patient care attendants — and hire them directly. Or you can book help by the hour, instantly or for a scheduled time.",
     },
     {
       question: "How does finding and hiring a helper work?",
       answer:
-        "You review helper profiles in the app, choose a plan for the number of helper contacts you need, and contact helpers directly. You discuss the work, agree the salary with the helper yourself, and can call them for a trial before you decide.",
+        "You search for helpers in the app, choose a contact plan, and contact the helpers you like directly. You discuss the work and agree the salary with the helper yourself, and you can invite them for a trial before you decide.",
     },
     {
       question: "What does it cost to find a helper?",
       answer:
-        "MeeHelp doesn't charge a placement agency fee. You pay for a plan that gives you a number of helper contacts, and you agree the helper's salary directly with them.",
+        "You pay MeeHelp for a contact plan, which gives you a number of helper contacts. MeeHelp doesn't charge a placement agency fee, and the helper's salary is agreed and paid directly between you and the helper.",
     },
     {
-      question: "What is on-demand help?",
+      question: "How is booking by the hour different?",
       answer:
-        "On-demand help is booked through the MeeHelp app — instantly, for a scheduled time, or by the hour. Which kinds of help you can book depends on your area, so check in the app.",
+        "On-demand bookings are for a set number of hours — book instantly, or schedule for a date and time. There's no long-term arrangement; you book again whenever you need help.",
     },
     {
       question: "Which cities does MeeHelp work in?",
       answer:
-        "MeeHelp operates in the cities listed on this page. What is available depends on your exact area and the kind of help you need, so check in the app.",
+        "Mumbai and the MMR, Delhi NCR, Bengaluru, Hyderabad, Chennai, Pune, Kolkata and Ahmedabad. Search or book from your address in the app to see what's available near you.",
     },
     {
       question: "Do I need the app?",
       answer:
-        "Yes. Finding helpers and booking on-demand help both happen in the MeeHelp app, which you can download from Google Play and the App Store.",
+        "Yes. Finding helpers and booking help by the hour both happen in the MeeHelp app, which you can download from Google Play and the App Store.",
     },
   ],
   seo: {
-    title: "MeeHelp – Find Maids, Cooks & Nannies or Book Help at Home",
+    title: "MeeHelp – Hire Maids, Cooks & Nannies or Book Hourly Help",
     description:
-      "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book on-demand help at home. Get the MeeHelp app.",
+      "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book help by the hour — instantly or scheduled. Get the MeeHelp app.",
   },
   publishStatus: "published",
   updatedAt: "2026-10-17",

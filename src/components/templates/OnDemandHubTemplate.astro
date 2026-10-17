@@ -1,0 +1,133 @@
+---
+/** On-demand service hub (/hourly-maid/): book help by the hour — instantly or scheduled. */
+import { schemaSettings } from "@/data/business";
+import { onDemandSteps } from "@/data/how-it-works";
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import BookingTypes from "@/components/content/BookingTypes.astro";
+import BulletList from "@/components/content/BulletList.astro";
+import CheckList from "@/components/content/CheckList.astro";
+import CrossLink from "@/components/content/CrossLink.astro";
+import Cta from "@/components/content/Cta.astro";
+import FaqList from "@/components/content/FaqList.astro";
+import Icon from "@/components/content/Icon.astro";
+import LinkList from "@/components/content/LinkList.astro";
+import Section from "@/components/content/Section.astro";
+import Steps from "@/components/content/Steps.astro";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import Safeguards from "@/components/trust/Safeguards.astro";
+import VerificationSummary from "@/components/trust/VerificationSummary.astro";
+import { cityName, getBuiltServiceCities, getServiceCategories, serviceHubStatus } from "@/lib/content";
+import { serviceCityPath, servicePath } from "@/lib/content/paths";
+import { isBuilt } from "@/lib/content/publishing";
+import type { ResolvedRoute } from "@/lib/content/resolve";
+import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
+
+interface Props {
+  route: Extract<ResolvedRoute, { kind: "service" }>;
+}
+
+const { service } = Astro.props.route;
+const od = service.onDemand;
+const path = servicePath(service.slug, "onDemand");
+const cityPages = getBuiltServiceCities(undefined, "onDemand").filter((sc) => sc.service === service.slug);
+const related = getServiceCategories(undefined, "onDemand").filter((c) => c.service.slug !== service.slug && c.href);
+const marketplaceBuilt = isBuilt(serviceHubStatus(service, "marketplace"));
+const schema = [
+  ...(schemaSettings.service ? [serviceSchema({ service, path, name: od.name, description: od.seo.description })] : []),
+  ...(schemaSettings.faqPage ? [faqPageSchema(od.faqs)] : []),
+];
+---
+
+<Breadcrumbs items={[{ name: "Home", path: "/" }, { name: od.name, path }]} />
+<JsonLd data={schema} />
+
+<div data-model="onDemand">
+  <section class="hero hero--compact">
+    <div class="container">
+      <span class="hero__icon"><Icon name={service.icon} size={36} /></span>
+      <p class="eyebrow">Book by the hour</p>
+      <h1>{od.headline}</h1>
+      {od.description.map((p) => <p class="lead">{p}</p>)}
+      <div class="cta-row">
+        <Cta ctaKey="bookNow" placement={`${od.slug}_hero`} />
+        <Cta ctaKey="scheduleHelp" placement={`${od.slug}_hero_schedule`} variant="secondary" />
+      </div>
+    </div>
+  </section>
+
+  <Section id="booking-types" title="Book instantly, schedule ahead, or book by the hour" tone="tint">
+    <BookingTypes service={service} />
+  </Section>
+
+  <Section id="use-cases" title={`When people book ${od.bookingNoun}`}>
+    <BulletList items={od.useCases} />
+  </Section>
+
+  <Section id="tasks" title="What can be done in a booking" tone="tint">
+    <div class="two-col">
+      <div>
+        <h3>Usually included</h3>
+        <CheckList items={od.tasksIncluded} />
+      </div>
+      <div>
+        <h3>Usually not included</h3>
+        <CheckList items={od.tasksExcluded} variant="cross" />
+      </div>
+    </div>
+    <p class="note">Tell the helper the tasks you want done first when they arrive.</p>
+  </Section>
+
+  <Section id="how-booking-works" title="How booking works">
+    <Steps steps={onDemandSteps} />
+  </Section>
+
+  {
+    cityPages.length > 0 ? (
+      <Section id="cities" title={`${od.name} across our cities`} tone="warm">
+        <p>On-demand bookings are available in all the cities below. Whether someone is free at a particular time depends on who is near you.</p>
+        <LinkList
+          label={`${od.name} by city`}
+          links={cityPages.map((sc) => ({
+            href: serviceCityPath(sc.service, sc.city, "onDemand"),
+            label: `${od.shortName} in ${cityName(sc.city)}`,
+          }))}
+        />
+      </Section>
+    ) : null
+  }
+
+  <Section id="safety" title="Booking safely">
+    <VerificationSummary />
+    <h3>Tips for your booking</h3>
+    <Safeguards extra={od.safeguards} />
+  </Section>
+
+  <Section id="faqs" title={`${od.name}: frequently asked questions`} tone="tint">
+    <FaqList faqs={od.faqs} />
+  </Section>
+</div>
+
+{
+  marketplaceBuilt ? (
+    <CrossLink
+      targetModel="marketplace"
+      href={servicePath(service.slug)}
+      heading="Looking for someone regular?"
+      body={`If you'd like the same person every day or every week, you can find ${service.roleWithArticle} on MeeHelp and agree the arrangement with them directly.`}
+      label={`${service.name}: find and hire`}
+    />
+  ) : null
+}
+
+<div data-model="onDemand">
+  <AppDownloadSection model="onDemand" placement={`${od.slug}_app_section`} title={`Book ${od.bookingNoun} in the MeeHelp app`} />
+
+  {
+    related.length > 0 ? (
+      <Section id="related" title="Other help you can book by the hour" boilerplate>
+        <LinkList links={related.map((c) => ({ href: c.href!, label: c.service.onDemand.name }))} />
+      </Section>
+    ) : null
+  }
+</div>

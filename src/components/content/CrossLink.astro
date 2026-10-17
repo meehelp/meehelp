@@ -1,0 +1,28 @@
+---
+/**
+ * The one sanctioned link from a page of one proposition to the matching page
+ * of the other (e.g. /maid/mumbai/ ↔ /hourly-maid/mumbai/). Kept in its own
+ * aside, marked data-cross-model, so the page's main content never mixes the
+ * two journeys. `npm run seo` checks the link points at a page of that model.
+ */
+import type { BusinessModel } from "@/lib/content/types";
+
+interface Props {
+  targetModel: BusinessModel;
+  href: string;
+  heading: string;
+  body: string;
+  label: string;
+}
+
+const { targetModel, href, heading, body, label } = Astro.props;
+const id = `cross-${targetModel}`;
+---
+
+<aside class="cross-link" data-cross-model={targetModel} aria-labelledby={id} data-boilerplate>
+  <div class="container">
+    <h2 id={id} class="cross-link__title">{heading}</h2>
+    <p>{body}</p>
+    <a class="text-link" href={href}>{label}</a>
+  </div>
+</aside>

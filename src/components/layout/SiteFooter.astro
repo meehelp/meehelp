@@ -1,11 +1,17 @@
 ---
+/**
+ * Footer: brand, app links and the hubs for each proposition. City pages are
+ * linked from their hubs and from each other — not dumped into every footer.
+ */
 import { business } from "@/data/business";
 import StoreButtons from "@/components/app/StoreButtons.astro";
-import { getBuiltCitiesWithPages, getBuiltServices, getService } from "@/lib/content";
-import { serviceCityPath, servicePath } from "@/lib/content/paths";
+import { getBuiltServices, pricingPageStatus } from "@/lib/content";
+import { pricingPath, servicePath } from "@/lib/content/paths";
+import { isBuilt } from "@/lib/content/publishing";
 
-const services = getBuiltServices();
-const cities = getBuiltCitiesWithPages();
+const hire = getBuiltServices(undefined, "marketplace");
+const book = getBuiltServices(undefined, "onDemand");
+const pricingBuilt = isBuilt(pricingPageStatus());
 const year = new Date().getFullYear();
 ---
 
@@ -25,39 +31,39 @@ const year = new Date().getFullYear();
     </div>
 
     {
-      /* Rendered only when there are service pages to link to (no empty navigation landmark). */
-      services.length > 0 ? (
-        <nav aria-labelledby="footer-services">
-          <h2 id="footer-services" class="site-footer__heading">
-            Services
+      hire.length > 0 ? (
+        <nav aria-labelledby="footer-hire">
+          <h2 id="footer-hire" class="site-footer__heading">
+            Find and hire
           </h2>
           <ul>
-            {services.map((s) => (
+            {hire.map((s) => (
               <li>
                 <a href={servicePath(s.slug)}>{s.name}</a>
               </li>
             ))}
+            {pricingBuilt ? (
+              <li>
+                <a href={pricingPath}>Plans</a>
+              </li>
+            ) : null}
           </ul>
         </nav>
       ) : null
     }
 
     {
-      cities.length > 0 ? (
-        <nav aria-labelledby="footer-cities">
-          <h2 id="footer-cities" class="site-footer__heading">
-            Cities
+      book.length > 0 ? (
+        <nav aria-labelledby="footer-book">
+          <h2 id="footer-book" class="site-footer__heading">
+            Book by the hour
           </h2>
           <ul>
-            {cities.flatMap(({ city, pages }) =>
-              pages.map((p) => (
-                <li>
-                  <a href={serviceCityPath(p.service, p.city)}>
-                    {getService(p.service)?.shortName} in {city.name}
-                  </a>
-                </li>
-              )),
-            )}
+            {book.map((s) => (
+              <li>
+                <a href={servicePath(s.slug, "onDemand")}>{s.onDemand.name}</a>
+              </li>
+            ))}
           </ul>
         </nav>
       ) : null

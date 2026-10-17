@@ -56,14 +56,18 @@ test("service-city pages need confirmed model support and city availability to p
   }
 });
 
-test("on-demand service-city entries never resolve to the marketplace route", () => {
-  for (const sc of serviceCities.filter((x) => x.model === "onDemand")) {
-    assert.equal(serviceCityStatus(sc), "draft");
-  }
+test("on-demand service-city entries only ever resolve to on-demand routes", () => {
   for (const stage of ["development", "preview", "production"] as const) {
     for (const r of getSiteRoutes(stage).filter((x) => x.kind === "service-city")) {
-      assert.equal(r.model, "marketplace", r.path);
+      const onDemandPath = /^\/hourly-/.test(r.path);
+      assert.equal(r.model, onDemandPath ? "onDemand" : "marketplace", r.path);
     }
+  }
+  for (const sc of serviceCities.filter((x) => x.model === "onDemand")) {
+    const r = resolveRoute([`hourly-${sc.service === "babysitter-nanny" ? "babysitter" : sc.service}`, sc.city], "preview");
+    assert.ok(r && r.kind === "service-city" && r.model === "onDemand", `${sc.service}/${sc.city}`);
+    const m = resolveRoute([sc.service, sc.city], "preview");
+    assert.ok(m && m.kind === "service-city" && m.model === "marketplace", `${sc.service}/${sc.city}`);
   }
 });
 

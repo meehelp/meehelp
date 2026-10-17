@@ -11,6 +11,7 @@ import { services } from "@/data/services";
 import { testimonials } from "@/data/testimonials";
 import { siteStage, type SiteStage } from "@/lib/site";
 import { arePricesPublishable } from "@/lib/pricing";
+import { composeServiceCity } from "./compose";
 import { homePath, localityPath, pricingPath, serviceCityPath, servicePath } from "./paths";
 import { availabilityStatus, combineStatus, confirmedStatus, isBuilt, isIndexable } from "./publishing";
 import type {
@@ -22,6 +23,7 @@ import type {
   PublishStatus,
   Service,
   ServiceCity,
+  ServiceCityContent,
   ServiceSlug,
   Testimonial,
 } from "./types";
@@ -35,43 +37,43 @@ export function getCity(slug: string): City | undefined {
 }
 
 /**
- * A service hub (/maid/) is a MARKETPLACE page, so it is only as published as
- * the confirmation that the service supports the marketplace model.
+ * A service hub is only as published as its copy AND the confirmation that
+ * the service supports that model: /maid/ (marketplace) or /hourly-maid/ (on-demand).
  */
-export function serviceHubStatus(s: Service): PublishStatus {
-  return combineStatus(s.publishStatus, confirmedStatus(s.models.marketplace));
+export function serviceHubStatus(s: Service, model: BusinessModel = "marketplace"): PublishStatus {
+  const copy = model === "marketplace" ? s.publishStatus : s.onDemand.publishStatus;
+  return combineStatus(copy, confirmedStatus(s.models[model]));
 }
 
-export function getBuiltServices(stage: SiteStage = siteStage): Service[] {
-  return services.filter((s) => isBuilt(serviceHubStatus(s), stage));
+export function getBuiltServices(stage: SiteStage = siteStage, model: BusinessModel = "marketplace"): Service[] {
+  return services.filter((s) => isBuilt(serviceHubStatus(s, model), stage));
 }
 
-/** All categories, with a link only when the hub page is built for this stage. */
-export function getServiceCategories(stage: SiteStage = siteStage): { service: Service; href: string | null }[] {
+/** All categories for a model, with a link only when that hub page is built for this stage. */
+export function getServiceCategories(
+  stage: SiteStage = siteStage,
+  model: BusinessModel = "marketplace",
+): { service: Service; href: string | null }[] {
   return services.map((service) => ({
     service,
-    href: isBuilt(serviceHubStatus(service), stage) ? servicePath(service.slug) : null,
+    href: isBuilt(serviceHubStatus(service, model), stage) ? servicePath(service.slug, model) : null,
   }));
 }
 
 /**
- * A service-city page needs: its own status, the service and city status, the
- * service confirmed for the page's model, the city confirmed as an active
- * market, and availability confirmed for that service + city + model.
- *
- * On-demand service-city routes are not implemented yet (see
- * docs/URL-ARCHITECTURE.md), so on-demand entries never build.
+ * A service-city page needs: its own status, its hub's status for the same
+ * model (which includes the service's model confirmation), the city's status,
+ * the city confirmed as an active market, and availability confirmed for that
+ * service + city + model.
  */
 export function serviceCityStatus(sc: ServiceCity): PublishStatus {
   const service = getService(sc.service);
   const city = getCity(sc.city);
   if (!service || !city) return "draft";
-  if (sc.model !== "marketplace") return "draft";
   return combineStatus(
     sc.publishStatus,
-    service.publishStatus,
+    serviceHubStatus(service, sc.model),
     city.publishStatus,
-    confirmedStatus(service.models[sc.model]),
     confirmedStatus(city.marketActive),
     availabilityStatus(city.availability[sc.service][sc.model]),
   );
@@ -85,8 +87,16 @@ export function getServiceCity(
   return serviceCities.find((sc) => sc.service === service && sc.city === city && sc.model === model);
 }
 
-export function getBuiltServiceCities(stage: SiteStage = siteStage): ServiceCity[] {
-  return serviceCities.filter((sc) => isBuilt(serviceCityStatus(sc), stage));
+/** The rendered content of a service-city page (composed from frames, city facts and overrides). */
+export function getServiceCityContent(sc: ServiceCity): ServiceCityContent {
+  const service = getService(sc.service);
+  const city = getCity(sc.city);
+  if (!service || !city) throw new Error(`Unknown service-city ${sc.service}/${sc.city}`);
+  return composeServiceCity(sc, service, city);
+}
+
+export function getBuiltServiceCities(stage: SiteStage = siteStage, model?: BusinessModel): ServiceCity[] {
+  return serviceCities.filter((sc) => (!model || sc.model === model) && isBuilt(serviceCityStatus(sc), stage));
 }
 
 export interface LocalityPage {
@@ -167,29 +177,32 @@ export function getSiteRoutes(stage: SiteStage = siteStage): SiteRoute[] {
   if (isBuilt(pricingStatus, stage)) {
     add({ path: pricingPath, kind: "pricing", model: "marketplace", ...pricingPage.seo, status: pricingStatus, updatedAt: pricingPage.updatedAt });
   }
-  for (const s of getBuiltServices(stage)) {
-    add({
-      path: servicePath(s.slug),
-      kind: "service",
-      model: "marketplace",
-      ...s.seo,
-      status: serviceHubStatus(s),
-      updatedAt: s.updatedAt,
-    });
+  for (const model of ["marketplace", "onDemand"] as const) {
+    for (const s of getBuiltServices(stage, model)) {
+      const copy = model === "marketplace" ? s : s.onDemand;
+      add({
+        path: servicePath(s.slug, model),
+        kind: "service",
+        model,
+        ...copy.seo,
+        status: serviceHubStatus(s, model),
+        updatedAt: copy.updatedAt,
+      });
+    }
   }
   for (const sc of getBuiltServiceCities(stage)) {
     add({
-      path: serviceCityPath(sc.service, sc.city),
+      path: serviceCityPath(sc.service, sc.city, sc.model),
       kind: "service-city",
       model: sc.model,
-      ...sc.seo,
+      ...getServiceCityContent(sc).seo,
       status: serviceCityStatus(sc),
       updatedAt: sc.updatedAt,
     });
   }
   for (const p of getPublishedLocalityPages()) {
     add({
-      path: localityPath(p.service, p.locality.city, p.locality.slug),
+      path: localityPath(p.service, p.locality.city, p.locality.slug, p.content.model),
       kind: "locality",
       model: p.content.model,
       ...p.content.seo,

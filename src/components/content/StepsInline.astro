@@ -1,0 +1,15 @@
+---
+/** A compact numbered summary of a journey (step titles only), linking to the full explanation. */
+import type { Step } from "@/lib/content/types";
+
+interface Props {
+  steps: Step[];
+  moreHref: string;
+  moreLabel: string;
+}
+
+const { steps, moreHref, moreLabel } = Astro.props;
+---
+
+<ol class="steps-inline">{steps.map((s) => <li>{s.title}</li>)}</ol>
+<p class="note"><a href={moreHref}>{moreLabel}</a></p>

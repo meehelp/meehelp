@@ -10,6 +10,8 @@ import Icon from "@/components/content/Icon.astro";
 
 interface Props {
   headingLevel?: 2 | 3;
+  /** One-line form for city pages: the checks and the scope note, without details. */
+  compact?: boolean;
 }
 
 const checks = getActiveVerificationChecks();
@@ -17,7 +19,16 @@ const Heading = Astro.props.headingLevel === 2 ? "h2" : "h3";
 ---
 
 {
-  checks.length > 0 ? (
+  checks.length > 0 && Astro.props.compact ? (
+    <div class="verification verification--compact">
+      <ul class="tags" aria-label={verificationScope.heading}>
+        {checks.map((c) => (
+          <li>{c.claim}</li>
+        ))}
+      </ul>
+      <p class="note">{verificationScope.limitation}</p>
+    </div>
+  ) : checks.length > 0 ? (
     <div class="verification">
       <Heading class="verification__title">{verificationScope.heading}</Heading>
       <p>{verificationScope.intro}</p>

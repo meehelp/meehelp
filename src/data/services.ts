@@ -1,23 +1,31 @@
 import type { ModelSupport, Service, ServiceSlug } from "@/lib/content/types";
+import { cityFrames } from "./city-frames";
+import { onDemandContent } from "./on-demand";
 
 /**
  * Helper categories. Each hub page (/maid/ etc.) is a MARKETPLACE page:
  * the customer finds helpers, contacts them directly and hires them directly.
  * Copy must not describe on-demand booking (see data/business-models.ts).
  *
- * `models` is NOT CONFIRMED for any service yet (null). A hub page is built on
- * production only once `models.marketplace` is true — see lib/content.
- * Prices never appear in this file; they come from data/plans.ts.
+ * `models`: CONFIRMED in the Phase 4 brief (2026-10-17) — every category
+ * supports both the marketplace and on-demand models, with instant,
+ * scheduled and hourly booking.
+ *
+ * `publishStatus` is "review" for every page: the copy was rewritten in
+ * Phase 4 and has not been approved for public indexing. Confirming the
+ * models must not publish unreviewed copy as a side effect.
+ * Prices never appear in this file; they come from src/data/plans.ts.
  */
-const unconfirmed: ModelSupport = {
-  marketplace: null,
-  onDemand: null,
-  instantBooking: null,
-  scheduledBooking: null,
-  hourlyBooking: null,
+const confirmedBothModels: ModelSupport = {
+  marketplace: true,
+  onDemand: true,
+  instantBooking: true,
+  scheduledBooking: true,
+  hourlyBooking: true,
 };
 
-export const services: Service[] = [
+/** Marketplace (find & hire directly) content per category. */
+const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
   {
     slug: "maid",
     name: "Maid / House Help",
@@ -25,7 +33,7 @@ export const services: Service[] = [
     icon: "maid",
     roleWithArticle: "a maid",
     summary: "Find house help for daily cleaning, dishes and laundry, and hire them directly.",
-    models: { ...unconfirmed },
+    models: { ...confirmedBothModels },
     headline: "Find a maid or house help near you",
     description: [
       "Looking for someone to handle sweeping and mopping, dishes and laundry every day? On MeeHelp you review profiles of house help near you, contact the helpers you like, and hire them directly.",
@@ -88,7 +96,7 @@ export const services: Service[] = [
       description:
         "Find a maid or house help near you for cleaning, dishes and laundry. Review profiles, contact helpers directly and agree the salary yourself on MeeHelp.",
     },
-    publishStatus: "published",
+    publishStatus: "review",
     updatedAt: "2026-10-17",
   },
   {
@@ -98,7 +106,7 @@ export const services: Service[] = [
     icon: "cook",
     roleWithArticle: "a cook",
     summary: "Find a home cook who cooks the way your family likes, and hire them directly.",
-    models: { ...unconfirmed },
+    models: { ...confirmedBothModels },
     headline: "Find a home cook near you",
     description: [
       "Home-cooked food every day, without spending your evenings in the kitchen. On MeeHelp you review profiles of cooks near you and contact the ones you want to speak to — vegetarian or non-vegetarian, regional or everyday cooking.",
@@ -160,7 +168,7 @@ export const services: Service[] = [
       description:
         "Find a home cook near you for daily meals and tiffins — veg, non-veg or Jain. Contact cooks directly, try them out and hire the right one with MeeHelp.",
     },
-    publishStatus: "published",
+    publishStatus: "review",
     updatedAt: "2026-10-17",
   },
   {
@@ -170,7 +178,7 @@ export const services: Service[] = [
     icon: "nanny",
     roleWithArticle: "a babysitter or nanny",
     summary: "Find a babysitter or nanny, speak to them and meet them before you decide.",
-    models: { ...unconfirmed },
+    models: { ...confirmedBothModels },
     headline: "Find a babysitter or nanny near you",
     description: [
       "Leaving your child with someone new is a big decision. On MeeHelp you review profiles of babysitters and nannies near you, contact the ones you like, and take your time to speak to them and meet them before you decide.",
@@ -228,7 +236,7 @@ export const services: Service[] = [
       description:
         "Find a babysitter or nanny near you. Review profiles, contact nannies directly, meet them and hire the right person for your child with MeeHelp.",
     },
-    publishStatus: "published",
+    publishStatus: "review",
     updatedAt: "2026-10-17",
   },
   {
@@ -238,7 +246,7 @@ export const services: Service[] = [
     icon: "elder",
     roleWithArticle: "an elder care attendant",
     summary: "Find an attendant for company, mobility help and daily routines at home.",
-    models: { ...unconfirmed },
+    models: { ...confirmedBothModels },
     headline: "Elder care at home for your parents",
     description: [
       "Many older people want to stay in their own homes, but need someone around for daily routines, company and safety. On MeeHelp you review profiles of elder care attendants near you, contact them directly and choose who to hire.",
@@ -295,7 +303,7 @@ export const services: Service[] = [
       description:
         "Find an elder care attendant for your parents at home — company, mobility help, personal care and medicine reminders. Contact attendants directly on MeeHelp.",
     },
-    publishStatus: "published",
+    publishStatus: "review",
     updatedAt: "2026-10-17",
   },
   {
@@ -305,7 +313,7 @@ export const services: Service[] = [
     icon: "patient",
     roleWithArticle: "a patient care attendant",
     summary: "Find a non-medical attendant for recovery at home or for bedridden patients.",
-    models: { ...unconfirmed },
+    models: { ...confirmedBothModels },
     headline: "Patient care attendants at home",
     description: [
       "Recovering at home after a hospital stay, surgery or illness often means needing someone by your side through the day. On MeeHelp you review profiles of patient care attendants near you, contact them directly and choose who to hire.",
@@ -362,9 +370,16 @@ export const services: Service[] = [
       description:
         "Find a patient care attendant for recovery after hospital, or for bedridden and limited-mobility patients. Contact attendants directly and hire on MeeHelp.",
     },
-    publishStatus: "published",
+    publishStatus: "review",
     updatedAt: "2026-10-17",
   },
 ];
+
+/** Each category with its marketplace content, its separate on-demand content and its city-page frames. */
+export const services: Service[] = marketplaceContent.map((s) => ({
+  ...s,
+  onDemand: onDemandContent[s.slug],
+  cityPage: cityFrames[s.slug],
+}));
 
 export const serviceSlugs = services.map((s) => s.slug) as ServiceSlug[];

@@ -1,24 +1,47 @@
 import { siteStage, type SiteStage } from "@/lib/site";
+import { services } from "@/data/services";
 import {
   pricingPageStatus,
   getCity,
   getLocalityPage,
-  getService,
   getServiceCity,
+  getServiceCityContent,
   getSiteRoutes,
   serviceCityStatus,
+  serviceHubStatus,
   type LocalityPage,
 } from "./index";
 import { isBuilt } from "./publishing";
-import type { City, PublishStatus, Service, ServiceCity } from "./types";
+import type { BusinessModel, City, PublishStatus, Service, ServiceCity, ServiceCityContent } from "./types";
 
 export type ResolvedRoute =
   | { kind: "pricing"; status: PublishStatus }
-  | { kind: "service"; service: Service; status: PublishStatus }
-  | { kind: "service-city"; service: Service; city: City; page: ServiceCity; status: PublishStatus }
-  | { kind: "locality"; service: Service; city: City; page: LocalityPage; status: PublishStatus };
+  | { kind: "service"; model: BusinessModel; service: Service; status: PublishStatus }
+  | {
+      kind: "service-city";
+      model: BusinessModel;
+      service: Service;
+      city: City;
+      page: ServiceCity;
+      content: ServiceCityContent;
+      status: PublishStatus;
+    }
+  | { kind: "locality"; model: BusinessModel; service: Service; city: City; page: LocalityPage; status: PublishStatus };
 
-/** Maps URL segments (/maid/, /maid/mumbai/, /maid/mumbai/andheri-west/) to content, applying publishing rules. */
+/** The service and model a first URL segment belongs to: "maid" → marketplace, "hourly-maid" → on-demand. */
+function serviceForSlug(slug: string): { service: Service; model: BusinessModel } | null {
+  for (const service of services) {
+    if (service.slug === slug) return { service, model: "marketplace" };
+    if (service.onDemand.slug === slug) return { service, model: "onDemand" };
+  }
+  return null;
+}
+
+/**
+ * Maps URL segments to content, applying publishing rules:
+ *   /maid/, /maid/mumbai/, /maid/mumbai/andheri-west/       marketplace
+ *   /hourly-maid/, /hourly-maid/mumbai/                      on-demand
+ */
 export function resolveRoute(segments: string[], stage: SiteStage = siteStage): ResolvedRoute | null {
   const [serviceSlug, citySlug, localitySlug, ...extra] = segments;
   if (!serviceSlug || extra.length > 0) return null;
@@ -30,34 +53,38 @@ export function resolveRoute(segments: string[], stage: SiteStage = siteStage): 
     return isBuilt(status, stage) ? { kind: "pricing", status } : null;
   }
 
-  const service = getService(serviceSlug);
-  if (!service) return null;
+  const match = serviceForSlug(serviceSlug);
+  if (!match) return null;
+  const { service, model } = match;
 
   if (!citySlug) {
-    return isBuilt(service.publishStatus, stage) ? { kind: "service", service, status: service.publishStatus } : null;
+    const status = serviceHubStatus(service, model);
+    return isBuilt(status, stage) ? { kind: "service", model, service, status } : null;
   }
 
   const city = getCity(citySlug);
   if (!city) return null;
 
   if (!localitySlug) {
-    const page = getServiceCity(serviceSlug, citySlug);
+    const page = getServiceCity(service.slug, citySlug, model);
     if (!page) return null;
     const status = serviceCityStatus(page);
-    return isBuilt(status, stage) ? { kind: "service-city", service, city, page, status } : null;
+    return isBuilt(status, stage)
+      ? { kind: "service-city", model, service, city, page, content: getServiceCityContent(page), status }
+      : null;
   }
 
-  const page = getLocalityPage(serviceSlug, citySlug, localitySlug);
-  return page ? { kind: "locality", service, city, page, status: "published" } : null;
+  const page = getLocalityPage(service.slug, citySlug, localitySlug);
+  return page && page.content.model === model ? { kind: "locality", model, service, city, page, status: "published" } : null;
 }
 
-/** Static params for app/[service]/[[...rest]] — derived from the same registry as the sitemap. */
+/** Params for getStaticPaths in src/pages/[service]/[...rest].astro — the same registry as the sitemap. */
 export function getServiceRouteParams(stage: SiteStage = siteStage): { service: string; rest: string[] }[] {
   return getSiteRoutes(stage)
     .filter((r) => r.kind !== "home")
     .map((r) => {
       const [service, ...rest] = r.path.split("/").filter(Boolean);
-      // Static export requires `rest` on every entry; [] is the service hub itself.
+      // [] is the service hub itself.
       return { service: service!, rest };
     });
 }

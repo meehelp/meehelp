@@ -10,14 +10,20 @@ export function routeMetadata(route: ResolvedRoute): PageMeta {
   switch (route.kind) {
     case "pricing":
       return buildPageMetadata({ ...pricingPage.seo, path: pricingPath, indexable });
-    case "service":
-      return buildPageMetadata({ ...route.service.seo, path: servicePath(route.service.slug), indexable });
+    case "service": {
+      const seo = route.model === "marketplace" ? route.service.seo : route.service.onDemand.seo;
+      return buildPageMetadata({ ...seo, path: servicePath(route.service.slug, route.model), indexable });
+    }
     case "service-city":
-      return buildPageMetadata({ ...route.page.seo, path: serviceCityPath(route.page.service, route.page.city), indexable });
+      return buildPageMetadata({
+        ...route.content.seo,
+        path: serviceCityPath(route.page.service, route.page.city, route.model),
+        indexable,
+      });
     case "locality":
       return buildPageMetadata({
         ...route.page.content.seo,
-        path: localityPath(route.page.service, route.page.locality.city, route.page.locality.slug),
+        path: localityPath(route.page.service, route.page.locality.city, route.page.locality.slug, route.model),
         indexable,
       });
   }

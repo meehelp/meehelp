@@ -1,11 +1,12 @@
 ---
-/** Service hub — a MARKETPLACE page: find helpers, contact them and hire directly. */
+/** Marketplace service hub (/maid/): find helpers, contact them and hire directly. */
 import { schemaSettings } from "@/data/business";
 import { marketplaceSteps } from "@/data/how-it-works";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
 import ArrangementList from "@/components/content/ArrangementList.astro";
 import BulletList from "@/components/content/BulletList.astro";
 import CheckList from "@/components/content/CheckList.astro";
+import CrossLink from "@/components/content/CrossLink.astro";
 import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
 import Icon from "@/components/content/Icon.astro";
@@ -20,8 +21,9 @@ import Claims from "@/components/trust/Claims.astro";
 import Safeguards from "@/components/trust/Safeguards.astro";
 import Testimonials from "@/components/trust/Testimonials.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
-import { cityName, getBuiltServiceCities, getServiceCategories } from "@/lib/content";
+import { cityName, getBuiltServiceCities, getServiceCategories, serviceHubStatus } from "@/lib/content";
 import { serviceCityPath, servicePath } from "@/lib/content/paths";
+import { isBuilt } from "@/lib/content/publishing";
 import type { ResolvedRoute } from "@/lib/content/resolve";
 import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
 
@@ -31,8 +33,9 @@ interface Props {
 
 const { service } = Astro.props.route;
 const path = servicePath(service.slug);
-const cityPages = getBuiltServiceCities().filter((sc) => sc.service === service.slug);
+const cityPages = getBuiltServiceCities(undefined, "marketplace").filter((sc) => sc.service === service.slug);
 const related = getServiceCategories().filter((c) => c.service.slug !== service.slug && c.href);
+const onDemandBuilt = isBuilt(serviceHubStatus(service, "onDemand"));
 const schema = [
   ...(schemaSettings.service ? [serviceSchema({ service, path, name: service.name, description: service.seo.description })] : []),
   ...(schemaSettings.faqPage ? [faqPageSchema(service.faqs)] : []),
@@ -46,6 +49,7 @@ const schema = [
   <section class="hero hero--compact">
     <div class="container">
       <span class="hero__icon"><Icon name={service.icon} size={36} /></span>
+      <p class="eyebrow">Find and hire directly</p>
       <h1>{service.headline}</h1>
       {service.description.map((p) => <p class="lead">{p}</p>)}
       <div class="cta-row">
@@ -111,7 +115,21 @@ const schema = [
   <Section id="faqs" title={`${service.name}: frequently asked questions`}>
     <FaqList faqs={service.faqs} />
   </Section>
+</div>
 
+{
+  onDemandBuilt ? (
+    <CrossLink
+      targetModel="onDemand"
+      href={servicePath(service.slug, "onDemand")}
+      heading="Only need help for a few hours?"
+      body={`If you don't need a regular arrangement, you can book ${service.onDemand.bookingNoun} through the MeeHelp app instead.`}
+      label={`${service.onDemand.name}: book instantly or schedule`}
+    />
+  ) : null
+}
+
+<div data-model="marketplace">
   <AppDownloadSection
     model="marketplace"
     placement={`${service.slug}_app_section`}
@@ -120,7 +138,7 @@ const schema = [
 
   {
     related.length > 0 ? (
-      <Section id="related" title="Find other helpers">
+      <Section id="related" title="Find other helpers" boilerplate>
         <ServiceCards items={related} />
       </Section>
     ) : null

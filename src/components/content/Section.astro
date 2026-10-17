@@ -7,13 +7,15 @@ interface Props {
   tone?: "plain" | "tint" | "warm";
   /** Marks the section as belonging to one proposition (checked by `npm run seo`). */
   model?: "marketplace" | "onDemand";
+  /** Navigation/CTA blocks that are the same on every page; excluded from similarity analysis. */
+  boilerplate?: boolean;
 }
 
-const { id, title, intro, tone = "plain", model } = Astro.props;
+const { id, title, intro, tone = "plain", model, boilerplate } = Astro.props;
 const headingId = `${id}-heading`;
 ---
 
-<section id={id} aria-labelledby={headingId} class={`section section--${tone}`} data-model={model}>
+<section id={id} aria-labelledby={headingId} class={`section section--${tone}`} data-model={model} data-boilerplate={boilerplate ? "" : undefined}>
   <div class="container">
     <h2 id={headingId} class="section__title">{title}</h2>
     {intro ? <p class="section__intro">{intro}</p> : null}

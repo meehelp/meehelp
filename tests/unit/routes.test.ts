@@ -49,10 +49,10 @@ test("locality pages require explicit 'published' at every level, in every stage
 });
 
 test("combinations that are not explicitly listed never resolve", () => {
-  const listed = new Set(serviceCities.map((sc) => `${sc.service}/${sc.city}`));
-  assert.equal(listed.has("patient-care/kolkata"), false, "test assumes this combination is unlisted");
   for (const stage of stages) {
-    assert.equal(resolveRoute(["patient-care", "kolkata"], stage), null);
+    assert.equal(resolveRoute(["patient-care", "surat"], stage), null);
+    assert.equal(resolveRoute(["hourly-nanny", "mumbai"], stage), null, "no synonym routes");
+    assert.equal(resolveRoute(["hourly-maid", "mumbai", "andheri-west"], stage), null);
     assert.equal(resolveRoute(["maid", "atlantis"], stage), null);
     assert.equal(resolveRoute(["not-a-service"], stage), null);
     assert.equal(resolveRoute(["maid", "mumbai", "andheri-west", "extra"], stage), null);

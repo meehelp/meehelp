@@ -1,9 +1,18 @@
 ---
+/**
+ * Header navigation, grouped by proposition. Links appear only for pages that
+ * are built for the current stage (production currently has none), so there
+ * are never empty landmarks or links to missing pages.
+ */
 import { business } from "@/data/business";
-import { getBuiltServices } from "@/lib/content";
-import { servicePath } from "@/lib/content/paths";
+import { getBuiltServices, pricingPageStatus } from "@/lib/content";
+import { pricingPath, servicePath } from "@/lib/content/paths";
+import { isBuilt } from "@/lib/content/publishing";
 
-const services = getBuiltServices();
+const hire = getBuiltServices(undefined, "marketplace");
+const book = getBuiltServices(undefined, "onDemand");
+const pricingBuilt = isBuilt(pricingPageStatus());
+const hasNav = hire.length > 0 || book.length > 0 || pricingBuilt;
 ---
 
 <header class="site-header">
@@ -19,15 +28,24 @@ const services = getBuiltServices();
     </a>
 
     {
-      /* Rendered only when there are pages to link to (no empty navigation landmark). */
-      services.length > 0 ? (
+      hasNav ? (
         <nav aria-label="Main" class="site-nav site-nav--desktop">
           <ul>
-            {services.map((s) => (
+            {hire.map((s) => (
               <li>
                 <a href={servicePath(s.slug)}>{s.shortName}</a>
               </li>
             ))}
+            {book.length > 0 ? (
+              <li>
+                <a href="/#on-demand">Hourly help</a>
+              </li>
+            ) : null}
+            {pricingBuilt ? (
+              <li>
+                <a href={pricingPath}>Plans</a>
+              </li>
+            ) : null}
           </ul>
         </nav>
       ) : null
@@ -42,13 +60,41 @@ const services = getBuiltServices();
         <span class="site-nav__label">Menu</span>
       </summary>
       <nav aria-label="Main (mobile)">
+        {
+          hire.length > 0 ? (
+            <>
+              <p class="site-nav__group">Find and hire</p>
+              <ul>
+                {hire.map((s) => (
+                  <li>
+                    <a href={servicePath(s.slug)}>{s.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null
+        }
+        {
+          book.length > 0 ? (
+            <>
+              <p class="site-nav__group">Book by the hour</p>
+              <ul>
+                {book.map((s) => (
+                  <li>
+                    <a href={servicePath(s.slug, "onDemand")}>{s.onDemand.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null
+        }
         <ul>
           {
-            services.map((s) => (
+            pricingBuilt ? (
               <li>
-                <a href={servicePath(s.slug)}>{s.name}</a>
+                <a href={pricingPath}>Plans</a>
               </li>
-            ))
+            ) : null
           }
           <li>
             <a href="#get-the-app">Get the app</a>
