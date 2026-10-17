@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+
+# build output
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# environment — never commit real values
+.env
+.env.*
+!.env.example
+
+# secrets / keys — must never enter this repository
+*.pem
+*.key
+*.p8
+*.p12
+*.jks
+*.keystore
+*firebase-adminsdk*.json
+service-account*.json
+google-services.json
+GoogleService-Info.plist
+
+# reports / local tooling
+reports/
+screenshots/
+coverage/
+.DS_Store
+npm-debug.log*

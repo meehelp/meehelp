@@ -1,0 +1,35 @@
+{
+  "name": "meehelp-website-v2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "MeeHelp Website V2 \u2014 SEO-first static marketing site. Independent of production systems.",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:preview": "SITE_STAGE=preview next build",
+    "build:production": "SITE_STAGE=production next build",
+    "serve": "node scripts/serve-static.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/unit/*.test.ts",
+    "seo": "tsx scripts/seo-check.ts",
+    "seo:preview": "tsx scripts/seo-check.ts --stage=preview",
+    "check": "npm run typecheck && npm test && npm run seo"
+  },
+  "dependencies": {
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "node-html-parser": "9.0.4",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3"
+  }
+}
