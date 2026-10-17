@@ -1,0 +1,3569 @@
+{
+  "generatedFrom": "preview build",
+  "thresholds": {
+    "highSimilarity": 0.6,
+    "mediumSimilarity": 0.4,
+    "highUnique": 0.2,
+    "mediumUnique": 0.35,
+    "minWords": {
+      "home": 400,
+      "pricing": 400,
+      "service": 600,
+      "service-city": 450,
+      "locality": 450
+    },
+    "minLocalNotes": 3,
+    "minLocalFaqs": 2
+  },
+  "pages": [
+    {
+      "path": "/",
+      "kind": "home",
+      "model": "both",
+      "service": null,
+      "city": null,
+      "status": "published",
+      "title": "MeeHelp – Hire Maids, Cooks & Nannies or Book Hourly Help",
+      "h1": "Hire a helper directly, or book help by the hour",
+      "metaDescription": "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book help by the hour — instantly or scheduled. Get the MeeHelp app.",
+      "wordCount": 1276,
+      "bodyWordCount": 1231,
+      "internalLinks": 27,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": null,
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "CTA wording not yet approved",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/pricing/",
+      "kind": "pricing",
+      "model": "marketplace",
+      "service": null,
+      "city": null,
+      "status": "review",
+      "title": "MeeHelp Plans – Contact Helpers Directly | MeeHelp",
+      "h1": "MeeHelp plans for contacting helpers",
+      "metaDescription": "Compare MeeHelp Home, Office and Business plans. Each plan gives you a set number of helper contacts so you can speak to and hire helpers directly.",
+      "wordCount": 666,
+      "bodyWordCount": 615,
+      "internalLinks": 1,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": null,
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/maid/",
+      "kind": "service",
+      "model": "marketplace",
+      "service": "maid",
+      "city": null,
+      "status": "review",
+      "title": "Maid Near You – Find & Hire House Help | MeeHelp",
+      "h1": "Find a maid or house help near you",
+      "metaDescription": "Find a maid or house help near you for cleaning, dishes and laundry. Review profiles, contact helpers directly and agree the salary yourself on MeeHelp.",
+      "wordCount": 1078,
+      "bodyWordCount": 917,
+      "internalLinks": 15,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 869,
+        "maxSimilarity": 0.39,
+        "mostSimilarTo": "/elder-care/",
+        "uniqueShare": 0.423,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/cook/",
+      "kind": "service",
+      "model": "marketplace",
+      "service": "cook",
+      "city": null,
+      "status": "review",
+      "title": "Cook Near You – Find & Hire a Home Cook | MeeHelp",
+      "h1": "Find a home cook near you",
+      "metaDescription": "Find a home cook near you for daily meals and tiffins — veg, non-veg or Jain. Contact cooks directly, try them out and hire the right one with MeeHelp.",
+      "wordCount": 1066,
+      "bodyWordCount": 902,
+      "internalLinks": 15,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 873,
+        "maxSimilarity": 0.376,
+        "mostSimilarTo": "/maid/",
+        "uniqueShare": 0.45,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/babysitter-nanny/",
+      "kind": "service",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": null,
+      "status": "review",
+      "title": "Babysitter & Nanny Near You – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny near you",
+      "metaDescription": "Find a babysitter or nanny near you. Review profiles, contact nannies directly, meet them and hire the right person for your child with MeeHelp.",
+      "wordCount": 1093,
+      "bodyWordCount": 928,
+      "internalLinks": 15,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 892,
+        "maxSimilarity": 0.381,
+        "mostSimilarTo": "/patient-care/",
+        "uniqueShare": 0.454,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/elder-care/",
+      "kind": "service",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": null,
+      "status": "review",
+      "title": "Elder Care at Home – Find an Attendant | MeeHelp",
+      "h1": "Elder care at home for your parents",
+      "metaDescription": "Find an elder care attendant for your parents at home — company, mobility help, personal care and medicine reminders. Contact attendants directly on MeeHelp.",
+      "wordCount": 1094,
+      "bodyWordCount": 927,
+      "internalLinks": 15,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 875,
+        "maxSimilarity": 0.39,
+        "mostSimilarTo": "/maid/",
+        "uniqueShare": 0.422,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/patient-care/",
+      "kind": "service",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": null,
+      "status": "review",
+      "title": "Patient Care at Home – Find a Patient Attendant | MeeHelp",
+      "h1": "Patient care attendants at home",
+      "metaDescription": "Find a patient care attendant for recovery after hospital, or for bedridden and limited-mobility patients. Contact attendants directly and hire on MeeHelp.",
+      "wordCount": 1076,
+      "bodyWordCount": 909,
+      "internalLinks": 15,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 864,
+        "maxSimilarity": 0.387,
+        "mostSimilarTo": "/elder-care/",
+        "uniqueShare": 0.419,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-maid/",
+      "kind": "service",
+      "model": "onDemand",
+      "service": "maid",
+      "city": null,
+      "status": "review",
+      "title": "Hourly Maid – Book House Help by the Hour | MeeHelp",
+      "h1": "Book an hourly maid for cleaning at home",
+      "metaDescription": "Book an hourly maid through the MeeHelp app — instantly or for a scheduled time — for cleaning, dishes, laundry or a thorough clean before guests arrive.",
+      "wordCount": 813,
+      "bodyWordCount": 712,
+      "internalLinks": 14,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 669,
+        "maxSimilarity": 0.367,
+        "mostSimilarTo": "/hourly-patient-care/",
+        "uniqueShare": 0.448,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-cook/",
+      "kind": "service",
+      "model": "onDemand",
+      "service": "cook",
+      "city": null,
+      "status": "review",
+      "title": "Hourly Cook – Book a Cook for a Meal or Party | MeeHelp",
+      "h1": "Book a cook by the hour",
+      "metaDescription": "Book a cook by the hour with MeeHelp — instantly or scheduled — for guests, festivals, a family meal or a few days of meal prep, cooked in your own kitchen.",
+      "wordCount": 772,
+      "bodyWordCount": 672,
+      "internalLinks": 14,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 629,
+        "maxSimilarity": 0.389,
+        "mostSimilarTo": "/hourly-elder-care/",
+        "uniqueShare": 0.415,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-babysitter/",
+      "kind": "service",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": null,
+      "status": "review",
+      "title": "Hourly Babysitter – Book Childcare by the Hour | MeeHelp",
+      "h1": "Book a babysitter by the hour",
+      "metaDescription": "Book a babysitter by the hour through the MeeHelp app — instantly or for a scheduled time — for an evening out, a work call or a busy day at home.",
+      "wordCount": 803,
+      "bodyWordCount": 699,
+      "internalLinks": 14,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 667,
+        "maxSimilarity": 0.363,
+        "mostSimilarTo": "/hourly-cook/",
+        "uniqueShare": 0.472,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-elder-care/",
+      "kind": "service",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": null,
+      "status": "review",
+      "title": "Hourly Elder Care at Home – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care at home",
+      "metaDescription": "Book an elder care attendant by the hour — instantly or scheduled — for company, mobility help or a trip to the doctor while you're away. Book on MeeHelp.",
+      "wordCount": 806,
+      "bodyWordCount": 705,
+      "internalLinks": 14,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 660,
+        "maxSimilarity": 0.389,
+        "mostSimilarTo": "/hourly-cook/",
+        "uniqueShare": 0.43,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-patient-care/",
+      "kind": "service",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": null,
+      "status": "review",
+      "title": "Hourly Patient Care – Book an Attendant at Home | MeeHelp",
+      "h1": "Hourly patient care attendants at home",
+      "metaDescription": "Book a patient care attendant by the hour on MeeHelp — instantly or scheduled — for help after a hospital discharge, personal care or a break for family carers.",
+      "wordCount": 791,
+      "bodyWordCount": 690,
+      "internalLinks": 14,
+      "localNotes": null,
+      "localFaqs": null,
+      "similarity": {
+        "shingles": 649,
+        "maxSimilarity": 0.367,
+        "mostSimilarTo": "/hourly-maid/",
+        "uniqueShare": 0.425,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": null,
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "App ratings/downloads not supplied"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/maid/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Maid Service in Mumbai – Find House Help Near You | MeeHelp",
+      "h1": "Maid service in Mumbai: house help that fits your building's routine",
+      "metaDescription": "Looking for a maid in Mumbai? Find part-time or full-time house help near your building for cleaning, dishes and laundry, through the MeeHelp app.",
+      "wordCount": 576,
+      "bodyWordCount": 442,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 439,
+        "maxSimilarity": 0.233,
+        "mostSimilarTo": "/maid/kolkata/",
+        "uniqueShare": 0.656,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 433,
+        "maxSimilarity": 0.287,
+        "mostSimilarTo": "/babysitter-nanny/mumbai/",
+        "uniqueShare": 0.587,
+        "risk": "low"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/maid/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Maid Service in Delhi NCR – House Help Near You | MeeHelp",
+      "h1": "Maid service in Delhi NCR, from independent floors to gated societies",
+      "metaDescription": "Find a maid in Delhi, Gurugram or Noida for daily cleaning, dishes and laundry. Part-time or full-time house help near you through the MeeHelp app.",
+      "wordCount": 596,
+      "bodyWordCount": 454,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 442,
+        "maxSimilarity": 0.228,
+        "mostSimilarTo": "/maid/kolkata/",
+        "uniqueShare": 0.665,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 435,
+        "maxSimilarity": 0.279,
+        "mostSimilarTo": "/cook/delhi-ncr/",
+        "uniqueShare": 0.609,
+        "risk": "low"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/maid/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Maid in Bengaluru – Find & Hire House Help Directly | MeeHelp",
+      "h1": "Find a maid in Bengaluru",
+      "metaDescription": "Find a maid in Bengaluru. Contact house help directly, agree the work and salary yourself and arrange a trial on MeeHelp.",
+      "wordCount": 421,
+      "bodyWordCount": 292,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 287,
+        "maxSimilarity": 0.584,
+        "mostSimilarTo": "/maid/kolkata/",
+        "uniqueShare": 0.199,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 280,
+        "maxSimilarity": 0.486,
+        "mostSimilarTo": "/cook/bengaluru/",
+        "uniqueShare": 0.296,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 421 words of main content (minimum 450)",
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.584 with /maid/kolkata/, unique share 0.199"
+      ]
+    },
+    {
+      "path": "/maid/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Maid in Hyderabad – Find & Hire House Help Directly | MeeHelp",
+      "h1": "Find a maid in Hyderabad",
+      "metaDescription": "Find a maid in Hyderabad and Secunderabad. Contact house help directly, agree the work and salary yourself and arrange a trial on MeeHelp.",
+      "wordCount": 440,
+      "bodyWordCount": 309,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 303,
+        "maxSimilarity": 0.674,
+        "mostSimilarTo": "/maid/ahmedabad/",
+        "uniqueShare": 0.191,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 296,
+        "maxSimilarity": 0.549,
+        "mostSimilarTo": "/babysitter-nanny/hyderabad/",
+        "uniqueShare": 0.294,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 440 words of main content (minimum 450)",
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.674 with /maid/ahmedabad/, unique share 0.191"
+      ]
+    },
+    {
+      "path": "/maid/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "chennai",
+      "status": "review",
+      "title": "Maid in Chennai – Find & Hire House Help Directly | MeeHelp",
+      "h1": "Find a maid in Chennai",
+      "metaDescription": "Find a maid in Chennai. Contact house help directly, agree the work and salary yourself and arrange a trial on MeeHelp.",
+      "wordCount": 467,
+      "bodyWordCount": 338,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 337,
+        "maxSimilarity": 0.572,
+        "mostSimilarTo": "/maid/bengaluru/",
+        "uniqueShare": 0.312,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 330,
+        "maxSimilarity": 0.601,
+        "mostSimilarTo": "/babysitter-nanny/chennai/",
+        "uniqueShare": 0.23,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.601 with /babysitter-nanny/chennai/"
+      ]
+    },
+    {
+      "path": "/maid/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "pune",
+      "status": "review",
+      "title": "Maid in Pune – Find & Hire House Help Directly | MeeHelp",
+      "h1": "Find a maid in Pune",
+      "metaDescription": "Find a maid in Pune and Pimpri-Chinchwad. Contact house help directly, agree the work and salary yourself and arrange a trial on MeeHelp.",
+      "wordCount": 440,
+      "bodyWordCount": 309,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 299,
+        "maxSimilarity": 0.604,
+        "mostSimilarTo": "/maid/kolkata/",
+        "uniqueShare": 0.244,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 292,
+        "maxSimilarity": 0.46,
+        "mostSimilarTo": "/cook/pune/",
+        "uniqueShare": 0.356,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 440 words of main content (minimum 450)",
+        "Doorway risk — same service in other cities: similarity 0.604 with /maid/kolkata/, unique share 0.244"
+      ]
+    },
+    {
+      "path": "/maid/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Maid in Kolkata – Find & Hire House Help Directly | MeeHelp",
+      "h1": "Find a maid in Kolkata",
+      "metaDescription": "Find a maid in Kolkata, Salt Lake and New Town. Contact house help directly, agree the work and salary yourself and arrange a trial on MeeHelp.",
+      "wordCount": 428,
+      "bodyWordCount": 294,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 280,
+        "maxSimilarity": 0.61,
+        "mostSimilarTo": "/maid/ahmedabad/",
+        "uniqueShare": 0.2,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 273,
+        "maxSimilarity": 0.505,
+        "mostSimilarTo": "/babysitter-nanny/kolkata/",
+        "uniqueShare": 0.293,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 428 words of main content (minimum 450)",
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.61 with /maid/ahmedabad/, unique share 0.2"
+      ]
+    },
+    {
+      "path": "/maid/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "maid",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Maid in Ahmedabad – Find & Hire House Help Directly | MeeHelp",
+      "h1": "Find a maid in Ahmedabad",
+      "metaDescription": "Find a maid in Ahmedabad and Gandhinagar. Contact house help directly, agree the work and salary yourself and arrange a trial on MeeHelp.",
+      "wordCount": 432,
+      "bodyWordCount": 301,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 293,
+        "maxSimilarity": 0.674,
+        "mostSimilarTo": "/maid/hyderabad/",
+        "uniqueShare": 0.157,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 286,
+        "maxSimilarity": 0.55,
+        "mostSimilarTo": "/babysitter-nanny/ahmedabad/",
+        "uniqueShare": 0.283,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 432 words of main content (minimum 450)",
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.674 with /maid/hyderabad/, unique share 0.157"
+      ]
+    },
+    {
+      "path": "/cook/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Cook in Mumbai – Hire a Home Cook Near You | MeeHelp",
+      "h1": "Home cooks in Mumbai for everyday family meals",
+      "metaDescription": "Hire a home cook in Mumbai for breakfast, tiffins or dinner — veg, non-veg, Gujarati or Jain food. Find cooks near you through the MeeHelp app.",
+      "wordCount": 581,
+      "bodyWordCount": 451,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 446,
+        "maxSimilarity": 0.218,
+        "mostSimilarTo": "/cook/pune/",
+        "uniqueShare": 0.693,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 441,
+        "maxSimilarity": 0.282,
+        "mostSimilarTo": "/babysitter-nanny/mumbai/",
+        "uniqueShare": 0.596,
+        "risk": "low"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/cook/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Cook in Delhi NCR – Hire a Home Cook Directly | MeeHelp",
+      "h1": "Find a home cook in Delhi NCR",
+      "metaDescription": "Hire a home cook in Delhi, Gurugram and Noida for North Indian and Punjabi meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "wordCount": 502,
+      "bodyWordCount": 362,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 343,
+        "maxSimilarity": 0.48,
+        "mostSimilarTo": "/cook/pune/",
+        "uniqueShare": 0.382,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 340,
+        "maxSimilarity": 0.536,
+        "mostSimilarTo": "/babysitter-nanny/delhi-ncr/",
+        "uniqueShare": 0.3,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/cook/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Cook in Bengaluru – Hire a Home Cook Directly | MeeHelp",
+      "h1": "Find a home cook in Bengaluru",
+      "metaDescription": "Hire a home cook in Bengaluru for South Indian, North Indian and everyday family meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "wordCount": 450,
+      "bodyWordCount": 322,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 315,
+        "maxSimilarity": 0.478,
+        "mostSimilarTo": "/cook/chennai/",
+        "uniqueShare": 0.283,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 313,
+        "maxSimilarity": 0.486,
+        "mostSimilarTo": "/maid/bengaluru/",
+        "uniqueShare": 0.374,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/cook/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Cook in Hyderabad – Hire a Home Cook Directly | MeeHelp",
+      "h1": "Find a home cook in Hyderabad",
+      "metaDescription": "Hire a home cook in Hyderabad and Secunderabad for Hyderabadi, Andhra and North Indian meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "wordCount": 465,
+      "bodyWordCount": 335,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 329,
+        "maxSimilarity": 0.579,
+        "mostSimilarTo": "/cook/pune/",
+        "uniqueShare": 0.237,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 326,
+        "maxSimilarity": 0.498,
+        "mostSimilarTo": "/babysitter-nanny/hyderabad/",
+        "uniqueShare": 0.368,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/cook/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "chennai",
+      "status": "review",
+      "title": "Cook in Chennai – Hire a Home Cook Directly | MeeHelp",
+      "h1": "Find a home cook in Chennai",
+      "metaDescription": "Hire a home cook in Chennai for South Indian vegetarian and Chettinad meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "wordCount": 507,
+      "bodyWordCount": 379,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 375,
+        "maxSimilarity": 0.478,
+        "mostSimilarTo": "/cook/bengaluru/",
+        "uniqueShare": 0.373,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 372,
+        "maxSimilarity": 0.543,
+        "mostSimilarTo": "/maid/chennai/",
+        "uniqueShare": 0.336,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/cook/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "pune",
+      "status": "review",
+      "title": "Cook in Pune – Hire a Home Cook Directly | MeeHelp",
+      "h1": "Find a home cook in Pune",
+      "metaDescription": "Hire a home cook in Pune and Pimpri-Chinchwad for Maharashtrian and North Indian meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "wordCount": 437,
+      "bodyWordCount": 307,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 298,
+        "maxSimilarity": 0.585,
+        "mostSimilarTo": "/cook/kolkata/",
+        "uniqueShare": 0.195,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 295,
+        "maxSimilarity": 0.46,
+        "mostSimilarTo": "/maid/pune/",
+        "uniqueShare": 0.369,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 437 words of main content (minimum 450)",
+        "Doorway risk — same service in other cities: similarity 0.585 with /cook/kolkata/, unique share 0.195"
+      ]
+    },
+    {
+      "path": "/cook/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Cook in Kolkata – Hire a Home Cook Directly | MeeHelp",
+      "h1": "Find a home cook in Kolkata",
+      "metaDescription": "Hire a home cook in Kolkata, Salt Lake and New Town for Bengali and Marwari vegetarian meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "wordCount": 463,
+      "bodyWordCount": 330,
+      "internalLinks": 16,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 314,
+        "maxSimilarity": 0.585,
+        "mostSimilarTo": "/cook/pune/",
+        "uniqueShare": 0.248,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 311,
+        "maxSimilarity": 0.482,
+        "mostSimilarTo": "/maid/kolkata/",
+        "uniqueShare": 0.386,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/cook/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "cook",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Cook in Ahmedabad – Hire a Home Cook Directly | MeeHelp",
+      "h1": "Find a home cook in Ahmedabad",
+      "metaDescription": "Hire a home cook in Ahmedabad and Gandhinagar for Gujarati vegetarian and Jain meals. Contact cooks directly and agree the salary on MeeHelp.",
+      "wordCount": 472,
+      "bodyWordCount": 342,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 329,
+        "maxSimilarity": 0.57,
+        "mostSimilarTo": "/cook/hyderabad/",
+        "uniqueShare": 0.246,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 326,
+        "maxSimilarity": 0.493,
+        "mostSimilarTo": "/maid/ahmedabad/",
+        "uniqueShare": 0.38,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/babysitter-nanny/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Nanny & Babysitter in Mumbai – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Mumbai & MMR",
+      "metaDescription": "Find a babysitter or nanny in Mumbai, Thane and Navi Mumbai. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 517,
+      "bodyWordCount": 381,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 362,
+        "maxSimilarity": 0.56,
+        "mostSimilarTo": "/babysitter-nanny/kolkata/",
+        "uniqueShare": 0.326,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 351,
+        "maxSimilarity": 0.516,
+        "mostSimilarTo": "/elder-care/mumbai/",
+        "uniqueShare": 0.271,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/babysitter-nanny/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Nanny & Babysitter in Delhi NCR – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Delhi NCR",
+      "metaDescription": "Find a babysitter or nanny in Delhi, Gurugram and Noida. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 522,
+      "bodyWordCount": 378,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 356,
+        "maxSimilarity": 0.546,
+        "mostSimilarTo": "/babysitter-nanny/kolkata/",
+        "uniqueShare": 0.343,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 342,
+        "maxSimilarity": 0.54,
+        "mostSimilarTo": "/elder-care/delhi-ncr/",
+        "uniqueShare": 0.249,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/babysitter-nanny/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Nanny & Babysitter in Bengaluru – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Bengaluru",
+      "metaDescription": "Find a babysitter or nanny in Bengaluru. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 477,
+      "bodyWordCount": 345,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 344,
+        "maxSimilarity": 0.54,
+        "mostSimilarTo": "/babysitter-nanny/pune/",
+        "uniqueShare": 0.267,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 333,
+        "maxSimilarity": 0.537,
+        "mostSimilarTo": "/patient-care/bengaluru/",
+        "uniqueShare": 0.255,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/babysitter-nanny/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Nanny & Babysitter in Hyderabad – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Hyderabad",
+      "metaDescription": "Find a babysitter or nanny in Hyderabad and Secunderabad. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 440,
+      "bodyWordCount": 306,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 299,
+        "maxSimilarity": 0.698,
+        "mostSimilarTo": "/babysitter-nanny/ahmedabad/",
+        "uniqueShare": 0.174,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 288,
+        "maxSimilarity": 0.549,
+        "mostSimilarTo": "/maid/hyderabad/",
+        "uniqueShare": 0.281,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 440 words of main content (minimum 450)",
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.698 with /babysitter-nanny/ahmedabad/, unique share 0.174"
+      ]
+    },
+    {
+      "path": "/babysitter-nanny/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "chennai",
+      "status": "review",
+      "title": "Nanny & Babysitter in Chennai – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Chennai",
+      "metaDescription": "Find a babysitter or nanny in Chennai. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 478,
+      "bodyWordCount": 346,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 347,
+        "maxSimilarity": 0.499,
+        "mostSimilarTo": "/babysitter-nanny/bengaluru/",
+        "uniqueShare": 0.311,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 336,
+        "maxSimilarity": 0.601,
+        "mostSimilarTo": "/maid/chennai/",
+        "uniqueShare": 0.244,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.601 with /maid/chennai/"
+      ]
+    },
+    {
+      "path": "/babysitter-nanny/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "pune",
+      "status": "review",
+      "title": "Nanny & Babysitter in Pune – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Pune",
+      "metaDescription": "Find a babysitter or nanny in Pune and Pimpri-Chinchwad. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 446,
+      "bodyWordCount": 312,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 306,
+        "maxSimilarity": 0.661,
+        "mostSimilarTo": "/babysitter-nanny/ahmedabad/",
+        "uniqueShare": 0.17,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 295,
+        "maxSimilarity": 0.506,
+        "mostSimilarTo": "/elder-care/pune/",
+        "uniqueShare": 0.298,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 446 words of main content (minimum 450)",
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.661 with /babysitter-nanny/ahmedabad/, unique share 0.17"
+      ]
+    },
+    {
+      "path": "/babysitter-nanny/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Nanny & Babysitter in Kolkata – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Kolkata",
+      "metaDescription": "Find a babysitter or nanny in Kolkata, Salt Lake and New Town. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 455,
+      "bodyWordCount": 318,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 304,
+        "maxSimilarity": 0.629,
+        "mostSimilarTo": "/babysitter-nanny/ahmedabad/",
+        "uniqueShare": 0.171,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 293,
+        "maxSimilarity": 0.505,
+        "mostSimilarTo": "/maid/kolkata/",
+        "uniqueShare": 0.273,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.629 with /babysitter-nanny/ahmedabad/, unique share 0.171"
+      ]
+    },
+    {
+      "path": "/babysitter-nanny/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "babysitter-nanny",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Nanny & Babysitter in Ahmedabad – Find and Hire | MeeHelp",
+      "h1": "Find a babysitter or nanny in Ahmedabad",
+      "metaDescription": "Find a babysitter or nanny in Ahmedabad and Gandhinagar. Speak to nannies directly, meet them and agree hours and salary on MeeHelp.",
+      "wordCount": 439,
+      "bodyWordCount": 305,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 297,
+        "maxSimilarity": 0.698,
+        "mostSimilarTo": "/babysitter-nanny/hyderabad/",
+        "uniqueShare": 0.138,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 286,
+        "maxSimilarity": 0.55,
+        "mostSimilarTo": "/maid/ahmedabad/",
+        "uniqueShare": 0.29,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 439 words of main content (minimum 450)",
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.698 with /babysitter-nanny/hyderabad/, unique share 0.138"
+      ]
+    },
+    {
+      "path": "/elder-care/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Elder Care in Mumbai – Find an Attendant at Home | MeeHelp",
+      "h1": "Elder care attendants in Mumbai & MMR",
+      "metaDescription": "Find an elder care attendant in Mumbai, Thane and Navi Mumbai for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
+      "wordCount": 568,
+      "bodyWordCount": 427,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 412,
+        "maxSimilarity": 0.479,
+        "mostSimilarTo": "/elder-care/pune/",
+        "uniqueShare": 0.386,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 398,
+        "maxSimilarity": 0.78,
+        "mostSimilarTo": "/patient-care/mumbai/",
+        "uniqueShare": 0.121,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.78 with /patient-care/mumbai/"
+      ]
+    },
+    {
+      "path": "/elder-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Elder Care in Delhi NCR – Find an Attendant at Home | MeeHelp",
+      "h1": "Elder care attendants in Delhi NCR",
+      "metaDescription": "Find an elder care attendant in Delhi, Gurugram and Noida for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
+      "wordCount": 564,
+      "bodyWordCount": 415,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 402,
+        "maxSimilarity": 0.465,
+        "mostSimilarTo": "/elder-care/pune/",
+        "uniqueShare": 0.393,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 388,
+        "maxSimilarity": 0.774,
+        "mostSimilarTo": "/patient-care/delhi-ncr/",
+        "uniqueShare": 0.124,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.774 with /patient-care/delhi-ncr/"
+      ]
+    },
+    {
+      "path": "/elder-care/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Elder Care at Home in Bengaluru – Attendants | MeeHelp",
+      "h1": "Elder care at home in Bengaluru for parents living with or near you",
+      "metaDescription": "Find an elder care attendant in Bengaluru for company, mobility help, personal care and medicine reminders at home. Connect through MeeHelp.",
+      "wordCount": 611,
+      "bodyWordCount": 473,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 474,
+        "maxSimilarity": 0.311,
+        "mostSimilarTo": "/elder-care/pune/",
+        "uniqueShare": 0.589,
+        "risk": "low"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 459,
+        "maxSimilarity": 0.426,
+        "mostSimilarTo": "/patient-care/bengaluru/",
+        "uniqueShare": 0.464,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/elder-care/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Elder Care in Hyderabad – Find an Attendant at Home | MeeHelp",
+      "h1": "Elder care attendants in Hyderabad",
+      "metaDescription": "Find an elder care attendant in Hyderabad and Secunderabad for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
+      "wordCount": 472,
+      "bodyWordCount": 333,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 331,
+        "maxSimilarity": 0.717,
+        "mostSimilarTo": "/elder-care/ahmedabad/",
+        "uniqueShare": 0.172,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 317,
+        "maxSimilarity": 0.731,
+        "mostSimilarTo": "/patient-care/hyderabad/",
+        "uniqueShare": 0.151,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.717 with /elder-care/ahmedabad/, unique share 0.172",
+        "Template overlap — other services in this city: similarity 0.731 with /patient-care/hyderabad/"
+      ]
+    },
+    {
+      "path": "/elder-care/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "chennai",
+      "status": "review",
+      "title": "Elder Care in Chennai – Find an Attendant at Home | MeeHelp",
+      "h1": "Elder care attendants in Chennai",
+      "metaDescription": "Find an elder care attendant in Chennai for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
+      "wordCount": 476,
+      "bodyWordCount": 339,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 341,
+        "maxSimilarity": 0.469,
+        "mostSimilarTo": "/elder-care/ahmedabad/",
+        "uniqueShare": 0.358,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 330,
+        "maxSimilarity": 0.74,
+        "mostSimilarTo": "/patient-care/chennai/",
+        "uniqueShare": 0.145,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.74 with /patient-care/chennai/"
+      ]
+    },
+    {
+      "path": "/elder-care/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "pune",
+      "status": "review",
+      "title": "Elder Care in Pune – Find an Attendant at Home | MeeHelp",
+      "h1": "Elder care attendants in Pune",
+      "metaDescription": "Find an elder care attendant in Pune and Pimpri-Chinchwad for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
+      "wordCount": 464,
+      "bodyWordCount": 325,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 323,
+        "maxSimilarity": 0.542,
+        "mostSimilarTo": "/elder-care/ahmedabad/",
+        "uniqueShare": 0.198,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 309,
+        "maxSimilarity": 0.725,
+        "mostSimilarTo": "/patient-care/pune/",
+        "uniqueShare": 0.155,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.542 with /elder-care/ahmedabad/, unique share 0.198",
+        "Template overlap — other services in this city: similarity 0.725 with /patient-care/pune/"
+      ]
+    },
+    {
+      "path": "/elder-care/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Elder Care in Kolkata – Find an Attendant at Home | MeeHelp",
+      "h1": "Elder care attendants in Kolkata",
+      "metaDescription": "Find an elder care attendant in Kolkata, Salt Lake and New Town for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
+      "wordCount": 510,
+      "bodyWordCount": 368,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 357,
+        "maxSimilarity": 0.521,
+        "mostSimilarTo": "/elder-care/pune/",
+        "uniqueShare": 0.286,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 342,
+        "maxSimilarity": 0.748,
+        "mostSimilarTo": "/patient-care/kolkata/",
+        "uniqueShare": 0.14,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.748 with /patient-care/kolkata/"
+      ]
+    },
+    {
+      "path": "/elder-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "elder-care",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Elder Care in Ahmedabad – Find an Attendant at Home | MeeHelp",
+      "h1": "Elder care attendants in Ahmedabad",
+      "metaDescription": "Find an elder care attendant in Ahmedabad and Gandhinagar for company, mobility help and daily routines at home. Contact attendants directly on MeeHelp.",
+      "wordCount": 465,
+      "bodyWordCount": 326,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 323,
+        "maxSimilarity": 0.717,
+        "mostSimilarTo": "/elder-care/hyderabad/",
+        "uniqueShare": 0.136,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 309,
+        "maxSimilarity": 0.725,
+        "mostSimilarTo": "/patient-care/ahmedabad/",
+        "uniqueShare": 0.155,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.717 with /elder-care/hyderabad/, unique share 0.136",
+        "Template overlap — other services in this city: similarity 0.725 with /patient-care/ahmedabad/"
+      ]
+    },
+    {
+      "path": "/patient-care/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Patient Attendant in Mumbai – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Mumbai & MMR",
+      "metaDescription": "Find a patient care attendant in Mumbai, Thane and Navi Mumbai for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 570,
+      "bodyWordCount": 429,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 415,
+        "maxSimilarity": 0.482,
+        "mostSimilarTo": "/patient-care/pune/",
+        "uniqueShare": 0.383,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 401,
+        "maxSimilarity": 0.78,
+        "mostSimilarTo": "/elder-care/mumbai/",
+        "uniqueShare": 0.127,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.78 with /elder-care/mumbai/"
+      ]
+    },
+    {
+      "path": "/patient-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Patient Attendant in Delhi NCR – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Delhi NCR",
+      "metaDescription": "Find a patient care attendant in Delhi, Gurugram and Noida for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 566,
+      "bodyWordCount": 417,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 405,
+        "maxSimilarity": 0.468,
+        "mostSimilarTo": "/patient-care/pune/",
+        "uniqueShare": 0.39,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 391,
+        "maxSimilarity": 0.774,
+        "mostSimilarTo": "/elder-care/delhi-ncr/",
+        "uniqueShare": 0.128,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.774 with /elder-care/delhi-ncr/"
+      ]
+    },
+    {
+      "path": "/patient-care/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Patient Attendant in Bengaluru – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Bengaluru",
+      "metaDescription": "Find a patient care attendant in Bengaluru for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 513,
+      "bodyWordCount": 376,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 376,
+        "maxSimilarity": 0.5,
+        "mostSimilarTo": "/patient-care/pune/",
+        "uniqueShare": 0.309,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 365,
+        "maxSimilarity": 0.537,
+        "mostSimilarTo": "/babysitter-nanny/bengaluru/",
+        "uniqueShare": 0.162,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.537 with /babysitter-nanny/bengaluru/"
+      ]
+    },
+    {
+      "path": "/patient-care/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Patient Attendant in Hyderabad – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Hyderabad",
+      "metaDescription": "Find a patient care attendant in Hyderabad and Secunderabad for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 474,
+      "bodyWordCount": 335,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 334,
+        "maxSimilarity": 0.719,
+        "mostSimilarTo": "/patient-care/ahmedabad/",
+        "uniqueShare": 0.171,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 320,
+        "maxSimilarity": 0.731,
+        "mostSimilarTo": "/elder-care/hyderabad/",
+        "uniqueShare": 0.159,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.719 with /patient-care/ahmedabad/, unique share 0.171",
+        "Template overlap — other services in this city: similarity 0.731 with /elder-care/hyderabad/"
+      ]
+    },
+    {
+      "path": "/patient-care/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "chennai",
+      "status": "review",
+      "title": "Patient Attendant in Chennai – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Chennai",
+      "metaDescription": "Find a patient care attendant in Chennai for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 478,
+      "bodyWordCount": 341,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 344,
+        "maxSimilarity": 0.473,
+        "mostSimilarTo": "/patient-care/ahmedabad/",
+        "uniqueShare": 0.297,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 333,
+        "maxSimilarity": 0.74,
+        "mostSimilarTo": "/elder-care/chennai/",
+        "uniqueShare": 0.153,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.74 with /elder-care/chennai/"
+      ]
+    },
+    {
+      "path": "/patient-care/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "pune",
+      "status": "review",
+      "title": "Patient Attendant in Pune – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Pune",
+      "metaDescription": "Find a patient care attendant in Pune and Pimpri-Chinchwad for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 466,
+      "bodyWordCount": 327,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 1,
+      "similarity": {
+        "shingles": 326,
+        "maxSimilarity": 0.545,
+        "mostSimilarTo": "/patient-care/ahmedabad/",
+        "uniqueShare": 0.196,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 312,
+        "maxSimilarity": 0.725,
+        "mostSimilarTo": "/elder-care/pune/",
+        "uniqueShare": 0.163,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Only 1 local FAQ (minimum 2)",
+        "Doorway risk — same service in other cities: similarity 0.545 with /patient-care/ahmedabad/, unique share 0.196",
+        "Template overlap — other services in this city: similarity 0.725 with /elder-care/pune/"
+      ]
+    },
+    {
+      "path": "/patient-care/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Patient Attendant in Kolkata – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Kolkata",
+      "metaDescription": "Find a patient care attendant in Kolkata, Salt Lake and New Town for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 512,
+      "bodyWordCount": 370,
+      "internalLinks": 16,
+      "localNotes": 5,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 360,
+        "maxSimilarity": 0.524,
+        "mostSimilarTo": "/patient-care/pune/",
+        "uniqueShare": 0.283,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 345,
+        "maxSimilarity": 0.748,
+        "mostSimilarTo": "/elder-care/kolkata/",
+        "uniqueShare": 0.148,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.748 with /elder-care/kolkata/"
+      ]
+    },
+    {
+      "path": "/patient-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "service": "patient-care",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Patient Attendant in Ahmedabad – Care at Home | MeeHelp",
+      "h1": "Patient care attendants in Ahmedabad",
+      "metaDescription": "Find a patient care attendant in Ahmedabad and Gandhinagar for recovery at home. Contact attendants directly and agree shifts and salary on MeeHelp.",
+      "wordCount": 467,
+      "bodyWordCount": 328,
+      "internalLinks": 16,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 326,
+        "maxSimilarity": 0.719,
+        "mostSimilarTo": "/patient-care/hyderabad/",
+        "uniqueShare": 0.135,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 312,
+        "maxSimilarity": 0.725,
+        "mostSimilarTo": "/elder-care/ahmedabad/",
+        "uniqueShare": 0.163,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.719 with /patient-care/hyderabad/, unique share 0.135",
+        "Template overlap — other services in this city: similarity 0.725 with /elder-care/ahmedabad/"
+      ]
+    },
+    {
+      "path": "/hourly-maid/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Hourly Maid in Mumbai – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Mumbai & MMR",
+      "metaDescription": "Book an hourly maid in Mumbai, Thane and Navi Mumbai with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Ganesh Chaturthi.",
+      "wordCount": 538,
+      "bodyWordCount": 392,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 373,
+        "maxSimilarity": 0.535,
+        "mostSimilarTo": "/hourly-maid/kolkata/",
+        "uniqueShare": 0.276,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 364,
+        "maxSimilarity": 0.602,
+        "mostSimilarTo": "/hourly-cook/mumbai/",
+        "uniqueShare": 0.223,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.602 with /hourly-cook/mumbai/"
+      ]
+    },
+    {
+      "path": "/hourly-maid/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Hourly Maid in Delhi NCR – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Delhi NCR",
+      "metaDescription": "Book an hourly maid in Delhi, Gurugram and Noida with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Diwali.",
+      "wordCount": 528,
+      "bodyWordCount": 374,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 354,
+        "maxSimilarity": 0.614,
+        "mostSimilarTo": "/hourly-maid/hyderabad/",
+        "uniqueShare": 0.218,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 345,
+        "maxSimilarity": 0.565,
+        "mostSimilarTo": "/hourly-babysitter/delhi-ncr/",
+        "uniqueShare": 0.293,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.614 with /hourly-maid/hyderabad/, unique share 0.218"
+      ]
+    },
+    {
+      "path": "/hourly-maid/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Hourly Maid in Bengaluru – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Bengaluru",
+      "metaDescription": "Book an hourly maid in Bengaluru with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Ugadi.",
+      "wordCount": 496,
+      "bodyWordCount": 354,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 344,
+        "maxSimilarity": 0.554,
+        "mostSimilarTo": "/hourly-maid/chennai/",
+        "uniqueShare": 0.218,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 333,
+        "maxSimilarity": 0.539,
+        "mostSimilarTo": "/hourly-cook/bengaluru/",
+        "uniqueShare": 0.24,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-maid/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Hourly Maid in Hyderabad – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Hyderabad",
+      "metaDescription": "Book an hourly maid in Hyderabad and Secunderabad with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Sankranti.",
+      "wordCount": 493,
+      "bodyWordCount": 349,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 337,
+        "maxSimilarity": 0.624,
+        "mostSimilarTo": "/hourly-maid/ahmedabad/",
+        "uniqueShare": 0.166,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 328,
+        "maxSimilarity": 0.541,
+        "mostSimilarTo": "/hourly-babysitter/hyderabad/",
+        "uniqueShare": 0.317,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.624 with /hourly-maid/ahmedabad/, unique share 0.166"
+      ]
+    },
+    {
+      "path": "/hourly-maid/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "chennai",
+      "status": "review",
+      "title": "Hourly Maid in Chennai – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Chennai",
+      "metaDescription": "Book an hourly maid in Chennai with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Pongal.",
+      "wordCount": 477,
+      "bodyWordCount": 335,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 335,
+        "maxSimilarity": 0.554,
+        "mostSimilarTo": "/hourly-maid/bengaluru/",
+        "uniqueShare": 0.251,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 324,
+        "maxSimilarity": 0.559,
+        "mostSimilarTo": "/hourly-elder-care/chennai/",
+        "uniqueShare": 0.287,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-maid/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "pune",
+      "status": "review",
+      "title": "Hourly Maid in Pune – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Pune",
+      "metaDescription": "Book an hourly maid in Pune and Pimpri-Chinchwad with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Ganeshotsav.",
+      "wordCount": 481,
+      "bodyWordCount": 337,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 329,
+        "maxSimilarity": 0.628,
+        "mostSimilarTo": "/hourly-maid/ahmedabad/",
+        "uniqueShare": 0.195,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 320,
+        "maxSimilarity": 0.556,
+        "mostSimilarTo": "/hourly-babysitter/pune/",
+        "uniqueShare": 0.281,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.628 with /hourly-maid/ahmedabad/, unique share 0.195"
+      ]
+    },
+    {
+      "path": "/hourly-maid/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Hourly Maid in Kolkata – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Kolkata",
+      "metaDescription": "Book an hourly maid in Kolkata, Salt Lake and New Town with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Durga Puja.",
+      "wordCount": 495,
+      "bodyWordCount": 348,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 333,
+        "maxSimilarity": 0.646,
+        "mostSimilarTo": "/hourly-maid/ahmedabad/",
+        "uniqueShare": 0.168,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 324,
+        "maxSimilarity": 0.55,
+        "mostSimilarTo": "/hourly-babysitter/kolkata/",
+        "uniqueShare": 0.302,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.646 with /hourly-maid/ahmedabad/, unique share 0.168"
+      ]
+    },
+    {
+      "path": "/hourly-maid/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "maid",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Hourly Maid in Ahmedabad – Instant or Scheduled | MeeHelp",
+      "h1": "Book an hourly maid in Ahmedabad",
+      "metaDescription": "Book an hourly maid in Ahmedabad and Gandhinagar with MeeHelp — instantly or scheduled — for cleaning, laundry or a thorough clean before Navratri.",
+      "wordCount": 485,
+      "bodyWordCount": 341,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 332,
+        "maxSimilarity": 0.646,
+        "mostSimilarTo": "/hourly-maid/kolkata/",
+        "uniqueShare": 0.142,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 323,
+        "maxSimilarity": 0.548,
+        "mostSimilarTo": "/hourly-babysitter/ahmedabad/",
+        "uniqueShare": 0.303,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.646 with /hourly-maid/kolkata/, unique share 0.142"
+      ]
+    },
+    {
+      "path": "/hourly-cook/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Hourly Cook in Mumbai – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Mumbai & MMR",
+      "metaDescription": "Book a cook by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — for guests, Ganesh Chaturthi cooking or a family meal on MeeHelp.",
+      "wordCount": 563,
+      "bodyWordCount": 415,
+      "internalLinks": 15,
+      "localNotes": 5,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 392,
+        "maxSimilarity": 0.46,
+        "mostSimilarTo": "/hourly-cook/delhi-ncr/",
+        "uniqueShare": 0.309,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 381,
+        "maxSimilarity": 0.602,
+        "mostSimilarTo": "/hourly-maid/mumbai/",
+        "uniqueShare": 0.239,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.602 with /hourly-maid/mumbai/"
+      ]
+    },
+    {
+      "path": "/hourly-cook/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Hourly Cook in Delhi NCR – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Delhi NCR",
+      "metaDescription": "Book a cook by the hour in Delhi, Gurugram and Noida — instantly or scheduled — for guests, Diwali cooking or a family meal on MeeHelp.",
+      "wordCount": 544,
+      "bodyWordCount": 388,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 360,
+        "maxSimilarity": 0.503,
+        "mostSimilarTo": "/hourly-cook/hyderabad/",
+        "uniqueShare": 0.286,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 348,
+        "maxSimilarity": 0.599,
+        "mostSimilarTo": "/hourly-babysitter/delhi-ncr/",
+        "uniqueShare": 0.279,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-cook/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Hourly Cook in Bengaluru – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Bengaluru",
+      "metaDescription": "Book a cook by the hour in Bengaluru — instantly or scheduled — for guests, Ugadi cooking or a family meal on MeeHelp.",
+      "wordCount": 555,
+      "bodyWordCount": 411,
+      "internalLinks": 15,
+      "localNotes": 5,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 394,
+        "maxSimilarity": 0.45,
+        "mostSimilarTo": "/hourly-cook/mumbai/",
+        "uniqueShare": 0.317,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 381,
+        "maxSimilarity": 0.539,
+        "mostSimilarTo": "/hourly-maid/bengaluru/",
+        "uniqueShare": 0.318,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-cook/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Hourly Cook in Hyderabad – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Hyderabad",
+      "metaDescription": "Book a cook by the hour in Hyderabad and Secunderabad — instantly or scheduled — for guests, Sankranti cooking or a family meal on MeeHelp.",
+      "wordCount": 526,
+      "bodyWordCount": 380,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 363,
+        "maxSimilarity": 0.566,
+        "mostSimilarTo": "/hourly-cook/ahmedabad/",
+        "uniqueShare": 0.223,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 350,
+        "maxSimilarity": 0.535,
+        "mostSimilarTo": "/hourly-babysitter/hyderabad/",
+        "uniqueShare": 0.351,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-cook/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "chennai",
+      "status": "review",
+      "title": "Hourly Cook in Chennai – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Chennai",
+      "metaDescription": "Book a cook by the hour in Chennai — instantly or scheduled — for guests, Pongal cooking or a family meal on MeeHelp.",
+      "wordCount": 523,
+      "bodyWordCount": 379,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 371,
+        "maxSimilarity": 0.473,
+        "mostSimilarTo": "/hourly-cook/pune/",
+        "uniqueShare": 0.318,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 356,
+        "maxSimilarity": 0.533,
+        "mostSimilarTo": "/hourly-babysitter/chennai/",
+        "uniqueShare": 0.343,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-cook/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "pune",
+      "status": "review",
+      "title": "Hourly Cook in Pune – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Pune",
+      "metaDescription": "Book a cook by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — for guests, Ganeshotsav cooking or a family meal on MeeHelp.",
+      "wordCount": 519,
+      "bodyWordCount": 373,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 358,
+        "maxSimilarity": 0.564,
+        "mostSimilarTo": "/hourly-cook/hyderabad/",
+        "uniqueShare": 0.221,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 345,
+        "maxSimilarity": 0.564,
+        "mostSimilarTo": "/hourly-babysitter/pune/",
+        "uniqueShare": 0.31,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-cook/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Hourly Cook in Kolkata – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Kolkata",
+      "metaDescription": "Book a cook by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — for guests, Durga Puja cooking or a family meal on MeeHelp.",
+      "wordCount": 538,
+      "bodyWordCount": 389,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 367,
+        "maxSimilarity": 0.536,
+        "mostSimilarTo": "/hourly-cook/pune/",
+        "uniqueShare": 0.243,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 354,
+        "maxSimilarity": 0.54,
+        "mostSimilarTo": "/hourly-babysitter/kolkata/",
+        "uniqueShare": 0.347,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-cook/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "cook",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Hourly Cook in Ahmedabad – Book a Cook for Guests | MeeHelp",
+      "h1": "Book a cook by the hour in Ahmedabad",
+      "metaDescription": "Book a cook by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — for guests, Navratri cooking or a family meal on MeeHelp.",
+      "wordCount": 531,
+      "bodyWordCount": 385,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 365,
+        "maxSimilarity": 0.566,
+        "mostSimilarTo": "/hourly-cook/hyderabad/",
+        "uniqueShare": 0.225,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 352,
+        "maxSimilarity": 0.539,
+        "mostSimilarTo": "/hourly-babysitter/ahmedabad/",
+        "uniqueShare": 0.347,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-babysitter/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Hourly Babysitter in Mumbai – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Mumbai & MMR",
+      "metaDescription": "Book a babysitter by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 515,
+      "bodyWordCount": 365,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 343,
+        "maxSimilarity": 0.556,
+        "mostSimilarTo": "/hourly-babysitter/kolkata/",
+        "uniqueShare": 0.283,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 330,
+        "maxSimilarity": 0.584,
+        "mostSimilarTo": "/hourly-cook/mumbai/",
+        "uniqueShare": 0.2,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-babysitter/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Hourly Babysitter in Delhi NCR – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Delhi NCR",
+      "metaDescription": "Book a babysitter by the hour in Delhi, Gurugram and Noida — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 516,
+      "bodyWordCount": 358,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 330,
+        "maxSimilarity": 0.598,
+        "mostSimilarTo": "/hourly-babysitter/hyderabad/",
+        "uniqueShare": 0.233,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 314,
+        "maxSimilarity": 0.599,
+        "mostSimilarTo": "/hourly-cook/delhi-ncr/",
+        "uniqueShare": 0.204,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "ready-for-approval",
+      "reasons": []
+    },
+    {
+      "path": "/hourly-babysitter/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Hourly Babysitter in Bengaluru – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Bengaluru",
+      "metaDescription": "Book a babysitter by the hour in Bengaluru — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 474,
+      "bodyWordCount": 328,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 313,
+        "maxSimilarity": 0.567,
+        "mostSimilarTo": "/hourly-babysitter/pune/",
+        "uniqueShare": 0.192,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 300,
+        "maxSimilarity": 0.536,
+        "mostSimilarTo": "/hourly-maid/bengaluru/",
+        "uniqueShare": 0.223,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.567 with /hourly-babysitter/pune/, unique share 0.192"
+      ]
+    },
+    {
+      "path": "/hourly-babysitter/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Hourly Babysitter in Hyderabad – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Hyderabad",
+      "metaDescription": "Book a babysitter by the hour in Hyderabad and Secunderabad — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 471,
+      "bodyWordCount": 323,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 306,
+        "maxSimilarity": 0.653,
+        "mostSimilarTo": "/hourly-babysitter/ahmedabad/",
+        "uniqueShare": 0.17,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 293,
+        "maxSimilarity": 0.542,
+        "mostSimilarTo": "/hourly-elder-care/hyderabad/",
+        "uniqueShare": 0.215,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.653 with /hourly-babysitter/ahmedabad/, unique share 0.17"
+      ]
+    },
+    {
+      "path": "/hourly-babysitter/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "chennai",
+      "status": "review",
+      "title": "Hourly Babysitter in Chennai – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Chennai",
+      "metaDescription": "Book a babysitter by the hour in Chennai — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 468,
+      "bodyWordCount": 322,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 316,
+        "maxSimilarity": 0.553,
+        "mostSimilarTo": "/hourly-babysitter/bengaluru/",
+        "uniqueShare": 0.278,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 303,
+        "maxSimilarity": 0.602,
+        "mostSimilarTo": "/hourly-elder-care/chennai/",
+        "uniqueShare": 0.211,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.602 with /hourly-elder-care/chennai/"
+      ]
+    },
+    {
+      "path": "/hourly-babysitter/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "pune",
+      "status": "review",
+      "title": "Hourly Babysitter in Pune – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Pune",
+      "metaDescription": "Book a babysitter by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 479,
+      "bodyWordCount": 331,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 320,
+        "maxSimilarity": 0.621,
+        "mostSimilarTo": "/hourly-babysitter/ahmedabad/",
+        "uniqueShare": 0.194,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 307,
+        "maxSimilarity": 0.564,
+        "mostSimilarTo": "/hourly-cook/pune/",
+        "uniqueShare": 0.228,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.621 with /hourly-babysitter/ahmedabad/, unique share 0.194"
+      ]
+    },
+    {
+      "path": "/hourly-babysitter/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Hourly Babysitter in Kolkata – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Kolkata",
+      "metaDescription": "Book a babysitter by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 476,
+      "bodyWordCount": 325,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 306,
+        "maxSimilarity": 0.64,
+        "mostSimilarTo": "/hourly-babysitter/ahmedabad/",
+        "uniqueShare": 0.17,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 293,
+        "maxSimilarity": 0.55,
+        "mostSimilarTo": "/hourly-maid/kolkata/",
+        "uniqueShare": 0.212,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.64 with /hourly-babysitter/ahmedabad/, unique share 0.17"
+      ]
+    },
+    {
+      "path": "/hourly-babysitter/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "babysitter-nanny",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Hourly Babysitter in Ahmedabad – Book Childcare | MeeHelp",
+      "h1": "Book an hourly babysitter in Ahmedabad",
+      "metaDescription": "Book a babysitter by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — for an evening out, a work call or nanny cover on MeeHelp.",
+      "wordCount": 470,
+      "bodyWordCount": 322,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 309,
+        "maxSimilarity": 0.653,
+        "mostSimilarTo": "/hourly-babysitter/hyderabad/",
+        "uniqueShare": 0.136,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 296,
+        "maxSimilarity": 0.548,
+        "mostSimilarTo": "/hourly-maid/ahmedabad/",
+        "uniqueShare": 0.22,
+        "risk": "medium"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.653 with /hourly-babysitter/hyderabad/, unique share 0.136"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Hourly Elder Care in Mumbai – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Mumbai & MMR",
+      "metaDescription": "Book elder care by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 577,
+      "bodyWordCount": 420,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 404,
+        "maxSimilarity": 0.476,
+        "mostSimilarTo": "/hourly-elder-care/pune/",
+        "uniqueShare": 0.351,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 389,
+        "maxSimilarity": 0.764,
+        "mostSimilarTo": "/hourly-patient-care/mumbai/",
+        "uniqueShare": 0.121,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.764 with /hourly-patient-care/mumbai/"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Hourly Elder Care in Delhi NCR – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Delhi NCR",
+      "metaDescription": "Book elder care by the hour in Delhi, Gurugram and Noida — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 561,
+      "bodyWordCount": 396,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 379,
+        "maxSimilarity": 0.544,
+        "mostSimilarTo": "/hourly-elder-care/hyderabad/",
+        "uniqueShare": 0.293,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 364,
+        "maxSimilarity": 0.75,
+        "mostSimilarTo": "/hourly-patient-care/delhi-ncr/",
+        "uniqueShare": 0.129,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.75 with /hourly-patient-care/delhi-ncr/"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Hourly Elder Care in Bengaluru – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Bengaluru",
+      "metaDescription": "Book elder care by the hour in Bengaluru — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 511,
+      "bodyWordCount": 358,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 349,
+        "maxSimilarity": 0.538,
+        "mostSimilarTo": "/hourly-elder-care/pune/",
+        "uniqueShare": 0.238,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 333,
+        "maxSimilarity": 0.73,
+        "mostSimilarTo": "/hourly-patient-care/bengaluru/",
+        "uniqueShare": 0.141,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.73 with /hourly-patient-care/bengaluru/"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Hourly Elder Care in Hyderabad – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Hyderabad",
+      "metaDescription": "Book elder care by the hour in Hyderabad and Secunderabad — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 507,
+      "bodyWordCount": 352,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 342,
+        "maxSimilarity": 0.666,
+        "mostSimilarTo": "/hourly-elder-care/ahmedabad/",
+        "uniqueShare": 0.167,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 327,
+        "maxSimilarity": 0.726,
+        "mostSimilarTo": "/hourly-patient-care/hyderabad/",
+        "uniqueShare": 0.144,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.666 with /hourly-elder-care/ahmedabad/, unique share 0.167",
+        "Template overlap — other services in this city: similarity 0.726 with /hourly-patient-care/hyderabad/"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "chennai",
+      "status": "review",
+      "title": "Hourly Elder Care in Chennai – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Chennai",
+      "metaDescription": "Book elder care by the hour in Chennai — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 469,
+      "bodyWordCount": 316,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 317,
+        "maxSimilarity": 0.521,
+        "mostSimilarTo": "/hourly-elder-care/bengaluru/",
+        "uniqueShare": 0.243,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 301,
+        "maxSimilarity": 0.706,
+        "mostSimilarTo": "/hourly-patient-care/chennai/",
+        "uniqueShare": 0.156,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.706 with /hourly-patient-care/chennai/"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "pune",
+      "status": "review",
+      "title": "Hourly Elder Care in Pune – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Pune",
+      "metaDescription": "Book elder care by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 500,
+      "bodyWordCount": 345,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 340,
+        "maxSimilarity": 0.558,
+        "mostSimilarTo": "/hourly-elder-care/ahmedabad/",
+        "uniqueShare": 0.206,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 325,
+        "maxSimilarity": 0.724,
+        "mostSimilarTo": "/hourly-patient-care/pune/",
+        "uniqueShare": 0.145,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.724 with /hourly-patient-care/pune/"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Hourly Elder Care in Kolkata – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Kolkata",
+      "metaDescription": "Book elder care by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 534,
+      "bodyWordCount": 376,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 362,
+        "maxSimilarity": 0.538,
+        "mostSimilarTo": "/hourly-elder-care/ahmedabad/",
+        "uniqueShare": 0.279,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 346,
+        "maxSimilarity": 0.739,
+        "mostSimilarTo": "/hourly-patient-care/kolkata/",
+        "uniqueShare": 0.136,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.739 with /hourly-patient-care/kolkata/"
+      ]
+    },
+    {
+      "path": "/hourly-elder-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "elder-care",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Hourly Elder Care in Ahmedabad – Book an Attendant | MeeHelp",
+      "h1": "Hourly elder care in Ahmedabad",
+      "metaDescription": "Book elder care by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — for company, mobility help or a doctor's visit, on MeeHelp.",
+      "wordCount": 502,
+      "bodyWordCount": 347,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 341,
+        "maxSimilarity": 0.666,
+        "mostSimilarTo": "/hourly-elder-care/hyderabad/",
+        "uniqueShare": 0.141,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 326,
+        "maxSimilarity": 0.725,
+        "mostSimilarTo": "/hourly-patient-care/ahmedabad/",
+        "uniqueShare": 0.144,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.666 with /hourly-elder-care/hyderabad/, unique share 0.141",
+        "Template overlap — other services in this city: similarity 0.725 with /hourly-patient-care/ahmedabad/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "mumbai",
+      "status": "review",
+      "title": "Hourly Patient Care in Mumbai – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Mumbai & MMR",
+      "metaDescription": "Book a patient attendant by the hour in Mumbai, Thane and Navi Mumbai — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 584,
+      "bodyWordCount": 427,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 411,
+        "maxSimilarity": 0.483,
+        "mostSimilarTo": "/hourly-patient-care/pune/",
+        "uniqueShare": 0.345,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 396,
+        "maxSimilarity": 0.764,
+        "mostSimilarTo": "/hourly-elder-care/mumbai/",
+        "uniqueShare": 0.141,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.764 with /hourly-elder-care/mumbai/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "delhi-ncr",
+      "status": "review",
+      "title": "Hourly Patient Care in Delhi NCR – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Delhi NCR",
+      "metaDescription": "Book a patient attendant by the hour in Delhi, Gurugram and Noida — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 568,
+      "bodyWordCount": 403,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 386,
+        "maxSimilarity": 0.551,
+        "mostSimilarTo": "/hourly-patient-care/hyderabad/",
+        "uniqueShare": 0.288,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 371,
+        "maxSimilarity": 0.75,
+        "mostSimilarTo": "/hourly-elder-care/delhi-ncr/",
+        "uniqueShare": 0.151,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.75 with /hourly-elder-care/delhi-ncr/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "bengaluru",
+      "status": "review",
+      "title": "Hourly Patient Care in Bengaluru – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Bengaluru",
+      "metaDescription": "Book a patient attendant by the hour in Bengaluru — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 518,
+      "bodyWordCount": 365,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 356,
+        "maxSimilarity": 0.545,
+        "mostSimilarTo": "/hourly-patient-care/pune/",
+        "uniqueShare": 0.233,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 340,
+        "maxSimilarity": 0.73,
+        "mostSimilarTo": "/hourly-elder-care/bengaluru/",
+        "uniqueShare": 0.165,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.73 with /hourly-elder-care/bengaluru/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "hyderabad",
+      "status": "review",
+      "title": "Hourly Patient Care in Hyderabad – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Hyderabad",
+      "metaDescription": "Book a patient attendant by the hour in Hyderabad and Secunderabad — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 514,
+      "bodyWordCount": 359,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 349,
+        "maxSimilarity": 0.671,
+        "mostSimilarTo": "/hourly-patient-care/ahmedabad/",
+        "uniqueShare": 0.163,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 334,
+        "maxSimilarity": 0.726,
+        "mostSimilarTo": "/hourly-elder-care/hyderabad/",
+        "uniqueShare": 0.168,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.671 with /hourly-patient-care/ahmedabad/, unique share 0.163",
+        "Template overlap — other services in this city: similarity 0.726 with /hourly-elder-care/hyderabad/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "chennai",
+      "status": "review",
+      "title": "Hourly Patient Care in Chennai – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Chennai",
+      "metaDescription": "Book a patient attendant by the hour in Chennai — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 476,
+      "bodyWordCount": 323,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 324,
+        "maxSimilarity": 0.528,
+        "mostSimilarTo": "/hourly-patient-care/bengaluru/",
+        "uniqueShare": 0.238,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 308,
+        "maxSimilarity": 0.706,
+        "mostSimilarTo": "/hourly-elder-care/chennai/",
+        "uniqueShare": 0.182,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.706 with /hourly-elder-care/chennai/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "pune",
+      "status": "review",
+      "title": "Hourly Patient Care in Pune – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Pune",
+      "metaDescription": "Book a patient attendant by the hour in Pune and Pimpri-Chinchwad — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 507,
+      "bodyWordCount": 352,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 2,
+      "similarity": {
+        "shingles": 347,
+        "maxSimilarity": 0.565,
+        "mostSimilarTo": "/hourly-patient-care/ahmedabad/",
+        "uniqueShare": 0.202,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 332,
+        "maxSimilarity": 0.724,
+        "mostSimilarTo": "/hourly-elder-care/pune/",
+        "uniqueShare": 0.169,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.724 with /hourly-elder-care/pune/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "kolkata",
+      "status": "review",
+      "title": "Hourly Patient Care in Kolkata – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Kolkata",
+      "metaDescription": "Book a patient attendant by the hour in Kolkata, Salt Lake and New Town — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 541,
+      "bodyWordCount": 383,
+      "internalLinks": 15,
+      "localNotes": 4,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 369,
+        "maxSimilarity": 0.545,
+        "mostSimilarTo": "/hourly-patient-care/ahmedabad/",
+        "uniqueShare": 0.274,
+        "risk": "medium"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 353,
+        "maxSimilarity": 0.739,
+        "mostSimilarTo": "/hourly-elder-care/kolkata/",
+        "uniqueShare": 0.159,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Template overlap — other services in this city: similarity 0.739 with /hourly-elder-care/kolkata/"
+      ]
+    },
+    {
+      "path": "/hourly-patient-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "service": "patient-care",
+      "city": "ahmedabad",
+      "status": "review",
+      "title": "Hourly Patient Care in Ahmedabad – Book an Attendant | MeeHelp",
+      "h1": "Hourly patient care in Ahmedabad",
+      "metaDescription": "Book a patient attendant by the hour in Ahmedabad and Gandhinagar — instantly or scheduled — after a discharge or to give family carers a break.",
+      "wordCount": 509,
+      "bodyWordCount": 354,
+      "internalLinks": 15,
+      "localNotes": 3,
+      "localFaqs": 3,
+      "similarity": {
+        "shingles": 348,
+        "maxSimilarity": 0.671,
+        "mostSimilarTo": "/hourly-patient-care/hyderabad/",
+        "uniqueShare": 0.138,
+        "risk": "high"
+      },
+      "crossServiceSimilarity": {
+        "shingles": 333,
+        "maxSimilarity": 0.725,
+        "mostSimilarTo": "/hourly-elder-care/ahmedabad/",
+        "uniqueShare": 0.168,
+        "risk": "high"
+      },
+      "missingInformation": [
+        "Copy not yet approved for publishing (publishStatus: review)",
+        "CTA wording not yet approved",
+        "On-demand prices not supplied",
+        "Minimum booking duration not supplied",
+        "No confirmed list of areas/localities served"
+      ],
+      "readiness": "needs-content",
+      "reasons": [
+        "Doorway risk — same service in other cities: similarity 0.671 with /hourly-patient-care/hyderabad/, unique share 0.138",
+        "Template overlap — other services in this city: similarity 0.725 with /hourly-elder-care/ahmedabad/"
+      ]
+    }
+  ]
+}

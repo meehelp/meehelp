@@ -39,6 +39,8 @@ if (!skipBuild) {
 // Import after SITE_STAGE is set, so the registry reflects the same stage as the build.
 const { getSiteRoutes } = await import("@/lib/content");
 const guards = await import("@/lib/guards/claims");
+const sim = await import("./lib/similarity");
+let similaritySummary = "no service-city pages built";
 const { allowedPriceStrings, arePricesPublishable } = await import("@/lib/pricing");
 const { ctas } = await import("@/data/ctas");
 const { siteUrl } = await import("@/lib/site");
@@ -241,7 +243,10 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
     error(page, `Unsupported claim (${rule.reason}): "${match}"`);
   }
 
-  // Prices: only configured plan prices; Office/Business only on /pricing/; none on production until publishable.
+  // Prices: only configured plan prices, never with the app's "*"; Office/Business only on /pricing/.
+  const asterisk = visible.match(guards.pricedAsteriskPattern);
+  if (asterisk) error(page, `Price shown with an asterisk: "${asterisk[0]}"`);
+  for (const el of body.querySelectorAll(".plan__price")) if (el.text.includes("*")) error(page, "Asterisk inside a plan price");
   const prices = visible.match(guards.priceStringPattern) ?? [];
   for (const price of prices) {
     const normalised = price.replace(/\s/g, "");
@@ -249,7 +254,7 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
     else if (page !== "/pricing/" && !homePrices.has(normalised)) error(page, `Office/Business price "${price}" outside /pricing/`);
   }
   if (stage === "production" && !pricesPublishable && prices.length > 0) {
-    error(page, "Prices shown on production while the price note (app '*') is unconfirmed");
+    error(page, "Prices shown on production while publishPrices is off");
   }
 
   // Marketplace and on-demand must not mix: wording and CTAs inside each [data-model] block.
@@ -274,6 +279,27 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
     if (body.querySelector('[data-model="onDemand"]')) error(page, "Marketplace page contains an on-demand section");
     if (body.querySelector('[data-cta-model="onDemand"]')) error(page, "Marketplace page contains an on-demand CTA");
   }
+  if (route?.model === "onDemand") {
+    if (body.querySelector('[data-model="marketplace"]')) error(page, "On-demand page contains a marketplace section");
+    if (body.querySelector('[data-cta-model="marketplace"]')) error(page, "On-demand page contains a marketplace CTA");
+    if (body.querySelector(".plans, .plan, .plans-summary")) error(page, "On-demand page shows marketplace contact plans");
+    if (guards.priceStringPattern.test(visible)) error(page, "On-demand page shows a price (no on-demand prices have been supplied)");
+    guards.priceStringPattern.lastIndex = 0;
+  }
+
+  // Cross-model links: outside any proposition section, and pointing at a page of the declared model.
+  for (const aside of body.querySelectorAll("[data-cross-model]")) {
+    const target = aside.getAttribute("data-cross-model");
+    if (aside.parentNode && (aside.parentNode as HTMLElement).closest?.("[data-model]")) error(page, "Cross-model link nested inside a proposition section");
+    const hrefs = aside.querySelectorAll("a[href]").map((a) => linkTarget(a.getAttribute("href") ?? "")).filter(Boolean) as string[];
+    if (hrefs.length === 0) error(page, "Cross-model link without an internal link");
+    for (const h of hrefs) {
+      const targetRoute = routeByPath.get(h);
+      if (!targetRoute) error(page, `Cross-model link to unknown page ${h}`);
+      else if (targetRoute.model !== target) error(page, `Cross-model link to ${h} (${targetRoute.model}) declared as ${target}`);
+      else if (route && targetRoute.model === route.model) error(page, `Cross-model link to a page of the same model: ${h}`);
+    }
+  }
   for (const cta of body.querySelectorAll("[data-cta]")) {
     const key = cta.getAttribute("data-cta")!;
     if (!(key in ctas)) error(page, `Unknown CTA "${key}"`);
@@ -292,6 +318,37 @@ for (const page of pagePaths) {
 const notFoundFile = join(OUT, "404.html");
 if (!existsSync(notFoundFile)) error("/404.html", "Missing 404.html");
 else checkPage("/404.html", readFileSync(notFoundFile, "utf8"), false, true);
+
+// ---------- Anti-doorway similarity (reported as warnings — never "fixed" by inventing content) ----------
+{
+  const cityPages = routes.filter((r) => r.kind === "service-city");
+  if (cityPages.length > 1) {
+    const { cities } = await import("@/data/cities");
+    const cityTerms = cities.flatMap((c) => [c.name, c.displayName, ...c.includes, c.descriptors.areas]);
+    const normalise = sim.makeNormaliser(cityTerms, ["xnoservicex"]);
+    const bodyText = (path: string) => {
+      const main = parse(readFileSync(join(OUT, path, "index.html"), "utf8")).querySelector("main");
+      if (!main) return "";
+      main.querySelectorAll("script, style, [data-boilerplate]").forEach((n) => n.remove());
+      return main.structuredText;
+    };
+    const groups = new Map<string, typeof cityPages>();
+    for (const r of cityPages) {
+      const [first] = r.path.split("/").filter(Boolean);
+      groups.set(first!, [...(groups.get(first!) ?? []), r]);
+    }
+    let high = 0;
+    for (const group of groups.values()) {
+      for (const res of sim.analyseSimilarity(group.map((r) => ({ path: r.path, text: bodyText(r.path) })), normalise)) {
+        if (res.risk === "high") {
+          high++;
+          warn(res.path, `Doorway risk: body copy ${res.maxSimilarity} similar to ${res.mostSimilarTo} (unique share ${res.uniqueShare}) — keep in review`);
+        }
+      }
+    }
+    similaritySummary = `${high} of ${cityPages.length} city pages at high doorway risk (see npm run report)`;
+  }
+}
 
 // ---------- No JavaScript files in the build ----------
 for (const f of allFiles.filter((x) => /\.(m?js)$/.test(x))) error("/" + relative(OUT, f), "JavaScript file in build output");
@@ -358,11 +415,12 @@ writeFileSync(
   JSON.stringify({ stage, siteUrl, pages: pagePaths, sitemap: sitemapUrls, issues }, null, 2),
 );
 
+console.log(`Info: similarity — ${similaritySummary}.`);
 const unapprovedCtas = [...ctaUsage.keys()].filter((k) => ctas[k as keyof typeof ctas]?.wording !== "approved");
 if (unapprovedCtas.length > 0) {
   console.log(`\nInfo: CTA wording still "proposed" (needs business approval): ${unapprovedCtas.map((k) => `${k} ×${ctaUsage.get(k)}`).join(", ")}`);
 }
-console.log(`Info: prices ${pricesPublishable ? "shown" : "hidden"} on this build (priceNote ${stage === "production" ? "gate applies" : "gate applies on production only"}).`);
+console.log(`Info: prices ${pricesPublishable ? "shown" : "hidden"} on this build (publishPrices gate${stage === "production" ? "" : " applies on production only"}).`);
 
 console.log(`\n${errors.length} error(s), ${warnings.length} warning(s). Report: reports/seo-report.json`);
 process.exit(errors.length > 0 ? 1 : 0);
