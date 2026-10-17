@@ -1086,3 +1086,215 @@ code {
     grid-column: 2;
   }
 }
+
+/* ---------- Phase 3: propositions, CTAs, plans, verification ---------- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.button--secondary {
+  background: #fff;
+  color: var(--brand-ink);
+  border: 2px solid var(--brand-ink);
+}
+
+.button--secondary:hover {
+  background: var(--brand-tint);
+  color: var(--brand-ink-strong);
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.text-link {
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.paths {
+  list-style: none;
+  margin: 1.5rem 0 0.5rem;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 48rem) {
+  .paths {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.path {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.path--alt {
+  background: var(--peach-tint);
+}
+
+.path__title {
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+}
+
+.path p {
+  color: var(--ink-muted);
+}
+
+.path .button {
+  margin-top: auto;
+}
+
+.tags {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tags li {
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.service-card--static {
+  box-shadow: none;
+}
+
+.plans {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 48rem) {
+  .plans {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.plan--best {
+  border: 2px solid var(--brand-ink);
+}
+
+.plan__flag {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand-ink);
+}
+
+.plan__name {
+  margin: 0;
+}
+
+.plan__contacts {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.plan__contacts strong {
+  font: 600 1.6rem/1.2 var(--font-head);
+}
+
+.plan__validity {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.plan__price {
+  margin: 0.5rem 0 0.75rem;
+}
+
+.plan__current {
+  font: 600 1.4rem/1.2 var(--font-head);
+}
+
+.plan__previous {
+  color: var(--ink-muted);
+}
+
+.plan__discount {
+  font-weight: 700;
+  color: #137a3e;
+}
+
+.plan .button {
+  margin-top: auto;
+}
+
+.badge--pending {
+  display: block;
+  border-radius: var(--radius-small);
+  padding: 0.6rem 0.8rem;
+  font-weight: 600;
+}
+
+.verification {
+  margin-bottom: 1.5rem;
+}
+
+.verification__title {
+  margin-bottom: 0.4rem;
+}
+
+.city-list__icon {
+  display: inline-block;
+  vertical-align: -2px;
+  color: var(--brand-ink);
+}
+
+.sticky-app-bar .store-buttons--compact {
+  flex-wrap: nowrap;
+}
+
+/* Six-step marketplace journey reads best as 3 × 2 on wide screens. */
+@media (min-width: 48rem) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

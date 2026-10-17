@@ -1,13 +1,14 @@
 import type { ClaimKey } from "@/data/business";
+import type { BusinessModel } from "@/lib/content/types";
 import { getActiveClaims } from "@/lib/trust";
 import { Icon } from "@/components/content/Icon";
 
 /**
- * Verification, booking and support claims. Every claim is disabled by
- * default and renders only when approved in data/business.ts.
+ * Marketing claims for a page of the given model. Every claim is disabled
+ * unless approved in data/business.ts.
  */
-export function Claims({ keys }: { keys?: ClaimKey[] }) {
-  const active = getActiveClaims(keys);
+export function Claims({ model, keys }: { model: BusinessModel | "both"; keys?: ClaimKey[] }) {
+  const active = getActiveClaims(model, keys);
   if (active.length === 0) return null;
   return (
     <ul className="claims">
@@ -22,12 +23,4 @@ export function Claims({ keys }: { keys?: ClaimKey[] }) {
       ))}
     </ul>
   );
-}
-
-export function VerificationClaim() {
-  return <Claims keys={["verifiedHelpers", "backgroundChecks"]} />;
-}
-
-export function BookingSupportClaims() {
-  return <Claims keys={["noBrokerage", "replacementSupport", "inAppSupport", "securePayments"]} />;
 }

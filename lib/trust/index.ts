@@ -1,22 +1,30 @@
 import { claims, trustMetrics, type ClaimKey } from "@/data/business";
-import type { Claim, TrustMetric } from "@/lib/content/types";
+import { isCheckActive, verificationChecks, type VerificationKey } from "@/data/verification";
+import type { BusinessModel, Claim, TrustMetric } from "@/lib/content/types";
 
 /** A claim is shown only when enabled AND approval details are recorded. */
 export function isClaimActive(claim: Claim): boolean {
   return claim.enabled && Boolean(claim.approvedBy) && Boolean(claim.approvedOn);
 }
 
-export function getActiveClaims(keys?: ClaimKey[]): (Claim & { key: ClaimKey })[] {
-  const all = Object.entries(claims) as [ClaimKey, Claim][];
-  return all
+/** Active claims for a page of the given model ("both"-model claims always qualify). */
+export function getActiveClaims(model: BusinessModel | "both", keys?: ClaimKey[]): (Claim & { key: ClaimKey })[] {
+  return (Object.entries(claims) as [ClaimKey, Claim][])
     .filter(([key]) => !keys || keys.includes(key))
-    .filter(([, claim]) => isClaimActive(claim))
-    .map(([key, claim]) => ({ ...claim, key }));
+    .filter(([, c]) => isClaimActive(c))
+    .filter(([, c]) => c.model === "both" || model === "both" || c.model === model)
+    .map(([key, c]) => ({ ...c, key }));
 }
 
-/** A metric is shown only when approved and fully sourced and dated. */
+export function getActiveVerificationChecks() {
+  return (Object.entries(verificationChecks) as [VerificationKey, (typeof verificationChecks)[VerificationKey]][])
+    .filter(([, c]) => isCheckActive(c))
+    .map(([key, c]) => ({ ...c, key }));
+}
+
+/** A metric is shown only when approved, display-enabled, and fully sourced and dated. */
 export function isMetricDisplayable(m: TrustMetric): boolean {
-  return m.approved && Boolean(m.value) && Boolean(m.source) && Boolean(m.asOf);
+  return m.approved && m.displayEnabled && Boolean(m.value) && Boolean(m.source) && Boolean(m.dateChecked);
 }
 
 export function getDisplayableMetrics(keys?: string[]): TrustMetric[] {

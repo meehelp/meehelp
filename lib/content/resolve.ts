@@ -1,5 +1,6 @@
 import { siteStage, type SiteStage } from "@/lib/site";
 import {
+  pricingPageStatus,
   getCity,
   getLocalityPage,
   getService,
@@ -12,6 +13,7 @@ import { isBuilt } from "./publishing";
 import type { City, PublishStatus, Service, ServiceCity } from "./types";
 
 export type ResolvedRoute =
+  | { kind: "pricing"; status: PublishStatus }
   | { kind: "service"; service: Service; status: PublishStatus }
   | { kind: "service-city"; service: Service; city: City; page: ServiceCity; status: PublishStatus }
   | { kind: "locality"; service: Service; city: City; page: LocalityPage; status: PublishStatus };
@@ -20,6 +22,14 @@ export type ResolvedRoute =
 export function resolveRoute(segments: string[], stage: SiteStage = siteStage): ResolvedRoute | null {
   const [serviceSlug, citySlug, localitySlug, ...extra] = segments;
   if (!serviceSlug || extra.length > 0) return null;
+
+  // /pricing/ shares this route so it is generated only when built for the stage.
+  if (serviceSlug === "pricing") {
+    if (citySlug) return null;
+    const status = pricingPageStatus(stage);
+    return isBuilt(status, stage) ? { kind: "pricing", status } : null;
+  }
+
   const service = getService(serviceSlug);
   if (!service) return null;
 

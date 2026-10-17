@@ -1,10 +1,22 @@
-import type { Service, ServiceSlug } from "@/lib/content/types";
+import type { ModelSupport, Service, ServiceSlug } from "@/lib/content/types";
 
 /**
- * Service hub content. Copy is written to answer real customer questions and
- * makes no verification, pricing or coverage claims. Review with the business
- * before launch (see docs/CONTENT-REVIEW.md).
+ * Helper categories. Each hub page (/maid/ etc.) is a MARKETPLACE page:
+ * the customer finds helpers, contacts them directly and hires them directly.
+ * Copy must not describe on-demand booking (see data/business-models.ts).
+ *
+ * `models` is NOT CONFIRMED for any service yet (null). A hub page is built on
+ * production only once `models.marketplace` is true — see lib/content.
+ * Prices never appear in this file; they come from data/plans.ts.
  */
+const unconfirmed: ModelSupport = {
+  marketplace: null,
+  onDemand: null,
+  instantBooking: null,
+  scheduledBooking: null,
+  hourlyBooking: null,
+};
+
 export const services: Service[] = [
   {
     slug: "maid",
@@ -12,17 +24,18 @@ export const services: Service[] = [
     shortName: "Maid",
     icon: "maid",
     roleWithArticle: "a maid",
-    summary: "Daily cleaning, dishes and laundry — one-off, part-time or full-time.",
+    summary: "Find house help for daily cleaning, dishes and laundry, and hire them directly.",
+    models: { ...unconfirmed },
     headline: "Find a maid or house help near you",
     description: [
-      "Whether you need someone for daily sweeping and mopping, help with dishes and laundry, or a one-off deep clean, MeeHelp helps you find house help that fits your home and your routine.",
-      "You decide the tasks and the hours. The app shows you helpers who work in your area, so you can speak to them and agree the arrangement before any work starts.",
+      "Looking for someone to handle sweeping and mopping, dishes and laundry every day? On MeeHelp you review profiles of house help near you, contact the helpers you like, and hire them directly.",
+      "You decide the tasks and the hours, and agree the salary with the helper yourself — so the arrangement fits your home and your routine.",
     ],
     customerProblems: [
-      "Your regular maid has left and you need someone quickly.",
+      "Your regular maid has left and you need someone new.",
       "You both work long hours and the housework keeps piling up.",
-      "You want one dependable routine instead of calling different people every week.",
-      "Guests are arriving, or you are moving in or out, and the home needs a thorough clean.",
+      "You want one dependable person instead of calling different people every week.",
+      "You have moved to a new area and don't know who to ask.",
     ],
     tasksIncluded: [
       "Sweeping and mopping floors",
@@ -34,12 +47,12 @@ export const services: Service[] = [
       "Taking out household waste",
     ],
     tasksExcluded: [
-      "Cooking meals — book a cook, or agree this separately",
+      "Cooking meals — hire a cook, or agree this separately",
       "Looking after children, elderly or unwell family members",
       "Specialist work such as pest control, painting or appliance repair",
       "Cleaning exterior windows or anything at height without safe access",
     ],
-    engagementTypes: ["on-demand", "part-time", "full-time"],
+    arrangements: ["part-time", "full-time"],
     safeguards: [
       "Walk the helper through each room on the first day and show them which products to use on which surfaces.",
     ],
@@ -47,33 +60,33 @@ export const services: Service[] = [
       {
         question: "What does a maid usually do in a home?",
         answer:
-          "Most house help covers daily cleaning: sweeping, mopping, dusting, dishes, bathrooms and laundry. Every home is different, so list the tasks you need when you post your requirement and confirm them with the helper before they start.",
+          "Most house help covers daily cleaning: sweeping, mopping, dusting, dishes, bathrooms and laundry. Every home is different, so agree the list of tasks with the helper before they start.",
       },
       {
         question: "Can I hire a maid for just a few hours a day?",
         answer:
-          "Yes. Many households hire house help for a fixed number of hours each morning or evening, or only on certain days of the week. Choose the hours that suit you when you tell us what you need in the app.",
+          "Yes. Many households hire house help for a fixed number of hours each morning or evening, or only on certain days of the week. Discuss the hours you need when you speak to helpers.",
       },
       {
-        question: "How are a maid's charges worked out?",
+        question: "Who decides the maid's salary?",
         answer:
-          "Charges usually depend on the hours, the tasks, the size of your home and the number of people living there. The app shows the charges for your requirement before you confirm anything.",
+          "You and the helper agree the salary directly. MeeHelp doesn't take a placement fee — you choose a plan for the number of helper contacts you need.",
       },
       {
-        question: "Can the same person clean and cook?",
+        question: "Can I try a maid before hiring?",
         answer:
-          "Some helpers do both. If you want one person for cleaning and cooking, say so in your requirement and check the helper is comfortable with both before agreeing.",
+          "Yes. Once you have contacted a helper, you can call them for a trial before you decide whether to hire them.",
       },
       {
-        question: "Should I check a maid's ID?",
+        question: "What if it doesn't work out?",
         answer:
-          "Yes. Ask to see a government-issued photo ID and keep a copy with their consent. Many housing societies and local police stations also ask households to register domestic staff, so check what your building requires.",
+          "You can end the arrangement and speak to other helpers. MeeHelp doesn't place helpers with you, so you stay in control of who you hire.",
       },
     ],
     seo: {
-      title: "Maid Service Near You – Find House Help | MeeHelp",
+      title: "Maid Near You – Find & Hire House Help | MeeHelp",
       description:
-        "Find a maid or house help near you for cleaning, dishes and laundry. Choose one-off, part-time or full-time help and connect through the MeeHelp app.",
+        "Find a maid or house help near you for cleaning, dishes and laundry. Review profiles, contact helpers directly and agree the salary yourself on MeeHelp.",
     },
     publishStatus: "published",
     updatedAt: "2026-10-17",
@@ -84,11 +97,12 @@ export const services: Service[] = [
     shortName: "Cook",
     icon: "cook",
     roleWithArticle: "a cook",
-    summary: "Home-cooked meals made to your family's taste, from one meal a day to all three.",
+    summary: "Find a home cook who cooks the way your family likes, and hire them directly.",
+    models: { ...unconfirmed },
     headline: "Find a home cook near you",
     description: [
-      "Home-cooked food every day, without spending your evenings in the kitchen. MeeHelp helps you find cooks who can prepare meals the way your family likes them — vegetarian or non-vegetarian, regional or everyday.",
-      "Tell us how many people you cook for, which meals you need and your food preferences, then speak to cooks near you before you decide.",
+      "Home-cooked food every day, without spending your evenings in the kitchen. On MeeHelp you review profiles of cooks near you and contact the ones you want to speak to — vegetarian or non-vegetarian, regional or everyday cooking.",
+      "Talk to the cook about how many people you cook for, which meals you need and your food preferences, and agree the salary with them directly.",
     ],
     customerProblems: [
       "You want healthy home food instead of ordering in.",
@@ -110,7 +124,7 @@ export const services: Service[] = [
       "Cooking for large parties or events, unless agreed in advance",
       "Looking after children or patients",
     ],
-    engagementTypes: ["part-time", "full-time"],
+    arrangements: ["part-time", "full-time"],
     safeguards: [
       "Share any allergies and strict dietary rules (for example, no onion or garlic) in writing on the first day.",
     ],
@@ -118,17 +132,17 @@ export const services: Service[] = [
       {
         question: "Can I hire a cook for just one meal a day?",
         answer:
-          "Yes. Many households hire a cook for one or two meals a day. Mention which meals you need and what time you would like the food ready.",
+          "Yes. Many households hire a cook for one or two meals a day. Tell the cook which meals you need and what time you would like the food ready.",
       },
       {
-        question: "Can I ask for vegetarian-only or Jain cooking?",
+        question: "Can I find a cook for vegetarian-only or Jain food?",
         answer:
-          "Yes. Choose your food preference when you post your requirement, and discuss specific rules — such as Jain food or no onion and garlic — with the cook before they start.",
+          "Yes. Look for cooks whose profiles match your food preference, and discuss specific rules — such as Jain food or no onion and garlic — with the cook before they start.",
       },
       {
-        question: "How are a cook's charges worked out?",
+        question: "How is a cook's salary decided?",
         answer:
-          "Charges usually depend on the number of people, the number of meals per day and the type of food. The app shows the charges for your requirement before you confirm.",
+          "You agree it directly with the cook, usually based on the number of people and meals and the type of food. MeeHelp doesn't take a placement fee.",
       },
       {
         question: "Does the cook buy groceries?",
@@ -138,13 +152,13 @@ export const services: Service[] = [
       {
         question: "How do I know a cook will suit my family's taste?",
         answer:
-          "Ask for a trial meal or a trial day before agreeing to a longer arrangement, and give honest feedback on spice, salt and oil in the first week.",
+          "Call the cook for a trial before you decide, and give honest feedback on spice, salt and oil in the first week.",
       },
     ],
     seo: {
-      title: "Cook Near You – Hire a Home Cook | MeeHelp",
+      title: "Cook Near You – Find & Hire a Home Cook | MeeHelp",
       description:
-        "Hire a home cook near you for daily meals, tiffins and family cooking. Veg or non-veg, one meal or all three — find cooks through the MeeHelp app.",
+        "Find a home cook near you for daily meals and tiffins — veg, non-veg or Jain. Contact cooks directly, try them out and hire the right one with MeeHelp.",
     },
     publishStatus: "published",
     updatedAt: "2026-10-17",
@@ -155,11 +169,12 @@ export const services: Service[] = [
     shortName: "Nanny",
     icon: "nanny",
     roleWithArticle: "a babysitter or nanny",
-    summary: "Babysitters and nannies for a few hours or the whole day, with time to meet them first.",
+    summary: "Find a babysitter or nanny, speak to them and meet them before you decide.",
+    models: { ...unconfirmed },
     headline: "Find a babysitter or nanny near you",
     description: [
-      "Leaving your child with someone new is a big decision. MeeHelp helps you find babysitters and nannies near you, and gives you time to speak to them and meet them before you decide.",
-      "Whether you need a few hours of help while you work from home or a nanny for the whole day, you set the schedule and the responsibilities.",
+      "Leaving your child with someone new is a big decision. On MeeHelp you review profiles of babysitters and nannies near you, contact the ones you like, and take your time to speak to them and meet them before you decide.",
+      "Whether you need someone part-time while you work from home or a nanny for the whole day, you agree the schedule, responsibilities and salary directly with them.",
     ],
     customerProblems: [
       "You are going back to work and need dependable care at home.",
@@ -179,9 +194,9 @@ export const services: Service[] = [
       "Giving medicines without your clear written instructions",
       "Housework for the whole family, unless agreed in advance",
       "Driving your child, unless agreed and the person holds a valid licence",
-      "Staying alone with your child before you have met them and checked their ID",
+      "Staying alone with your child before you have met them in person",
     ],
-    engagementTypes: ["part-time", "full-time"],
+    arrangements: ["part-time", "full-time"],
     safeguards: [
       "Spend the first few days at home while the nanny settles in, so you can see how they and your child get along.",
       "Write down your child's routine, allergies, emergency contacts and your doctor's number, and keep it where the nanny can see it.",
@@ -190,28 +205,28 @@ export const services: Service[] = [
       {
         question: "What is the difference between a babysitter and a nanny?",
         answer:
-          "A babysitter usually looks after a child for a few hours or on occasional days. A nanny works a regular schedule and becomes part of the child's daily routine.",
+          "A babysitter usually looks after a child for some hours on certain days. A nanny works a regular schedule and becomes part of the child's daily routine.",
       },
       {
         question: "Can a nanny look after my child for the whole day?",
         answer:
-          "Yes. Tell us the hours you need when you post your requirement, and agree meal breaks and a weekly off with the nanny before they start.",
+          "Yes. Discuss the hours you need with the nanny, and agree meal breaks and a weekly off before they start.",
       },
       {
         question: "How should I choose a nanny for my baby?",
         answer:
-          "Meet them in person and watch how they interact with your child. Ask about their experience with children of the same age, check their ID, and plan a few trial days while you are at home.",
+          "Speak to a few nannies, meet them in person and watch how they interact with your child. Ask about their experience with children of the same age, and plan a trial while you are at home.",
       },
       {
         question: "Can a nanny help with a newborn?",
         answer:
-          "Some nannies have experience with infants — ask about it directly. For medical questions about your newborn, always speak to your paediatrician.",
+          "Some nannies have experience with infants — ask about it directly when you speak to them. For medical questions about your newborn, always speak to your paediatrician.",
       },
     ],
     seo: {
-      title: "Babysitter Near You – Find a Nanny for Your Child | MeeHelp",
+      title: "Babysitter & Nanny Near You – Find and Hire | MeeHelp",
       description:
-        "Find a babysitter or nanny near you for full-day or part-time childcare at home. Speak to and meet nannies before you decide, through the MeeHelp app.",
+        "Find a babysitter or nanny near you. Review profiles, contact nannies directly, meet them and hire the right person for your child with MeeHelp.",
     },
     publishStatus: "published",
     updatedAt: "2026-10-17",
@@ -222,10 +237,11 @@ export const services: Service[] = [
     shortName: "Elder care",
     icon: "elder",
     roleWithArticle: "an elder care attendant",
-    summary: "Company, mobility help and daily routines for parents and grandparents at home.",
+    summary: "Find an attendant for company, mobility help and daily routines at home.",
+    models: { ...unconfirmed },
     headline: "Elder care at home for your parents",
     description: [
-      "Many older people want to stay in their own homes, but need someone around for daily routines, company and safety. MeeHelp helps families find elder care attendants who support parents and grandparents at home.",
+      "Many older people want to stay in their own homes, but need someone around for daily routines, company and safety. On MeeHelp you review profiles of elder care attendants near you, contact them directly and choose who to hire.",
       "This is non-medical, day-to-day support. If your parent needs nursing or medical care, speak to their doctor about qualified nursing help.",
     ],
     customerProblems: [
@@ -248,7 +264,7 @@ export const services: Service[] = [
       "Housework for the whole household, unless agreed in advance",
       "Handling money or bank transactions",
     ],
-    engagementTypes: ["part-time", "full-time"],
+    arrangements: ["part-time", "full-time"],
     safeguards: [
       "Set up a daily check-in call with the attendant and your parent, especially if you live in another city.",
     ],
@@ -269,15 +285,15 @@ export const services: Service[] = [
           "Agree a daily check-in call, ask a neighbour or relative to drop in from time to time, and keep a written routine and list of emergency contacts at home.",
       },
       {
-        question: "What should I tell the attendant before they start?",
+        question: "What should I discuss with an attendant before hiring?",
         answer:
-          "Share your parent's health conditions, medicine schedule, mobility needs, diet, daily routine, and the contact details of family members and their doctor.",
+          "Share your parent's health conditions, medicine schedule, mobility needs, diet and daily routine, and agree the hours and salary directly. A trial helps you see whether they are the right fit.",
       },
     ],
     seo: {
-      title: "Elder Care at Home – Attendants for Seniors | MeeHelp",
+      title: "Elder Care at Home – Find an Attendant | MeeHelp",
       description:
-        "Find elder care attendants for your parents at home — company, mobility support, personal care and medicine reminders. Connect through MeeHelp.",
+        "Find an elder care attendant for your parents at home — company, mobility help, personal care and medicine reminders. Contact attendants directly on MeeHelp.",
     },
     publishStatus: "published",
     updatedAt: "2026-10-17",
@@ -288,10 +304,11 @@ export const services: Service[] = [
     shortName: "Patient care",
     icon: "patient",
     roleWithArticle: "a patient care attendant",
-    summary: "Non-medical attendants for recovery at home, bedridden and limited-mobility patients.",
+    summary: "Find a non-medical attendant for recovery at home or for bedridden patients.",
+    models: { ...unconfirmed },
     headline: "Patient care attendants at home",
     description: [
-      "Recovering at home after a hospital stay, surgery or illness often means needing someone by your side through the day. MeeHelp helps you find patient care attendants for non-medical support at home.",
+      "Recovering at home after a hospital stay, surgery or illness often means needing someone by your side through the day. On MeeHelp you review profiles of patient care attendants near you, contact them directly and choose who to hire.",
       "An attendant helps with personal care, moving around and daily routines, following your doctor's advice. Medical procedures should always be done by a qualified nurse.",
     ],
     customerProblems: [
@@ -314,7 +331,7 @@ export const services: Service[] = [
       "Housework for the whole family, unless agreed in advance",
       "Emergency medical response — in an emergency, call 108 or your doctor",
     ],
-    engagementTypes: ["part-time", "full-time"],
+    arrangements: ["part-time", "full-time"],
     safeguards: [
       "Keep the doctor's instructions, discharge summary and medicine schedule where the attendant can see them.",
     ],
@@ -327,12 +344,12 @@ export const services: Service[] = [
       {
         question: "Can I find an attendant for a bedridden patient?",
         answer:
-          "Yes. Describe the patient's condition, how much they can move, and any equipment at home — such as a hospital bed or wheelchair — so you can find an attendant with relevant experience.",
+          "Yes. When you speak to attendants, describe the patient's condition, how much they can move and any equipment at home — such as a hospital bed or wheelchair — so you can choose someone with relevant experience.",
       },
       {
         question: "Can an attendant work long shifts?",
         answer:
-          "Tell us the hours you need when you post your requirement. For long shifts, agree rest breaks, meals and a place for the attendant to rest before they start.",
+          "Discuss the hours you need with the attendant. For long shifts, agree rest breaks, meals and a place for the attendant to rest before they start.",
       },
       {
         question: "Is patient care the same as elder care?",
@@ -341,9 +358,9 @@ export const services: Service[] = [
       },
     ],
     seo: {
-      title: "Patient Care at Home – Patient Attendant Service | MeeHelp",
+      title: "Patient Care at Home – Find a Patient Attendant | MeeHelp",
       description:
-        "Find a patient care attendant at home for recovery after hospital, or for bedridden and limited-mobility patients. Non-medical support through MeeHelp.",
+        "Find a patient care attendant for recovery after hospital, or for bedridden and limited-mobility patients. Contact attendants directly and hire on MeeHelp.",
     },
     publishStatus: "published",
     updatedAt: "2026-10-17",

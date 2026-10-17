@@ -1,15 +1,25 @@
 import { getVisibleTestimonials } from "@/lib/content";
 import { getService } from "@/lib/content";
 import { cityName } from "@/lib/content";
-import type { ServiceSlug } from "@/lib/content/types";
+import type { BusinessModel, ServiceSlug } from "@/lib/content/types";
 
 /**
  * Customer testimonials. Placeholders are visible (and clearly labelled) on
  * development/preview builds only. Renders nothing when there are none.
  * Deliberately has no Review/AggregateRating schema.
  */
-export function Testimonials({ service, title = "What customers say" }: { service?: ServiceSlug; title?: string }) {
-  const items = getVisibleTestimonials().filter((t) => !service || !t.service || t.service === service);
+export function Testimonials({
+  service,
+  model,
+  title = "What customers say",
+}: {
+  service?: ServiceSlug;
+  model?: BusinessModel;
+  title?: string;
+}) {
+  const items = getVisibleTestimonials()
+    .filter((t) => !service || !t.service || t.service === service)
+    .filter((t) => !model || !t.model || t.model === model);
   if (items.length === 0) return null;
   return (
     <section aria-labelledby="testimonials-heading" className="section">

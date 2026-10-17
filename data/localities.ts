@@ -23,6 +23,7 @@ export const localities: Locality[] = [
     publishStatus: "draft",
     services: {
       maid: {
+        model: "marketplace",
         headline: "[DRAFT] House help in Andheri West",
         introduction: ["[DRAFT] Example locality copy. Replace with confirmed, genuinely local content before publishing."],
         localFaqs: [],
@@ -42,6 +43,7 @@ export const localities: Locality[] = [
     publishStatus: "draft",
     services: {
       cook: {
+        model: "marketplace",
         headline: "[DRAFT] Home cooks in Powai",
         introduction: ["[DRAFT] Example locality copy. Replace with confirmed, genuinely local content before publishing."],
         localFaqs: [],

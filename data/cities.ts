@@ -1,17 +1,21 @@
-import type { Availability, City, ServiceSlug } from "@/lib/content/types";
+import type { Availability, BusinessModel, City, ServiceSlug } from "@/lib/content/types";
 
 /**
- * Target metros. All cities are in "review" until the business confirms which
- * services are live in each one. Availability is "unknown" (renders nothing)
- * until confirmed.
+ * Target metros. All eight are confirmed commercially active markets
+ * (`marketActive: true`), but availability of each SERVICE for each BUSINESS
+ * MODEL is not confirmed yet ("unknown"). A service-city page can only be
+ * published when its availability for that model is "available" or "limited".
+ *
+ * City copy is in "review" until approved.
  */
-const unconfirmed: Record<ServiceSlug, Availability> = {
-  maid: "unknown",
-  cook: "unknown",
-  "babysitter-nanny": "unknown",
-  "elder-care": "unknown",
-  "patient-care": "unknown",
-};
+const unknownForBothModels: Record<BusinessModel, Availability> = { marketplace: "unknown", onDemand: "unknown" };
+const unconfirmed = (): Record<ServiceSlug, Record<BusinessModel, Availability>> => ({
+  maid: { ...unknownForBothModels },
+  cook: { ...unknownForBothModels },
+  "babysitter-nanny": { ...unknownForBothModels },
+  "elder-care": { ...unknownForBothModels },
+  "patient-care": { ...unknownForBothModels },
+});
 
 export const cities: City[] = [
   {
@@ -20,7 +24,8 @@ export const cities: City[] = [
     region: "Maharashtra",
     displayName: "Mumbai & MMR",
     includes: ["Thane", "Navi Mumbai"],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "In Mumbai, part-time house help often works in several homes in the same building or neighbourhood, so a helper's timings matter as much as their skills.",
       "Across the Mumbai Metropolitan Region — the island city, the western and central suburbs, Thane and Navi Mumbai — finding someone who lives close by usually makes the arrangement more dependable.",
@@ -56,7 +61,8 @@ export const cities: City[] = [
     region: "Delhi, Haryana & Uttar Pradesh",
     displayName: "Delhi NCR",
     includes: ["Delhi", "Gurugram", "Noida", "Ghaziabad", "Faridabad"],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "Delhi NCR spans Delhi, Gurugram, Noida, Ghaziabad and Faridabad, and homes range from independent floors to large gated societies.",
       "Because requirements vary so much, it helps to be precise about the size of your home, the tasks you need and the hours that suit you.",
@@ -92,13 +98,14 @@ export const cities: City[] = [
     region: "Karnataka",
     displayName: "Bengaluru",
     includes: [],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "Many Bengaluru homes have two working adults with long or flexible hours, so help in the early morning and evening is often what families need most.",
       "With heavy traffic between neighbourhoods, a helper who lives nearby is usually more dependable than one travelling across the city.",
     ],
     localInformation: [
-      "Kannada, Tamil, Telugu, Hindi and English are all widely spoken. Mention any language preference in your requirement.",
+      "Kannada, Tamil, Telugu, Hindi and English are all widely spoken. Check language when you speak to helpers.",
       "Apartment complexes typically register household staff at security and may ask for a photo ID.",
       "If you work flexible hours, agree a fixed daily window so the helper can plan work in other homes around it.",
     ],
@@ -106,7 +113,7 @@ export const cities: City[] = [
       {
         question: "Can I ask for a helper who speaks a particular language?",
         answer:
-          "Yes. Mention the language you prefer when you post your requirement, and confirm it when you speak to the helper.",
+          "Yes. Look for it in helper profiles and confirm it when you speak to the helper.",
       },
       {
         question: "Is MeeHelp available in my part of Bengaluru?",
@@ -128,7 +135,8 @@ export const cities: City[] = [
     region: "Telangana",
     displayName: "Hyderabad",
     includes: ["Secunderabad"],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "Hyderabad's homes range from gated communities in the western IT corridor to older neighbourhoods in the heart of the city, and household routines vary just as much.",
       "Being clear about your timings, food preferences and the size of your home helps you find someone who fits.",
@@ -142,7 +150,7 @@ export const cities: City[] = [
       {
         question: "Can I find a cook for Hyderabadi or Andhra-style food?",
         answer:
-          "Mention the cuisine you want when you post your requirement, and ask the cook for a trial meal before agreeing to a longer arrangement.",
+          "Tell cooks the cuisine you want when you speak to them, and call them for a trial before agreeing to a longer arrangement.",
       },
       {
         question: "Does MeeHelp cover Secunderabad?",
@@ -164,7 +172,8 @@ export const cities: City[] = [
     region: "Tamil Nadu",
     displayName: "Chennai",
     includes: [],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "In Chennai, many families look for help that fits a traditional daily rhythm — an early start in the kitchen, and cleaning done before the heat of the day.",
       "Be specific about your timings and food preferences to find a helper who fits your household.",
@@ -178,7 +187,7 @@ export const cities: City[] = [
       {
         question: "Can I find a cook for South Indian vegetarian food?",
         answer:
-          "Yes — mention the food you want when you post your requirement, and try a sample meal before agreeing to a longer arrangement.",
+          "Tell cooks the dishes and style you want when you speak to them, and call them for a trial before agreeing to a longer arrangement.",
       },
       {
         question: "Is MeeHelp available in my area of Chennai?",
@@ -200,7 +209,8 @@ export const cities: City[] = [
     region: "Maharashtra",
     displayName: "Pune",
     includes: ["Pimpri-Chinchwad"],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "Pune's households include young professionals sharing flats, families in large housing societies, and parents who have moved to be near their children.",
       "Whether you need a few hours of cleaning or full-day care for a parent, start by being clear about the tasks and timings.",
@@ -214,7 +224,7 @@ export const cities: City[] = [
       {
         question: "Can flatmates hire one helper together?",
         answer:
-          "Yes. Agree among yourselves who the main contact is and how payments will be split, then post one requirement for the whole flat.",
+          "Yes. Agree among yourselves who the main contact is and how the salary will be split before you speak to helpers.",
       },
       {
         question: "Does MeeHelp cover Pimpri-Chinchwad?",
@@ -236,7 +246,8 @@ export const cities: City[] = [
     region: "West Bengal",
     displayName: "Kolkata",
     includes: ["Salt Lake", "New Town"],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "Many Kolkata homes include elderly family members, and families often look for help that covers both daily care and cooking.",
       "Being clear about who needs care, and which meals you need, helps you find the right person.",
@@ -250,7 +261,7 @@ export const cities: City[] = [
       {
         question: "Can one person help with elder care and cooking?",
         answer:
-          "Some helpers can do both. Mention both needs in your requirement and agree the daily routine before they start.",
+          "Some helpers can do both. Mention both needs when you speak to helpers and agree the daily routine before they start.",
       },
       {
         question: "Does MeeHelp cover Salt Lake and New Town?",
@@ -272,7 +283,8 @@ export const cities: City[] = [
     region: "Gujarat",
     displayName: "Ahmedabad",
     includes: ["Gandhinagar"],
-    serviceAvailability: { ...unconfirmed },
+    marketActive: true,
+    availability: unconfirmed(),
     intro: [
       "Many Ahmedabad households want vegetarian or Jain cooking, and food preferences are often the first thing families mention when looking for a cook.",
       "For cleaning and care, timings that fit around family routines matter most.",
@@ -286,7 +298,7 @@ export const cities: City[] = [
       {
         question: "Can I find a cook for Jain food in Ahmedabad?",
         answer:
-          "Mention Jain cooking when you post your requirement, and confirm the specific rules with the cook before they start.",
+          "Tell cooks you need Jain food when you speak to them, and confirm the specific rules before they start.",
       },
       {
         question: "Does MeeHelp cover Gandhinagar?",

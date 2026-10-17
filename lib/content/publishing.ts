@@ -24,3 +24,20 @@ export function combineStatus(...statuses: PublishStatus[]): PublishStatus {
   if (statuses.includes("review")) return "review";
   return "published";
 }
+
+/**
+ * Business facts gate publishing just like editorial status:
+ * confirmed yes → "published", NOT CONFIRMED (null) → "review", confirmed no → "draft".
+ */
+export function confirmedStatus(value: boolean | null): PublishStatus {
+  if (value === true) return "published";
+  if (value === null) return "review";
+  return "draft";
+}
+
+/** Only "available"/"limited" can publish; "unknown" holds in review; the rest never builds. */
+export function availabilityStatus(a: "available" | "limited" | "coming-soon" | "unavailable" | "unknown"): PublishStatus {
+  if (a === "available" || a === "limited") return "published";
+  if (a === "unknown") return "review";
+  return "draft";
+}

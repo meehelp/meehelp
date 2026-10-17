@@ -4,12 +4,14 @@
  *   - /maid        → 308 redirect to /maid/   (trailing-slash policy)
  *   - /maid/       → out/maid/index.html
  *   - unknown path → out/404.html with HTTP 404
+ *   - gzip for text responses when the client accepts it (like a CDN would)
  * Usage: npm run serve  (PORT=4000 npm run serve)
  * Local review only — not a production server.
  */
 import { createServer } from "node:http";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { extname, join, normalize } from "node:path";
+import { gzipSync } from "node:zlib";
 
 const root = join(process.cwd(), "out");
 const port = Number(process.env.PORT || 4000);
@@ -55,9 +57,13 @@ createServer((req, res) => {
 
   const ext = extname(file);
   const immutable = file.includes(`${join("_next", "static")}`);
+  const compressible = [".html", ".js", ".css", ".txt", ".xml", ".json", ".svg", ".ttf"].includes(ext);
+  const gzip = compressible && /\bgzip\b/.test(String(req.headers["accept-encoding"] ?? ""));
+  const body = readFileSync(file);
   res.writeHead(200, {
     "Content-Type": types[ext] ?? "application/octet-stream",
     "Cache-Control": immutable ? "public, max-age=31536000, immutable" : "public, max-age=0, must-revalidate",
+    ...(gzip ? { "Content-Encoding": "gzip", Vary: "Accept-Encoding" } : {}),
   });
-  res.end(readFileSync(file));
+  res.end(gzip ? gzipSync(body) : body);
 }).listen(port, () => console.log(`Serving out/ at http://localhost:${port}`));

@@ -9,15 +9,16 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "build:preview": "SITE_STAGE=preview next build",
-    "build:production": "SITE_STAGE=production next build",
+    "build": "tsx scripts/build.ts",
+    "build:preview": "SITE_STAGE=preview tsx scripts/build.ts",
+    "build:production": "SITE_STAGE=production tsx scripts/build.ts",
     "serve": "node scripts/serve-static.mjs",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/unit/*.test.ts",
     "seo": "tsx scripts/seo-check.ts",
     "seo:preview": "tsx scripts/seo-check.ts --stage=preview",
-    "check": "npm run typecheck && npm test && npm run seo"
+    "check": "npm run typecheck && npm test && npm run seo && npm run seo:preview",
+    "measure:js": "node scripts/measure-js.mjs"
   },
   "dependencies": {
     "next": "16.3.8",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AppDownloadSection } from "@/components/app/AppDownloadSection";
-import { StoreButtons } from "@/components/app/StoreButtons";
+import { Cta } from "@/components/content/Cta";
 import { FaqList } from "@/components/content/FaqList";
 import { Section } from "@/components/content/Section";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
@@ -33,6 +33,7 @@ export function LocalityTemplate({ route }: { route: LocalityRoute }) {
           { name: page.locality.name, path },
         ]}
       />
+      <div data-model={page.content.model}>
       <section className="hero hero--compact">
         <div className="container">
           <h1>{page.content.headline}</h1>
@@ -41,13 +42,16 @@ export function LocalityTemplate({ route }: { route: LocalityRoute }) {
               {para}
             </p>
           ))}
-          <StoreButtons placement={`${service.slug}_${city.slug}_${page.locality.slug}_hero`} />
+          <div className="cta-row">
+            <Cta ctaKey="findService" role={service.roleWithArticle} placement={`${service.slug}_${city.slug}_${page.locality.slug}_hero`} />
+          </div>
         </div>
       </section>
       <Section id="faqs" title="Frequently asked questions">
         <FaqList faqs={page.content.localFaqs} />
       </Section>
-      <AppDownloadSection placement={`${service.slug}_${city.slug}_${page.locality.slug}_app_section`} />
+      <AppDownloadSection model={page.content.model} placement={`${service.slug}_${city.slug}_${page.locality.slug}_app_section`} />
+      </div>
     </>
   );
 }

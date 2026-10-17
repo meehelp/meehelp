@@ -1,5 +1,5 @@
-import { engagementTypes } from "@/data/how-it-works";
-import type { EngagementKey, Step } from "@/lib/content/types";
+import { hiringArrangements } from "@/data/how-it-works";
+import type { HiringArrangement, Step } from "@/lib/content/types";
 import { Icon } from "./Icon";
 
 export function CheckList({ items, variant = "check" }: { items: string[]; variant?: "check" | "cross" }) {
@@ -41,13 +41,13 @@ export function Steps({ steps }: { steps: Step[] }) {
   );
 }
 
-export function EngagementList({ keys }: { keys: EngagementKey[] }) {
+export function ArrangementList({ keys }: { keys: HiringArrangement[] }) {
   return (
-    <ul className="cards cards--3">
+    <ul className="cards cards--2">
       {keys.map((key) => (
         <li key={key} className="card">
-          <h3 className="card__title">{engagementTypes[key].name}</h3>
-          <p>{engagementTypes[key].body}</p>
+          <h3 className="card__title">{hiringArrangements[key].name}</h3>
+          <p>{hiringArrangements[key].body}</p>
         </li>
       ))}
     </ul>

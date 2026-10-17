@@ -3,7 +3,7 @@ import Link from "next/link";
 import { AppDownloadSection } from "@/components/app/AppDownloadSection";
 import { Section } from "@/components/content/Section";
 import { ServiceCards } from "@/components/content/ServiceCards";
-import { getBuiltServices } from "@/lib/content";
+import { getServiceCategories } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: { absolute: "Page not found | MeeHelp" },
@@ -18,14 +18,14 @@ export default function NotFound() {
         <div className="container">
           <h1>Sorry, we couldn't find that page</h1>
           <p className="lead">
-            The link may be out of date. Try one of our services below, or go to the <Link href="/">home page</Link>.
+            The link may be out of date. Try one of the options below, or go to the <Link href="/">home page</Link>.
           </p>
         </div>
       </section>
       <Section id="services" title="Our services">
-        <ServiceCards services={getBuiltServices()} />
+        <ServiceCards items={getServiceCategories()} />
       </Section>
-      <AppDownloadSection placement="not_found" />
+      <AppDownloadSection model="both" placement="not_found" />
     </>
   );
 }

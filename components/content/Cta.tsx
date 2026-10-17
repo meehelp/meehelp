@@ -1,0 +1,32 @@
+import { ctaLabel, ctas, type CtaKey } from "@/data/ctas";
+
+/**
+ * A configured call to action (labels live in data/ctas.ts). Renders a plain
+ * link to the in-page app download section today; `data-cta-model` lets the
+ * SEO validator check that journeys are not mixed.
+ */
+export function Cta({
+  ctaKey,
+  role,
+  placement,
+  variant = "primary",
+}: {
+  ctaKey: CtaKey;
+  role?: string;
+  placement: string;
+  variant?: "primary" | "secondary";
+}) {
+  const cta = ctas[ctaKey];
+  return (
+    <a
+      className={`button${variant === "secondary" ? " button--secondary" : ""}`}
+      href={cta.destination.anchor}
+      data-track="cta_click"
+      data-cta={ctaKey}
+      data-cta-model={cta.model}
+      data-placement={placement}
+    >
+      {ctaLabel(ctaKey, role)}
+    </a>
+  );
+}

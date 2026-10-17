@@ -4,11 +4,11 @@ import type { Claim, TrustMetric } from "@/lib/content/types";
  * Central, business-controlled configuration.
  *
  * RULES
- * - Never invent numbers. A metric renders only when `approved` is true and
- *   `value`, `source` and `asOf` are all set.
+ * - Never invent numbers. A metric renders only when approved, display-enabled,
+ *   and `value`, `source` and `dateChecked` are all set.
  * - A claim renders only when `enabled` is true AND `approvedBy`/`approvedOn`
  *   are set. `npm test` fails if a claim is enabled without approval details.
- * - Verification-type claims are disabled by default (see `claims` below).
+ * - Verification wording comes only from data/verification.ts.
  */
 
 export const business = {
@@ -20,7 +20,7 @@ export const business = {
   legalName: null as string | null,
   /** One-line description used in metadata and schema. */
   summary:
-    "MeeHelp is an app that helps households in India find maids, cooks, babysitters, elder care and patient care attendants near them.",
+    "MeeHelp is an app for finding domestic helpers — maids, cooks, babysitters, elder care and patient care attendants — and for booking on-demand help at home.",
   logo: {
     src: "/brand/meehelp-logo.png",
     width: 465,
@@ -37,73 +37,85 @@ export const business = {
   },
 } as const;
 
+/**
+ * Marketing claims. Verification wording lives in data/verification.ts.
+ * A claim renders only when enabled AND approvedBy/approvedOn are set.
+ * Disabled claims are also enforced as FORBIDDEN wording in production
+ * output (lib/guards/claims.ts).
+ */
 export type ClaimKey =
-  | "verifiedHelpers"
-  | "backgroundChecks"
-  | "noBrokerage"
-  | "replacementSupport"
+  | "noPlacementFee"
   | "inAppSupport"
-  | "securePayments";
+  | "replacementGuarantee"
+  | "placementGuarantee"
+  | "guaranteedHiring"
+  | "completelyFree";
 
 export const claims: Record<ClaimKey, Claim> = {
-  verifiedHelpers: {
-    enabled: false,
-    text: "Verified helpers",
-    detail: "Describe exactly what is verified, by whom, and when.",
-    approvedBy: null,
-    approvedOn: null,
-    note:
-      "DISABLED. The current in-app service guidelines say document verification is the employer's responsibility. Do not enable until the verification process is defined and approved.",
-  },
-  backgroundChecks: {
-    enabled: false,
-    text: "Background checks",
-    detail: "Describe the type of check and the provider.",
-    approvedBy: null,
-    approvedOn: null,
-    note: "DISABLED. Requires a documented, auditable process before any claim is made.",
-  },
-  noBrokerage: {
-    enabled: false,
-    text: "No brokerage",
-    detail: "You don't pay an agent's commission to hire a helper.",
-    approvedBy: null,
-    approvedOn: null,
-    note: "Existing in-app copy says 'zero brokerage'. Confirm it is still accurate for every service before enabling.",
-  },
-  replacementSupport: {
-    enabled: false,
-    text: "Replacement support",
-    detail: "State the conditions and time window.",
-    approvedBy: null,
-    approvedOn: null,
-    note: "Older in-app guidelines mention replacements; the current policy must be confirmed.",
+  noPlacementFee: {
+    enabled: true,
+    model: "marketplace",
+    text: "No placement agency fee",
+    detail: "You choose a plan for the number of helper contacts you need, and agree the salary directly with the helper.",
+    approvedBy: "MeeHelp business owner (Phase 3 brief)",
+    approvedOn: "2026-10-17",
+    note: "Confirmed: the marketplace does not charge a conventional placement/replacement agency fee. Customers DO buy contact plans, so never shorten this to 'free' or 'zero fee'.",
   },
   inAppSupport: {
     enabled: false,
+    model: "both",
     text: "Support from the app",
     detail: "State support hours and channels.",
     approvedBy: null,
     approvedOn: null,
     note: "Confirm support channels and hours.",
   },
-  securePayments: {
+  // The following are NOT part of the marketplace model. They stay disabled,
+  // and their wording is blocked in production output.
+  replacementGuarantee: {
     enabled: false,
-    text: "Pay in the app",
-    detail: "Name the payment methods that are supported.",
+    model: "marketplace",
+    text: "Replacement guarantee",
     approvedBy: null,
     approvedOn: null,
-    note: "Confirm which services support in-app payment.",
+    note: "Not offered: there is no placement fee, so there is no agency-style replacement policy.",
+  },
+  placementGuarantee: {
+    enabled: false,
+    model: "marketplace",
+    text: "Placement guarantee",
+    approvedBy: null,
+    approvedOn: null,
+    note: "Not offered. Customers hire directly.",
+  },
+  guaranteedHiring: {
+    enabled: false,
+    model: "marketplace",
+    text: "Guaranteed hiring",
+    approvedBy: null,
+    approvedOn: null,
+    note: "Not offered. Hiring depends on the customer and the helper agreeing terms.",
+  },
+  completelyFree: {
+    enabled: false,
+    model: "both",
+    text: "Completely free",
+    approvedBy: null,
+    approvedOn: null,
+    note: "Untrue for the marketplace: customers buy contact plans (see data/plans.ts).",
   },
 };
 
-/** Business statistics. All empty until real, dated figures are supplied. */
+/**
+ * Business statistics. All empty until real, dated figures are supplied.
+ * Never scrape or estimate. Ratings are shown as text only — no
+ * Review/AggregateRating schema until separately reviewed.
+ */
 export const trustMetrics: TrustMetric[] = [
-  { key: "playRating", label: "Google Play rating", value: null, source: null, asOf: null, approved: false },
-  { key: "appStoreRating", label: "App Store rating", value: null, source: null, asOf: null, approved: false },
-  { key: "downloads", label: "App downloads", value: null, source: null, asOf: null, approved: false },
-  { key: "helpers", label: "Helpers registered", value: null, source: null, asOf: null, approved: false },
-  { key: "bookings", label: "Bookings completed", value: null, source: null, asOf: null, approved: false },
+  { key: "playRating", metric: "Google Play rating", value: null, source: "Google Play listing", sourceUrl: "https://play.google.com/store/apps/details?id=com.meehelp.meehelp&hl=en_IN", dateChecked: null, approved: false, displayEnabled: false },
+  { key: "playDownloads", metric: "Google Play downloads", value: null, source: "Google Play listing", sourceUrl: "https://play.google.com/store/apps/details?id=com.meehelp.meehelp&hl=en_IN", dateChecked: null, approved: false, displayEnabled: false },
+  { key: "appStoreRating", metric: "App Store rating", value: null, source: "Apple App Store listing", sourceUrl: "https://apps.apple.com/in/app/meehelp-find-helpers-near-you/id1625634794", dateChecked: null, approved: false, displayEnabled: false },
+  { key: "helpers", metric: "Helpers registered", value: null, source: null, sourceUrl: null, dateChecked: null, approved: false, displayEnabled: false },
 ];
 
 /**

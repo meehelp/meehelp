@@ -33,13 +33,14 @@ const OUT = join(process.cwd(), "out");
 
 if (!skipBuild) {
   console.log(`\n▶ Building static site (SITE_STAGE=${stage}) …\n`);
-  execSync("npx next build", { stdio: "inherit", env: { ...process.env, SITE_STAGE: stage, NEXT_TELEMETRY_DISABLED: "1" } });
+  execSync("npx tsx scripts/build.ts", { stdio: "inherit", env: { ...process.env, SITE_STAGE: stage } });
 }
 
 // Import after SITE_STAGE is set, so the registry reflects the same stage as the build.
 const { getSiteRoutes } = await import("@/lib/content");
-const { claims } = await import("@/data/business");
-const { isClaimActive } = await import("@/lib/trust");
+const guards = await import("@/lib/guards/claims");
+const { allowedPriceStrings, arePricesPublishable } = await import("@/lib/pricing");
+const { ctas } = await import("@/data/ctas");
 const { siteUrl } = await import("@/lib/site");
 
 type Issue = { level: "error" | "warning"; page: string; message: string };
@@ -76,11 +77,26 @@ const pagePaths = allFiles
 for (const p of pagePaths) if (!routeByPath.has(p)) error(p, "Page was generated but is not in the route registry");
 for (const r of routes) if (!pagePaths.includes(r.path)) error(r.path, "Route is registered but no page was generated");
 
-// ---------- Claims / placeholder guards ----------
-const verificationActive = isClaimActive(claims.verifiedHelpers) || isClaimActive(claims.backgroundChecks);
-const verificationPhrases =
-  /\b(?:police[- ]verified|background[- ](?:verified|checked)|verified\s+(?:maids?|helpers?|cooks?|nann(?:y|ies)|babysitters?|caregivers?|attendants?|staff|professionals?))\b|100%\s*verified/i;
+// ---------- Claims / wording / pricing guards ----------
+// Built from the business configuration, so enabling a fact later relaxes its guard.
+const wordingRules = [...guards.verificationRules(), ...guards.commercialRules()];
 const placeholderText = /\[DEV PLACEHOLDER\]|\[DRAFT\]|lorem ipsum|TODO/i;
+const priceStrings = allowedPriceStrings();
+const homePrices = new Set(priceStrings.home);
+const allPrices = new Set([...priceStrings.home, ...priceStrings.office, ...priceStrings.business]);
+const pricesPublishable = arePricesPublishable();
+const ctaUsage = new Map<string, number>();
+
+/** Visible text of an element: scripts/styles removed, and optionally nested [data-model] blocks removed. */
+function visibleText(el: HTMLElement, excludeNestedModels = false): string {
+  const clone = parse(el.toString());
+  clone.querySelectorAll("script, style, template").forEach((n) => n.remove());
+  if (excludeNestedModels) {
+    const root = clone.firstChild as HTMLElement | undefined;
+    root?.querySelectorAll?.("[data-model]").forEach((n) => n.remove());
+  }
+  return clone.structuredText.replace(/\s+/g, " ");
+}
 
 const titles = new Map<string, string[]>();
 const descriptions = new Map<string, string[]>();
@@ -198,14 +214,61 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   }
   internalLinks.set(page, links);
 
-  // Production content guards (visible text + attributes, excluding scripts)
-  if (stage === "production") {
-    const body = parse(html).querySelector("body");
-    body?.querySelectorAll("script, style, template").forEach((n) => n.remove());
-    const visible = body?.structuredText ?? "";
-    if (placeholderText.test(visible)) error(page, "Placeholder or draft text in production HTML");
-    if (!verificationActive && verificationPhrases.test(visible))
-      error(page, "Verification claim found while verification claims are disabled");
+  // In-page anchors (CTAs point at #get-the-app) must exist on the page.
+  for (const a of root.querySelectorAll('a[href^="#"]')) {
+    const id = (a.getAttribute("href") ?? "").slice(1);
+    if (id && !root.querySelector(`[id="${id}"]`)) error(page, `In-page link #${id} has no target`);
+  }
+
+  const body = root.querySelector("body");
+  if (!body) return;
+  const visible = visibleText(body);
+
+  // Placeholders never reach production.
+  if (stage === "production" && placeholderText.test(visible)) error(page, "Placeholder or draft text in production HTML");
+
+  // Unsupported verification / commercial claims (every stage — preview mirrors production rules).
+  for (const { rule, match } of guards.findViolations(visible, wordingRules)) {
+    error(page, `Unsupported claim (${rule.reason}): "${match}"`);
+  }
+
+  // Prices: only configured plan prices; Office/Business only on /pricing/; none on production until publishable.
+  const prices = visible.match(guards.priceStringPattern) ?? [];
+  for (const price of prices) {
+    const normalised = price.replace(/\s/g, "");
+    if (!allPrices.has(normalised)) error(page, `Price "${price}" is not from data/plans.ts`);
+    else if (page !== "/pricing/" && !homePrices.has(normalised)) error(page, `Office/Business price "${price}" outside /pricing/`);
+  }
+  if (stage === "production" && !pricesPublishable && prices.length > 0) {
+    error(page, "Prices shown on production while the price note (app '*') is unconfirmed");
+  }
+
+  // Marketplace and on-demand must not mix: wording and CTAs inside each [data-model] block.
+  for (const block of body.querySelectorAll("[data-model]")) {
+    const model = block.getAttribute("data-model") as "marketplace" | "onDemand";
+    if (model !== "marketplace" && model !== "onDemand") {
+      error(page, `Unknown data-model "${model}"`);
+      continue;
+    }
+    const text = visibleText(block, true);
+    const m = text.match(guards.forbiddenInModel(model));
+    if (m) error(page, `${model} section contains wording from the other proposition: "${m[0]}"`);
+    for (const cta of block.querySelectorAll("[data-cta-model]")) {
+      const nested = cta.closest("[data-model]");
+      if (nested && nested !== block) continue;
+      const ctaModel = cta.getAttribute("data-cta-model");
+      if (ctaModel !== model && ctaModel !== "app") error(page, `${ctaModel} CTA inside a ${model} section`);
+    }
+  }
+  const route = routeByPath.get(page);
+  if (route?.model === "marketplace") {
+    if (body.querySelector('[data-model="onDemand"]')) error(page, "Marketplace page contains an on-demand section");
+    if (body.querySelector('[data-cta-model="onDemand"]')) error(page, "Marketplace page contains an on-demand CTA");
+  }
+  for (const cta of body.querySelectorAll("[data-cta]")) {
+    const key = cta.getAttribute("data-cta")!;
+    if (!(key in ctas)) error(page, `Unknown CTA "${key}"`);
+    ctaUsage.set(key, (ctaUsage.get(key) ?? 0) + 1);
   }
 }
 
@@ -282,6 +345,12 @@ writeFileSync(
   "reports/seo-report.json",
   JSON.stringify({ stage, siteUrl, pages: pagePaths, sitemap: sitemapUrls, issues }, null, 2),
 );
+
+const unapprovedCtas = [...ctaUsage.keys()].filter((k) => ctas[k as keyof typeof ctas]?.wording !== "approved");
+if (unapprovedCtas.length > 0) {
+  console.log(`\nInfo: CTA wording still "proposed" (needs business approval): ${unapprovedCtas.map((k) => `${k} ×${ctaUsage.get(k)}`).join(", ")}`);
+}
+console.log(`Info: prices ${pricesPublishable ? "shown" : "hidden"} on this build (priceNote ${stage === "production" ? "gate applies" : "gate applies on production only"}).`);
 
 console.log(`\n${errors.length} error(s), ${warnings.length} warning(s). Report: reports/seo-report.json`);
 process.exit(errors.length > 0 ? 1 : 0);

@@ -8,9 +8,13 @@
 - Play links append an install referrer (`utm_source=meehelp_website`, `utm_medium=organic`,
   `utm_campaign=<placement>`), visible in Play Console acquisition reports.
 - Safari Smart App Banner: `<meta name="apple-itunes-app" content="app-id=1625634794">`.
-- `PlatformCta` (mobile sticky bar) shows only the relevant store after load; the server HTML includes both links.
+- The mobile sticky bar shows both store buttons, server-rendered (no JS, no layout shift). Device-specific store
+  selection was removed in Phase 3 because it needed a client component and caused CLS; a smart link will do this server-side once deep linking is reviewed.
+- Proposition CTAs (`data/ctas.ts`, e.g. "Find a maid", "Choose a plan", "Book now") link to the page's `#get-the-app`
+  section today. Each has a `journey` (marketplace-search, marketplace-plans, on-demand-booking) for future deep links.
 - `QrPanel` is a desktop placeholder (preview only) until an approved QR image exists.
-- Every CTA has `data-track="app_download_click"`, `data-platform` and `data-placement` for analytics.
+- Store buttons have `data-track="app_download_click"`; proposition CTAs have `data-track="cta_click"`, `data-cta` and
+  `data-cta-model`. All carry `data-placement` for analytics.
 
 ## Not used yet (needs review)
 

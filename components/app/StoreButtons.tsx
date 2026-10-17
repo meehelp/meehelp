@@ -11,6 +11,7 @@ import { Icon } from "@/components/content/Icon";
  */
 export function StoreButton({ platform, placement }: { platform: Platform; placement: string }) {
   const isAndroid = platform === "android";
+  const store = isAndroid ? appLinks.android.storeName : appLinks.ios.storeName;
   return (
     <a
       className={`store-button store-button--${platform}`}
@@ -22,15 +23,23 @@ export function StoreButton({ platform, placement }: { platform: Platform; place
       <Icon name={isAndroid ? "play" : "phone"} size={22} className="store-button__icon" />
       <span className="store-button__text">
         <span className="store-button__small">{isAndroid ? "Get it on" : "Download on the"}</span>
-        <span className="store-button__store">{isAndroid ? appLinks.android.storeName : appLinks.ios.storeName}</span>
+        <span className="store-button__store">{store}</span>
       </span>
     </a>
   );
 }
 
-export function StoreButtons({ placement, align = "start" }: { placement: string; align?: "start" | "center" }) {
+export function StoreButtons({
+  placement,
+  align = "start",
+  size = "regular",
+}: {
+  placement: string;
+  align?: "start" | "center";
+  size?: "regular" | "compact";
+}) {
   return (
-    <div className={`store-buttons store-buttons--${align}`}>
+    <div className={`store-buttons store-buttons--${align}${size === "compact" ? " store-buttons--compact" : ""}`}>
       <StoreButton platform="android" placement={placement} />
       <StoreButton platform="ios" placement={placement} />
     </div>

@@ -63,7 +63,7 @@ test("every service answers the core customer questions", () => {
     assert.ok(svc.tasksIncluded.length >= 4, `${svc.slug} included`);
     assert.ok(svc.tasksExcluded.length >= 2, `${svc.slug} excluded`);
     assert.ok(svc.faqs.length >= 3, `${svc.slug} faqs`);
-    assert.ok(svc.engagementTypes.length >= 1, `${svc.slug} engagement types`);
+    assert.ok(svc.arrangements.length >= 1, `${svc.slug} arrangements`);
   }
 });
 

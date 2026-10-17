@@ -10,6 +10,13 @@ import type { NextConfig } from "next";
  */
 const nextConfig: NextConfig = {
   output: "export",
+  /**
+   * `page.routes.tsx` (the service/pricing catch-all) is included unless the
+   * build wrapper (scripts/build.ts) reports that the route registry has no
+   * service routes for this stage — static export cannot build an empty
+   * dynamic route. `next dev` always includes it.
+   */
+  pageExtensions: process.env.SERVICE_ROUTES === "0" ? ["tsx", "ts"] : ["tsx", "ts", "routes.tsx"],
   trailingSlash: true,
   reactStrictMode: true,
   poweredByHeader: false,

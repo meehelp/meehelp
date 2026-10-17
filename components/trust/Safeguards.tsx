@@ -1,13 +1,7 @@
 import { sharedSafeguards } from "@/data/how-it-works";
 import { BulletList } from "@/components/content/Lists";
-import { Claims } from "./Claims";
 
-/** Practical advice for hiring safely, plus any approved business claims. */
+/** Practical advice for hiring safely. Makes no claims about MeeHelp checks. */
 export function Safeguards({ extra = [] }: { extra?: string[] }) {
-  return (
-    <div className="safeguards">
-      <Claims />
-      <BulletList items={[...extra, ...sharedSafeguards]} />
-    </div>
-  );
+  return <BulletList items={[...extra, ...sharedSafeguards]} />;
 }

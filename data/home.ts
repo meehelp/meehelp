@@ -1,5 +1,11 @@
 import type { Faq, PublishStatus, Seo } from "@/lib/content/types";
 
+/**
+ * Home page copy. The home page introduces BOTH propositions in clearly
+ * separated sections (marketplace vs on-demand). Prices, free profile views
+ * and verification wording are NOT written here — they come from
+ * data/plans.ts and data/verification.ts.
+ */
 export const home: {
   headline: string;
   intro: string;
@@ -9,9 +15,9 @@ export const home: {
   publishStatus: PublishStatus;
   updatedAt: string;
 } = {
-  headline: "Find house help, cooks, nannies and care attendants near you",
+  headline: "Find domestic helpers near you, or book help at home",
   intro:
-    "MeeHelp is an app that connects households with domestic helpers for one-off, part-time and full-time work — so you can find the help your home needs, close to where you live.",
+    "MeeHelp gives you two ways to get help at home: find and hire a helper directly, or book on-demand help through the app.",
   audiences: [
     {
       title: "Working households",
@@ -19,7 +25,7 @@ export const home: {
     },
     {
       title: "New and busy parents",
-      body: "A babysitter or nanny for the hours you need, with time to meet them first.",
+      body: "A babysitter or nanny you have spoken to and met before you decide.",
     },
     {
       title: "Families caring for parents",
@@ -34,33 +40,38 @@ export const home: {
     {
       question: "What is MeeHelp?",
       answer:
-        "MeeHelp is a mobile app that helps households find domestic helpers near them — maids, cooks, babysitters and nannies, and elder care and patient care attendants.",
+        "MeeHelp is a mobile app with two ways to get help at home. You can find domestic helpers — maids, cooks, babysitters and nannies, elder care and patient care attendants — and hire them directly. You can also book on-demand help through the app.",
     },
     {
-      question: "How do I find a helper on MeeHelp?",
+      question: "How does finding and hiring a helper work?",
       answer:
-        "Download the app, sign in with your mobile number, and tell us the service, hours and address. You can then see helpers near you and speak to them before you decide.",
+        "You review helper profiles in the app, choose a plan for the number of helper contacts you need, and contact helpers directly. You discuss the work, agree the salary with the helper yourself, and can call them for a trial before you decide.",
     },
     {
-      question: "How much does it cost?",
+      question: "What does it cost to find a helper?",
       answer:
-        "Charges depend on the service, the hours and the work involved. The app shows the charges for your requirement before you confirm anything.",
+        "MeeHelp doesn't charge a placement agency fee. You pay for a plan that gives you a number of helper contacts, and you agree the helper's salary directly with them.",
     },
     {
-      question: "Is MeeHelp available in my area?",
+      question: "What is on-demand help?",
       answer:
-        "Open the app and enter your address to see the helpers available near you. Availability depends on your exact location and the service you need.",
+        "On-demand help is booked through the MeeHelp app — instantly, for a scheduled time, or by the hour. Which kinds of help you can book depends on your area, so check in the app.",
     },
     {
-      question: "Do I need the app, or can I book on the website?",
+      question: "Which cities does MeeHelp work in?",
       answer:
-        "Bookings are made in the MeeHelp app, which you can download from Google Play and the App Store.",
+        "MeeHelp operates in the cities listed on this page. What is available depends on your exact area and the kind of help you need, so check in the app.",
+    },
+    {
+      question: "Do I need the app?",
+      answer:
+        "Yes. Finding helpers and booking on-demand help both happen in the MeeHelp app, which you can download from Google Play and the App Store.",
     },
   ],
   seo: {
-    title: "MeeHelp – Maids, Cooks, Nannies & Care Attendants Near You",
+    title: "MeeHelp – Find Maids, Cooks & Nannies or Book Help at Home",
     description:
-      "Find maids, cooks, babysitters, elder care and patient care attendants near you. Choose one-off, part-time or full-time help with the MeeHelp app.",
+      "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book on-demand help at home. Get the MeeHelp app.",
   },
   publishStatus: "published",
   updatedAt: "2026-10-17",

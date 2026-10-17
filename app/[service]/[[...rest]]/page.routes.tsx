@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LocalityTemplate, localityMetadata } from "@/components/templates/LocalityTemplate";
+import { PricingTemplate, pricingMetadata } from "@/components/templates/PricingTemplate";
 import { ServiceCityTemplate, serviceCityMetadata } from "@/components/templates/ServiceCityTemplate";
 import { ServiceTemplate, serviceMetadata } from "@/components/templates/ServiceTemplate";
 import { getServiceRouteParams, resolveRoute } from "@/lib/content/resolve";
@@ -10,6 +11,7 @@ import { getServiceRouteParams, resolveRoute } from "@/lib/content/resolve";
  *   /maid/                      service hub
  *   /maid/mumbai/               service × city (explicitly listed combinations only)
  *   /maid/mumbai/andheri-west/  locality (explicitly "published" only — none today)
+ *   /pricing/                   marketplace plans (held in review until prices may be published)
  *
  * Only paths returned by generateStaticParams are built; anything else is a 404.
  */
@@ -31,6 +33,8 @@ async function load(params: Props["params"]) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const route = await load(params);
   switch (route.kind) {
+    case "pricing":
+      return pricingMetadata(route);
     case "service":
       return serviceMetadata(route);
     case "service-city":
@@ -43,6 +47,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ServiceRoutePage({ params }: Props) {
   const route = await load(params);
   switch (route.kind) {
+    case "pricing":
+      return <PricingTemplate route={route} />;
     case "service":
       return <ServiceTemplate route={route} />;
     case "service-city":

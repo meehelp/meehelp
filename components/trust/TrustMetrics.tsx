@@ -1,6 +1,6 @@
 import { getDisplayableMetrics } from "@/lib/trust";
 
-/** Business statistics. Renders nothing until approved numbers exist in data/business.ts. */
+/** Business statistics. Renders nothing until approved, sourced, dated numbers exist in data/business.ts. */
 export function TrustMetrics({ keys }: { keys?: string[] }) {
   const metrics = getDisplayableMetrics(keys);
   if (metrics.length === 0) return null;
@@ -8,7 +8,7 @@ export function TrustMetrics({ keys }: { keys?: string[] }) {
     <dl className="metrics">
       {metrics.map((m) => (
         <div key={m.key} className="metrics__item">
-          <dt>{m.label}</dt>
+          <dt>{m.metric}</dt>
           <dd>{m.value}</dd>
         </div>
       ))}
@@ -16,7 +16,7 @@ export function TrustMetrics({ keys }: { keys?: string[] }) {
   );
 }
 
-/** App-store ratings. Text only — never marked up as AggregateRating schema. */
+/** App-store ratings and downloads. Text only — never marked up as AggregateRating schema. */
 export function AppRatings() {
-  return <TrustMetrics keys={["playRating", "appStoreRating", "downloads"]} />;
+  return <TrustMetrics keys={["playRating", "playDownloads", "appStoreRating"]} />;
 }
