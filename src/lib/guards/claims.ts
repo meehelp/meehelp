@@ -8,6 +8,8 @@
  * not a police verification") is not flagged.
  */
 import { claims } from "@/data/business";
+import { pricingSettings } from "@/data/plans";
+import { promotions } from "@/data/promotions";
 import { isCheckActive, verificationChecks } from "@/data/verification";
 import type { BusinessModel } from "@/lib/content/types";
 import { isClaimActive } from "@/lib/trust";
@@ -100,6 +102,24 @@ export function commercialRules(): WordingRule[] {
       pattern: /\b(?:completely|totally|100%|absolutely) free\b|\bfree (?:maid|cook|nanny|helper|of cost) ?(?:service)?\b|\bzero (?:fees?|charges?|cost)\b|\bno (?:charges?|fees?|cost)\b(?! to download)/i,
     });
   }
+  // Promotions are temporary: never in evergreen pages.
+  if (!promotions.freeProfileViews.evergreenCopyAllowed) {
+    rules.push({
+      id: "promo-free-profile",
+      reason: "free profile views are a temporary promotion, not evergreen copy",
+      pattern:
+        /\bfree (?:helper )?profile views?\b|\b(?:first|one|1) (?:helper )?profile (?:view )?(?:is |for )?free\b|\bview (?:your first|one|1) (?:helper )?profiles? (?:for )?free\b|\bprofile views?\b[^.]{0,30}\bfree\b/i,
+    });
+  }
+  // No tax statement has been provided: no GST/tax wording of any kind.
+  if (!pricingSettings.taxStatement) {
+    rules.push({
+      id: "tax",
+      reason: "no tax statement has been provided",
+      pattern:
+        /\b(?:incl(?:usive|uding|\.)?|excl(?:usive|uding|\.)?|plus|\+)\s*(?:of\s+)?(?:gst|taxes|tax)\b|\b(?:gst|taxes|tax)\s+(?:included|inclusive|extra|excluded|applicable|additional|as applicable)\b|\bgst\b/i,
+    });
+  }
   if (!isClaimActive(claims.noPlacementFee)) {
     rules.push({ id: "no-placement-fee", reason: "noPlacementFee is not enabled", pattern: /\bno placement (?:agency )?fee\b|\bdoesn't (?:charge|take) a placement\b/i });
   }
@@ -126,6 +146,9 @@ export function forbiddenInModel(model: BusinessModel): RegExp {
 
 /** Any price-looking string (₹ / INR / Rs). */
 export const priceStringPattern = /(?:₹|\bINR|\bRs\.?)\s?\d[\d,]*(?:\.\d{1,2})?/g;
+
+/** A price followed by an asterisk (the app's meaningless "*" must never appear). */
+export const pricedAsteriskPattern = /(?:₹|\bINR|\bRs\.?)\s?\d[\d,]*(?:\.\d{1,2})?\s*\*/;
 
 export function findViolations(text: string, rules: WordingRule[]): { rule: WordingRule; match: string }[] {
   const hits: { rule: WordingRule; match: string }[] = [];

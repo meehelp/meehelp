@@ -6,6 +6,7 @@ import { cities } from "@/data/cities";
 import { home } from "@/data/home";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
+import { getServiceCityContent } from "@/lib/content";
 import { verificationChecks } from "@/data/verification";
 import { commercialRules, findViolations, forbiddenInModel, priceStringPattern, verificationRules } from "@/lib/guards/claims";
 
@@ -98,13 +99,24 @@ test("content copy contains no unsupported claims", () => {
 });
 
 test("marketplace content never uses on-demand wording", () => {
-  const copy = strings([services, serviceCities.filter((sc) => sc.model === "marketplace")]);
+  const marketplaceOnly = services.map(({ onDemand: _o, cityPage, ...rest }) => [rest, cityPage.marketplace]);
+  const pages = serviceCities.filter((sc) => sc.model === "marketplace").map(getServiceCityContent);
+  const copy = strings([marketplaceOnly, pages]);
   const hits = copy.filter((s) => forbiddenInModel("marketplace").test(s));
+  assert.deepEqual(hits, []);
+});
+
+test("on-demand content never uses marketplace wording", () => {
+  const onDemandOnly = services.map((s) => [s.onDemand, s.cityPage.onDemand]);
+  const pages = serviceCities.filter((sc) => sc.model === "onDemand").map(getServiceCityContent);
+  const hits = strings([onDemandOnly, pages]).filter((s) => forbiddenInModel("onDemand").test(s));
   assert.deepEqual(hits, []);
 });
 
 test("no prices or free-view counts are typed into copy — they come from src/data/plans.ts", () => {
   const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts"));
+  // The promotion's own config and the guard that blocks it are the only places it may be named.
+  const ruleFiles = ["src/data/promotions.ts", "src/lib/guards/claims.ts"];
   assert.ok(files.some((f) => f.endsWith(".astro")), "Astro components must be scanned");
   const priceHits: string[] = [];
   const freeHits: string[] = [];
@@ -115,7 +127,7 @@ test("no prices or free-view counts are typed into copy — they come from src/d
       .replace(/<!--[\s\S]*?-->/g, "")
       .replace(/^\s*\/\/.*$/gm, "");
     if (text.match(priceStringPattern)) priceHits.push(f);
-    if (/\b(?:1|one|first)\s+(?:free\s+)?(?:helper\s+)?profile view|free profile view/i.test(text)) freeHits.push(f);
+    if (!ruleFiles.some((r) => f.endsWith(r)) && /\b(?:1|one|first)\s+(?:free\s+)?(?:helper\s+)?profile view|free profile view/i.test(text)) freeHits.push(f);
   }
   assert.deepEqual(priceHits, []);
   assert.deepEqual(freeHits, []);

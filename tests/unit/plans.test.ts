@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { plans, pricingSettings, segments } from "@/data/plans";
+import { promotions } from "@/data/promotions";
 import { arePricesPublishable, formatInr, getActivePlans } from "@/lib/pricing";
 
 const expected = [
@@ -27,7 +28,7 @@ test("all 9 confirmed plans are configured exactly", () => {
     assert.equal(p.discountPercent, discount, id);
     assert.deepEqual(p.validity, { value: months, unit: "month" }, id);
     assert.equal(p.bestValue, best, id);
-    assert.equal(p.priceNote, "pending business confirmation", id);
+    assert.equal("priceNote" in p, false, `${id} carries no price note`);
   }
 });
 
@@ -57,18 +58,18 @@ test("only Home is a consumer segment", () => {
   assert.deepEqual(segments.filter((s) => s.audience === "consumer").map((s) => s.id), ["home"]);
 });
 
-test("prices are not published on production while the asterisk meaning is unconfirmed", () => {
-  if (pricingSettings.priceNote.status !== "confirmed") {
-    assert.equal(arePricesPublishable("production"), false);
-    assert.equal(pricingSettings.priceNote.text, null, "no price note text may be invented");
-  }
-  if (pricingSettings.publishPrices) {
-    assert.equal(pricingSettings.priceNote.status, "confirmed", "publishPrices requires a confirmed price note");
-  }
+test("the price asterisk is removed and no tax statement is invented", () => {
+  assert.equal(pricingSettings.asterisk.show, false);
+  assert.equal(pricingSettings.taxStatement, null);
+  assert.equal(arePricesPublishable("preview"), true);
+  assert.equal(arePricesPublishable("production"), pricingSettings.publishPrices);
 });
 
-test("free profile views are configured centrally", () => {
-  assert.equal(pricingSettings.freeProfileViews.value, 1);
+test("free profile views are a dynamic promotion, not evergreen pricing", () => {
+  assert.equal(promotions.freeProfileViews.value, 1);
+  assert.equal(promotions.freeProfileViews.dynamic, true);
+  assert.equal(promotions.freeProfileViews.evergreenCopyAllowed, false);
+  assert.equal("freeProfileViews" in pricingSettings, false);
 });
 
 test("INR formatting", () => {

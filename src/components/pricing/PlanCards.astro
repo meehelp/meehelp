@@ -1,12 +1,10 @@
 ---
 /**
  * Plan cards for ONE segment, read from src/data/plans.ts. Prices are never
- * typed into page copy. While the meaning of the app's "*" is unconfirmed,
- * prices are hidden on production builds and flagged on preview builds.
+ * typed into page copy, carry no asterisk and no tax wording.
  */
-import { pricingSettings, type PlanSegment } from "@/data/plans";
+import type { PlanSegment } from "@/data/plans";
 import { arePricesPublishable, getActivePlans } from "@/lib/pricing";
-import { isProductionStage } from "@/lib/site";
 import PlanCard from "./PlanCard.astro";
 
 interface Props {
@@ -17,18 +15,8 @@ interface Props {
 const { segment, placement } = Astro.props;
 const plans = getActivePlans(segment);
 const showPrices = arePricesPublishable();
-const { priceNote } = pricingSettings;
 ---
 
 <ul class="plans">
   {plans.map((plan) => <PlanCard plan={plan} showPrices={showPrices} placement={placement} />)}
 </ul>
-{
-  showPrices && priceNote.status !== "confirmed" && !isProductionStage ? (
-    <p class="badge badge--pending" role="note">
-      Pending: the app shows “*” beside prices. Its meaning is not confirmed, so no tax or GST explanation is shown.
-      Prices are hidden on production builds until this is confirmed.
-    </p>
-  ) : null
-}
-{showPrices && priceNote.status === "confirmed" && priceNote.text ? <p class="note">{priceNote.text}</p> : null}
