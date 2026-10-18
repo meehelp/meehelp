@@ -28,9 +28,25 @@ jobs:
       - name: Full checks
         run: npm run check
       - name: Production build
+        env:
+          GA4_MEASUREMENT_ID: G-07TZPSFJ8Y
         run: npm run build:production
-      - name: Zero-JS check
+      - name: Production release assertions
         run: |
-          count=$(find dist -type f -name '*.js' | wc -l | tr -d ' ')
-          echo "JavaScript files in dist: $count"
+          test -f dist/.htaccess
+          grep -q 'G-07TZPSFJ8Y' dist/index.html
+          grep -q 'Allow: /' dist/robots.txt
+          test "$(grep -c '<loc>https://meehelp.in/' dist/sitemap.xml)" = "15"
+          ! grep -Rqi 'noindex' dist/index.html dist/pricing/index.html dist/maid/index.html
+      - name: Zero local application-JS check
+        run: |
+          count=$(find dist -type f \( -name '*.js' -o -name '*.mjs' \) | wc -l | tr -d ' ')
+          echo "Local JavaScript files in dist: $count"
           test "$count" = "0"
+      - name: Upload Apache production artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meehelp-website-production
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14
