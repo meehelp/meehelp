@@ -78,9 +78,10 @@ test("release-review is noindex, sitemap-empty and placeholder-free", () => {
   assert.ok(getVisibleTestimonials("release-review").every((t) => !t.isPlaceholder && t.consentToPublish));
 });
 
-test("development, preview and production behaviour is unchanged", () => {
+test("preview stays complete while production contains exactly the approved release", () => {
   assert.equal(getSiteRoutes("preview").length, 92);
-  assert.deepEqual(getSiteRoutes("production").map((r) => r.path), ["/"]);
+  assert.deepEqual(getSiteRoutes("production").map((r) => r.path).sort(), APPROVED);
+  assert.ok(getSiteRoutes("production").every((r) => r.indexable), "production release pages must be indexable");
   assert.ok(getSiteRoutes("development").length >= 92);
   for (const stage of ["development", "preview", "production"] as const) for (const p of ["/maid/bengaluru/", "/hourly-cook/pune/"]) assert.equal(inStageScope(p, stage), true);
 });
