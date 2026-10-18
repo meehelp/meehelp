@@ -142,6 +142,6 @@ export const pricingPage = {
     description:
       "Compare MeeHelp Home, Office and Business plans. Each plan gives you a set number of helper contacts so you can speak to and hire helpers directly.",
   },
-  publishStatus: "review" as const,
+  publishStatus: "published" as const,
   updatedAt: "2026-10-17",
 };
