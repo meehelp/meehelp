@@ -16,7 +16,7 @@ import type { Availability, BusinessModel, City, ServiceSlug } from "@/lib/conte
  * that a locality is served. A city with little relevant context simply has
  * a shorter page — and the quality report says so.
  *
- * City copy stays in "review" until approved.
+ * Mumbai and Delhi NCR are approved as parent cities for the first release; other city copy stays in review.
  */
 const availableForBothModels: Record<BusinessModel, Availability> = { marketplace: "available", onDemand: "available" };
 const allServicesAvailable = (): Record<ServiceSlug, Record<BusinessModel, Availability>> => ({
@@ -68,7 +68,7 @@ export const cities: City[] = [
       title: "Domestic Help in Mumbai – Maids, Cooks & Care | MeeHelp",
       description: "Find house help in Mumbai, Thane and Navi Mumbai: maids, cooks, nannies, elder care and patient attendants near you, through the MeeHelp app.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   {
@@ -102,7 +102,7 @@ export const cities: City[] = [
       title: "Domestic Help in Delhi NCR – Maids, Cooks & Care | MeeHelp",
       description: "Find house help across Delhi, Gurugram, Noida, Ghaziabad and Faridabad — maids, cooks, nannies, elder care and patient attendants, via MeeHelp.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   {
