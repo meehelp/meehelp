@@ -50,6 +50,8 @@ until the business approves it.
 `release-review` is the exact build to inspect before launch: `npm run build:release-review`,
 `npm run seo:release-review` (validator: exactly the 15 pages, no leaks, no placeholders, noarchive),
 `npm run release-docs` (writes `docs/seo/FIRST-RELEASE-FINAL-AUDIT.md` and `FIRST-RELEASE-COPY.md`).
+Protected Vercel review deployment (not yet created): `docs/DEPLOYMENT-REVIEW.md`; local reproduction of the
+Vercel behaviour: `npm run smoke:hosting`.
 Links on release pages only ever point to pages built in the same stage (hubs list all eight cities but link
 only city pages that exist). It is not deployed anywhere.
 
