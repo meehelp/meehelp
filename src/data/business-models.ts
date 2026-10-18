@@ -16,7 +16,7 @@ export interface BusinessModelConfig {
 }
 
 export const businessModels: Record<BusinessModel, BusinessModelConfig> & {
-  onDemand: { bookingTypes: { instant: Confirmed; scheduled: Confirmed; hourly: Confirmed } };
+  onDemand: { bookingTypes: { instant: Confirmed; scheduled: Confirmed; hourly: Confirmed }; instantScope: "one-time-cleaning" };
 } = {
   marketplace: {
     confirmed: true,
@@ -27,7 +27,10 @@ export const businessModels: Record<BusinessModel, BusinessModelConfig> & {
   onDemand: {
     confirmed: true,
     name: "Book on-demand help",
-    summary: "Book help through the MeeHelp app — instantly, for a scheduled time, or by the hour.",
+    summary: "Book a one-time clean now or for later, or schedule help by the hour, in the MeeHelp app.",
+    // Phase 4.6 (business confirmation biz.instant-scope): instant ("Book Now")
+    // exists ONLY for one-time cleaning; hourly bookings, including all care, are scheduled.
     bookingTypes: { instant: true, scheduled: true, hourly: true },
+    instantScope: "one-time-cleaning",
   },
 };

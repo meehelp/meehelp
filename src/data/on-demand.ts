@@ -154,13 +154,14 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
       "Your regular nanny or the grandparents are away for the day.",
     ],
     tasksIncluded: [
-      "Supervising and playing with your child",
-      "Feeding meals you've prepared or left instructions for",
-      "Following the nap and bedtime routine you set",
-      "Changing diapers and helping your child get dressed",
-      "Tidying the play area afterwards",
+      "Diaper changes, bathing and dressing, as you'd like them done",
+      "Bottles, formula or expressed milk, and feeds at the times you set",
+      "Keeping to the nap and bedtime routine you set",
+      "Play, reading and singing suited to your child's age",
+      "Tidying the play area and cleaning toys afterwards",
     ],
     tasksExcluded: [
+      "Medical care or advice — always ask your paediatrician",
       "Giving medicines without your clear written instructions",
       "Taking your child out of the home, unless you've agreed it",
       "Driving your child anywhere",
@@ -215,13 +216,14 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
     ],
     tasksIncluded: [
       "Company and conversation through the day",
-      "A steady arm when walking at home or outside",
-      "Serving meals and tea at the usual times",
-      "Medicine reminders from the list you leave",
+      "A steady arm when walking, and help getting up or into a wheelchair",
+      "Help with bathing, dressing and the toilet if needed",
+      "Meals and tea at the usual times",
       "Going along on a walk, to the temple or to a routine appointment",
     ],
     tasksExcluded: [
-      "Injections, drips, wound dressing or any other medical procedure",
+      "Injections, insulin, IV lines or any other invasive procedure",
+      "Wound dressing, bed-sore or catheter care",
       "Diagnosing illness or changing medicines",
       "Handling money or bank work",
       "Housework for the whole household",
@@ -232,7 +234,7 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
     faqs: [
       {
         question: "What's the difference between elder care and patient care?",
-        answer: "They are separate tasks in the app. Elder care is company and help with the daily routine for an older person. Patient care is personal care for someone who is unwell or recovering, of any age.",
+        answer: "They are separate tasks when you book, though the needs can overlap. Elder care is daily-living help, routine and company for an older person. Patient care is attendant support for someone who is ill, recovering or bedridden, at any age.",
       },
       {
         question: "Can the attendant take my parent to the doctor?",
@@ -274,13 +276,13 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
     ],
     tasksIncluded: [
       "Helping the patient sit up, turn in bed and move safely",
-      "Sponge baths, toileting and diaper changes",
-      "Feeding, following any diet the doctor has set",
-      "Medicine reminders from the doctor's schedule",
-      "Keeping the bed, linen and room clean",
+      "Sponge baths, adult diapers and bedpans",
+      "Help with eating, and with drinking enough",
+      "Reminders for prescribed oral medicines — tablets, syrups, inhalers",
+      "Keeping the bed, linen and immediate area clean",
     ],
     tasksExcluded: [
-      "Injections, IV lines, catheters or wound care — these need a qualified nurse",
+      "Injections, IV drips and other invasive procedures — these need a qualified nurse",
       "Medical advice, diagnosis or changing prescriptions",
       "Emergency response — in an emergency, call 108 or your doctor",
       "Housework for the family",
@@ -299,7 +301,7 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
       },
       {
         question: "How is patient care different from elder care?",
-        answer: "Patient care is hands-on personal care for someone who is unwell or recovering. Elder care is company and routine support for an older person who is managing day to day.",
+        answer: "Patient care is attendant support for someone who is ill, recovering or bedridden. Elder care is daily-living help and company for an older person. The needs overlap, so describe the person's condition when you book.",
       },
       {
         question: "What should I tell the attendant?",

@@ -28,17 +28,21 @@ Recommended first public release (not published): `src/data/release-plan.ts`.
 
 ## Questions for the business
 
-### From the Phase 4.5 evidence review (see CONTENT-EVIDENCE.md for sources)
-- [ ] **Q-ELDER** — Is Elder Care a marketplace category? Helpers register under Maid/Cook/Patient Care/Baby Care only;
-      elder care exists only as an hourly task. `/elder-care/` and its city pages are HOLD until answered.
-- [ ] **Q-INSTANT** — "Book now" exists for one-time cleaning only; hourly bookings (cooking, baby, elder, patient care)
-      are scheduled ≥ 2 hours ahead. Copy follows the app (`bookNow` in `src/data/on-demand.ts`).
-- [ ] **Q-VERIFY / Q-ADDRESS** — reconfirm "Aadhaar verified" and "permanent address on record": the customer app's
-      guidelines say document checks are the employer's responsibility, Aadhaar uploads can set the verified flag
-      without an API check, and the helper app collects one address.
-- [ ] **Q-PRICE** — on-demand price basis and one authoritative cancellation policy (both stay unknown on the site).
-- [ ] **Q-299** — the app's onboarding says "Plans start at Rs 299"; the confirmed lowest plan is ₹499.
-- [ ] **Q-TASKS / Q-CARE-TASKS** — approve task names and supply the app's included/excluded text for care tasks.
+### Resolved in Phase 4.6
+Elder care maps to the shared care-helper pool · instant booking is one-time cleaning only · Aadhaar document collected
+and manually reviewed · address = the one on the Aadhaar document · ₹299 is stale · baby, elder and patient care scopes
+supplied. See `docs/seo/PRODUCT-TRUTH-RECONCILIATION.md`.
+
+### Still open (see CONTENT-EVIDENCE.md)
+- [ ] **Q-PRICE / Q-FEE** — are the observed prices and the ~20% fee + 5% GST pattern stable and the same everywhere?
+- [ ] **Q-CANCEL** — customer cancellation before acceptance, and hourly-booking cancellation terms.
+- [ ] **Q-RESCHEDULE** — is rescheduling possible?
+- [ ] **Q-CLINICAL** — training/credential pathway for special care, wound/catheter support and any invasive work.
+- [ ] **Q-ELDER-LABEL** — which option customers choose in the app to find an elder care attendant.
+- [ ] **Q-TASKS** — approve task names.
+- [ ] Engineering (not website): the Aadhaar upload endpoint sets the verified flag on upload; the app still shows the stale ₹299 copy.
+
+First-release review pack: `docs/seo/FIRST-RELEASE-REVIEW.md`.
 
 ### Before publishing expanded pages
 - [ ] Approve copy page by page, starting with the pages marked "ready-for-approval" in the quality report.

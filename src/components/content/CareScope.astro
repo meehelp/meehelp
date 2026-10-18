@@ -1,0 +1,30 @@
+---
+/**
+ * Business-approved service scope for a care category (src/data/care-scope.ts).
+ * Renders PUBLISHED items only; review and clinical-approval items never render.
+ */
+import { publishedScope } from "@/data/care-scope";
+import type { ServiceSlug } from "@/lib/content/types";
+import CheckList from "./CheckList.astro";
+
+interface Props {
+  service: ServiceSlug;
+}
+
+const scope = publishedScope(Astro.props.service);
+---
+
+{
+  scope ? (
+    <div class="care-scope" data-evidence={scope.evidence.join(",")}>
+      <p>{scope.intro}</p>
+      {scope.groups.map((g) => (
+        <div class="care-scope__group">
+          <h4>{g.title}</h4>
+          {g.note ? <p class="note">{g.note}</p> : null}
+          <CheckList items={g.items.map((i) => i.text)} />
+        </div>
+      ))}
+    </div>
+  ) : null
+}

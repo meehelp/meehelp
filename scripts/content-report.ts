@@ -1,11 +1,16 @@
 /**
- * npm run report — content-quality report v2 for every PREVIEW page.
+ * npm run report — content-quality report v3 for every PREVIEW page.
  *
  *   npm run report               build preview, then report
  *   npm run report -- --no-build report on the existing dist/ (must be a preview build)
  *
- * Writes docs/seo/quality-report.json (machine-readable) and
- * docs/seo/QUALITY-REPORT.md (human summary).
+ * Writes docs/seo/quality-report.json (machine-readable),
+ * docs/seo/QUALITY-REPORT.md (human summary) and
+ * docs/seo/FIRST-RELEASE-REVIEW.md (one entry per proposed release page).
+ *
+ * v3 (Phase 4.6): adds the clinical-safety, narrow-cancellation, stale-price
+ * and instant-scope guards to the unsupported-claim count; business answers
+ * replace the Phase 4.5 review blocks; before/after against Phase 4 and 4.5.
  *
  * v2 (Phase 4.5): word count is reported but is NOT a quality target. Pages
  * are scored on evidence-backed product facts, unsupported claims, genuinely
@@ -43,13 +48,13 @@ const MIN_EVIDENCE = 3; // distinct evidence-backed product facts on a hub
 const MIN_CITY_EVIDENCE = 2; // on a city page (the rest is linked from the hub)
 const MIN_INTERNAL_LINKS = 3;
 
-/** Open questions that keep a service × model in REVIEW until answered. */
-const blockingQuestions: Record<string, string[]> = {
-  "elder-care|marketplace": ["Q-ELDER"],
-  "babysitter-nanny|onDemand": ["Q-CARE-TASKS"],
-  "elder-care|onDemand": ["Q-CARE-TASKS"],
-  "patient-care|onDemand": ["Q-CARE-TASKS"],
-};
+/**
+ * Open questions that keep a service × model in REVIEW until answered.
+ * Phase 4.6: Q-ELDER and Q-CARE-TASKS were answered by the business; the
+ * remaining open questions concern content that is deliberately NOT published
+ * (prices, fee rules, clinical items), so they do not block any page.
+ */
+const blockingQuestions: Record<string, string[]> = {};
 
 function mainText(main: HTMLElement, bodyOnly = false): string {
   const clone = parse(main.toString());
@@ -110,6 +115,17 @@ for (const r of routes) {
     const m = text.match(rule.pattern);
     return m ? [`${rule.id}: "${m[0]}"`] : [];
   });
+  const claimable = parse(main.toString());
+  claimable.querySelectorAll("[data-excluded], script, style").forEach((n) => n.remove());
+  for (const f of guards.clinicalClaimFindings(claimable.structuredText)) unsupported.push(`clinical: "${f.slice(0, 100)}"`);
+  const broad = text.match(guards.broadRefundPattern);
+  if (broad) unsupported.push(`broad-refund: "${broad[0]}"`);
+  const stale = text.match(guards.stalePricePattern);
+  if (stale) unsupported.push(`stale-price: "${stale[0]}"`);
+  if (r.model === "onDemand" && !r.path.startsWith("/hourly-maid/")) {
+    const m = text.match(/\binstant(?:ly)?\b|\bbook now\b|\bright away\b|\bstraight away\b/i);
+    if (m) unsupported.push(`instant-scope: "${m[0]}"`);
+  }
   const segments = r.path.split("/").filter(Boolean);
   const service = services.find((s) => s.slug === segments[0] || s.onDemand.slug === segments[0]) ?? null;
   const city = segments[1] ? cities.find((c) => c.slug === segments[1]) ?? null : null;
@@ -221,6 +237,10 @@ interface BaselinePage {
 }
 const baselineFile = "docs/seo/quality-baseline-phase4.json";
 const baseline: BaselinePage[] = existsSync(baselineFile) ? JSON.parse(readFileSync(baselineFile, "utf8")).pages : [];
+const baseline45File = "docs/seo/quality-baseline-phase45.json";
+const baseline45: (BaselinePage & { evidence: number; unsupported: number; readiness: string })[] = existsSync(baseline45File)
+  ? JSON.parse(readFileSync(baseline45File, "utf8")).pages
+  : [];
 const median = (xs: number[]) => {
   const s = [...xs].sort((a, b) => a - b);
   return s[Math.floor(s.length / 2)] ?? 0;
@@ -237,6 +257,22 @@ const beforeAfter = {
     overlap: { ...tally(cityRows.map((r) => r.sameCityCrossService?.risk)), median: median(cityRows.map((r) => r.sameCityCrossService?.maxSimilarity ?? 0)), max: Math.max(0, ...cityRows.map((r) => r.sameCityCrossService?.maxSimilarity ?? 0)) },
   },
 };
+const base45City = baseline45.filter((p) => p.kind === "service-city");
+const phase45 = {
+  doorway: { ...tally(base45City.map((p) => p.doorway?.risk)), median: median(base45City.map((p) => p.doorway?.max ?? 0)), max: Math.max(0, ...base45City.map((p) => p.doorway?.max ?? 0)) },
+  overlap: { ...tally(base45City.map((p) => p.overlap?.risk)), median: median(base45City.map((p) => p.overlap?.max ?? 0)), max: Math.max(0, ...base45City.map((p) => p.overlap?.max ?? 0)) },
+  evidence: baseline45.reduce((a, p) => a + (p.evidence ?? 0), 0),
+  unsupported: baseline45.reduce((a, p) => a + (p.unsupported ?? 0), 0),
+  readiness: tally2(baseline45.map((p) => p.readiness)),
+};
+function tally2(xs: string[]) {
+  return { READY: xs.filter((x) => x === "READY").length, REVIEW: xs.filter((x) => x === "REVIEW").length, HOLD: xs.filter((x) => x === "HOLD").length };
+}
+const phase46 = {
+  evidence: rows.reduce((a, r) => a + r.factualEvidenceCount, 0),
+  unsupported: rows.reduce((a, r) => a + r.unsupportedClaimCount, 0),
+  readiness: tally2(rows.map((r) => r.readiness)),
+};
 const careBefore = baseCity.filter((p) => /^\/(?:hourly-)?(?:elder-care|patient-care)\//.test(p.path) && p.overlap?.risk === "high").length;
 const careAfter = cityRows.filter((r) => (r.service === "elder-care" || r.service === "patient-care") && r.sameCityCrossService?.risk === "high").length;
 
@@ -248,7 +284,7 @@ writeFileSync(
       version: 2,
       generatedFrom: "preview build",
       thresholds: { ...THRESHOLDS, minEvidenceHub: MIN_EVIDENCE, minEvidenceCity: MIN_CITY_EVIDENCE, minInternalLinks: MIN_INTERNAL_LINKS, wordCount: "reported only — not a quality target" },
-      beforeAfter,
+      beforeAfter: { phase4: beforeAfter.before, phase45, phase46: { ...beforeAfter.after, ...phase46 } },
       pages: rows,
     },
     null,
@@ -271,7 +307,7 @@ const table = (rs: PageRow[]) =>
     ),
   ].join("\n");
 
-const md = `# Content quality report v2 (preview)
+const md = `# Content quality report v3 (preview)
 
 Generated by \`npm run report\` from a preview build. Machine-readable: \`docs/seo/quality-report.json\`.
 Every page is still \`publishStatus: review\`; readiness is a content judgement to guide business approval.
@@ -283,17 +319,19 @@ Every page is still \`publishStatus: review\`; readiness is a content judgement 
 - Unsupported claims found: **${rows.reduce((a, r) => a + r.unsupportedClaimCount, 0)}**
 - Evidence-backed facts: hubs average ${Math.round(rows.filter((r) => r.kind === "service").reduce((a, r) => a + r.factualEvidenceCount, 0) / Math.max(1, count((r) => r.kind === "service")))} distinct evidence items; city pages ${Math.round(cityRows.reduce((a, r) => a + r.factualEvidenceCount, 0) / Math.max(1, cityRows.length))}
 
-## Similarity before (Phase 4) and after (Phase 4.5)
+## Before and after
 
-| City pages (80) | Before | After |
-|---|---|---|
-| Same service, other cities (doorway) | ${fmt(beforeAfter.before.doorway)} | ${fmt(beforeAfter.after.doorway)} |
-| Same city, other services (template overlap) | ${fmt(beforeAfter.before.overlap)} | ${fmt(beforeAfter.after.overlap)} |
-| Elder/patient care pages with high overlap | ${careBefore} | ${careAfter} |
+| Measure | Phase 4 | Phase 4.5 (before) | Phase 4.6 (after) |
+|---|---|---|---|
+| Doorway similarity — 80 city pages | ${fmt(beforeAfter.before.doorway)} | ${fmt(phase45.doorway)} | ${fmt(beforeAfter.after.doorway)} |
+| Same-city service overlap — 80 city pages | ${fmt(beforeAfter.before.overlap)} | ${fmt(phase45.overlap)} | ${fmt(beforeAfter.after.overlap)} |
+| Evidence-backed claims (distinct evidence items per page, summed over 92 pages) | 0 (not tracked) | ${phase45.evidence} | ${phase46.evidence} |
+| Unsupported claims found | not measured | ${phase45.unsupported} (Phase 4.5 guards) | ${phase46.unsupported} (Phase 4.6 guards) |
+| Readiness | — | READY ${phase45.readiness.READY} · REVIEW ${phase45.readiness.REVIEW} · HOLD ${phase45.readiness.HOLD} | READY ${phase46.readiness.READY} · REVIEW ${phase46.readiness.REVIEW} · HOLD ${phase46.readiness.HOLD} |
+| Elder/patient care city pages with high overlap | ${careBefore} | — | ${careAfter} |
 
-Phase 4.5 removed filler (festivals, weather, cuisine, languages, police processes) instead of rewriting it, so most
-composed city pages became **shorter and more alike** — which is the honest result: once the filler is gone, little
-genuinely local information remains for most city × service combinations. Those pages are HOLD or REVIEW, not padded.
+Thresholds are unchanged from Phase 4.5. The new care scopes are **service** facts, so they live on the hubs, not on
+city pages: city-page similarity is essentially unchanged, and near-duplicate city pages stay HOLD or REVIEW.
 
 ## Method
 
@@ -303,6 +341,7 @@ genuinely local information remains for most city × service combinations. Those
 - **Word count is reported, not scored.** A short page with specific facts beats a long generic one.
 - **HOLD**: unsupported claim; no product evidence for the service in this model; duplicate title/meta; or a city page at high doorway risk with fewer than 2 local notes and no hand-written copy.
 - **REVIEW**: high doorway/overlap risk, fewer than ${MIN_EVIDENCE} (hub) / ${MIN_CITY_EVIDENCE} (city) evidence-backed facts, composed (not hand-written) city copy, fewer than ${MIN_INTERNAL_LINKS} internal links, or an open business question for that service.
+- Unsupported claims (v3) also include: clinical claims (\`clinicalClaimFindings\`), refund wording broader than the app's policy, the stale ₹299 price, and instant-booking wording on scheduled-only pages.
 - **READY**: none of the above.
 
 ## HOLD pages and why
@@ -327,3 +366,57 @@ ${cityRows.map((r) => `- \`${r.path}\`: ${r.differentiationNotes.join(" · ") ||
 `;
 writeFileSync("docs/seo/QUALITY-REPORT.md", md);
 console.log(md.split("## Method")[0]);
+
+// ---------- First-release review (docs/seo/FIRST-RELEASE-REVIEW.md) ----------
+const { firstRelease } = await import("@/data/release-plan");
+const { buildIntentMap } = await import("@/lib/content/intent");
+const intents = new Map(buildIntentMap("preview").map((e) => [e.path, e]));
+const reviewEntries = firstRelease.map((entry) => {
+  const row = rows.find((r) => r.path === entry.path);
+  if (!row) throw new Error(`Release page ${entry.path} is not a preview route`);
+  const root = parse(readFileSync(join(DIST, entry.path, "index.html"), "utf8"));
+  const main = root.querySelector("main")!;
+  const ctaLabels = [...new Set(main.querySelectorAll(".hero a.button, .path a.button").map((a) => a.text.trim()))];
+  const facts = main.querySelectorAll("li[data-evidence]").map((li) => li.text.replace(/\s+/g, " ").trim());
+  const scope = main.querySelector(".care-scope > p")?.text.trim();
+  const checks = main.querySelectorAll(".claims__item strong").map((n) => n.text.trim());
+  const claims = [...(scope ? [`Care scope: ${scope}`] : []), ...facts.slice(0, 4), ...(checks.length ? [`Verification: ${[...new Set(checks)].join("; ")}`] : [])];
+  return { entry, row, ctaLabels, claims, intent: intents.get(entry.path)?.primaryIntent ?? "" };
+});
+const releaseMd = `# First public release — review pack
+
+Generated by \`npm run report\` from \`src/data/release-plan.ts\`, the preview build and the quality report.
+**Nothing here is published.** Every page is \`publishStatus: review\` (noindex, not in the production sitemap) until the
+business approves it. This pack is for the private noindex preview review.
+
+- Proposed pages: **${firstRelease.length}** — ${reviewEntries.filter((e) => e.row.readiness === "READY").length} READY, ${reviewEntries.filter((e) => e.row.readiness !== "READY").length} not READY
+- Evidence: \`docs/seo/CONTENT-EVIDENCE.md\` · reconciliation: \`docs/seo/PRODUCT-TRUTH-RECONCILIATION.md\` · quality: \`docs/seo/QUALITY-REPORT.md\`
+
+| URL | Readiness | Approval |
+|---|---|---|
+${reviewEntries.map((e) => `| \`${e.entry.path}\` | ${e.row.readiness} | ${e.row.status === "published" ? "approved" : "awaiting business approval"} |`).join("\n")}
+
+${reviewEntries
+  .map(
+    (e) => `## \`${e.entry.path}\`
+
+| | |
+|---|---|
+| H1 | ${e.row.h1} |
+| Title | ${e.row.title} |
+| Meta description | ${e.row.metaDescription} |
+| Primary intent | ${e.intent} |
+| Readiness | **${e.row.readiness}**${e.row.reasons.length ? ` — ${e.row.reasons.join("; ")}` : ""} |
+| CTA | ${e.ctaLabels.join(" · ") || "app download section"} |
+| Evidence IDs | ${e.row.evidenceIds.map((x) => `\`${x}\``).join(", ") || "— (no app mechanics stated)"} |
+| Why in the release | ${e.entry.why} |
+| Outstanding risk | ${e.entry.risk} |
+| Approval status | ${e.row.status === "published" ? "Approved" : "Awaiting business approval (publishStatus: review)"} |
+
+Key business claims used:
+
+${e.claims.map((c) => `- ${c}`).join("\n") || "- (none beyond the plans and propositions)"}
+`,
+  )
+  .join("\n")}`;
+writeFileSync("docs/seo/FIRST-RELEASE-REVIEW.md", releaseMd);

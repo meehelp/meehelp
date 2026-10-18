@@ -101,16 +101,23 @@ test("Elder Care and Patient Care are distinct, not near-identical", () => {
   }
 });
 
-test("care categories make no clinical claims", () => {
-  const clinical = /\b(?:inject\w*|iv\b|drips?|catheter|wound|nurs\w*|diagnos\w*|prescri\w*|physio\w*|icu|medical procedure)/i;
+test("care categories make no clinical claims", async () => {
+  const { clinicalClaimFindings } = await import("@/lib/guards/claims");
+  const invasive = /\b(?:inject\w*|insulin|iv\b|intravenous|drips?|catheter\w*|wound\w*|bed[- ]?sores?)/i;
   const care = ["elder-care", "patient-care", "babysitter-nanny"] as const;
   const positive = care.flatMap((s) => {
     const svc = services.find((x) => x.slug === s)!;
     return [...svc.tasksIncluded, ...svc.customerProblems, ...onDemandContent[s].tasksIncluded, ...onDemandContent[s].useCases, ...strings(cityFrames[s]).filter((x) => !x.includes("{"))];
   });
-  assert.deepEqual(positive.filter((t) => clinical.test(t)), [], "clinical work may only appear as an exclusion or a 'not nursing' answer");
-  const carePfacts = productFacts.filter((f) => f.services?.some((s) => (care as readonly string[]).includes(s))).map((f) => f.text);
-  assert.deepEqual(carePfacts.filter((t) => clinical.test(t)), []);
+  assert.deepEqual(positive.filter((t) => invasive.test(t)), [], "invasive, wound or catheter work may only appear as an exclusion");
+  const careFacts = productFacts.filter((f) => f.services?.some((s) => (care as readonly string[]).includes(s))).map((f) => f.text);
+  assert.deepEqual(careFacts.filter((t) => invasive.test(t)), []);
+  // Descriptions and FAQ answers pass the sentence-level clinical guard.
+  const prose = care.flatMap((s) => {
+    const svc = services.find((x) => x.slug === s)!;
+    return [...svc.description, ...svc.faqs.map((f) => f.answer), ...onDemandContent[s].description, ...onDemandContent[s].faqs.map((f) => f.answer)];
+  });
+  assert.deepEqual(prose.flatMap((t) => clinicalClaimFindings(t)), []);
 });
 
 test("no unsupported product claims anywhere in evergreen copy", () => {
@@ -167,8 +174,8 @@ test("hand-written city pages exist only where they add local information", () =
     assert.ok(c.localFaqs.length >= 2 && c.introduction.length >= 1, `${sc.service}/${sc.city}`);
     assert.ok(strings(c).every((s) => !cityFillerPattern.test(s)), `${sc.service}/${sc.city}`);
   }
-  assert.equal(serviceModelEvidence["elder-care"].marketplace.length, 0, "elder care has no marketplace evidence (Q-ELDER) — update the test when it does");
-  assert.ok(!written.some((sc) => sc.service === "elder-care" && sc.model === "marketplace"));
+  // Phase 4.6: elder care maps to the shared care-helper pool (biz.elder-pool), not a separate category.
+  assert.ok(serviceModelEvidence["elder-care"].marketplace.includes("biz.elder-pool"));
 });
 
 test("copy avoids stock SEO phrasing", () => {

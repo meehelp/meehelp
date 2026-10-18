@@ -14,10 +14,10 @@ const rules = [...verificationRules(), ...commercialRules()];
 const flagged = (text: string) => findViolations(text, rules).map((v) => v.rule.id);
 
 test("unconfirmed checks are disabled; confirmed identity checks are enabled", () => {
-  for (const key of ["policeVerification", "criminalBackgroundCheck", "referenceVerification", "employmentHistoryVerification"] as const) {
+  for (const key of ["policeVerification", "criminalBackgroundCheck", "referenceVerification", "employmentHistoryVerification", "currentAddressRecorded", "permanentAddressRecorded"] as const) {
     assert.equal(verificationChecks[key].enabled, false, key);
   }
-  for (const key of ["mobileOtpVerified", "aadhaarVerified", "currentAddressRecorded", "permanentAddressRecorded"] as const) {
+  for (const key of ["mobileOtpVerified", "aadhaarDocumentReviewed"] as const) {
     assert.equal(verificationChecks[key].enabled, true, key);
     assert.ok(verificationChecks[key].approvedBy && verificationChecks[key].approvedOn, key);
   }
@@ -43,10 +43,10 @@ test("unsupported verification claims are caught", () => {
 
 test("honest advice and confirmed wording are allowed", () => {
   const ok = [
-    "Aadhaar verified",
-    "Aadhaar-verified helpers near you",
+    "Aadhaar document reviewed",
+    "Each helper submits their Aadhaar document, and MeeHelp reviews it manually.",
     "Mobile number verified by OTP",
-    "Aadhaar verification confirms a helper's identity. It is not a police verification or a criminal background check, so follow the hiring tips below as well.",
+    "MeeHelp reviews the helper's Aadhaar document to check their identity. It is not a police verification or a background check, and MeeHelp does not separately check where the helper lives.",
     "Many housing societies and local police ask households to register domestic staff.",
     "Delhi Police offers domestic help verification, and many RWAs and societies expect it.",
     "Most societies ask for a photo ID, and some ask for a police verification form.",
@@ -114,7 +114,7 @@ test("on-demand content never uses marketplace wording", () => {
 });
 
 test("no prices or free-view counts are typed into copy — they come from src/data/plans.ts", () => {
-  const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts") && !f.endsWith("src/data/evidence.ts"));
+  const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts") && !f.endsWith("src/data/evidence.ts") && !f.endsWith("src/data/reconciliation.ts") && !f.endsWith("src/data/observed-app-values.ts"));
   // The evidence ledger quotes app copy (including prices) as documentation; it is never rendered.
   // The promotion's own config and the guard that blocks it are the only places it may be named.
   const ruleFiles = ["src/data/promotions.ts", "src/lib/guards/claims.ts"];

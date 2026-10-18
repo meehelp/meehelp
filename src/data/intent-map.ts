@@ -72,10 +72,10 @@ export const intentTargets: Record<ServiceSlug, Record<BusinessModel, IntentTarg
   },
   "elder-care": {
     marketplace: {
-      primaryIntent: "Find and hire an elder care attendant directly",
+      primaryIntent: "Find a care attendant for an older parent and hire them directly",
       primaryKeyword: "elder care at home",
       supportingKeywords: ["elderly caregiver", "elder care helper", "caretaker for elderly", "attendant for old age parents"],
-      proposition: "Search attendants, contact them directly, agree routine and salary",
+      proposition: "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       cityKeywords: ["elder care in {city}", "elderly caregiver in {city}"],
     },
     onDemand: {
@@ -91,7 +91,7 @@ export const intentTargets: Record<ServiceSlug, Record<BusinessModel, IntentTarg
       primaryIntent: "Find and hire a patient care attendant directly",
       primaryKeyword: "patient attendant",
       supportingKeywords: ["patient care at home", "patient care attendant", "attendant for bedridden patient", "home attendant after surgery"],
-      proposition: "Search attendants, contact them directly, agree shifts and salary",
+      proposition: "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       cityKeywords: ["patient attendant in {city}", "patient care in {city}"],
     },
     onDemand: {

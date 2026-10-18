@@ -67,10 +67,27 @@ export function verificationRules(): WordingRule[] {
   rules.push({
     id: "unqualified-verified",
     reason: "Unqualified 'verified helper' wording overstates the enabled checks",
-    pattern: new RegExp(String.raw`(?<!aadhaar[- ])(?<!otp[- ])\bverified\s+${helperNouns}\b`, "i"),
+    pattern: new RegExp(String.raw`(?<!otp[- ])\bverified\s+${helperNouns}\b`, "i"),
   });
-  if (!isCheckActive(v.aadhaarVerified)) {
-    rules.push({ id: "aadhaar", reason: "aadhaarVerified is not enabled", pattern: /\baadhaar\b/i });
+  if (!isCheckActive(v.aadhaarDocumentReviewed)) {
+    rules.push({ id: "aadhaar", reason: "aadhaarDocumentReviewed is not enabled", pattern: /\baadhaar\b/i });
+  }
+  // Phase 4.6: Aadhaar is a manually reviewed document — never an electronic,
+  // OTP, e-KYC or government-database verification (evidence biz.aadhaar-manual).
+  rules.push({
+    id: "aadhaar-electronic",
+    reason: "Aadhaar is collected and manually reviewed; electronic verification must not be claimed",
+    pattern:
+      /\baadhaar[- ](?:verified|authenticated|e-?kyc)\b|\b(?:verified|authenticated|checked)\s+(?:through|via|with|by|against)\s+(?:the\s+)?(?:aadhaar|uidai|government)\b|\baadhaar\s+(?:otp|e-?kyc)\b|\b(?:otp|e-?kyc)[- ]based\s+aadhaar\b|\belectronically\s+verified\b|\bgovernment[- ](?:database|records?)[- ]?(?:verified|checks?|verification)?\b|\buidai\b|\bdigilocker\b|\bbackground[- ]verified\b|\bfully[- ]verified\b/i,
+  });
+  // The address is the one on the Aadhaar document — no independent address check.
+  if (!isCheckActive(v.currentAddressRecorded) && !isCheckActive(v.permanentAddressRecorded)) {
+    rules.push({
+      id: "address-verification",
+      reason: "MeeHelp does not independently verify current or permanent addresses",
+      pattern:
+        /\b(?:current|permanent|residential|home)\s+address(?:es)?\s+(?:is\s+|are\s+)?(?:verified|checked|confirmed|on record)\b|\baddress[- ](?:verified|verification|checked)\b|\bverif(?:y|ies|ied)\s+(?:the\s+|their\s+|a\s+)?(?:helper's\s+)?(?:current\s+|permanent\s+)?address\b|\bpermanent address\b/i,
+    });
   }
   if (!isCheckActive(v.mobileOtpVerified)) {
     rules.push({ id: "otp", reason: "mobileOtpVerified is not enabled", pattern: /\b(?:otp|one-time password)[- ]verified\b|\bverified (?:by|with) (?:an? )?(?:otp|one-time password)\b/i });
@@ -208,3 +225,42 @@ export function unsupportedClaimRules(): WordingRule[] {
  */
 export const cityFillerPattern =
   /\b(?:diwali|holi|ganesh(?:a)?\s?chaturthi|ganeshotsav|navratri|navaratri|durga\s+puja|kali\s+puja|pongal|onam|ugadi|sankranti|bonalu|eid|festivals?|monsoon|heatwave|humidity|fog|air\s+quality|pollution|aqi|cuisine|chettinad|hyderabadi|konkani|maharashtrian|bengali\s+food|tourist|famous\s+for|population)\b/i;
+
+/** Stale app copy that must never reach Website V2 (evidence biz.299-stale). */
+export const stalePricePattern = /(?:₹|\bRs\.?|\bINR)\s?299\b|\b299\s?(?:rupees|rs)\b/i;
+
+/**
+ * Clinical-safety guard (Phase 4.6 §19). Sentence-based so honest negations
+ * ("This is not nursing care", "these need a qualified nurse") and exclusion
+ * lists pass, while any positive claim fails:
+ *   - invasive work (injections, insulin, IV, invasive procedures) — needs
+ *     clinicalServices.invasive, which is false for the first release;
+ *   - wound, bed-sore and catheter care — needs clinicalServices.woundAndCatheter;
+ *   - vital-sign checks must say the caregiver is trained, and never diagnose.
+ */
+import { clinicalServices } from "@/data/care-scope";
+
+const negation =
+  /\b(?:not|no|never|isn't|aren't|don't|doesn't|without|unless|except|excluded|outside|only by|must be done by|need(?:s)?\s+(?:a\s+)?qualified|ask (?:your|their|the) (?:parent's )?doctor|stays? with)\b/i;
+const invasivePattern = /\b(?:inject(?:ion|ions|ed|ing)?|insulin|intravenous|iv(?:\s+(?:lines?|drips?|therapy|fluids?))?|invasive)\b/i;
+const woundCatheterPattern = /\b(?:wound(?:s)?(?:\s+(?:dressing|care|procedures?))?|bed[- ]?sores?|catheter(?:s|[- ]related)?)\b/i;
+const nursingPattern = /\b(?:nursing\s+(?:care|services?|procedures?)|(?:our|meehelp|trained|qualified|registered)\s+nurses?)\b/i;
+const vitalsPattern = /\b(?:blood\s+pressure|blood\s+sugar|oxygen\s+(?:level|saturation)s?|temperature|vital\s+signs?|vitals)\b/i;
+
+export function clinicalClaimFindings(text: string): string[] {
+  const findings: string[] = [];
+  for (const sentence of text.split(/(?<=[.!?])\s+|\n+/)) {
+    if (!sentence.trim() || sentence.trim().endsWith("?")) continue; // questions are not claims
+    const negated = negation.test(sentence);
+    if (!clinicalServices.invasive && invasivePattern.test(sentence) && !negated) findings.push(`invasive: ${sentence.trim()}`);
+    if (!clinicalServices.woundAndCatheter && woundCatheterPattern.test(sentence) && !negated) findings.push(`wound/catheter: ${sentence.trim()}`);
+    if (nursingPattern.test(sentence) && !negated) findings.push(`nursing: ${sentence.trim()}`);
+    if (vitalsPattern.test(sentence) && !/\btrain(?:ed|ing)\b/i.test(sentence)) findings.push(`vitals without 'trained': ${sentence.trim()}`);
+    if (vitalsPattern.test(sentence) && /\bdiagnos(?:e|es|is|ing)\b/i.test(sentence) && !negated) findings.push(`diagnosis: ${sentence.trim()}`);
+  }
+  return findings;
+}
+
+/** Cancellation wording must stay as narrow as the app's policy (evidence shot.cancellation). */
+export const broadRefundPattern =
+  /\b(?:all|any|every)\s+cancell?ations?\b[^.]*\brefund|\bfree\s+cancell?ation\b|\bcancel\s+(?:any\s?time|for\s+free)\b|\bfull\s+refund\s+(?:on|for)\s+(?:all|any)\b|\brefund(?:ed)?\s+if\s+you\s+cancel\b/i;

@@ -243,6 +243,23 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
     error(page, `Unsupported claim (${rule.reason}): "${match}"`);
   }
 
+  // Clinical safety: no positive invasive / wound / catheter / nursing claims; vitals only "where trained".
+  const claimable = parse(body.toString());
+  claimable.querySelectorAll("[data-excluded], script, style").forEach((n) => n.remove());
+  for (const f of guards.clinicalClaimFindings(visibleText(claimable))) error(page, `Clinical claim not approved: "${f.slice(0, 140)}"`);
+  if (guards.broadRefundPattern.test(visible)) error(page, `Cancellation wording broader than the app's policy: "${visible.match(guards.broadRefundPattern)![0]}"`);
+  if (guards.stalePricePattern.test(visible)) error(page, `Stale app price ₹299 found: "${visible.match(guards.stalePricePattern)![0]}"`);
+  // Instant booking exists only for the one-time cleaning flow (maid on-demand pages).
+  const oneTimeCleaningPage = page.startsWith("/hourly-maid/");
+  for (const cta of body.querySelectorAll("[data-cta]")) {
+    const key = cta.getAttribute("data-cta") as keyof typeof ctas;
+    if (ctas[key]?.scope === "one-time-cleaning" && !oneTimeCleaningPage) error(page, `Instant CTA "${key}" outside the one-time cleaning pages`);
+  }
+  if (routeByPath.get(page)?.model === "onDemand" && !oneTimeCleaningPage) {
+    const m = visible.match(/\binstant(?:ly)?\b|\bbook now\b|\bright away\b|\bstraight away\b/i);
+    if (m) error(page, `Instant-booking wording on a scheduled-only page: "${m[0]}"`);
+  }
+
   // Prices: only configured plan prices, never with the app's "*"; Office/Business only on /pricing/.
   const asterisk = visible.match(guards.pricedAsteriskPattern);
   if (asterisk) error(page, `Price shown with an asterisk: "${asterisk[0]}"`);

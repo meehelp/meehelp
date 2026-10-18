@@ -15,7 +15,7 @@ export const marketplaceSteps: Step[] = [
   { title: "Hire directly", body: "Choose whom to hire. The working arrangement is between you and the helper." },
 ];
 
-/** ON-DEMAND journey (confirmed: instant, scheduled and hourly booking for every category). */
+/** ON-DEMAND journey for the one-time cleaning flow (Book Now or schedule). Hourly/care flows use scheduledOnlySteps. */
 export const onDemandSteps: Step[] = [
   { title: "Choose the help you need", body: "Pick the type of help in the MeeHelp app." },
   { title: "Book now or schedule", body: "Book now where the app offers it, or choose a date and time that suits you." },
@@ -32,7 +32,7 @@ export const scheduledOnlySteps: Step[] = [
 
 /** The three booking types of the on-demand model. */
 export const bookingTypes: { key: "instant" | "scheduled" | "hourly"; name: string; body: string }[] = [
-  { key: "instant", name: "Instant", body: "Book for now, when you need help as soon as possible." },
+  { key: "instant", name: "Book now", body: "For a one-time clean, book for now when you need help as soon as possible." },
   { key: "scheduled", name: "Scheduled", body: "Pick a date and time that suits you." },
   { key: "hourly", name: "Hourly", body: "Choose how many hours the visit should last." },
 ];

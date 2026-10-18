@@ -80,6 +80,9 @@ src/
     evidence.ts              evidence ledger: every product claim, its source file/lines, confidence, approval
     product-facts.ts         the only place app mechanics are stated; each fact cites evidence ids
     release-plan.ts          recommended first public release (recommendation only — publishes nothing)
+    care-scope.ts            business-approved baby / elder / patient care scope with publish status per item
+    observed-app-values.ts   prices seen in current-app screenshots — never rendered (leak tests)
+    reconciliation.ts        code vs screenshots vs business confirmation, per topic
     plans.ts                 all 9 marketplace plans, pricing page copy, asterisk/tax settings
     promotions.ts            temporary promotions (never in evergreen copy)
     verification.ts          helper verification facts (the only source of verification wording)
@@ -97,9 +100,9 @@ src/
   styles/global.css          the single global stylesheet (inlined into each page)
 scripts/
   seo-check.ts               `npm run seo` validator
-  content-report.ts          `npm run report` → docs/seo/quality-report.json + QUALITY-REPORT.md
+  content-report.ts          `npm run report` → docs/seo/quality-report.json, QUALITY-REPORT.md, FIRST-RELEASE-REVIEW.md
   intent-map.ts              `npm run intent-map` → docs/seo/intent-map.json
-  evidence.ts                `npm run evidence` → docs/seo/CONTENT-EVIDENCE.json + CONTENT-EVIDENCE.md
+  evidence.ts                `npm run evidence` → docs/seo/CONTENT-EVIDENCE.* and PRODUCT-TRUTH-RECONCILIATION.*
   lib/similarity.ts          shingle-based similarity used by the validator and report
   measure-js.mjs             `npm run measure:js`
   serve-static.mjs           local static server

@@ -4,6 +4,7 @@
   "items": [
     {
       "id": "biz.models",
+      "supersededBy": "biz.instant-scope",
       "claim": "All five categories are offered both to hire directly (marketplace) and to book by the hour (on-demand), with instant, scheduled and hourly booking, in all eight cities.",
       "proposition": "both",
       "services": [
@@ -20,6 +21,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": true,
       "note": "Business confirmation. The code only partly reflects it — see impl.* items and CONTENT-EVIDENCE.md 'Implementation vs confirmation'.",
+      "sourceType": "businessConfirmation",
       "productFacts": []
     },
     {
@@ -33,6 +35,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": true,
       "note": "Code serves plans from the `plan` table with an even/odd user A/B split (MeeHelp_Backend customer.php ~489-533). The app onboarding text 'Plans start at Rs 299' (User App onboarding_screen.dart:29) does not match the confirmed lowest plan (₹499).",
+      "sourceType": "businessConfirmation",
       "productFacts": []
     },
     {
@@ -51,6 +54,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Also helper side: lib/screens/auth/create_account/update_details_screen.dart 190-205 (Helper App). App copy: 'Hire 2 hours to 12 hours house helper from locations near you' (onboarding_screen.dart:24).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.hours",
         "m.prefs.other"
@@ -72,6 +76,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Helper option 'Fixed Full time work (24 hr customer k ghar par Rehana)'. User App: 'No more paying high brokerage to hire live in helpers. Talk directly with helpers, negotiate and hire.' (app_localization.dart:49).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.hours"
       ]
@@ -92,6 +97,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "House size appears for the cleaning work type, household members for the cooking work type (IDs 6/5 — meaning inferred, medium).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.prefs.maid",
         "m.prefs.cook",
@@ -117,6 +123,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": false,
       "note": "Negative fact used as a guard: Website V2 must never claim these filters exist (claims.ts unsupportedClaimRules).",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -137,6 +144,7 @@
       "publicSafe": true,
       "requiresBusinessApproval": true,
       "usedOnSite": true,
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.distance"
       ]
@@ -160,6 +168,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "Internal tuning value; not published. The site says only that full-time (live-in) search looks further afield — and even that is not stated today.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -181,6 +190,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Profiles do not show expected salary — salary is agreed with the helper. A rating is also shown but defaults to '5' when a helper has none (helper_profile_screen.dart:210), so ratings are never used in marketing.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.profile"
       ]
@@ -204,6 +214,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Backend: viewing inserts rt_view_provider once per helper; purchases set allowed_view_provider (customer.php ~13488-13515, ~2261-2280).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.contact"
       ]
@@ -227,6 +238,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "Server supports it; the current customer UI path was not traced end to end, so the site only says 'discuss and arrange a trial'.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -247,6 +259,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": true,
       "note": "Site copy always words the trial as something you arrange with the helper.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.trial"
       ]
@@ -269,6 +282,7 @@
       "publicSafe": true,
       "requiresBusinessApproval": true,
       "usedOnSite": true,
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.outcome"
       ]
@@ -291,6 +305,7 @@
       "publicSafe": true,
       "requiresBusinessApproval": false,
       "usedOnSite": true,
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.advance"
       ]
@@ -314,6 +329,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Contradicts nothing the site says (the site never claims police verification), but sits uneasily beside the approved 'Aadhaar verified' wording — see open question Q-VERIFY.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "m.checks"
       ]
@@ -337,6 +353,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "Promotional and dynamic (Phase 4 brief): never in evergreen copy. Kept in src/data/promotions.ts.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -357,8 +374,10 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "No 'Elder Care' helper category exists in the helper app or the 2022 helper app (Expected Work: Cooking, Cleaning, PatientCare, BabyCare — helper/lib/user/create_account_page_two.dart ~716-841). Elder-care marketplace pages are HOLD pending confirmation (Q-ELDER).",
+      "sourceType": "codeEvidence",
       "productFacts": [
-        "m.hours"
+        "m.hours",
+        "m.elder.pool"
       ]
     },
     {
@@ -379,6 +398,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": false,
       "note": "So detailed task lists on Website V2 are general descriptions of the role, not a copy of the app's task list. They need business review.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -396,6 +416,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "'Please select at least 2 cleaning services before continuing.' is exact (high). Task names are inferred from icon IDs 75-80 (medium). Laundry offers machine or hand wash.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.otg.tasks"
       ]
@@ -415,6 +436,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "60 and 90 min options are commented out in the app but still priced in the backend (customer.php 131-147). Treated as the current minimum duration (120 min) for one-time cleaning.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.otg.length"
       ]
@@ -434,6 +456,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Backend: 'Available between 7:00 am to 8:00 pm only.' (customer.php:14582).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.otg.when"
       ]
@@ -456,6 +479,7 @@
       "publicSafe": true,
       "requiresBusinessApproval": true,
       "usedOnSite": true,
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.included"
       ]
@@ -475,6 +499,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": true,
       "note": "Server text with this exact fallback; also schedule_date_time_widget.dart:321 and backend customer.php ~8013.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.otg.materials"
       ]
@@ -498,6 +523,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Task IDs 32-47 and 81-90 mapped to icons (babyCareIcon=37, elderCareIcon=38, patientCareIcon=39). Names are inferred from icons; the live names come from the server.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.maid.hourly",
         "o.baby.task",
@@ -524,6 +550,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Slot table is hardcoded: e.g. 07:00 allows [2…12] hours, 19:00-20:00 allow [2] only.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.maid.hourly",
         "o.hourly.length"
@@ -547,6 +574,7 @@
       "publicSafe": true,
       "requiresBusinessApproval": true,
       "usedOnSite": true,
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.hourly.when"
       ]
@@ -570,6 +598,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "The business confirmed instant booking for all five categories. Until the app shows it, Website V2 copy for babysitter, elder care and patient care describes scheduled booking only (Q-INSTANT).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.otg.when",
         "o.hourly.when"
@@ -590,6 +619,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Cooking also appears as a one-time task (icon 79). Members 1–5 drive price (backend rt_member_new_price).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.cook.members"
       ]
@@ -613,6 +643,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Charge amount comes from the server (fallback ₹100) — not published.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.gender"
       ]
@@ -636,12 +667,14 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Backend: 4-digit job OTP verified before the job moves to In-Progress (customer.php ~10724, ~12753-12795). Helpers also upload a selfie before the start OTP (Helper App home_controller.dart ~332-337).",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "o.pin"
       ]
     },
     {
       "id": "od.payment-split",
+      "supersededBy": "shot.otg-payment",
       "claim": "Part of the booking amount is paid online in the app; the rest is paid to the helper after the service.",
       "proposition": "onDemand",
       "services": [
@@ -659,6 +692,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "Exact split depends on server commission settings and a city-level 'commission-free' mode. Not stated on the site until the business confirms the wording.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -680,10 +714,12 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "Hardcoded cleaning price table is non-monotonic (120 min cheaper than 90 min) and the app shows different GST fallbacks (5% vs 18%). On-demand prices therefore stay UNKNOWN on Website V2.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
       "id": "od.cancellation",
+      "supersededBy": "shot.cancellation",
       "claim": "After a helper accepts your booking, cancelling is not refunded; cancelling two accepted bookings limits the account to paid-only bookings for 30 days.",
       "proposition": "onDemand",
       "services": [
@@ -701,6 +737,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "Pre-acceptance policy text comes from the server; backend policy copy has more windows (customer.php ~8005-8075). Not published until the business gives one authoritative policy.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -720,6 +757,7 @@
       "publicSafe": false,
       "requiresBusinessApproval": true,
       "usedOnSite": false,
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -740,6 +778,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": false,
       "note": "Guard: the site must not claim tracking or SOS.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -761,10 +800,12 @@
       "requiresBusinessApproval": false,
       "usedOnSite": true,
       "note": "Approved wording 'Mobile number verified by OTP' (src/data/verification.ts).",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
       "id": "trust.aadhaar",
+      "supersededBy": "biz.aadhaar-manual",
       "claim": "Helpers submit Aadhaar for verification (front and back images read in the app, then reviewed; an Aadhaar OTP route also exists on the server).",
       "proposition": "both",
       "services": [
@@ -782,10 +823,12 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Approved wording 'Aadhaar verified'. Caveats for the business: the upload endpoint sets the verified flag on upload (provider.php ~768-812) and the in-app Aadhaar-OTP screen is commented out; admins can also verify manually. 'Only verified profiles will get orders.' applies to on-demand orders. The customer app shows no verification badge.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
       "id": "trust.address",
+      "supersededBy": "biz.address-in-aadhaar",
       "claim": "Helpers give their address with a map location when they register.",
       "proposition": "both",
       "services": [
@@ -801,8 +844,9 @@
       "confidence": "medium",
       "publicSafe": true,
       "requiresBusinessApproval": true,
-      "usedOnSite": true,
+      "usedOnSite": false,
       "note": "Supports the approved 'Current address on record'. A separate PERMANENT address is not visible in the current helper app (one address only; backend has staying_currently/current_city fields). Q-ADDRESS.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -824,6 +868,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "Not yet in the approved verification list — candidate for approval.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -845,6 +890,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": false,
       "note": "'Meehelp will conduct the basic document verification which does not include police verification.' Consistent with the current guidelines (mkt.employer-checks). Police/background claims stay blocked.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -866,6 +912,7 @@
       "requiresBusinessApproval": false,
       "usedOnSite": false,
       "note": "Reason ratings, review counts and AggregateRating stay off Website V2.",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -887,6 +934,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": false,
       "note": "The inAppSupport claim stays disabled until the business confirms channels and hours (src/data/business.ts).",
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -907,6 +955,7 @@
       "publicSafe": true,
       "requiresBusinessApproval": true,
       "usedOnSite": false,
+      "sourceType": "codeEvidence",
       "productFacts": []
     },
     {
@@ -928,6 +977,7 @@
       "requiresBusinessApproval": true,
       "usedOnSite": true,
       "note": "Backend: rt_service_cities + rt_allowed_cities bounding boxes; no locality list (customer.php ~14408-14473). So the site never lists localities as served.",
+      "sourceType": "codeEvidence",
       "productFacts": [
         "b.coverage"
       ]
@@ -951,7 +1001,356 @@
       "requiresBusinessApproval": false,
       "usedOnSite": false,
       "note": "And helper profiles record only English reading/speaking, not other languages — so city pages no longer talk about local languages.",
+      "sourceType": "codeEvidence",
       "productFacts": []
+    },
+    {
+      "id": "biz.elder-pool",
+      "sourceType": "businessConfirmation",
+      "claim": "Elder care and patient care use the same pool of care helpers on the marketplace side; elder care is a customer need mapped to that pool, not a separate helper category.",
+      "proposition": "marketplace",
+      "services": [
+        "elder-care",
+        "patient-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §1",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Reconciles cat.helper-categories (helper app lists Patient Care only). Site copy says elder care and patient care attendants come from the same pool and never claims a separate elder-care category.",
+      "productFacts": [
+        "m.elder.pool"
+      ]
+    },
+    {
+      "id": "biz.instant-scope",
+      "sourceType": "businessConfirmation",
+      "claim": "Instant (Book Now) booking exists only for one-time cleaning; hourly, care and other hourly services are scheduled, not instant.",
+      "proposition": "onDemand",
+      "services": [
+        "maid",
+        "cook",
+        "babysitter-nanny",
+        "elder-care",
+        "patient-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §2",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Confirms impl.instant-scope (code). Supersedes the Phase 4 confirmation of instant booking for every category.",
+      "productFacts": [
+        "o.otg.when",
+        "o.hourly.when"
+      ]
+    },
+    {
+      "id": "biz.aadhaar-manual",
+      "sourceType": "businessConfirmation",
+      "claim": "The helper's Aadhaar document is collected and manually reviewed by MeeHelp. Aadhaar OTP / electronic verification is not the normal active process and must not be claimed.",
+      "proposition": "both",
+      "services": [
+        "maid",
+        "cook",
+        "babysitter-nanny",
+        "elder-care",
+        "patient-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §3",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Matches the helper app (document upload + 'completed within 24 hours'; OTP screen commented out). Wording: 'Aadhaar document reviewed'.",
+      "productFacts": []
+    },
+    {
+      "id": "biz.address-in-aadhaar",
+      "sourceType": "businessConfirmation",
+      "claim": "The address MeeHelp holds is the one on the submitted Aadhaar document; MeeHelp does not independently verify a separate current or permanent address.",
+      "proposition": "both",
+      "services": [
+        "maid",
+        "cook",
+        "babysitter-nanny",
+        "elder-care",
+        "patient-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §4",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Disables the Phase 3 'current/permanent address on record' checks.",
+      "productFacts": []
+    },
+    {
+      "id": "biz.299-stale",
+      "sourceType": "businessConfirmation",
+      "claim": "'Plans start at Rs 299' in the app is stale; the lowest current Home plan is ₹499.",
+      "proposition": "marketplace",
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §5, §15",
+      "confidence": "high",
+      "publicSafe": false,
+      "requiresBusinessApproval": false,
+      "usedOnSite": false,
+      "note": "Guarded: ₹299 must not appear in Website V2 (claims.ts stalePricePattern).",
+      "productFacts": []
+    },
+    {
+      "id": "biz.scope-baby",
+      "sourceType": "businessConfirmation",
+      "claim": "Baby care / babysitter / nanny scope: infant hygiene and physical care, feeding and meal support, sleep and routine, development and engagement, baby-area upkeep — framed by parental instructions and agreed scope.",
+      "proposition": "both",
+      "services": [
+        "babysitter-nanny"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §6",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Rendered from src/data/care-scope.ts. No medical, developmental or safety guarantees; nannies are not described as paediatric professionals.",
+      "productFacts": []
+    },
+    {
+      "id": "biz.scope-elder-daily",
+      "sourceType": "businessConfirmation",
+      "claim": "Elder care daily-living / attendant support: bathing, grooming, dressing, oral hygiene, toileting, bedpans, adult diapers, mobility and transfers, walking, repositioning, feeding, meal preparation, light housekeeping, laundry/linen, errands, companionship, reading, short walks, accompanying to appointments.",
+      "proposition": "both",
+      "services": [
+        "elder-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §7A",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "productFacts": []
+    },
+    {
+      "id": "biz.scope-elder-special",
+      "sourceType": "businessConfirmation",
+      "claim": "Elder care special care, only where an appropriately trained professional is specifically engaged: medication support, BP / blood sugar / oxygen / temperature checks, prescribed rehabilitation exercises, dementia/Alzheimer's support; wound dressing, bed-sore care and catheter-related support.",
+      "proposition": "both",
+      "services": [
+        "elder-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §7B",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": true,
+      "usedOnSite": true,
+      "note": "Published with 'only when a caregiver trained for this is specifically engaged'. Wound, bed-sore and catheter items stay REVIEW-ONLY (clinicalServices.woundAndCatheter = false) until the training/credential pathway is confirmed.",
+      "productFacts": []
+    },
+    {
+      "id": "biz.scope-elder-clinical",
+      "sourceType": "businessConfirmation",
+      "claim": "Injections, insulin administration and IV lines were mentioned in the business description of elder care.",
+      "proposition": "both",
+      "services": [
+        "elder-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §7 (high-risk clinical claims)",
+      "confidence": "high",
+      "publicSafe": false,
+      "requiresBusinessApproval": true,
+      "requiresBusinessClinicalApproval": true,
+      "usedOnSite": false,
+      "note": "NOT published: requires certainty about qualifications, credentialing, clinical responsibility and operational scope. Blocked by clinicalServices.invasive = false and clinicalClaimFindings().",
+      "productFacts": []
+    },
+    {
+      "id": "biz.scope-patient",
+      "sourceType": "businessConfirmation",
+      "claim": "Patient care scope: personal care (bathing/sponge bath, grooming, dressing, adult diapers, bedpans), mobility (transfers, supported walking, repositioning), feeding and hydration, reminders for prescribed oral medicines, monitoring where the caregiver is trained (temperature, BP, basic observations — reporting, not diagnosis), companionship and patient-area upkeep.",
+      "proposition": "both",
+      "services": [
+        "patient-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §8",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "productFacts": []
+    },
+    {
+      "id": "biz.patient-no-invasive",
+      "sourceType": "businessConfirmation",
+      "claim": "Standard patient care does not include injections, IV drips or invasive medical procedures, and is not nursing.",
+      "proposition": "both",
+      "services": [
+        "patient-care"
+      ],
+      "sourceRepository": "business brief",
+      "sourceFile": "Phase 4.6 brief §8",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "productFacts": []
+    },
+    {
+      "id": "shot.otg-tasks",
+      "sourceType": "currentAppScreenshot",
+      "claim": "One-time cleaning ('On the go') tasks include Kitchen Prep/Cleaning, Laundry (machine wash), Dishes, Bathroom (number of bathrooms), Sweeping/Mopping and Dusting (house size in BHK).",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp images 2026-10-18 (review-order screens)",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Confirms od.otg-tasks (code, medium). The screenshots also show a customer address and wallet balance — not recorded.",
+      "productFacts": [
+        "o.otg.tasks"
+      ]
+    },
+    {
+      "id": "shot.otg-durations-booking",
+      "sourceType": "currentAppScreenshot",
+      "claim": "One-time cleaning visits of 120, 150 and 180 minutes, with both 'Book Now' and 'Schedule' offered.",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp images 2026-10-18",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "productFacts": [
+        "o.otg.length",
+        "o.otg.when"
+      ]
+    },
+    {
+      "id": "shot.otg-no-materials",
+      "sourceType": "currentAppScreenshot",
+      "claim": "'Cleaners will not be carrying any machines or materials.' banner on the one-time cleaning order screens.",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp images 2026-10-18",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "productFacts": [
+        "o.otg.materials"
+      ]
+    },
+    {
+      "id": "shot.otg-payment",
+      "sourceType": "currentAppScreenshot",
+      "claim": "One-time cleaning: 'Pay Now (Online)' — 'This amount is required to confirm your order'; 'Pay After Service (Cash)' — 'Pay directly to the helper after job completion'. Wallet balance can be used for the online part.",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp images 2026-10-18",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Scoped to the one-time cleaning flow only; never applied to marketplace plans or hourly bookings on the site.",
+      "productFacts": [
+        "o.otg.payment"
+      ]
+    },
+    {
+      "id": "shot.otg-fee-gst",
+      "sourceType": "currentAppScreenshot",
+      "observation": "observedCurrentAppFlow",
+      "claim": "Observed: online amount = platform fee of ~20% of the service value + 5% GST on that fee (₹598 → ₹120 + ₹5.98; ₹665 → ₹133 + ₹6.65; ₹720 → ₹144 + ₹7.20). The cash balance is the service value minus the online amount, rounded (₹472, ₹525, ₹569).",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp images 2026-10-18",
+      "confidence": "high",
+      "publicSafe": false,
+      "requiresBusinessApproval": true,
+      "usedOnSite": false,
+      "note": "Consistent with backend code for this flow (OTG commission 20, gst 5 — customer.php ~4233, ~4311-4320). NOT a universal rule: backend hourly commission differs (15; scheduled payout 70/25), a city-level commission-free mode exists, and no tax statement is approved. Not published; no tax wording on the site.",
+      "productFacts": []
+    },
+    {
+      "id": "shot.otg-prices",
+      "sourceType": "currentAppScreenshot",
+      "observation": "observedCurrentAppFlow",
+      "claim": "Observed one-time cleaning service values: 120 min ₹598 (₹650, 8% off), 150 min ₹665 (₹700, 5% off), 180 min ₹720 (₹800, 10% off).",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp images 2026-10-18",
+      "confidence": "high",
+      "publicSafe": false,
+      "requiresBusinessApproval": true,
+      "usedOnSite": false,
+      "note": "Match the hardcoded backend table (customer.php 131-147: 120→650, 150→700, 180→800; discounts 8/5/10). Discounts are promotional. Kept in src/data/observed-app-values.ts, never in evergreen copy, titles or metas.",
+      "productFacts": []
+    },
+    {
+      "id": "shot.hourly-options",
+      "sourceType": "currentAppScreenshot",
+      "observation": "observedCurrentAppFlow",
+      "claim": "Observed 'Select Schedule' options: 2/4/6/8/10/12 hours at ₹598/₹755/₹936/₹1,360/₹1,480/₹1,890 (previous ₹650/₹850/₹1,300/₹1,600/₹1,850/₹2,100); gender preference +₹100; house size selector.",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp images 2026-10-18 (Select Schedule)",
+      "confidence": "high",
+      "publicSafe": false,
+      "requiresBusinessApproval": true,
+      "usedOnSite": false,
+      "note": "Hour options confirm od.hourly-durations (published). Amounts are server values (rt_hour_rate) for one address/date — not universal across cities, categories or promotions. Not published.",
+      "productFacts": []
+    },
+    {
+      "id": "shot.cancellation",
+      "sourceType": "currentAppScreenshot",
+      "claim": "One-time cleaning cancellation policy: before a helper accepts — 'Order auto cancels because no helper was assigned. Refund: 100% to original payment source processed in 2-7 working days'; after a helper accepted — 'No Refund'.",
+      "proposition": "onDemand",
+      "services": [
+        "maid"
+      ],
+      "sourceRepository": "current app screenshots",
+      "sourceFile": "Business-supplied WhatsApp image 2026-10-18 (Cancellation policy sheet)",
+      "confidence": "high",
+      "publicSafe": true,
+      "requiresBusinessApproval": false,
+      "usedOnSite": true,
+      "note": "Published narrowly: the refund applies to an auto-cancellation when no helper was assigned — not to every cancellation before acceptance. Rescheduling stays unknown.",
+      "productFacts": [
+        "o.otg.cancel"
+      ]
     }
   ],
   "serviceModelEvidence": {
@@ -964,6 +1363,7 @@
       "onDemand": [
         "od.otg-tasks",
         "od.otg-durations",
+        "shot.otg-tasks",
         "od.hourly-tasks"
       ]
     },
@@ -980,67 +1380,119 @@
     },
     "babysitter-nanny": {
       "marketplace": [
-        "cat.helper-categories"
+        "cat.helper-categories",
+        "biz.scope-baby"
       ],
       "onDemand": [
-        "od.hourly-tasks"
+        "od.hourly-tasks",
+        "biz.scope-baby"
       ]
     },
     "elder-care": {
-      "marketplace": [],
+      "marketplace": [
+        "biz.elder-pool",
+        "cat.helper-categories",
+        "biz.scope-elder-daily"
+      ],
       "onDemand": [
-        "od.hourly-tasks"
+        "od.hourly-tasks",
+        "biz.scope-elder-daily"
       ]
     },
     "patient-care": {
       "marketplace": [
-        "cat.helper-categories"
+        "cat.helper-categories",
+        "biz.scope-patient"
       ],
       "onDemand": [
-        "od.hourly-tasks"
+        "od.hourly-tasks",
+        "biz.scope-patient"
       ]
     }
   },
   "openQuestions": [
     {
-      "id": "Q-ELDER",
-      "question": "Is Elder Care a marketplace category helpers can register for? The helper app lists Maid/Cook/Patient Care/Baby Care only; elder care exists only as an hourly task.",
-      "affects": "/elder-care/ and its 8 city pages (HOLD)"
-    },
-    {
-      "id": "Q-INSTANT",
-      "question": "Instant ('Book Now') booking is implemented for one-time cleaning; hourly bookings (baby, elder, patient care) are scheduled ≥ 2 hours ahead. Confirm whether instant booking for care categories is live, or adjust the confirmation.",
-      "affects": "On-demand babysitter / elder / patient copy"
-    },
-    {
-      "id": "Q-VERIFY",
-      "question": "Customer service guidelines say document checks are the employer's responsibility, and Aadhaar uploads can set the verified flag without an API check. Reconfirm the 'Aadhaar verified' and 'permanent address on record' wording.",
-      "affects": "Verification section on every page"
-    },
-    {
-      "id": "Q-ADDRESS",
-      "question": "Is a permanent address (separate from current address) collected from helpers today?",
-      "affects": "Verification wording"
-    },
-    {
       "id": "Q-PRICE",
-      "question": "Provide on-demand price basis (per hour / per visit, by city?) and one authoritative cancellation policy.",
-      "affects": "On-demand hubs and city pages"
+      "question": "Are the observed one-time-cleaning and hourly prices stable and the same in every city and category? Until confirmed they stay out of evergreen copy.",
+      "affects": "Any future price mention on on-demand pages"
     },
     {
-      "id": "Q-299",
-      "question": "App onboarding says 'Plans start at Rs 299'; confirmed plans start at ₹499. Which is current?",
-      "affects": "Pricing consistency between app and website"
+      "id": "Q-FEE",
+      "question": "Is 'platform fee ≈ 20% of the service value + 5% GST on the fee' the authoritative rule for one-time cleaning in every city? The backend uses different commission values for hourly bookings and has a commission-free mode.",
+      "affects": "Payment explanation (published without percentages)"
+    },
+    {
+      "id": "Q-CANCEL",
+      "question": "What happens if the customer cancels before a helper accepts (not an auto-cancellation)? And do hourly bookings follow the same policy?",
+      "affects": "Cancellation wording (published narrowly for one-time cleaning)"
+    },
+    {
+      "id": "Q-RESCHEDULE",
+      "question": "Can a booking be rescheduled? No rescheduling feature was found in the app.",
+      "affects": "On-demand FAQs"
+    },
+    {
+      "id": "Q-CLINICAL",
+      "question": "Confirm the training/credential pathway for wound dressing, bed-sore and catheter support, and for injections, insulin and IV lines, before any of them is published.",
+      "affects": "Elder and patient care scope (review-only / clinical-approval items)"
+    },
+    {
+      "id": "Q-ELDER-LABEL",
+      "question": "Which category or 'expected work' option does a customer pick in the app to find an elder care attendant?",
+      "affects": "Elder care hub instructions"
     },
     {
       "id": "Q-TASKS",
       "question": "Approve the task names used on the website (the live names are configured in admin).",
       "affects": "All hub task lists"
+    }
+  ],
+  "resolvedQuestions": [
+    {
+      "id": "Q-ELDER",
+      "resolution": "Elder care and patient care share one care-helper pool; elder care is a customer need, not a separate category.",
+      "evidence": [
+        "biz.elder-pool"
+      ]
+    },
+    {
+      "id": "Q-INSTANT",
+      "resolution": "Instant booking is one-time cleaning only; hourly and care bookings are scheduled.",
+      "evidence": [
+        "biz.instant-scope",
+        "impl.instant-scope"
+      ]
+    },
+    {
+      "id": "Q-VERIFY",
+      "resolution": "Aadhaar document collected and manually reviewed; no electronic verification claims.",
+      "evidence": [
+        "biz.aadhaar-manual"
+      ]
+    },
+    {
+      "id": "Q-ADDRESS",
+      "resolution": "Address is the one on the Aadhaar document; no separate current/permanent address claims.",
+      "evidence": [
+        "biz.address-in-aadhaar"
+      ]
+    },
+    {
+      "id": "Q-299",
+      "resolution": "₹299 is stale; the lowest Home plan is ₹499.",
+      "evidence": [
+        "biz.299-stale"
+      ]
     },
     {
       "id": "Q-CARE-TASKS",
-      "question": "Provide the server-side 'included / not included' text for the baby care, elder care and patient care hourly tasks.",
-      "affects": "Care hubs (task lists are general role descriptions today)"
+      "resolution": "Business supplied the baby, elder and patient care scopes.",
+      "evidence": [
+        "biz.scope-baby",
+        "biz.scope-elder-daily",
+        "biz.scope-elder-special",
+        "biz.scope-patient"
+      ]
     }
   ]
 }

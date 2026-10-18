@@ -1454,3 +1454,15 @@ code {
 .verification--compact .tags {
   margin-bottom: 0.75rem;
 }
+
+/* Business-approved care scope (grouped checklist) */
+.care-scope__group + .care-scope__group {
+  margin-top: 1rem;
+}
+.care-scope__group h4 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+.care-scope__group .note {
+  margin: 0 0 0.5rem;
+}

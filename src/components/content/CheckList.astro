@@ -9,7 +9,7 @@ interface Props {
 const { items, variant = "check" } = Astro.props;
 ---
 
-<ul class={`checklist checklist--${variant}`}>
+<ul class={`checklist checklist--${variant}`} data-excluded={variant === "cross" ? "" : undefined}>
   {
     items.map((item) => (
       <li>

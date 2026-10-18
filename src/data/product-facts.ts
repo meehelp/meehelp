@@ -19,7 +19,7 @@ export interface ProductFact {
   services?: ServiceSlug[];
 }
 
-const STAFF: ServiceSlug[] = ["maid", "cook", "babysitter-nanny", "patient-care"];
+const STAFF: ServiceSlug[] = ["maid", "cook", "babysitter-nanny", "elder-care", "patient-care"];
 const CARE_HOURLY: ServiceSlug[] = ["babysitter-nanny", "elder-care", "patient-care"];
 const HOURLY_ONLY: ServiceSlug[] = ["cook", ...CARE_HOURLY];
 
@@ -49,9 +49,16 @@ export const productFacts: ProductFact[] = [
   {
     id: "m.prefs.other",
     model: "marketplace",
-    services: ["babysitter-nanny", "patient-care"],
+    services: ["babysitter-nanny", "elder-care", "patient-care"],
     text: "Choose the hours a day you need help and, if you have one, a gender preference.",
     evidence: ["mkt.preferences", "mkt.part-time-hours"],
+  },
+  {
+    id: "m.elder.pool",
+    model: "marketplace",
+    services: ["elder-care"],
+    text: "Elder care and patient care attendants come from the same pool of care helpers in the app. Tell each attendant about your parent's routine, health and mobility, so you choose someone whose experience fits.",
+    evidence: ["biz.elder-pool", "cat.helper-categories"],
   },
   {
     id: "m.distance",
@@ -108,29 +115,43 @@ export const productFacts: ProductFact[] = [
     id: "o.otg.tasks",
     model: "onDemand",
     services: ["maid"],
-    text: "For a one-time clean, pick at least two tasks — for example dishes, bathrooms, sweeping and mopping, dusting, or laundry (machine or hand wash).",
-    evidence: ["od.otg-tasks"],
+    text: "For a one-time clean, pick at least two tasks — for example kitchen prep and cleaning, dishes, bathrooms, sweeping and mopping, dusting, or laundry. The app asks for your house size and number of bathrooms.",
+    evidence: ["od.otg-tasks", "shot.otg-tasks"],
   },
   {
     id: "o.otg.length",
     model: "onDemand",
     services: ["maid"],
     text: "Choose a 120, 150 or 180-minute visit.",
-    evidence: ["od.otg-durations"],
+    evidence: ["od.otg-durations", "shot.otg-durations-booking"],
   },
   {
     id: "o.otg.when",
     model: "onDemand",
     services: ["maid"],
     text: "Book now, or schedule the visit up to 5 days ahead for a start time between 7 AM and 8 PM.",
-    evidence: ["od.otg-book-now", "impl.instant-scope"],
+    evidence: ["od.otg-book-now", "impl.instant-scope", "biz.instant-scope", "shot.otg-durations-booking"],
   },
   {
     id: "o.otg.materials",
     model: "onDemand",
     services: ["maid"],
     text: "Keep your mop, bucket and cleaning liquids ready: cleaners don't bring machines or materials.",
-    evidence: ["od.no-materials"],
+    evidence: ["od.no-materials", "shot.otg-no-materials"],
+  },
+  {
+    id: "o.otg.payment",
+    model: "onDemand",
+    services: ["maid"],
+    text: "To confirm a one-time clean, you pay part of the amount online in the app. You pay the rest directly to the helper, in cash, once the job is done.",
+    evidence: ["shot.otg-payment"],
+  },
+  {
+    id: "o.otg.cancel",
+    model: "onDemand",
+    services: ["maid"],
+    text: "If an order cancels automatically because no helper was assigned, the online payment is refunded in full to your original payment method within 2–7 working days. Once a helper has accepted your order, cancelling is not refunded.",
+    evidence: ["shot.cancellation"],
   },
   {
     id: "o.maid.hourly",
@@ -181,14 +202,14 @@ export const productFacts: ProductFact[] = [
     model: "onDemand",
     services: HOURLY_ONLY,
     text: "Schedule at least 2 hours ahead and up to 5 days ahead, for a start time between 7 AM and 8 PM.",
-    evidence: ["od.hourly-schedule", "impl.instant-scope"],
+    evidence: ["od.hourly-schedule", "impl.instant-scope", "biz.instant-scope"],
   },
 
   // ── Both ──────────────────────────────────────────────────────────────────
   {
     id: "b.coverage",
     model: "both",
-    text: "The app checks your address — city, pincode and map location — and tells you straight away if it isn't covered yet.",
+    text: "The app checks your address — city, pincode and map location — and tells you if your area isn't covered yet.",
     evidence: ["cov.address-check"],
   },
 

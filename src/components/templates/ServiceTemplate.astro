@@ -5,7 +5,9 @@ import { marketplaceSteps } from "@/data/how-it-works";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
 import ArrangementList from "@/components/content/ArrangementList.astro";
 import BulletList from "@/components/content/BulletList.astro";
+import CareScope from "@/components/content/CareScope.astro";
 import CheckList from "@/components/content/CheckList.astro";
+import { publishedScope } from "@/data/care-scope";
 import CrossLink from "@/components/content/CrossLink.astro";
 import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
@@ -70,7 +72,7 @@ const schema = [
     <div class="two-col">
       <div>
         <h3>Usually included</h3>
-        <CheckList items={service.tasksIncluded} />
+        {publishedScope(service.slug) ? <CareScope service={service.slug} /> : <CheckList items={service.tasksIncluded} />}
       </div>
       <div>
         <h3>Usually not included</h3>

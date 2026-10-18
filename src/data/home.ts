@@ -17,7 +17,7 @@ export const home: {
 } = {
   headline: "Hire a helper directly, or book help by the hour",
   intro:
-    "MeeHelp gives you two ways to get help at home: find a maid, cook, nanny or care attendant and hire them yourself — or book help for a few hours, instantly or scheduled.",
+    "MeeHelp gives you two ways to get help at home: find a maid, cook, nanny or care attendant and hire them yourself — or book help in the app: a one-time clean now or later, or a few hours of help scheduled ahead.",
   audiences: [
     {
       title: "Working households",
@@ -40,12 +40,12 @@ export const home: {
     {
       question: "What is MeeHelp?",
       answer:
-        "MeeHelp is a mobile app with two ways to get help at home. You can find domestic helpers — maids, cooks, babysitters and nannies, elder care and patient care attendants — and hire them directly. Or you can book help by the hour, instantly or for a scheduled time.",
+        "MeeHelp is a mobile app with two ways to get help at home. You can find domestic helpers — maids, cooks, babysitters and nannies, elder care and patient care attendants — and hire them directly. Or you can book help in the app: a one-time clean, now or for later, or hourly help scheduled ahead.",
     },
     {
       question: "How does finding and hiring a helper work?",
       answer:
-        "You search for helpers in the app, choose a contact plan, and contact the helpers you like directly. You discuss the work and agree the salary with the helper yourself, and you can invite them for a trial before you decide.",
+        "You search for helpers in the app, choose a contact plan, and contact the helpers you like directly. You discuss the work and agree the salary with the helper yourself, and you can agree a trial with them before you decide.",
     },
     {
       question: "What does it cost to find a helper?",
@@ -55,7 +55,7 @@ export const home: {
     {
       question: "How is booking by the hour different?",
       answer:
-        "On-demand bookings are for a set number of hours — book instantly, or schedule for a date and time. There's no long-term arrangement; you book again whenever you need help.",
+        "A booking is a single visit. One-time cleaning can be booked now or for later; hourly help, including cooking and care, is scheduled at least 2 hours ahead. There's no long-term arrangement; you book again whenever you need help.",
     },
     {
       question: "Which cities does MeeHelp work in?",
@@ -71,7 +71,7 @@ export const home: {
   seo: {
     title: "MeeHelp – Hire Maids, Cooks & Nannies or Book Hourly Help",
     description:
-      "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book help by the hour — instantly or scheduled. Get the MeeHelp app.",
+      "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book a one-time clean or hourly help in the MeeHelp app.",
   },
   publishStatus: "published",
   updatedAt: "2026-10-17",

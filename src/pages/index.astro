@@ -90,7 +90,7 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
                   ))}
                 </ul>
               ) : null}
-              <Cta ctaKey="bookNow" placement="home_hero_on_demand" />
+              <Cta ctaKey="bookHourly" placement="home_hero_on_demand" />
             </li>
           ) : null
         }
@@ -151,7 +151,7 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
         <BookingTypes />
         <Steps steps={onDemandSteps} />
         <div class="cta-row">
-          <Cta ctaKey="bookNow" placement="home_on_demand" />
+          <Cta ctaKey="bookHourly" placement="home_on_demand" />
         </div>
       </Section>
     ) : null

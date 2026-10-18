@@ -8,7 +8,7 @@
       "kind": "home",
       "model": "both",
       "title": "MeeHelp – Hire Maids, Cooks & Nannies or Book Hourly Help",
-      "metaDescription": "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book help by the hour — instantly or scheduled. Get the MeeHelp app.",
+      "metaDescription": "Find and hire maids, cooks, nannies, elder care and patient attendants directly, or book a one-time clean or hourly help in the MeeHelp app.",
       "status": "published",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -129,14 +129,14 @@
       "canonical": "https://meehelp.in/elder-care/",
       "kind": "service",
       "model": "marketplace",
-      "title": "Elder Care at Home – Find an Attendant | MeeHelp",
-      "metaDescription": "Find an elder care attendant for your parents at home — company, mobility help, personal care and medicine reminders. Contact attendants directly on MeeHelp.",
+      "title": "Elder Care at Home – Find a Care Attendant | MeeHelp",
+      "metaDescription": "Find a care attendant for an older parent at home: help with bathing, moving around, meals, routine and company. Contact attendants directly on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": null,
-      "primaryIntent": "Find and hire an elder care attendant directly",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly",
       "primaryKeyword": "elder care at home",
       "supportingKeywords": [
         "elderly caregiver",
@@ -144,7 +144,7 @@
         "caretaker for elderly",
         "attendant for old age parents"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care at home for your parents"
     },
     {
@@ -153,7 +153,7 @@
       "kind": "service",
       "model": "marketplace",
       "title": "Patient Care at Home – Find a Patient Attendant | MeeHelp",
-      "metaDescription": "Find a patient care attendant for recovery after hospital, or for bedridden and limited-mobility patients. Contact attendants directly and hire on MeeHelp.",
+      "metaDescription": "Find a patient care attendant for someone unwell, recovering or bedridden: personal care, moving, meals and medicine reminders. Hire directly on MeeHelp.",
       "status": "review",
       "indexable": false,
       "note": "intent targets — not search-volume estimates",
@@ -167,7 +167,7 @@
         "attendant for bedridden patient",
         "home attendant after surgery"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants at home"
     },
     {
@@ -880,7 +880,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "mumbai",
-      "primaryIntent": "Find and hire an elder care attendant directly in Mumbai & MMR",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Mumbai & MMR",
       "primaryKeyword": "elder care in Mumbai",
       "supportingKeywords": [
         "elderly caregiver in Mumbai",
@@ -889,7 +889,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Mumbai & MMR"
     },
     {
@@ -904,7 +904,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "delhi-ncr",
-      "primaryIntent": "Find and hire an elder care attendant directly in Delhi NCR",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Delhi NCR",
       "primaryKeyword": "elder care in Delhi NCR",
       "supportingKeywords": [
         "elderly caregiver in Delhi NCR",
@@ -913,7 +913,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Delhi NCR"
     },
     {
@@ -928,7 +928,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "bengaluru",
-      "primaryIntent": "Find and hire an elder care attendant directly in Bengaluru",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Bengaluru",
       "primaryKeyword": "elder care in Bengaluru",
       "supportingKeywords": [
         "elderly caregiver in Bengaluru",
@@ -937,7 +937,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Bengaluru"
     },
     {
@@ -952,7 +952,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "hyderabad",
-      "primaryIntent": "Find and hire an elder care attendant directly in Hyderabad",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Hyderabad",
       "primaryKeyword": "elder care in Hyderabad",
       "supportingKeywords": [
         "elderly caregiver in Hyderabad",
@@ -961,7 +961,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Hyderabad"
     },
     {
@@ -976,7 +976,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "chennai",
-      "primaryIntent": "Find and hire an elder care attendant directly in Chennai",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Chennai",
       "primaryKeyword": "elder care in Chennai",
       "supportingKeywords": [
         "elderly caregiver in Chennai",
@@ -985,7 +985,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Chennai"
     },
     {
@@ -1000,7 +1000,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "pune",
-      "primaryIntent": "Find and hire an elder care attendant directly in Pune",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Pune",
       "primaryKeyword": "elder care in Pune",
       "supportingKeywords": [
         "elderly caregiver in Pune",
@@ -1009,7 +1009,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Pune"
     },
     {
@@ -1024,7 +1024,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "kolkata",
-      "primaryIntent": "Find and hire an elder care attendant directly in Kolkata",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Kolkata",
       "primaryKeyword": "elder care in Kolkata",
       "supportingKeywords": [
         "elderly caregiver in Kolkata",
@@ -1033,7 +1033,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Kolkata"
     },
     {
@@ -1048,7 +1048,7 @@
       "note": "intent targets — not search-volume estimates",
       "service": "elder-care",
       "city": "ahmedabad",
-      "primaryIntent": "Find and hire an elder care attendant directly in Ahmedabad",
+      "primaryIntent": "Find a care attendant for an older parent and hire them directly in Ahmedabad",
       "primaryKeyword": "elder care in Ahmedabad",
       "supportingKeywords": [
         "elderly caregiver in Ahmedabad",
@@ -1057,7 +1057,7 @@
         "elder care helper",
         "caretaker for elderly"
       ],
-      "proposition": "Search attendants, contact them directly, agree routine and salary",
+      "proposition": "Elder care as a customer need served by the shared care-attendant pool: daily living, mobility, routine and company; hire directly",
       "h1": "Elder care attendants in Ahmedabad"
     },
     {
@@ -1081,7 +1081,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Mumbai & MMR"
     },
     {
@@ -1105,7 +1105,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Delhi NCR"
     },
     {
@@ -1129,7 +1129,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Bengaluru"
     },
     {
@@ -1153,7 +1153,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Hyderabad"
     },
     {
@@ -1177,7 +1177,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Chennai"
     },
     {
@@ -1201,7 +1201,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Pune"
     },
     {
@@ -1225,7 +1225,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Kolkata"
     },
     {
@@ -1249,7 +1249,7 @@
         "patient care attendant",
         "attendant for bedridden patient"
       ],
-      "proposition": "Search attendants, contact them directly, agree shifts and salary",
+      "proposition": "Attendant support for someone ill, recovering or bedridden (non-invasive); contact attendants directly, agree shifts and salary",
       "h1": "Patient care attendants in Ahmedabad"
     },
     {

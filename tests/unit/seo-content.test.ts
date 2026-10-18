@@ -47,12 +47,15 @@ const evergreen = strings([
 const ruleHits = (id: string) =>
   evergreen.flatMap((s) => findViolations(s, commercialRules()).filter((v) => v.rule.id === id).map(() => s.slice(0, 90)));
 
-test("every service supports marketplace, on-demand, instant, scheduled and hourly booking", () => {
+test("every service supports marketplace, on-demand, scheduled and hourly booking; instant only for one-time cleaning", () => {
   assert.equal(services.length, 5);
   for (const s of services) {
-    for (const k of ["marketplace", "onDemand", "instantBooking", "scheduledBooking", "hourlyBooking"] as const) {
+    for (const k of ["marketplace", "onDemand", "scheduledBooking", "hourlyBooking"] as const) {
       assert.equal(s.models[k], true, `${s.slug}.${k}`);
     }
+    // Phase 4.6 (biz.instant-scope): Book Now exists only in the one-time cleaning flow (maid).
+    assert.equal(s.models.instantBooking, s.slug === "maid", `${s.slug}.instantBooking`);
+    assert.equal(s.onDemand.bookNow, s.models.instantBooking, `${s.slug}: bookNow must follow models.instantBooking`);
   }
 });
 

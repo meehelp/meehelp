@@ -12,5 +12,8 @@ Static Astro 7 marketing site. Read `README.md` first. The business rules are in
 - **Only evidenced product claims.** App mechanics go in `src/data/product-facts.ts` and must cite
   `src/data/evidence.ts` (read `docs/seo/CONTENT-EVIDENCE.md` first). No city filler (festivals, weather, cuisine),
   no clinical claims for care, no on-demand prices. Other MeeHelp repos are READ-ONLY sources.
+- **Phase 4.6 truth:** instant booking = one-time cleaning only; "Aadhaar document reviewed" (never electronic/OTP);
+  no address-verification claims; elder care = shared care-helper pool; care scope only from `src/data/care-scope.ts`
+  (invasive work disabled, wound/catheter review-only); observed app prices never in copy; ₹299 is stale.
 - After content changes: `npm run evidence`, `npm run intent-map`, `npm run report` (commit the regenerated docs/seo files).
 - Before committing: `npm run check` (astro check, unit tests, production and preview SEO validation).
