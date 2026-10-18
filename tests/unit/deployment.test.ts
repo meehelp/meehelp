@@ -49,10 +49,11 @@ test("security headers are present and the CSP keeps the static site working", (
   assert.equal(get("X-Frame-Options"), "DENY");
   const csp = get("Content-Security-Policy");
   assert.match(csp, /frame-ancestors 'none'/);
-  assert.match(csp, /script-src 'none'/, "no client JS is shipped; JSON-LD data blocks are not executed");
+  assert.match(csp, /script-src 'self' 'unsafe-inline' https:\/\/www\.googletagmanager\.com/, "production GA4 may load the Google tag; release-review still emits no analytics script");
   assert.match(csp, /style-src 'self' 'unsafe-inline'/, "the stylesheet is inlined into each page");
   assert.match(csp, /font-src 'self'/);
-  assert.match(csp, /img-src 'self' data:/);
+  assert.match(csp, /img-src 'self' data: https:\/\/www\.google-analytics\.com https:\/\/\*\.google-analytics\.com/);
+  assert.match(csp, /connect-src 'self' https:\/\/www\.google-analytics\.com https:\/\/\*\.google-analytics\.com https:\/\/www\.googletagmanager\.com/);
   assert.doesNotMatch(csp, /unsafe-eval|\*/);
   // HSTS is left to the platform for *.vercel.app; for meehelp.in it needs a subdomain audit first.
   assert.ok(!vercel.headers.some((r) => r.headers.some((h) => h.key === "Strict-Transport-Security")));
