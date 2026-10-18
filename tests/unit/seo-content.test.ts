@@ -12,6 +12,7 @@ import { home } from "@/data/home";
 import { bookingTypes, marketplaceSteps, onDemandSteps } from "@/data/how-it-works";
 import { intentTargets, siteIntents } from "@/data/intent-map";
 import { plans, pricingPage, pricingSettings } from "@/data/plans";
+import { firstRelease } from "@/data/release-plan";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
 import { getServiceCityContent, getSiteRoutes, serviceCityStatus, serviceHubStatus } from "@/lib/content";
@@ -132,15 +133,21 @@ test("city route inventory is complete: 5 + 5 hubs, 40 + 40 city pages, home and
   );
 });
 
-test("expanded pages stay in review: noindex on every stage, production builds home only", () => {
-  for (const stage of ["preview", "production"] as const) {
-    for (const r of getSiteRoutes(stage).filter((x) => x.kind !== "home")) {
-      assert.equal(r.indexable, false, `${stage} ${r.path}`);
-    }
+test("production indexes only the approved first release; the rest stays in review", () => {
+  for (const r of getSiteRoutes("preview")) assert.equal(r.indexable, false, `preview ${r.path}`);
+
+  const approved = firstRelease.map((r) => r.path).sort();
+  const production = getSiteRoutes("production");
+  assert.deepEqual(production.map((r) => r.path).sort(), approved);
+  assert.ok(production.every((r) => r.indexable && r.status === "published"));
+
+  for (const s of services) for (const m of MODELS) assert.equal(serviceHubStatus(s, m), "published", `${s.slug}/${m}`);
+
+  const publishedCities = new Set(["/maid/mumbai/", "/maid/delhi-ncr/", "/cook/mumbai/"]);
+  for (const sc of serviceCities) {
+    const path = serviceCityPath(sc.service, sc.city, sc.model);
+    assert.equal(serviceCityStatus(sc), publishedCities.has(path) ? "published" : "review", path);
   }
-  assert.deepEqual(getSiteRoutes("production").map((r) => r.path), ["/"]);
-  for (const s of services) for (const m of MODELS) assert.equal(serviceHubStatus(s, m), "review", `${s.slug}/${m}`);
-  for (const sc of serviceCities) assert.equal(serviceCityStatus(sc), "review", `${sc.service}/${sc.city}/${sc.model}`);
 });
 
 test("the intent map covers every route and the committed JSON is up to date", () => {
