@@ -75,7 +75,7 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
       description:
         "Book an hourly maid in the MeeHelp app for dishes, bathrooms, floors or laundry — book now or schedule a visit. Keep your own cleaning supplies ready.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   cook: {
@@ -133,7 +133,7 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
       description:
         "Book a cook by the hour in the MeeHelp app for guests, family meals or a few days of meal prep, cooked in your own kitchen. Schedule up to 5 days ahead.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   "babysitter-nanny": {
@@ -194,7 +194,7 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
       description:
         "Book a babysitter by the hour in the MeeHelp app for an evening out, a work call or errands. Schedule 2 hours to 5 days ahead and leave your child's routine.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   "elder-care": {
@@ -254,7 +254,7 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
       description:
         "Book hourly elder care in the MeeHelp app: company, a steady arm and help with the daily routine for an older parent while you're out. Non-medical support.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   "patient-care": {
@@ -313,7 +313,7 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
       description:
         "Book a patient care attendant by the hour in the MeeHelp app for washing, changing and moving a patient who is unwell or recovering. Non-medical care.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
 };
