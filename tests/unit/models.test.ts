@@ -87,8 +87,8 @@ test("CTA definitions are tied to one journey each", () => {
   assert.equal(ctas.bookHourly.model, "onDemand");
 });
 
-test("the pricing page only builds where prices may be shown", () => {
-  assert.equal(resolveRoute(["pricing"], "production"), null);
+test("the approved pricing page builds where prices may be shown", () => {
+  assert.notEqual(resolveRoute(["pricing"], "production"), null);
   assert.notEqual(resolveRoute(["pricing"], "preview"), null);
   assert.equal(resolveRoute(["pricing", "mumbai"], "preview"), null);
 });
