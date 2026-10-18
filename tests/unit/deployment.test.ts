@@ -54,7 +54,8 @@ test("security headers are present and the CSP keeps the static site working", (
   assert.match(csp, /font-src 'self'/);
   assert.match(csp, /img-src 'self' data: https:\/\/www\.google-analytics\.com https:\/\/\*\.google-analytics\.com/);
   assert.match(csp, /connect-src 'self' https:\/\/www\.google-analytics\.com https:\/\/\*\.google-analytics\.com https:\/\/www\.googletagmanager\.com/);
-  assert.doesNotMatch(csp, /unsafe-eval|\*/);
+  assert.doesNotMatch(csp, /unsafe-eval/);
+  assert.doesNotMatch(csp, /(?:^|; )(?:default-src|script-src|style-src|img-src|font-src|connect-src) \*(?:;|$)/, "no directive may allow a broad wildcard source");
   // HSTS is left to the platform for *.vercel.app; for meehelp.in it needs a subdomain audit first.
   assert.ok(!vercel.headers.some((r) => r.headers.some((h) => h.key === "Strict-Transport-Security")));
 });
