@@ -306,8 +306,9 @@ code {
 }
 
 .site-header__logo img {
-  width: 124px;
-  height: auto;
+  display: block;
+  height: 48px;
+  width: auto;
 }
 
 .site-header__cta {
@@ -1005,7 +1006,9 @@ code {
 }
 
 .site-footer__logo {
-  width: 124px;
+  display: block;
+  height: 56px;
+  width: auto;
   margin-bottom: 0.75rem;
 }
 
