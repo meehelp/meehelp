@@ -12,8 +12,7 @@ import { onDemandContent } from "./on-demand";
  * booking. Phase 4.6 (biz.instant-scope): instant booking applies ONLY to the
  * one-time cleaning flow, i.e. the maid category; cook and care are scheduled.
  *
- * `publishStatus` is "review" for every page: the copy was rewritten in
- * Phase 4/4.5 and has not been approved for public indexing.
+ * `publishStatus` is "published" for the five first-release marketplace hubs after\n * business review. City pages remain independently gated.
  *
  * Phase 4.5: task lists describe the role in general terms — the app's own
  * task names live in the admin panel (evidence cat.task-names-server) and
@@ -105,7 +104,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       description:
         "Find a maid or house help near you for cleaning, dishes and laundry. Review profiles, contact helpers directly and agree the salary yourself on MeeHelp.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   {
@@ -177,7 +176,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       description:
         "Hire a home cook near you for daily meals and tiffins, part-time or live-in. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   {
@@ -244,7 +243,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       description:
         "Find a babysitter or nanny near you. Review profiles, contact nannies directly, meet them and hire the right person for your child with MeeHelp.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   {
@@ -310,7 +309,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       description:
         "Find a care attendant for an older parent at home: help with bathing, moving around, meals, routine and company. Contact attendants directly on MeeHelp.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-18",
   },
   {
@@ -376,7 +375,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
       description:
         "Find a patient care attendant for someone unwell, recovering or bedridden: personal care, moving, meals and medicine reminders. Hire directly on MeeHelp.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-18",
   },
 ];
