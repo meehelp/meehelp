@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { localities } from "@/data/localities";
+import { serviceCityPath } from "@/lib/content/paths";
 import { serviceCities } from "@/data/service-cities";
 import { getPublishedLocalityPages, getSiteRoutes, serviceCityStatus } from "@/lib/content";
 import { getServiceRouteParams, resolveRoute } from "@/lib/content/resolve";
@@ -26,7 +27,7 @@ test("service-city pages in review are built on preview but not on production", 
   const prodPaths = new Set(getSiteRoutes("production").map((r) => r.path));
   const previewPaths = new Set(getSiteRoutes("preview").map((r) => r.path));
   for (const sc of review) {
-    const path = `/${sc.service}/${sc.city}/`;
+    const path = serviceCityPath(sc.service, sc.city, sc.model);
     assert.equal(prodPaths.has(path), false, `${path} must not be on production`);
     assert.equal(previewPaths.has(path), true, `${path} should be on preview`);
   }
