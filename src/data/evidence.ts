@@ -744,7 +744,7 @@ const rawEvidence: RawEvidence[] = [
     publicSafe: true,
     requiresBusinessApproval: false,
     usedOnSite: true,
-    note: "Matches the helper app (document upload + 'completed within 24 hours'; OTP screen commented out). Wording: 'Aadhaar document reviewed'.",
+    note: "Matches the helper app (document upload + 'completed within 24 hours'; OTP screen commented out). Wording: 'Aadhaar document collected and manually reviewed'.",
   },
   {
     id: "biz.address-in-aadhaar",

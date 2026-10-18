@@ -136,7 +136,7 @@ Business-confirmed facts are never presented as code evidence, and screenshot va
 - `cov.app-english`: And helper profiles record only English reading/speaking, not other languages — so city pages no longer talk about local languages.
 - `biz.elder-pool`: Reconciles cat.helper-categories (helper app lists Patient Care only). Site copy says elder care and patient care attendants come from the same pool and never claims a separate elder-care category.
 - `biz.instant-scope`: Confirms impl.instant-scope (code). Supersedes the Phase 4 confirmation of instant booking for every category.
-- `biz.aadhaar-manual`: Matches the helper app (document upload + 'completed within 24 hours'; OTP screen commented out). Wording: 'Aadhaar document reviewed'.
+- `biz.aadhaar-manual`: Matches the helper app (document upload + 'completed within 24 hours'; OTP screen commented out). Wording: 'Aadhaar document collected and manually reviewed'.
 - `biz.address-in-aadhaar`: Disables the Phase 3 'current/permanent address on record' checks.
 - `biz.299-stale`: Guarded: ₹299 must not appear in Website V2 (claims.ts stalePricePattern).
 - `biz.scope-baby`: Rendered from src/data/care-scope.ts. No medical, developmental or safety guarantees; nannies are not described as paediatric professionals.

@@ -5,13 +5,12 @@
  * are never empty landmarks or links to missing pages.
  */
 import { business } from "@/data/business";
-import { getBuiltServices, pricingPageStatus } from "@/lib/content";
+import { getBuiltServices, isPricingBuilt } from "@/lib/content";
 import { pricingPath, servicePath } from "@/lib/content/paths";
-import { isBuilt } from "@/lib/content/publishing";
 
 const hire = getBuiltServices(undefined, "marketplace");
 const book = getBuiltServices(undefined, "onDemand");
-const pricingBuilt = isBuilt(pricingPageStatus());
+const pricingBuilt = isPricingBuilt();
 const hasNav = hire.length > 0 || book.length > 0 || pricingBuilt;
 ---
 

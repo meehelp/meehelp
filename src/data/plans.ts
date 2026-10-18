@@ -132,6 +132,10 @@ export const pricingPage = {
       question: "Are plans for booking help by the hour?",
       answer: "No. Plans are only for finding and contacting helpers to hire directly. Booking help by the hour is separate and does not use a plan.",
     },
+      {
+        question: "What if a helper I hire doesn't work out?",
+        answer: "MeeHelp doesn't place helpers and doesn't promise to replace one. You can use the remaining contacts in your plan to speak to other helpers while it is valid.",
+      },
   ],
   seo: {
     title: "MeeHelp Plans – Contact Helpers Directly | MeeHelp",

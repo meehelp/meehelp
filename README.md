@@ -38,13 +38,20 @@ Requires Node.js ≥ 22.22.0 (an Astro 7 requirement).
 |---|---|---|---|---|
 | `development` (default) | everything (except unpublished localities) | no | `Disallow: /` | empty |
 | `preview` | `published` + `review` | no | `Disallow: /` | empty |
+| `release-review` | exactly the 15 approved first-release pages (`src/data/release-plan.ts`) + 404 | no (`noindex, nofollow, noarchive`) | `Disallow: /` | empty |
 | `production` | `published` only | yes | `Allow: /` + sitemap | published URLs |
 
 `SITE_URL` sets the canonical origin (default `https://meehelp.in`). Variable names are in
 `.env.example` (names only; never commit values).
 
-Production currently builds **only `/`**, on purpose: no category's marketplace support is
-confirmed yet, and plan prices wait on the meaning of the app's "*".
+Production currently builds **only `/`**, on purpose: every other page is still `publishStatus: review`
+until the business approves it.
+
+`release-review` is the exact build to inspect before launch: `npm run build:release-review`,
+`npm run seo:release-review` (validator: exactly the 15 pages, no leaks, no placeholders, noarchive),
+`npm run release-docs` (writes `docs/seo/FIRST-RELEASE-FINAL-AUDIT.md` and `FIRST-RELEASE-COPY.md`).
+Links on release pages only ever point to pages built in the same stage (hubs list all eight cities but link
+only city pages that exist). It is not deployed anywhere.
 
 ## Directory structure
 

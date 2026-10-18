@@ -3,9 +3,8 @@
  * One-line Home plan summary for city pages (prices from src/data/plans.ts),
  * linking to the full plans. Office/Business plans are never shown here.
  */
-import { pricingPageStatus } from "@/lib/content";
+import { isPricingBuilt } from "@/lib/content";
 import { pricingPath } from "@/lib/content/paths";
-import { isBuilt } from "@/lib/content/publishing";
 import { arePricesPublishable, formatInr, formatValidity, getActivePlans } from "@/lib/pricing";
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
 const home = getActivePlans("home");
 const first = home[0];
 const showPrices = arePricesPublishable();
-const href = isBuilt(pricingPageStatus()) ? pricingPath : Astro.props.fallbackHref;
+const href = isPricingBuilt() ? pricingPath : Astro.props.fallbackHref;
 ---
 
 {

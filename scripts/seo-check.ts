@@ -3,6 +3,8 @@
  *
  *   npm run seo                     production build (default)
  *   npm run seo -- --stage=preview  preview build (everything must be noindex)
+ *   npm run seo -- --stage=release-review  first-release review build: exactly the
+ *                                   approved release pages, noindex/noarchive, no placeholders
  *   npm run seo -- --no-build       validate the existing dist/ folder
  *
  * Checks every generated page for: title, meta description, canonical,
@@ -21,8 +23,8 @@ import { parse, type HTMLElement } from "node-html-parser";
 
 const args = process.argv.slice(2);
 const stageArg = args.find((a) => a.startsWith("--stage="))?.split("=")[1] ?? "production";
-if (stageArg !== "production" && stageArg !== "preview") {
-  console.error(`Unknown stage "${stageArg}". Use production or preview.`);
+if (stageArg !== "production" && stageArg !== "preview" && stageArg !== "release-review") {
+  console.error(`Unknown stage "${stageArg}". Use production, preview or release-review.`);
   process.exit(2);
 }
 const stage = stageArg;
@@ -74,6 +76,15 @@ const pagePaths = allFiles
   .filter((f) => f.endsWith("index.html"))
   .map((f) => "/" + relative(OUT, f).replace(/index\.html$/, "").split("\\").join("/"))
   .filter((p) => p !== "/404/" && p !== "/_not-found/");
+
+// ---------- Release-review: exactly the approved first-release pages ----------
+if (stage === "release-review") {
+  const { releaseReviewPaths } = await import("@/lib/content/release-scope");
+  const built = new Set(pagePaths);
+  for (const p of releaseReviewPaths) if (!built.has(p)) error(p, "Approved release page missing from the release-review build");
+  for (const p of pagePaths) if (!releaseReviewPaths.has(p)) error(p, "Page outside the approved release set leaked into the release-review build");
+  if (releaseReviewPaths.size !== 15) error("/", `Release set must contain exactly 15 pages (has ${releaseReviewPaths.size})`);
+}
 
 // ---------- Built pages must match the route registry exactly ----------
 for (const p of pagePaths) if (!routeByPath.has(p)) error(p, "Page was generated but is not in the route registry");
@@ -154,6 +165,7 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   const noindex = /noindex/i.test(robots);
   if (expectIndexable && noindex) error(page, `Expected indexable page but robots="${robots}"`);
   if (!expectIndexable && !noindex) error(page, `Expected noindex but robots="${robots || "(none)"}"`);
+  if (stage === "release-review" && !/noarchive/i.test(robots)) error(page, `Release-review page must be noarchive: robots="${robots}"`);
 
   if (!isNotFound) {
     const canonical = head.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? "";
@@ -236,7 +248,8 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   const visible = visibleText(body);
 
   // Placeholders never reach production.
-  if (stage === "production" && placeholderText.test(visible)) error(page, "Placeholder or draft text in production HTML");
+  if ((stage === "production" || stage === "release-review") && placeholderText.test(visible)) error(page, `Placeholder or draft text in ${stage} HTML`);
+  if (stage === "release-review" && body.querySelector(".qr-panel--placeholder, [data-placeholder]")) error(page, "Placeholder element in release-review HTML");
 
   // Unsupported verification / commercial claims (every stage — preview mirrors production rules).
   for (const { rule, match } of guards.findViolations(visible, wordingRules)) {

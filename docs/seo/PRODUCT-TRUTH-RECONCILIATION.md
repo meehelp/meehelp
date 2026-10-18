@@ -35,7 +35,7 @@ Evidence: `impl.instant-scope`, `shot.otg-durations-booking`, `biz.instant-scope
 | Code evidence | Helper uploads Aadhaar front/back (read on device); 'verification will be completed within 24 hours'; Aadhaar-OTP screen is commented out; an upload endpoint sets the verified flag on upload; admins can verify manually. |
 | Current-app screenshot | — |
 | Business confirmation | Aadhaar document collected and manually reviewed; electronic/OTP verification must not be claimed. |
-| **Website V2 position** | 'Aadhaar document reviewed' — submitted when the helper registers and reviewed manually by MeeHelp. Guards block 'Aadhaar verified', OTP/e-KYC/UIDAI/government-database and 'fully verified' wording. |
+| **Website V2 position** | 'Aadhaar document collected and manually reviewed' — submitted when the helper registers and reviewed manually by MeeHelp. Guards block 'Aadhaar verified', OTP/e-KYC/UIDAI/government-database and 'fully verified' wording. |
 | Conflict / open | **Backend: uploading the document sets aadhar_verify = 1 without a review step (provider.php ~768-812). Engineering should confirm the manual review gate exists.** |
 
 Evidence: `trust.aadhaar`, `biz.aadhaar-manual`

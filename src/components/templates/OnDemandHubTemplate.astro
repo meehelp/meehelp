@@ -7,6 +7,7 @@ import BookingTypes from "@/components/content/BookingTypes.astro";
 import BulletList from "@/components/content/BulletList.astro";
 import CareScope from "@/components/content/CareScope.astro";
 import CheckList from "@/components/content/CheckList.astro";
+import CityCoverage from "@/components/content/CityCoverage.astro";
 import { publishedScope } from "@/data/care-scope";
 import CrossLink from "@/components/content/CrossLink.astro";
 import Cta from "@/components/content/Cta.astro";
@@ -21,9 +22,8 @@ import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import Safeguards from "@/components/trust/Safeguards.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
-import { cityName, getBuiltServiceCities, getServiceCategories, serviceHubStatus } from "@/lib/content";
-import { serviceCityPath, servicePath } from "@/lib/content/paths";
-import { isBuilt } from "@/lib/content/publishing";
+import { getServiceCategories, isHubBuilt } from "@/lib/content";
+import { servicePath } from "@/lib/content/paths";
 import type { ResolvedRoute } from "@/lib/content/resolve";
 import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
 
@@ -34,9 +34,8 @@ interface Props {
 const { service } = Astro.props.route;
 const od = service.onDemand;
 const path = servicePath(service.slug, "onDemand");
-const cityPages = getBuiltServiceCities(undefined, "onDemand").filter((sc) => sc.service === service.slug);
 const related = getServiceCategories(undefined, "onDemand").filter((c) => c.service.slug !== service.slug && c.href);
-const marketplaceBuilt = isBuilt(serviceHubStatus(service, "marketplace"));
+const marketplaceBuilt = isHubBuilt(service, "marketplace");
 const appFacts = factsFor(service.slug, "onDemand");
 const schema = [
   ...(schemaSettings.service ? [serviceSchema({ service, path, name: od.name, description: od.seo.description })] : []),
@@ -89,20 +88,10 @@ const schema = [
     <Steps steps={od.bookNow ? onDemandSteps : scheduledOnlySteps} />
   </Section>
 
-  {
-    cityPages.length > 0 ? (
-      <Section id="cities" title={`${od.name} across our cities`} tone="warm">
-        <p>Bookings are available in all the cities below. Whether someone is free at a particular time depends on who is near you.</p>
-        <LinkList
-          label={`${od.name} by city`}
-          links={cityPages.map((sc) => ({
-            href: serviceCityPath(sc.service, sc.city, "onDemand"),
-            label: `${od.shortName} in ${cityName(sc.city)}`,
-          }))}
-        />
-      </Section>
-    ) : null
-  }
+  <Section id="cities" title={`Where you can book ${od.bookingNoun}`} tone="warm">
+    <p>Bookings are available in all eight of these cities. Whether someone is free at a particular time depends on who is near you.</p>
+    <CityCoverage service={service.slug} model="onDemand" linkPrefix={`${od.shortName} in`} />
+  </Section>
 
   <Section id="safety" title="Booking safely">
     <VerificationSummary />

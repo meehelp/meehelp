@@ -43,7 +43,7 @@ test("unsupported verification claims are caught", () => {
 
 test("honest advice and confirmed wording are allowed", () => {
   const ok = [
-    "Aadhaar document reviewed",
+    "Aadhaar document collected and manually reviewed",
     "Each helper submits their Aadhaar document, and MeeHelp reviews it manually.",
     "Mobile number verified by OTP",
     "MeeHelp reviews the helper's Aadhaar document to check their identity. It is not a police verification or a background check, and MeeHelp does not separately check where the helper lives.",

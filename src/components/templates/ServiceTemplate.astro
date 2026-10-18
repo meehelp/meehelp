@@ -7,12 +7,12 @@ import ArrangementList from "@/components/content/ArrangementList.astro";
 import BulletList from "@/components/content/BulletList.astro";
 import CareScope from "@/components/content/CareScope.astro";
 import CheckList from "@/components/content/CheckList.astro";
+import CityCoverage from "@/components/content/CityCoverage.astro";
 import { publishedScope } from "@/data/care-scope";
 import CrossLink from "@/components/content/CrossLink.astro";
 import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
 import Icon from "@/components/content/Icon.astro";
-import LinkList from "@/components/content/LinkList.astro";
 import ProductFacts from "@/components/content/ProductFacts.astro";
 import { factsFor } from "@/data/product-facts";
 import Section from "@/components/content/Section.astro";
@@ -25,9 +25,8 @@ import Claims from "@/components/trust/Claims.astro";
 import Safeguards from "@/components/trust/Safeguards.astro";
 import Testimonials from "@/components/trust/Testimonials.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
-import { cityName, getBuiltServiceCities, getServiceCategories, serviceHubStatus } from "@/lib/content";
-import { serviceCityPath, servicePath } from "@/lib/content/paths";
-import { isBuilt } from "@/lib/content/publishing";
+import { getServiceCategories, isHubBuilt } from "@/lib/content";
+import { servicePath } from "@/lib/content/paths";
 import type { ResolvedRoute } from "@/lib/content/resolve";
 import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
 
@@ -37,9 +36,8 @@ interface Props {
 
 const { service } = Astro.props.route;
 const path = servicePath(service.slug);
-const cityPages = getBuiltServiceCities(undefined, "marketplace").filter((sc) => sc.service === service.slug);
 const related = getServiceCategories().filter((c) => c.service.slug !== service.slug && c.href);
-const onDemandBuilt = isBuilt(serviceHubStatus(service, "onDemand"));
+const onDemandBuilt = isHubBuilt(service, "onDemand");
 const appFacts = factsFor(service.slug, "marketplace");
 const schema = [
   ...(schemaSettings.service ? [serviceSchema({ service, path, name: service.name, description: service.seo.description })] : []),
@@ -105,19 +103,10 @@ const schema = [
     <Safeguards extra={service.safeguards} />
   </Section>
 
-  {
-    cityPages.length > 0 ? (
-      <Section id="cities" title={`Find ${service.roleWithArticle} in your city`}>
-        <LinkList
-          label={`${service.name} by city`}
-          links={cityPages.map((sc) => ({
-            href: serviceCityPath(sc.service, sc.city),
-            label: `${service.shortName} in ${cityName(sc.city)}`,
-          }))}
-        />
-      </Section>
-    ) : null
-  }
+  <Section id="cities" title={`Where you can find ${service.roleWithArticle}`}>
+    <p>MeeHelp works across all eight of these cities.</p>
+    <CityCoverage service={service.slug} model="marketplace" linkPrefix={`${service.shortName} in`} />
+  </Section>
 
   <Testimonials service={service.slug} model="marketplace" />
 

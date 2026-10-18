@@ -14,6 +14,7 @@ import { arePricesPublishable } from "@/lib/pricing";
 import { composeServiceCity } from "./compose";
 import { homePath, localityPath, pricingPath, serviceCityPath, servicePath } from "./paths";
 import { availabilityStatus, combineStatus, confirmedStatus, isBuilt, isIndexable } from "./publishing";
+import { inStageScope } from "./release-scope";
 import type {
   BusinessModel,
   City,
@@ -45,8 +46,13 @@ export function serviceHubStatus(s: Service, model: BusinessModel = "marketplace
   return combineStatus(copy, confirmedStatus(s.models[model]));
 }
 
+/** Whether a hub page is built for the stage: its status AND (on release-review) the release scope. */
+export function isHubBuilt(s: Service, model: BusinessModel = "marketplace", stage: SiteStage = siteStage): boolean {
+  return isBuilt(serviceHubStatus(s, model), stage) && inStageScope(servicePath(s.slug, model), stage);
+}
+
 export function getBuiltServices(stage: SiteStage = siteStage, model: BusinessModel = "marketplace"): Service[] {
-  return services.filter((s) => isBuilt(serviceHubStatus(s, model), stage));
+  return services.filter((s) => isHubBuilt(s, model, stage));
 }
 
 /** All categories for a model, with a link only when that hub page is built for this stage. */
@@ -56,7 +62,7 @@ export function getServiceCategories(
 ): { service: Service; href: string | null }[] {
   return services.map((service) => ({
     service,
-    href: isBuilt(serviceHubStatus(service, model), stage) ? servicePath(service.slug, model) : null,
+    href: isHubBuilt(service, model, stage) ? servicePath(service.slug, model) : null,
   }));
 }
 
@@ -95,8 +101,13 @@ export function getServiceCityContent(sc: ServiceCity): ServiceCityContent {
   return composeServiceCity(sc, service, city);
 }
 
+/** Whether a service × city page is built for the stage: status AND (on release-review) the release scope. */
+export function isServiceCityBuilt(sc: ServiceCity, stage: SiteStage = siteStage): boolean {
+  return isBuilt(serviceCityStatus(sc), stage) && inStageScope(serviceCityPath(sc.service, sc.city, sc.model), stage);
+}
+
 export function getBuiltServiceCities(stage: SiteStage = siteStage, model?: BusinessModel): ServiceCity[] {
-  return serviceCities.filter((sc) => (!model || sc.model === model) && isBuilt(serviceCityStatus(sc), stage));
+  return serviceCities.filter((sc) => (!model || sc.model === model) && isServiceCityBuilt(sc, stage));
 }
 
 export interface LocalityPage {
@@ -142,7 +153,7 @@ export function getBuiltCitiesWithPages(stage: SiteStage = siteStage): { city: C
 }
 
 export function getVisibleTestimonials(stage: SiteStage = siteStage): Testimonial[] {
-  if (stage === "production") return testimonials.filter((t) => !t.isPlaceholder && t.consentToPublish);
+  if (stage === "production" || stage === "release-review") return testimonials.filter((t) => !t.isPlaceholder && t.consentToPublish);
   return testimonials;
 }
 
@@ -151,6 +162,11 @@ export type RouteKind = "home" | "service" | "service-city" | "locality" | "pric
 /** The pricing page is held in review until prices may be shown on production. */
 export function pricingPageStatus(stage: SiteStage = siteStage): PublishStatus {
   return combineStatus(pricingPage.publishStatus, arePricesPublishable(stage) ? "published" : "review");
+}
+
+/** Whether /pricing/ is built for the stage. */
+export function isPricingBuilt(stage: SiteStage = siteStage): boolean {
+  return isBuilt(pricingPageStatus(stage), stage) && inStageScope(pricingPath, stage);
 }
 
 export interface SiteRoute {
@@ -170,11 +186,11 @@ export function getSiteRoutes(stage: SiteStage = siteStage): SiteRoute[] {
   const routes: SiteRoute[] = [];
   const add = (r: Omit<SiteRoute, "indexable">) => routes.push({ ...r, indexable: isIndexable(r.status, stage) });
 
-  if (isBuilt(home.publishStatus, stage)) {
+  if (isBuilt(home.publishStatus, stage) && inStageScope(homePath, stage)) {
     add({ path: homePath, kind: "home", model: "both", ...home.seo, status: home.publishStatus, updatedAt: home.updatedAt });
   }
   const pricingStatus = pricingPageStatus(stage);
-  if (isBuilt(pricingStatus, stage)) {
+  if (isPricingBuilt(stage)) {
     add({ path: pricingPath, kind: "pricing", model: "marketplace", ...pricingPage.seo, status: pricingStatus, updatedAt: pricingPage.updatedAt });
   }
   for (const model of ["marketplace", "onDemand"] as const) {
@@ -200,7 +216,7 @@ export function getSiteRoutes(stage: SiteStage = siteStage): SiteRoute[] {
       updatedAt: sc.updatedAt,
     });
   }
-  for (const p of getPublishedLocalityPages()) {
+  for (const p of getPublishedLocalityPages().filter((x) => inStageScope(localityPath(x.service, x.locality.city, x.locality.slug, x.content.model), stage))) {
     add({
       path: localityPath(p.service, p.locality.city, p.locality.slug, p.content.model),
       kind: "locality",

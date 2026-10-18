@@ -5,13 +5,12 @@
  */
 import { business } from "@/data/business";
 import StoreButtons from "@/components/app/StoreButtons.astro";
-import { getBuiltServices, pricingPageStatus } from "@/lib/content";
+import { getBuiltServices, isPricingBuilt } from "@/lib/content";
 import { pricingPath, servicePath } from "@/lib/content/paths";
-import { isBuilt } from "@/lib/content/publishing";
 
 const hire = getBuiltServices(undefined, "marketplace");
 const book = getBuiltServices(undefined, "onDemand");
-const pricingBuilt = isBuilt(pricingPageStatus());
+const pricingBuilt = isPricingBuilt();
 const year = new Date().getFullYear();
 ---
 

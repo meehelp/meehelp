@@ -4,9 +4,8 @@
  * Office and Business plans appear only on the pricing page.
  * Promotions (e.g. free profile views) are deliberately not mentioned.
  */
-import { pricingPageStatus } from "@/lib/content";
+import { isPricingBuilt } from "@/lib/content";
 import { pricingPath } from "@/lib/content/paths";
-import { isBuilt } from "@/lib/content/publishing";
 import PlanCards from "./PlanCards.astro";
 
 interface Props {
@@ -15,7 +14,7 @@ interface Props {
 }
 
 const { placement, linkToAllPlans = true } = Astro.props;
-const pricingBuilt = isBuilt(pricingPageStatus());
+const pricingBuilt = isPricingBuilt();
 ---
 
 <div class="plans-summary">

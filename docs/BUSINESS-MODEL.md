@@ -90,7 +90,7 @@ hire directly. On-demand: choose the help → book now or schedule → choose th
 | Check | Enabled | Wording |
 |---|---|---|
 | mobileOtpVerified | ✓ | Mobile number verified by OTP |
-| aadhaarDocumentReviewed | ✓ | Aadhaar document reviewed (submitted at registration, reviewed manually; the address on it is available to MeeHelp) |
+| aadhaarDocumentReviewed | ✓ | Aadhaar document collected and manually reviewed (submitted at registration, reviewed manually; the address on it is available to MeeHelp) |
 | currentAddressRecorded | ✗ | — superseded (Phase 4.6): the address is the one on the Aadhaar document |
 | permanentAddressRecorded | ✗ | — superseded (Phase 4.6) |
 | policeVerification | ✗ | — |

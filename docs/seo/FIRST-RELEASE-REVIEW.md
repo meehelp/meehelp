@@ -42,7 +42,7 @@ business approves it. This pack is for the private noindex preview review.
 
 Key business claims used:
 
-- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/pricing/`
 
@@ -84,7 +84,7 @@ Key business claims used:
 - Tell the app the work you need, the size of your home (1 to 5 BHK) and, if you have one, whether you prefer a male or female helper.
 - Matching helpers near your address are listed with their distance in km. Sort the list by distance, or by date to see who joined most recently.
 - Each profile shows the helper's experience, the work they do, their age, marital status and education, and whether they read, write and speak English. Salary isn't listed — you agree it with the helper.
-- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/cook/`
 
@@ -107,7 +107,7 @@ Key business claims used:
 - Tell the app how many people the cook will be cooking for (1 to 5 household members) and whether you prefer a male or female cook.
 - Matching helpers near your address are listed with their distance in km. Sort the list by distance, or by date to see who joined most recently.
 - Each profile shows the helper's experience, the work they do, their age, marital status and education, and whether they read, write and speak English. Salary isn't listed — you agree it with the helper.
-- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/babysitter-nanny/`
 
@@ -131,7 +131,7 @@ Key business claims used:
 - Choose the hours a day you need help and, if you have one, a gender preference.
 - Matching helpers near your address are listed with their distance in km. Sort the list by distance, or by date to see who joined most recently.
 - Each profile shows the helper's experience, the work they do, their age, marital status and education, and whether they read, write and speak English. Salary isn't listed — you agree it with the helper.
-- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/elder-care/`
 
@@ -155,7 +155,7 @@ Key business claims used:
 - Choose the hours a day you need help and, if you have one, a gender preference.
 - Elder care and patient care attendants come from the same pool of care helpers in the app. Tell each attendant about your parent's routine, health and mobility, so you choose someone whose experience fits.
 - Matching helpers near your address are listed with their distance in km. Sort the list by distance, or by date to see who joined most recently.
-- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/patient-care/`
 
@@ -179,7 +179,7 @@ Key business claims used:
 - Choose the hours a day you need help and, if you have one, a gender preference.
 - Matching helpers near your address are listed with their distance in km. Sort the list by distance, or by date to see who joined most recently.
 - Each profile shows the helper's experience, the work they do, their age, marital status and education, and whether they read, write and speak English. Salary isn't listed — you agree it with the helper.
-- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: No placement agency fee; Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/hourly-maid/`
 
@@ -202,7 +202,7 @@ Key business claims used:
 - Choose a 120, 150 or 180-minute visit.
 - Book now, or schedule the visit up to 5 days ahead for a start time between 7 AM and 8 PM.
 - Keep your mop, bucket and cleaning liquids ready: cleaners don't bring machines or materials.
-- Verification: Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/hourly-cook/`
 
@@ -225,7 +225,7 @@ Key business claims used:
 - Bookings run for 2 to 12 hours, in 2-hour steps. Later start times allow shorter bookings only.
 - Schedule at least 2 hours ahead and up to 5 days ahead, for a start time between 7 AM and 8 PM.
 - The app checks your address — city, pincode and map location — and tells you if your area isn't covered yet.
-- Verification: Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/hourly-babysitter/`
 
@@ -249,7 +249,7 @@ Key business claims used:
 - Bookings run for 2 to 12 hours, in 2-hour steps. Later start times allow shorter bookings only.
 - Schedule at least 2 hours ahead and up to 5 days ahead, for a start time between 7 AM and 8 PM.
 - The app checks your address — city, pincode and map location — and tells you if your area isn't covered yet.
-- Verification: Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/hourly-elder-care/`
 
@@ -273,7 +273,7 @@ Key business claims used:
 - Bookings run for 2 to 12 hours, in 2-hour steps. Later start times allow shorter bookings only.
 - Schedule at least 2 hours ahead and up to 5 days ahead, for a start time between 7 AM and 8 PM.
 - The app checks your address — city, pincode and map location — and tells you if your area isn't covered yet.
-- Verification: Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/hourly-patient-care/`
 
@@ -297,7 +297,7 @@ Key business claims used:
 - Bookings run for 2 to 12 hours, in 2-hour steps. Later start times allow shorter bookings only.
 - Schedule at least 2 hours ahead and up to 5 days ahead, for a start time between 7 AM and 8 PM.
 - The app checks your address — city, pincode and map location — and tells you if your area isn't covered yet.
-- Verification: Mobile number verified by OTP; Aadhaar document reviewed
+- Verification: Mobile number verified by OTP; Aadhaar document collected and manually reviewed
 
 ## `/maid/mumbai/`
 

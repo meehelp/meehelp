@@ -47,7 +47,8 @@ const hubs = getServiceCategories(undefined, "marketplace").filter((c) => c.href
         id={`${segment.id}-plans`}
         title={`${segment.name} plans`}
         intro={pricingPage.segmentIntros[segment.id]}
-        tone={i % 2 === 0 ? "tint" : "plain"}
+        tone={segment.id === "home" ? "warm" : i % 2 === 0 ? "tint" : "plain"}
+        eyebrow={segment.id === "home" ? "For households" : "For offices and businesses"}
       >
         <PlanCards segment={segment.id} placement={`pricing_${segment.id}`} />
       </Section>

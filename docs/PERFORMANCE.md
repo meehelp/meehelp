@@ -1,5 +1,21 @@
 # Performance
 
+## Phase 5 release-review build (15 pages)
+
+Lighthouse mobile (simulated throttling, median of 3 runs), Chromium 141, `SITE_STAGE=release-review` served with gzip.
+
+| Page | Perf. | A11y | BP | FCP | LCP | TBT | CLS | JS |
+|---|---|---|---|---|---|---|---|---|
+| `/` | 100 | 100 | 100 | 718 ms | 1206 ms | 0 ms | 0 | 0 KB |
+| `/pricing/` | 100 | 100 | 100 | 672 ms | 1356 ms | 0 ms | 0 | 0 KB |
+| `/maid/` | 100 | 100 | 100 | 679 ms | 1357 ms | 0 ms | 0 | 0 KB |
+| `/maid/mumbai/` | 100 | 100 | 100 | 664 ms | 1354 ms | 0 ms | 0 | 0 KB |
+| `/hourly-maid/` | 100 | 100 | 100 | 691 ms | 1355 ms | 0 ms | 0 | 0 KB |
+| `/elder-care/` | 100 | 100 | 100 | 681 ms | 1355 ms | 0 ms | 0 | 0 KB |
+| `/hourly-patient-care/` | 100 | 100 | 100 | 670 ms | 1355 ms | 0 ms | 0 | 0 KB |
+
+Lighthouse SEO reads 69 only because the build is deliberately `noindex` (is-crawlable audit).
+
 ## Phase 4 content preview (92 pages)
 
 Same method as below: Lighthouse performance (mobile, simulated throttling, median of 3 runs), Chromium 141,

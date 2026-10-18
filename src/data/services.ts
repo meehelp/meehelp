@@ -275,7 +275,7 @@ const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
     ],
     tasksExcluded: [
       "Injections, insulin, IV lines or any other invasive procedure",
-      "Wound dressing, bed-sore or catheter care, unless a caregiver trained for it is specifically engaged",
+      "Wound dressing, bed-sore or catheter care",
       "Diagnosing illness or changing medicines",
       "Handling money or bank work",
     ],

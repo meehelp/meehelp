@@ -92,9 +92,9 @@ test("care hubs do not claim instant booking", () => {
 test("Aadhaar wording describes a manually reviewed document", () => {
   const a = verificationChecks.aadhaarDocumentReviewed;
   assert.equal(a.enabled, true);
-  assert.equal(a.claim, "Aadhaar document reviewed");
+  assert.equal(a.claim, "Aadhaar document collected and manually reviewed");
   assert.match(a.detail, /submit/i);
-  assert.match(a.detail, /manually/i);
+  assert.match(`${a.claim} ${a.detail}`, /manually/i);
   assert.ok(a.approvedOn && a.approvedOn >= "2026-10-18");
   assert.equal(evidence.find((e) => e.id === "biz.aadhaar-manual")?.sourceType, "businessConfirmation");
 });

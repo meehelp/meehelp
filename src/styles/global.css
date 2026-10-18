@@ -1466,3 +1466,30 @@ code {
 .care-scope__group .note {
   margin: 0 0 0.5rem;
 }
+
+/* City coverage on hubs: every active city named, built city pages linked */
+.city-coverage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0.75rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Small screens: both propositions above the fold. The hero intro already
+   explains each path, so the card summaries are shown from tablet width up. */
+@media (max-width: 47.99rem) {
+  .paths {
+    margin-top: 1rem;
+  }
+  .path {
+    padding: 1rem;
+  }
+  .path p {
+    display: none;
+  }
+  .path__links {
+    margin: 0.25rem 0 0.5rem;
+  }
+}

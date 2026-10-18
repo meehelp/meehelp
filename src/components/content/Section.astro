@@ -9,14 +9,17 @@ interface Props {
   model?: "marketplace" | "onDemand";
   /** Navigation/CTA blocks that are the same on every page; excluded from similarity analysis. */
   boilerplate?: boolean;
+  /** Small label above the heading, e.g. "For households". */
+  eyebrow?: string;
 }
 
-const { id, title, intro, tone = "plain", model, boilerplate } = Astro.props;
+const { id, title, intro, tone = "plain", model, boilerplate, eyebrow } = Astro.props;
 const headingId = `${id}-heading`;
 ---
 
 <section id={id} aria-labelledby={headingId} class={`section section--${tone}`} data-model={model} data-boilerplate={boilerplate ? "" : undefined}>
   <div class="container">
+    {eyebrow ? <p class="eyebrow">{eyebrow}</p> : null}
     <h2 id={headingId} class="section__title">{title}</h2>
     {intro ? <p class="section__intro">{intro}</p> : null}
     <slot />

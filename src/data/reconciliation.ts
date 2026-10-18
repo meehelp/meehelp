@@ -39,7 +39,7 @@ export const reconciliation: ReconciliationTopic[] = [
     codeEvidence: "Helper uploads Aadhaar front/back (read on device); 'verification will be completed within 24 hours'; Aadhaar-OTP screen is commented out; an upload endpoint sets the verified flag on upload; admins can verify manually.",
     currentAppScreenshot: "—",
     businessConfirmation: "Aadhaar document collected and manually reviewed; electronic/OTP verification must not be claimed.",
-    websitePosition: "'Aadhaar document reviewed' — submitted when the helper registers and reviewed manually by MeeHelp. Guards block 'Aadhaar verified', OTP/e-KYC/UIDAI/government-database and 'fully verified' wording.",
+    websitePosition: "'Aadhaar document collected and manually reviewed' — submitted when the helper registers and reviewed manually by MeeHelp. Guards block 'Aadhaar verified', OTP/e-KYC/UIDAI/government-database and 'fully verified' wording.",
     conflict: "Backend: uploading the document sets aadhar_verify = 1 without a review step (provider.php ~768-812). Engineering should confirm the manual review gate exists.",
     evidence: ["trust.aadhaar", "biz.aadhaar-manual"],
   },

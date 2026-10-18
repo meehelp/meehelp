@@ -1,5 +1,8 @@
 import { business } from "@/data/business";
-import { absoluteUrl, siteUrl } from "@/lib/site";
+import { absoluteUrl, siteStage, siteUrl } from "@/lib/site";
+
+/** Release-review builds are never archived or cached by search engines either. */
+const noArchive = siteStage === "release-review" ? ", noarchive" : "";
 
 export const defaultOgImage = {
   url: "/og/meehelp-og.png",
@@ -47,7 +50,7 @@ export function buildPageMetadata({ title, description, path, indexable }: PageM
     title,
     description,
     canonical: url,
-    robots: indexable ? "index, follow" : "noindex, nofollow",
+    robots: indexable ? "index, follow" : `noindex, nofollow${noArchive}`,
     googlebot: indexable ? "index, follow, max-image-preview:large" : null,
     openGraph: { type: "website", locale: "en_IN", siteName: business.brandName, url, title, description, image },
     twitter: { card: "summary_large_image", title, description, image: image.url },
@@ -56,5 +59,5 @@ export function buildPageMetadata({ title, description, path, indexable }: PageM
 
 /** The 404 page: never indexed, links may be followed, no canonical or social tags. */
 export function buildNotFoundMetadata(title: string, description: string): PageMeta {
-  return { title, description, canonical: null, robots: "noindex, follow", googlebot: null, openGraph: null, twitter: null };
+  return { title, description, canonical: null, robots: `noindex, follow${noArchive}`, googlebot: null, openGraph: null, twitter: null };
 }

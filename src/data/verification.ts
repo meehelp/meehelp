@@ -49,8 +49,8 @@ export const verificationChecks: Record<VerificationKey, VerificationCheck> = {
   },
   aadhaarDocumentReviewed: {
     enabled: true,
-    claim: "Aadhaar document reviewed",
-    detail: "Each helper submits their Aadhaar document when they register, and MeeHelp reviews it manually. The address on that document is available to MeeHelp.",
+    claim: "Aadhaar document collected and manually reviewed",
+    detail: "Each helper submits their Aadhaar document when they register, and MeeHelp reviews it by hand. The address on that document is available to MeeHelp.",
     approvedBy: reconfirmedBy,
     approvedOn: reconfirmedOn,
   },

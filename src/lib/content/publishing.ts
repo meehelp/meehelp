@@ -5,11 +5,13 @@ import type { PublishStatus } from "./types";
  * Whether content with this status is BUILT at all for a stage.
  * - production: only "published"
  * - preview:    "published" and "review" (noindex)
+ * - release-review: like preview, but pages are ALSO limited to the release
+ *   scope (see inStageScope) — callers that build a page pass its path
  * - development: everything
  */
 export function isBuilt(status: PublishStatus, stage: SiteStage = siteStage): boolean {
   if (stage === "production") return status === "published";
-  if (stage === "preview") return status !== "draft";
+  if (stage === "preview" || stage === "release-review") return status !== "draft";
   return true;
 }
 

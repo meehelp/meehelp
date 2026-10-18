@@ -5,7 +5,7 @@
  * development/preview builds and nothing is rendered on production.
  */
 import { appLinks } from "@/data/app-links";
-import { isProductionStage } from "@/lib/site";
+import { hidesPlaceholders } from "@/lib/site";
 
 const { qr } = appLinks;
 ---
@@ -16,7 +16,7 @@ const { qr } = appLinks;
       <img src={qr.imageSrc} width={140} height={140} alt="QR code to download the MeeHelp app" loading="lazy" />
       <figcaption>Scan with your phone camera to get the app</figcaption>
     </figure>
-  ) : isProductionStage ? null : (
+  ) : hidesPlaceholders() ? null : (
     <div class="qr-panel qr-panel--placeholder" role="note">
       <span class="qr-panel__box" aria-hidden="true">
         QR

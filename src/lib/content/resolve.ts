@@ -12,6 +12,7 @@ import {
   type LocalityPage,
 } from "./index";
 import { isBuilt } from "./publishing";
+import { inStageScope } from "./release-scope";
 import type { BusinessModel, City, PublishStatus, Service, ServiceCity, ServiceCityContent } from "./types";
 
 export type ResolvedRoute =
@@ -50,7 +51,7 @@ export function resolveRoute(segments: string[], stage: SiteStage = siteStage): 
   if (serviceSlug === "pricing") {
     if (citySlug) return null;
     const status = pricingPageStatus(stage);
-    return isBuilt(status, stage) ? { kind: "pricing", status } : null;
+    return isBuilt(status, stage) && inStageScope("/pricing/", stage) ? { kind: "pricing", status } : null;
   }
 
   const match = serviceForSlug(serviceSlug);
@@ -59,7 +60,7 @@ export function resolveRoute(segments: string[], stage: SiteStage = siteStage): 
 
   if (!citySlug) {
     const status = serviceHubStatus(service, model);
-    return isBuilt(status, stage) ? { kind: "service", model, service, status } : null;
+    return isBuilt(status, stage) && inStageScope(`/${serviceSlug}/`, stage) ? { kind: "service", model, service, status } : null;
   }
 
   const city = getCity(citySlug);
@@ -69,13 +70,13 @@ export function resolveRoute(segments: string[], stage: SiteStage = siteStage): 
     const page = getServiceCity(service.slug, citySlug, model);
     if (!page) return null;
     const status = serviceCityStatus(page);
-    return isBuilt(status, stage)
+    return isBuilt(status, stage) && inStageScope(`/${serviceSlug}/${citySlug}/`, stage)
       ? { kind: "service-city", model, service, city, page, content: getServiceCityContent(page), status }
       : null;
   }
 
   const page = getLocalityPage(service.slug, citySlug, localitySlug);
-  return page && page.content.model === model ? { kind: "locality", model, service, city, page, status: "published" } : null;
+  return page && page.content.model === model && inStageScope(`/${serviceSlug}/${citySlug}/${localitySlug}/`, stage) ? { kind: "locality", model, service, city, page, status: "published" } : null;
 }
 
 /** Params for getStaticPaths in src/pages/[service]/[...rest].astro — the same registry as the sitemap. */

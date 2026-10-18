@@ -1,0 +1,41 @@
+---
+/**
+ * Where a service is available: all active cities are named (coverage is
+ * confirmed for every service and model), but only cities whose page is
+ * BUILT for this stage are links. On the release-review build that means a
+ * hub never points at an unpublished city page, and never looks as if it only
+ * covers the one or two cities that have their own page.
+ */
+import { cities } from "@/data/cities";
+import { getBuiltServiceCities } from "@/lib/content";
+import { serviceCityPath } from "@/lib/content/paths";
+import type { BusinessModel, ServiceSlug } from "@/lib/content/types";
+
+interface Props {
+  service: ServiceSlug;
+  model: BusinessModel;
+  /** Link label for a city page, e.g. "Maid in". */
+  linkPrefix: string;
+}
+
+const { service, model, linkPrefix } = Astro.props;
+const built = new Set(getBuiltServiceCities(undefined, model).filter((sc) => sc.service === service).map((sc) => sc.city));
+const active = cities.filter((c) => c.marketActive === true);
+---
+
+<ul class="city-coverage">
+  {
+    active.map((c) =>
+      built.has(c.slug) ? (
+        <li>
+          <a href={serviceCityPath(service, c.slug, model)}>
+            {linkPrefix} {c.name}
+          </a>
+        </li>
+      ) : (
+        <li>{c.displayName}</li>
+      ),
+    )
+  }
+</ul>
+<p class="note">The app checks your address when you {model === "marketplace" ? "search" : "book"}, so you only see help that is available where you live.</p>

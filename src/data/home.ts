@@ -17,7 +17,7 @@ export const home: {
 } = {
   headline: "Hire a helper directly, or book help by the hour",
   intro:
-    "MeeHelp gives you two ways to get help at home: find a maid, cook, nanny or care attendant and hire them yourself — or book help in the app: a one-time clean now or later, or a few hours of help scheduled ahead.",
+    "MeeHelp gives you two ways to get help at home. Find a maid, cook, nanny or care attendant and hire them yourself — or book help in the app: a one-time clean, or a few hours of help scheduled ahead.",
   audiences: [
     {
       title: "Working households",

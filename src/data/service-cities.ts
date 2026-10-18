@@ -19,13 +19,12 @@ const handwritten: Record<string, Partial<ServiceCityContent>> = {
   "maid/mumbai/marketplace": {
     headline: "Maid service in Mumbai: house help that fits your building's routine",
     introduction: [
-      "In Mumbai, part-time house help usually works fixed time slots across several flats, often starting early in the morning. Someone who already works in or near your society is far more likely to arrive on time every day.",
+      "In Mumbai, part-time house help usually works fixed time slots across several flats, often starting early in the morning. Someone who already works in or near your society finds it easier to keep to a fixed slot every day.",
       "Choose the hours you need — part-time from 2 to 12 hours a day, or a live-in helper — then contact helpers near your address and agree the tasks, time slot and salary with them directly.",
     ],
     points: [
       "Daily jhadu-pocha (sweeping and mopping) and dishes in a fixed morning slot",
       "Laundry in flats with limited balcony space for drying",
-      "Bathroom cleaning two or three times a week",
       "A live-in helper for a family that needs someone through the day",
     ],
     localFaqs: [
@@ -59,8 +58,7 @@ const handwritten: Record<string, Partial<ServiceCityContent>> = {
     points: [
       "Daily cleaning and dishes for independent floors with terraces or balconies",
       "Part-time help for a few hours in the morning, or a live-in helper",
-      "Laundry and ironing for working households",
-      "Extra cleaning hours agreed in advance",
+      "Separate hours agreed for each floor, so the salary reflects the work",
     ],
     localFaqs: [
       {
