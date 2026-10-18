@@ -5,8 +5,8 @@ import type { BusinessModel, CitySlug, ServiceCity, ServiceCityContent, ServiceS
  * it is listed here — nothing is generated from combinations automatically.
  *
  * All 80 entries (5 services × 8 cities × 2 models) were confirmed available
- * in the Phase 4 brief. Every entry is held in "review": they build on the
- * preview (noindex) and are excluded from production until approved.
+ * in the Phase 4 brief. Only the three business-approved first-release city
+ * pages are published; all other entries remain in review.
  *
  * Content is composed from the service's city frame and the city's tagged
  * facts (src/lib/content/compose.ts). `overrides` holds hand-written content
@@ -118,14 +118,24 @@ const handwritten: Record<string, Partial<ServiceCityContent>> = {
   },
 };
 
-const page = (service: ServiceSlug, city: CitySlug, model: BusinessModel): ServiceCity => ({
-  service,
-  city,
-  model,
-  publishStatus: "review",
-  updatedAt: "2026-10-17",
-  overrides: handwritten[`${service}/${city}/${model}`],
-});
+const firstReleasePublished = new Set([
+  "maid/mumbai/marketplace",
+  "maid/delhi-ncr/marketplace",
+  "cook/mumbai/marketplace",
+]);
+
+const page = (service: ServiceSlug, city: CitySlug, model: BusinessModel): ServiceCity => {
+  const key = `${service}/${city}/${model}`;
+  const published = firstReleasePublished.has(key);
+  return {
+    service,
+    city,
+    model,
+    publishStatus: published ? "published" : "review",
+    updatedAt: published ? "2026-10-18" : "2026-10-17",
+    overrides: handwritten[key],
+  };
+};
 
 export const serviceCities: ServiceCity[] = [
   // Marketplace — find and hire directly
