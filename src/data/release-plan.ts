@@ -1,9 +1,9 @@
 /**
- * RECOMMENDED first public release (Phase 4.5). This is a recommendation only:
- * nothing here changes publishStatus, the sitemap or robots. Publishing still
- * requires the business to approve each page and flip its publishStatus.
+ * APPROVED first public release. The business-approved URLs below are the
+ * production release set; publishing status is explicitly enabled only for
+ * these pages and remains review for the wider preview inventory.
  *
- * Phase 4.6: chosen from docs/seo/QUALITY-REPORT.md (v3) — the home page,
+ * Chosen from docs/seo/QUALITY-REPORT.md (v3) — the home page,
  * pricing, the 10 hubs now backed by business truth, and the only 3 city
  * pages with genuinely local, hand-written content. Tests fail if a page here
  * is not READY. docs/seo/FIRST-RELEASE-REVIEW.md is generated from this list.
