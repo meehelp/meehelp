@@ -1,0 +1,88 @@
+# MeeHelp Website V2 — Apache cutover template
+#
+# PREPARED CONFIGURATION ONLY. DO NOT COPY INTO /etc/apache2 OR RELOAD APACHE
+# UNTIL THE OWNER GIVES EXPLICIT LIVE CUTOVER APPROVAL.
+#
+# Current production (19 Oct 2026):
+#   HTTP  vhost: /etc/apache2/sites-enabled/000-default.conf
+#   HTTPS vhost: /etc/apache2/sites-enabled/000-default-le-ssl.conf
+#   Old React root: /var/www/html/meehelp-website/build/
+#   V2 staging root: /var/www/meehelp-v2
+#
+# Website V2 is app-led only. Legacy website login / registration / OTP
+# frontend flows are intentionally retired. Backend/API and mobile apps stay
+# unchanged.
+
+# ---------------------------------------------------------------------------
+# /etc/apache2/sites-enabled/000-default.conf
+# ---------------------------------------------------------------------------
+<VirtualHost *:80>
+    ServerName meehelp.in
+    ServerAdmin webmaster@localhost
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    RewriteEngine On
+    RewriteRule ^ https://meehelp.in%{REQUEST_URI} [R=301,L,NE]
+</VirtualHost>
+
+# ---------------------------------------------------------------------------
+# /etc/apache2/sites-enabled/000-default-le-ssl.conf
+# ---------------------------------------------------------------------------
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerName meehelp.in
+    ServerAdmin webmaster@localhost
+
+    DocumentRoot /var/www/meehelp-v2
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    SSLCertificateFile /etc/letsencrypt/live/meehelp.in/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/meehelp.in/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+
+    <Directory /var/www/meehelp-v2>
+        Options -Indexes +FollowSymLinks
+        AllowOverride None
+        Require all granted
+        DirectoryIndex index.html
+    </Directory>
+
+    ErrorDocument 404 /404.html
+
+    <IfModule mod_headers.c>
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Referrer-Policy "strict-origin-when-cross-origin"
+        Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+        Header always set X-Frame-Options "DENY"
+        Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+
+        <FilesMatch "\.(?:png|svg|ico|webmanifest|json|ttf|woff2)$">
+            Header set Cache-Control "public, max-age=604800"
+        </FilesMatch>
+    </IfModule>
+</VirtualHost>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Pre-apply validation
+# ---------------------------------------------------------------------------
+# 1. V2 files must already be staged under /var/www/meehelp-v2.
+# 2. Preserve any required app-ads.txt file from the current production site
+#    before switching the document root.
+# 3. Confirm /privacy-policy/ exists in V2 and contains the approved policy.
+# 4. Back up both currently enabled vhost files.
+# 5. After editing the real vhost files, run:
+#
+#      sudo apachectl configtest
+#
+#    Continue only if the exact result is "Syntax OK".
+#
+# 6. Then, and only with explicit owner approval:
+#
+#      sudo systemctl reload apache2
+#
+# No React SPA fallback belongs in Website V2. Unknown routes must reach
+# /404.html and return the Apache 404 status.
