@@ -39,8 +39,13 @@ jobs:
           test "$(grep -c '<loc>https://meehelp.in/' dist/sitemap.xml)" = "15"
           test -f dist/privacy-policy/index.html
           grep -q 'noindex, nofollow' dist/privacy-policy/index.html
+          grep -q 'Personal information we obtain' dist/privacy-policy/index.html
           grep -q 'contact@meehelp.in' dist/privacy-policy/index.html
+          ! grep -q 'Last Updated on 22 Nov 2022' dist/privacy-policy/index.html
           ! grep -q '<loc>https://meehelp.in/privacy-policy/' dist/sitemap.xml
+          test -f dist/app-ads.txt
+          grep -qx 'google.com, pub-4715682715981020, DIRECT, f08c47fec0942fa0' dist/app-ads.txt
+          grep -qx 'facebook.com, 794439829037414, DIRECT, c3e20eee3f780d68' dist/app-ads.txt
           ! grep -Rqi 'noindex' dist/index.html dist/pricing/index.html dist/maid/index.html
       - name: Zero local application-JS check
         run: |
