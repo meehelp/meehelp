@@ -37,6 +37,10 @@ jobs:
           grep -q 'G-07TZPSFJ8Y' dist/index.html
           grep -q 'Allow: /' dist/robots.txt
           test "$(grep -c '<loc>https://meehelp.in/' dist/sitemap.xml)" = "15"
+          test -f dist/privacy-policy/index.html
+          grep -q 'noindex, nofollow' dist/privacy-policy/index.html
+          grep -q 'contact@meehelp.in' dist/privacy-policy/index.html
+          ! grep -q '<loc>https://meehelp.in/privacy-policy/' dist/sitemap.xml
           ! grep -Rqi 'noindex' dist/index.html dist/pricing/index.html dist/maid/index.html
       - name: Zero local application-JS check
         run: |
