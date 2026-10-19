@@ -70,6 +70,8 @@ const allFiles = walk(OUT);
 const fileSet = new Set(allFiles.map((f) => "/" + relative(OUT, f).split("\\").join("/")));
 const routes = getSiteRoutes();
 const routeByPath = new Map(routes.map((r) => [r.path, r]));
+// Public utility/legal pages are intentionally outside the SEO route registry and sitemap.
+const utilityPaths = new Set(["/privacy-policy/"]);
 
 /** Generated HTML pages, as URL paths ("/maid/"). Excludes framework 404 files. */
 const pagePaths = allFiles
@@ -82,12 +84,12 @@ if (stage === "release-review") {
   const { releaseReviewPaths } = await import("@/lib/content/release-scope");
   const built = new Set(pagePaths);
   for (const p of releaseReviewPaths) if (!built.has(p)) error(p, "Approved release page missing from the release-review build");
-  for (const p of pagePaths) if (!releaseReviewPaths.has(p)) error(p, "Page outside the approved release set leaked into the release-review build");
+  for (const p of pagePaths) if (!utilityPaths.has(p) && !releaseReviewPaths.has(p)) error(p, "Page outside the approved release set leaked into the release-review build");
   if (releaseReviewPaths.size !== 15) error("/", `Release set must contain exactly 15 pages (has ${releaseReviewPaths.size})`);
 }
 
 // ---------- Built pages must match the route registry exactly ----------
-for (const p of pagePaths) if (!routeByPath.has(p)) error(p, "Page was generated but is not in the route registry");
+for (const p of pagePaths) if (!utilityPaths.has(p) && !routeByPath.has(p)) error(p, "Page was generated but is not in the route registry");
 for (const r of routes) if (!pagePaths.includes(r.path)) error(r.path, "Route is registered but no page was generated");
 
 // ---------- Claims / wording / pricing guards ----------
