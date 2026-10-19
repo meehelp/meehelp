@@ -20,6 +20,12 @@ This runbook reflects the production pre-cutover verification completed on 19 Oc
 
 The Website V2 artifact is static HTML/CSS/images. It does not need PHP, Node, MySQL, or the MeeHelp API at runtime.
 
+## Product cutover decision
+
+Website V2 is intentionally **app-led only**. The legacy React website's customer registration, login and OTP/SMS flows are not part of Website V2 and do not need to be preserved during the website cutover. Customer account creation, login and service transactions remain in the MeeHelp apps.
+
+The legacy website API calls should therefore be treated as retired frontend behavior, not as a production dependency of Website V2. This decision does **not** authorize any change to the separate backend/API infrastructure at `meehelp.co.in` or to the mobile apps.
+
 ## Production build
 
 Use Node 22 and build from the approved release branch/commit:
