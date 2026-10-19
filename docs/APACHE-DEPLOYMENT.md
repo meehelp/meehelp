@@ -1,18 +1,28 @@
 # Apache production deployment — MeeHelp Website V2
 
-This runbook is for the current production website host confirmed by the backend team:
+This runbook reflects the production pre-cutover verification completed on 19 October 2026.
 
-- Web server: Apache
-- Current document root: `/var/www/html`
-- Access available: SSH and FTP
-- Existing SSL certificate stays on the server
-- Website is a separate instance from the API/backend
+## Confirmed current production state
+
+- Web server: Apache 2.4 on Ubuntu
+- Apex domain: `meehelp.in`
+- SSH user: `ubuntu`
+- Apache runtime user/group: `www-data:www-data`
+- Main Apache root: `/var/www/html`
+- **Active HTTP and HTTPS vhosts currently serve:** `/var/www/html/meehelp-website/build/`
+- HTTP vhost: `/etc/apache2/sites-enabled/000-default.conf`
+- HTTPS vhost: `/etc/apache2/sites-enabled/000-default-le-ssl.conf`
+- Both active vhosts use `AllowOverride None`
+- `mod_headers`, `mod_rewrite`, and `mod_ssl` are enabled
+- The existing HTTPS certificate is valid for `meehelp.in`
+- `www.meehelp.in` currently does not resolve and is not covered by the inspected certificate
+- Website and API/backend are separate systems; do not change backend/API configuration during the website cutover
 
 The Website V2 artifact is static HTML/CSS/images. It does not need PHP, Node, MySQL, or the MeeHelp API at runtime.
 
 ## Production build
 
-Use Node 22 and build from the approved branch/commit:
+Use Node 22 and build from the approved release branch/commit:
 
 ```bash
 npm ci
@@ -23,65 +33,129 @@ The deployable output is `dist/`.
 
 The production build must contain exactly the 15 approved release URLs plus `404.html`, with an indexable `robots.txt` and `sitemap.xml`.
 
-## Mandatory pre-cutover checks
+## Mandatory pre-cutover gates
 
-Before replacing `/var/www/html`:
+Do not switch the live vhost until all of these are complete:
 
-1. Record the active Apache vhost file and run `apachectl -S`.
-2. Confirm whether `www.meehelp.in` resolves and whether it redirects to the apex domain.
-3. Confirm `AllowOverride` for `/var/www/html`. If it is `None`, copy the headers from `public/.htaccess` into the vhost instead.
-4. Preserve the current website in a timestamped backup.
-5. Preserve legacy/legal URLs that must continue working. At minimum, `/privacy-policy/` exists on the current site and must not be accidentally removed. Inventory any Terms, Refund, Cancellation, Contact, or other legal/store-linked routes before cutover.
-6. Do not change API/backend configuration.
+1. Create a timestamped recovery archive **outside `/var/www/html`** and record its size and SHA-256 checksum.
+2. Preserve the current active website directory and the root-level `/var/www/html/index.html`.
+3. Preserve the real privacy-policy content. The current React source contains `/var/www/html/meehelp-website/src/web/Privacy.js`; migrate its approved content into Website V2 before launch.
+4. Do not treat `/terms/`, `/refund/`, `/cancellation/`, `/contact/`, or the `.well-known` app-link paths as proven pages merely because the old SPA returns HTTP 200 for them.
+5. Confirm no API/admin/callback/upload dependency uses the current website vhost.
+6. Stage the new static site in a separate directory and validate it before changing either Apache vhost.
+7. Because `AllowOverride None` is active, **do not rely on `.htaccess`**. Put the required headers and 404 behavior directly in the Apache vhost.
 
-## Backup
+## Verified backup
 
-Example:
+First check free space:
+
+```bash
+df -h /var /var/www
+```
+
+Create a backup directory outside the active webroot:
 
 ```bash
 stamp=$(date +%Y%m%d-%H%M%S)
-sudo cp -a /var/www/html "/var/www/html-backup-$stamp"
-echo "/var/www/html-backup-$stamp"
+sudo mkdir -p /var/backups/meehelp
+sudo tar -C /var/www -czf "/var/backups/meehelp/html-pre-v2-$stamp.tar.gz" html
+sudo sha256sum "/var/backups/meehelp/html-pre-v2-$stamp.tar.gz" | sudo tee "/var/backups/meehelp/html-pre-v2-$stamp.tar.gz.sha256"
+sudo tar -tzf "/var/backups/meehelp/html-pre-v2-$stamp.tar.gz" >/dev/null
+ls -lh "/var/backups/meehelp/html-pre-v2-$stamp.tar.gz"*
 ```
 
-Keep the backup until post-launch verification is complete.
-
-## Stage the new files
-
-Upload the contents of `dist/` to a temporary directory first:
+Also back up both active vhost files:
 
 ```bash
-sudo mkdir -p /var/www/meehelp-next
-sudo rsync -a --delete ./dist/ /var/www/meehelp-next/
+sudo cp -a /etc/apache2/sites-enabled/000-default.conf "/var/backups/meehelp/000-default.conf.$stamp"
+sudo cp -a /etc/apache2/sites-enabled/000-default-le-ssl.conf "/var/backups/meehelp/000-default-le-ssl.conf.$stamp"
+```
+
+Do not delete the existing `/var/www/html/meehelp-website_backup`; it is useful but is not the sole disaster-recovery copy.
+
+## Stage Website V2
+
+Use a new directory outside the old React project:
+
+```bash
+sudo mkdir -p /var/www/meehelp-v2
+sudo rsync -a --delete ./dist/ /var/www/meehelp-v2/
+sudo chown -R root:root /var/www/meehelp-v2
+sudo find /var/www/meehelp-v2 -type d -exec chmod 755 {} \;
+sudo find /var/www/meehelp-v2 -type f -exec chmod 644 {} \;
 ```
 
 Sanity-check the staged release:
 
 ```bash
-test -f /var/www/meehelp-next/index.html
-test -f /var/www/meehelp-next/robots.txt
-test -f /var/www/meehelp-next/sitemap.xml
-grep -q 'G-07TZPSFJ8Y' /var/www/meehelp-next/index.html
-grep -q 'Allow: /' /var/www/meehelp-next/robots.txt
-grep -q '<loc>https://meehelp.in/' /var/www/meehelp-next/sitemap.xml
+test -f /var/www/meehelp-v2/index.html
+test -f /var/www/meehelp-v2/404.html
+test -f /var/www/meehelp-v2/robots.txt
+test -f /var/www/meehelp-v2/sitemap.xml
+grep -q 'G-07TZPSFJ8Y' /var/www/meehelp-v2/index.html
+grep -q 'Allow: /' /var/www/meehelp-v2/robots.txt
+test "$(grep -c '<loc>https://meehelp.in/' /var/www/meehelp-v2/sitemap.xml)" = "15"
 ```
 
-## Cutover
+Do not cut over until the privacy-policy route has been added to the staged release if it is required by the live app/store listings.
 
-After legacy/legal route preservation is resolved:
+## Apache vhost requirements at cutover
+
+Both active vhosts must point to:
+
+```apache
+DocumentRoot /var/www/meehelp-v2
+
+<Directory /var/www/meehelp-v2>
+    Options -Indexes
+    AllowOverride None
+    Require all granted
+</Directory>
+
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+```
+
+Remove the old React SPA catch-all fallback. Website V2 has real static routes and unknown URLs must return HTTP 404 instead of serving the homepage.
+
+Because `.htaccess` is disabled, place the production security headers directly in the active vhost configuration, including:
+
+```apache
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+Header always set X-Frame-Options "DENY"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+```
+
+Retain the existing Let's Encrypt SSL directives from the current HTTPS vhost. Do not invent or replace certificate paths.
+
+Before reload:
 
 ```bash
-sudo rsync -a --delete /var/www/meehelp-next/ /var/www/html/
-sudo chown -R <APACHE_USER>:<APACHE_GROUP> /var/www/html
 sudo apachectl configtest
+```
+
+Only if it returns `Syntax OK`:
+
+```bash
 sudo systemctl reload apache2
 ```
 
-Replace `<APACHE_USER>` and `<APACHE_GROUP>` with the values used by the existing server. Do not guess them.
+## HTTP and WWW behavior
 
-If `.htaccess` is disabled, add the equivalent security headers and `ErrorDocument 404 /404.html` to the Apache vhost, run `apachectl configtest`, then reload Apache.
+Before launch, record:
 
-## Immediate verification
+```bash
+curl -I http://meehelp.in/
+curl -I https://meehelp.in/
+```
+
+The preferred final state is HTTP → HTTPS with a permanent redirect.
+
+`www.meehelp.in` is currently not configured. This is not a reason to point it at the server without coordinating DNS and certificate coverage. If `www` is added later, first add DNS, issue/expand the certificate for `www.meehelp.in`, and permanently redirect it to `https://meehelp.in`.
+
+## Immediate post-cutover verification
 
 From outside the server, verify:
 
@@ -98,38 +172,39 @@ curl https://meehelp.in/sitemap.xml
 ```
 
 Expected:
+
 - approved pages: HTTP 200
 - unknown/excluded pages: HTTP 404
 - HTTPS valid
 - canonicals point to `https://meehelp.in/...`
 - `robots.txt` allows crawling
-- sitemap contains only the 15 approved URLs
+- sitemap contains only the 15 approved SEO URLs
 - GA4 tag uses `G-07TZPSFJ8Y`
 - no `noindex` on production pages
 - no Vercel hostname in HTML
-
-Open GA4 Realtime and generate one test visit from a normal browser after launch.
+- GA4 Realtime receives a test visit
 
 ## Search Console
 
-The Domain property `meehelp.in` has been created but DNS verification is pending.
+The Domain property `sc-domain:meehelp.in` is verified via a BigRock TXT record. Leave that TXT verification record in DNS.
 
-When BigRock access is available:
-1. Add the Google-provided TXT verification record at the apex/root of `meehelp.in`.
-2. Do not alter the A record, nameservers, MX, or other DNS records for verification.
-3. Verify the Domain property in Search Console.
-4. Submit `https://meehelp.in/sitemap.xml`.
+After Website V2 is live and the production sitemap has been externally verified, submit:
+
+`https://meehelp.in/sitemap.xml`
+
+Do not submit the temporary Vercel hostname.
 
 ## Rollback
 
-If any critical issue appears:
+If any critical issue appears, restore the old vhost files and keep the old React directory untouched:
 
 ```bash
-sudo rsync -a --delete "/var/www/html-backup-<STAMP>/" /var/www/html/
+sudo cp -a "/var/backups/meehelp/000-default.conf.<STAMP>" /etc/apache2/sites-enabled/000-default.conf
+sudo cp -a "/var/backups/meehelp/000-default-le-ssl.conf.<STAMP>" /etc/apache2/sites-enabled/000-default-le-ssl.conf
 sudo apachectl configtest
 sudo systemctl reload apache2
 ```
 
-Then verify the old homepage and any legal/store-linked routes before ending the rollback.
+If file restoration is also required, restore the verified `html-pre-v2-<STAMP>.tar.gz` archive only after confirming the target path.
 
-Do not delete the backup until the new site, GA4, Search Console, SSL, redirects, 404 handling and legal routes have all been confirmed.
+Do not delete the pre-cutover archive, old React website, or old vhost copies until the new site, privacy policy, GA4, Search Console, SSL, redirects and 404 behavior have all been confirmed.
