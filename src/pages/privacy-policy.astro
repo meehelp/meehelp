@@ -1,0 +1,78 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+
+const meta = buildPageMetadata({
+  title: "Privacy Policy | MeeHelp",
+  description: "MeeHelp Privacy Policy covering information collection, use, disclosure, cookies, security and policy updates.",
+  path: "/privacy-policy/",
+  // Legal utility page: accessible publicly but kept outside the SEO release sitemap.
+  indexable: false,
+});
+---
+
+<BaseLayout meta={meta}>
+  <section class="hero hero--compact">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p class="lead">Last Updated on 22 Nov 2022</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <p>We understand that your privacy is important and we are committed to protecting the privacy and security of your personal information and the details you share with us.</p>
+
+      <p>This Privacy Policy describes how this website / mobile app MeeHelp or their pages (hereinafter referred to as “the Website” for the sake of brevity) obtains, uses and shares personal information and other information in connection with the operation of the website and related services.</p>
+
+      <p>The Website offers various services including but not limited to providing house-help like maid, cooks, cleaner, baby care, etc. The website provides help and assistance in getting domestic help in an automated as well as assisted manner.</p>
+
+      <p>The website can recommend individuals or corporates who can guide or carry out these services (hereinafter the various services offered by the Website are referred to as “the Service” for sake of brevity).</p>
+
+      <p>By using our website/app and affiliated services, you consent to the terms of our privacy policy (“Privacy Policy”) in addition to our Terms of Use. We encourage you to read this Privacy Policy regarding the collection, use, and disclosure of your information from time to time to keep yourself updated with the changes & updates that we make to this Policy.</p>
+
+      <p>When you use the services of the website, you will be required to provide certain information as part of the registration process, processing of your requests. We will collect this information through various means and in various places through the website services, including account registration forms, contact us forms, feedback forms, or when you otherwise interact with the website including at customer support.</p>
+
+      <p>The Website takes the necessary security measures as a safeguard against unauthorized access or unauthorized alteration, disclosure or destruction of data. The information gathered on this website is stored within our controlled database securely.</p>
+
+      <p>We ensure that your data stored with us is encrypted and is not accessible to the Website employees or its associates without prior approval. Access to user data is strictly protected by operational procedures.</p>
+
+      <h2>How we use the personal information we have obtained</h2>
+
+      <p>We use the personal information we obtain in connection with the operation of the Website for a number of purposes, including, but not limited to:</p>
+
+      <ul>
+        <li>To provide you with the Website and the services you request from us.</li>
+        <li>To send you transactional communications (e.g. account confirmations, notifications, updates) about the website or to respond to your queries or requests.</li>
+        <li>For our own marketing and advertising purposes, including interest-based advertising.</li>
+        <li>To provide you with the Website and the services you request from us.</li>
+        <li>To generate and analyse statistics on usage of the Website and its services. We may also aggregate personal information data and use it for analytics, benchmarking and other business purposes.</li>
+        <li>To improve the Website, ensure its availability, customisation and proper functioning.</li>
+        <li>To provide and support our business and operations.</li>
+        <li>To detect, prevent and respond to fraud or theft, violations of law, this Privacy Notice, our Terms of Use and other policies.</li>
+      </ul>
+
+      <h2>Third Parties</h2>
+
+      <p>We do not sell your data (personal data or any data you store with us for availing various services of the Website) to any third party except as permitted in this Privacy Policy or by your specific request or consent.</p>
+
+      <p>We may disclose your personal data when required by law or by any court or government agency or authority. These disclosures are made in good faith and belief that they are necessary to comply with laws and regulations.</p>
+
+      <p>Our partners or who work on our behalf to operate the Website, to improve our business, to provide services and functionalities that we use in the Website may be given access on requirement basis.</p>
+
+      <p>The aggregate data can be shared with third parties for any purpose.</p>
+
+      <h2>Cookies</h2>
+
+      <p>We may automatically collect information when you visit the Website, use its services or participate in surveys, through cookies, web beacons and other technologies (collectively “Cookies”). We may use Cookies to administer and understand the site usage, measure traffic within our site and improve our content and services. We may also use Cookies to collect aggregate information about site users. The information collected (including your IP address) may be disclosed to or collected directly by our third-party service providers, such as Google.</p>
+
+      <p>Our advertisers may also assign their cookies to your browser, a process that we do not control. We may use cookies to provide you with advertising which is tailored to your interests. You may see certain ads on other websites because we or such third parties participate in advertising networks.</p>
+
+      <p>Even though, efficacious and operative security measures are established, security systems are not impenetrable and this website cannot guarantee the absolute security of our database or your personal information, nor can this website guarantee that information supplied will not be intercepted while being transmitted to this website on its server.</p>
+
+      <p>Internet being an ever-evolving medium, the Privacy Policy of this website is bound to change from time to time. Any changes to the Privacy Policy will be reflected on this page and will become effective immediately upon posting. Please check the last updated date at the top of the Privacy Policy to determine if there have been any changes since you have last reviewed the Privacy Policy.</p>
+
+      <p>If you have any concerns, or queries regarding our Privacy Policy, we can be reached at <a href="mailto:contact@meehelp.in">contact@meehelp.in</a></p>
+    </div>
+  </section>
+</BaseLayout>
