@@ -17,12 +17,11 @@ import { routeMetadata } from "@/lib/seo/route-meta";
 
 const guide = salaryGuides.find((g) => g.slug === "maid-salary" && g.city === "mumbai")!;
 const PATH = "/maid-salary/mumbai/";
-/** Every string a guide renders, with tokens filled. */
+/** Every string a guide renders except the disclosure (the one place negated "average"/"minimum wage" wording may appear), tokens filled. */
 const guideText = () =>
   [
     guide.headline,
     ...guide.intro,
-    guide.disclosure,
     ...guide.sections.flatMap((s) => [s.title, ...s.paragraphs, ...(s.bullets ?? [])]),
     ...guide.methodology,
     ...guide.sources.flatMap((s) => [s.name, s.usedFor]),
@@ -46,7 +45,7 @@ test("the guide is one registered route per city, with no /maid-salary/ index", 
 
 test("title, meta, H1 and canonical follow the brief", () => {
   const meta = routeMetadata(resolveRoute(["maid-salary", "mumbai"], "production")!);
-  assert.equal(meta.title, "Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In | MeeHelp");
+  assert.equal(meta.title, "Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In");
   assert.equal(
     meta.description,
     "See indicative maid salary and charges in Mumbai for part-time, full-time and live-in help in 2026, plus the factors that affect what families may pay.",
@@ -56,7 +55,7 @@ test("title, meta, H1 and canonical follow the brief", () => {
   assert.equal(fillGuideText(guide, guide.headline), "Maid salary in Mumbai: what families may pay in 2026");
   // The year is a token: changing guide.year changes title, meta and H1 together.
   for (const t of [guide.seo.title, guide.seo.description, guide.headline]) assert.match(t, /\{year\}/);
-  assert.deepEqual(guideSeo({ ...guide, year: 2027 }).title, "Maid Salary in Mumbai 2027: Part-Time, Full-Time & Live-In | MeeHelp");
+  assert.deepEqual(guideSeo({ ...guide, year: 2027 }).title, "Maid Salary in Mumbai 2027: Part-Time, Full-Time & Live-In");
 });
 
 test("the salary table is exactly the approved indicative ranges", () => {
@@ -70,9 +69,20 @@ test("the salary table is exactly the approved indicative ranges", () => {
   );
   assert.equal(
     guide.disclosure,
-    "These are indicative Mumbai market ranges, not fixed MeeHelp rates or guaranteed quotes. Actual salary is agreed between the household and helper and can vary substantially with working hours, duties, experience, locality and household requirements.",
+    "These are indicative Mumbai market ranges, not fixed MeeHelp rates or guaranteed quotes. They are not averages, government rates or statutory minimum wages. Actual salary is agreed between the household and helper and can vary substantially with working hours, duties, experience, locality and household requirements.",
   );
   assert.deepEqual(salaryFigures(guide).map(rupees), ["₹4,500", "₹9,000", "₹14,000", "₹22,000", "₹18,000", "₹28,000"]);
+});
+
+test("the disclosure (and only the disclosure) states what the ranges are not", () => {
+  for (const term of ["not fixed MeeHelp rates", "guaranteed quotes", "not averages", "government rates", "statutory minimum wages"]) assert.ok(guide.disclosure.includes(term), term);
+  assert.match(guide.disclosure, salaryGuideClaimPattern, "the disclosure's negated terms are exactly what the guard catches elsewhere");
+});
+
+test("the title fits the normal 65-character limit", () => {
+  const { title } = guideSeo(guide);
+  assert.ok(title.length <= 65, `${title.length}`);
+  assert.doesNotMatch(title, /\| MeeHelp$/);
 });
 
 test("no average, legal, government or minimum-wage claims; no other rupee figures", () => {
@@ -91,7 +101,11 @@ test("no average, legal, government or minimum-wage claims; no other rupee figur
 
 test("sources and methodology are present, dated and link only checked pages", () => {
   const names = guide.sources.map((s) => s.name);
-  for (const n of ["MyBuddyMaid", "Helpers Near Me", "TrustedMaid", "BookMyBai"]) assert.ok(names.includes(n), n);
+  // Specific source groups only (no vague "other guides"); no source presented as authoritative.
+  assert.ok(guide.sources.every((src) => !/^other\b/i.test(src.name)), "no vague source group");
+  assert.ok(guide.methodology.some((m) => /No single source is treated as authoritative/.test(m)));
+  assert.ok(guide.methodology.some((m) => /rounded, indicative band informed by several current published sources/.test(m)));
+  for (const n of ["MyBuddyMaid", "Helpers Near Me", "TrustedMaid", "BookMyBai", "MyHelperIndia"]) assert.ok(names.includes(n), n);
   assert.ok(guide.methodology.some((m) => m.includes("{reviewed}")));
   assert.equal(fillGuideText(guide, "{reviewed}"), "October 2026");
   for (const l of guide.sources.flatMap((s) => s.links ?? [])) assert.match(l.href, /^https:\/\//);

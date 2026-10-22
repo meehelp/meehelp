@@ -23,9 +23,7 @@ test("meta descriptions are unique across all non-draft pages", () => {
 
 test("titles and descriptions are a sensible length", () => {
   for (const r of allRoutes) {
-    // Salary guides carry the year and three arrangements in a business-approved title (SEO batch 1B): up to 70.
-    const maxTitle = r.kind === "guide" ? 70 : 65;
-    assert.ok(r.title.length >= 20 && r.title.length <= maxTitle, `title length ${r.title.length}: ${r.path}`);
+    assert.ok(r.title.length >= 20 && r.title.length <= 65, `title length ${r.title.length}: ${r.path}`);
     assert.ok(
       r.description.length >= 70 && r.description.length <= 165,
       `description length ${r.description.length}: ${r.path}`,

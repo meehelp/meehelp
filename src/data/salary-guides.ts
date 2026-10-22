@@ -5,9 +5,11 @@ import type { SalaryGuide, SalaryRange } from "@/lib/content/types";
  * pay a helper, which link on to the matching marketplace city page.
  *
  * Rules (enforced by tests and `npm run seo`):
- *   - Ranges are indicative MARKET figures from published third-party sources,
- *     approved for this page by the business. They are never MeeHelp prices,
- *     never "average" figures and never legal, government or minimum rates.
+ *   - Ranges are indicative MARKET figures, a rounded band informed by several
+ *     current published sources and approved by the business (cross-checked,
+ *     October 2026). They are never MeeHelp prices, never "average" figures and
+ *     never legal, government or minimum rates — the disclosure says so, and is
+ *     the only place those words may appear.
  *   - Rupee figures appear only on the guide page, and only these ranges.
  *   - MeeHelp's own charges (contact plans) are linked, never quoted here.
  *   - {year}, {reviewed} and {range:<key>} tokens are filled in by
@@ -33,7 +35,7 @@ export const salaryGuides: SalaryGuide[] = [
       { key: "live-in", arrangement: "Live-in maid", min: 18000, max: 28000, openEnded: true },
     ],
     disclosure:
-      "These are indicative Mumbai market ranges, not fixed MeeHelp rates or guaranteed quotes. Actual salary is agreed between the household and helper and can vary substantially with working hours, duties, experience, locality and household requirements.",
+      "These are indicative Mumbai market ranges, not fixed MeeHelp rates or guaranteed quotes. They are not averages, government rates or statutory minimum wages. Actual salary is agreed between the household and helper and can vary substantially with working hours, duties, experience, locality and household requirements.",
     sections: [
       {
         id: "part-time",
@@ -127,23 +129,23 @@ export const salaryGuides: SalaryGuide[] = [
       },
     ],
     methodology: [
-      "These ranges were prepared from current salary and rate information for Mumbai published by several domestic-help marketplaces, agencies and listing sites, compared with each other. Where sources differed, the table uses a rounded band covering the common middle of what they publish, not any single source's figure.",
-      "The figures describe what households and helpers in Mumbai agree in the market. They are not MeeHelp rates, not quotes, and not legal advice. For questions about your legal obligations as an employer, ask a qualified adviser.",
-      "Last reviewed: {reviewed}.",
+      "The ranges in the table are a rounded, indicative band informed by several current published sources on maid salaries in Mumbai: marketplace and agency price and salary guides, salary data published for Mumbai localities, salary expectations listed by individual live-in helpers, and a placement-based salary-trend report. No single source is treated as authoritative, and the table does not reproduce any one source's figures.",
+      "The ranges describe what households and helpers in Mumbai agree in the market. They are not MeeHelp rates, not quotes, and not legal advice. For questions about your obligations as an employer, ask a qualified adviser.",
+      "Evidence last reviewed: {reviewed}.",
     ],
     sources: [
-      { name: "MyBuddyMaid", usedFor: "Published part-time and full-time maid salary ranges for Mumbai." },
+      { name: "MyBuddyMaid", usedFor: "Current maid pricing published for Mumbai." },
       {
         name: "Helpers Near Me",
-        usedFor: "Estimated monthly salaries for part-time and live-in maids, published for Mumbai localities.",
+        usedFor: "Current salary data published for part-time maids in Mumbai, and for live-in maids in Mumbai localities.",
         links: [
           { href: "https://helpersnearme.com/jobs/en/part-time-maid-mumbai-maharashtra", label: "Part-time maid, Mumbai" },
           { href: "https://helpersnearme.com/jobs/en/live-in-maid-thane-mumbai", label: "Live-in maid, Thane" },
         ],
       },
-      { name: "TrustedMaid", usedFor: "Published Mumbai salary ranges, including by suburb and by shift." },
-      { name: "BookMyBai", usedFor: "Salary expectations listed by individual live-in candidates in Mumbai." },
-      { name: "Other current guides to hiring house help in Mumbai", usedFor: "Used as supporting evidence only." },
+      { name: "TrustedMaid", usedFor: "Current Mumbai pricing, and its salary guide with wage grids by suburb and shift." },
+      { name: "BookMyBai", usedFor: "Salary expectations on current profiles of live-in helpers in Mumbai." },
+      { name: "MyHelperIndia", usedFor: "Its 2026 domestic-helper salary-trend report, based on placement data." },
     ],
     faqs: [
       {
@@ -162,17 +164,17 @@ export const salaryGuides: SalaryGuide[] = [
           "No. The ranges on this page are indicative market figures, not fixed rates and not rates set by MeeHelp. The salary is agreed between your household and the helper.",
       },
       {
-        question: "Does a MeeHelp plan include the maid's salary?",
+        question: "Does a MeeHelp contact plan include the maid's salary?",
         answer:
-          "No. A MeeHelp plan lets you contact helpers in the app. The helper's salary is separate, and you agree and pay it directly.",
+          "No. A contact plan covers getting in touch with helpers through MeeHelp. The helper's salary is separate: with Find & Hire, you agree it and pay it directly to the helper.",
       },
       {
         question: "How up to date are these figures?",
-        answer: "The ranges were last reviewed in {reviewed} against current published sources, and are reviewed again when the market moves.",
+        answer: "The ranges were last checked in {reviewed} against several current published sources, and are reviewed again when the market moves.",
       },
     ],
     seo: {
-      title: "Maid Salary in Mumbai {year}: Part-Time, Full-Time & Live-In | MeeHelp",
+      title: "Maid Salary in Mumbai {year}: Part-Time, Full-Time & Live-In",
       description:
         "See indicative maid salary and charges in Mumbai for part-time, full-time and live-in help in {year}, plus the factors that affect what families may pay.",
     },

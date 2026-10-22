@@ -464,7 +464,7 @@ Key approved claims:
 | Field | Value |
 |---|---|
 | URL | https://meehelp.in/maid-salary/mumbai/ |
-| Title | Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In | MeeHelp (68 chars) |
+| Title | Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In (58 chars) |
 | Meta description | See indicative maid salary and charges in Mumbai for part-time, full-time and live-in help in 2026, plus the factors that affect what families may pay. (151 chars) |
 | H1 | Maid salary in Mumbai: what families may pay in 2026 |
 | Primary intent | Find out what a maid costs in Mumbai before hiring (salary guide) |
@@ -472,11 +472,11 @@ Key approved claims:
 | Main CTA | Find maids in Mumbai |
 | Canonical / robots | self-referencing · `noindex, nofollow, noarchive` |
 | Schema types | BreadcrumbList |
-| Word count (main) | 1495 |
+| Word count (main) | 1539 |
 | Internal links (in main content) | 4: `/`, `/maid/`, `/maid/mumbai/`, `/pricing/` |
 | Evidence IDs | `mkt.contact`, `mkt.no-advance`, `mkt.profile-fields` |
 | Approval status | Approved |
-| Outstanding concern | Ranges are third-party market figures approved by the business, not MeeHelp data; three of the named sources could not be re-checked from this environment (no stable page linked). Ranges must be re-reviewed within 12 months (validator). |
+| Outstanding concern | Ranges are a rounded band from third-party market sources, cross-checked and approved by the business (October 2026), not MeeHelp data; only the Helpers Near Me pages are linked (no stable page confirmed for the other sources). Ranges must be re-reviewed within 12 months (validator). |
 
 Key approved claims:
 

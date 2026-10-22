@@ -88,14 +88,14 @@ const faqs = guide.faqs.map((f) => ({ question: t(f.question), answer: t(f.answe
     ))
   }
 
-  <Section id="salary-vs-meehelp" title="The maid's salary vs MeeHelp's charges">
+  <Section id="salary-vs-meehelp" title="Helper salary and MeeHelp contact plans are different">
     <p>
-      The salary in this guide is what you pay the helper. It is agreed directly between your household and the helper, and MeeHelp is not part of that
-      arrangement.
+      With MeeHelp Find &amp; Hire, your household and the helper agree the work arrangement and the salary directly. The salary ranges in this guide are about
+      that arrangement.
     </p>
     <p>
-      What you pay MeeHelp is separate: a contact plan that lets you get helpers' contact details in the app.
-      {pricingBuilt ? <a href={pricingPath}>See MeeHelp's plans</a> : null}
+      A MeeHelp contact plan pays for the platform and for getting helpers' contact details in the app. It is not the helper's salary.
+      {pricingBuilt ? <a href={pricingPath}>See MeeHelp's contact plans</a> : null}
     </p>
     <ProductFacts facts={meehelpFacts} />
   </Section>

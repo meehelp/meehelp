@@ -2430,7 +2430,7 @@ Most gated societies register staff through the society office or a visitor-mana
 
 # /maid-salary/mumbai/
 
-_Title:_ Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In | MeeHelp
+_Title:_ Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In
 _Meta description:_ See indicative maid salary and charges in Mumbai for part-time, full-time and live-in help in 2026, plus the factors that affect what families may pay.
 
 Salary guide · Mumbai & MMR · Last reviewed October 2026
@@ -2445,7 +2445,7 @@ As a rough guide for 2026: ₹4,500–₹9,000 a month for part-time help, ₹14
 
 ### Indicative maid salary in Mumbai, 2026
 
-These are indicative Mumbai market ranges, not fixed MeeHelp rates or guaranteed quotes. Actual salary is agreed between the household and helper and can vary substantially with working hours, duties, experience, locality and household requirements.
+These are indicative Mumbai market ranges, not fixed MeeHelp rates or guaranteed quotes. They are not averages, government rates or statutory minimum wages. Actual salary is agreed between the household and helper and can vary substantially with working hours, duties, experience, locality and household requirements.
 
 ### Part-time maid salary in Mumbai
 
@@ -2555,11 +2555,11 @@ Comparing salaries only makes sense once you know what you are paying for. Agree
 
 Once you have agreed the arrangement, see what a maid usually does and how hiring works.
 
-### The maid's salary vs MeeHelp's charges
+### Helper salary and MeeHelp contact plans are different
 
-The salary in this guide is what you pay the helper. It is agreed directly between your household and the helper, and MeeHelp is not part of that arrangement.
+With MeeHelp Find & Hire, your household and the helper agree the work arrangement and the salary directly. The salary ranges in this guide are about that arrangement.
 
-What you pay MeeHelp is separate: a contact plan that lets you get helpers' contact details in the app.See MeeHelp's plans
+A MeeHelp contact plan pays for the platform and for getting helpers' contact details in the app. It is not the helper's salary.See MeeHelp's contact plans
 
 - Each profile shows the helper's experience, the work they do, their age, marital status and education, and whether they read, write and speak English. Salary isn't listed — you agree it with the helper.
 
@@ -2587,31 +2587,31 @@ A "24-hour maid" usually means a live-in maid, for whom an indicative range is �
 
 No. The ranges on this page are indicative market figures, not fixed rates and not rates set by MeeHelp. The salary is agreed between your household and the helper.
 
-**Q: Does a MeeHelp plan include the maid's salary?**
+**Q: Does a MeeHelp contact plan include the maid's salary?**
 
-No. A MeeHelp plan lets you contact helpers in the app. The helper's salary is separate, and you agree and pay it directly.
+No. A contact plan covers getting in touch with helpers through MeeHelp. The helper's salary is separate: with Find & Hire, you agree it and pay it directly to the helper.
 
 **Q: How up to date are these figures?**
 
-The ranges were last reviewed in October 2026 against current published sources, and are reviewed again when the market moves.
+The ranges were last checked in October 2026 against several current published sources, and are reviewed again when the market moves.
 
 ### Sources and methodology
 
-These ranges were prepared from current salary and rate information for Mumbai published by several domestic-help marketplaces, agencies and listing sites, compared with each other. Where sources differed, the table uses a rounded band covering the common middle of what they publish, not any single source's figure.
+The ranges in the table are a rounded, indicative band informed by several current published sources on maid salaries in Mumbai: marketplace and agency price and salary guides, salary data published for Mumbai localities, salary expectations listed by individual live-in helpers, and a placement-based salary-trend report. No single source is treated as authoritative, and the table does not reproduce any one source's figures.
 
-The figures describe what households and helpers in Mumbai agree in the market. They are not MeeHelp rates, not quotes, and not legal advice. For questions about your legal obligations as an employer, ask a qualified adviser.
+The ranges describe what households and helpers in Mumbai agree in the market. They are not MeeHelp rates, not quotes, and not legal advice. For questions about your obligations as an employer, ask a qualified adviser.
 
-Last reviewed: October 2026.
+Evidence last reviewed: October 2026.
 
-- MyBuddyMaid — Published part-time and full-time maid salary ranges for Mumbai.
+- MyBuddyMaid — Current maid pricing published for Mumbai.
 
-- Helpers Near Me — Estimated monthly salaries for part-time and live-in maids, published for Mumbai localities. Part-time maid, Mumbai, Live-in maid, Thane
+- Helpers Near Me — Current salary data published for part-time maids in Mumbai, and for live-in maids in Mumbai localities. Part-time maid, Mumbai, Live-in maid, Thane
 
-- TrustedMaid — Published Mumbai salary ranges, including by suburb and by shift.
+- TrustedMaid — Current Mumbai pricing, and its salary guide with wage grids by suburb and shift.
 
-- BookMyBai — Salary expectations listed by individual live-in candidates in Mumbai.
+- BookMyBai — Salary expectations on current profiles of live-in helpers in Mumbai.
 
-- Other current guides to hiring house help in Mumbai — Used as supporting evidence only.
+- MyHelperIndia — Its 2026 domestic-helper salary-trend report, based on placement data.
 
 MeeHelp is not affiliated with these sites. They are listed so you can see where the figures come from.
 

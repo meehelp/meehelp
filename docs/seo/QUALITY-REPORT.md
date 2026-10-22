@@ -135,7 +135,7 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 | `/hourly-elder-care/` | onDemand | 1094 | 12 | 0 | — | — | 0.347 (low) | yes | 14 | **READY** |
 | `/hourly-patient-care/` | onDemand | 1052 | 11 | 0 | — | — | 0.36 (low) | yes | 14 | **READY** |
 | `/one-time-cleaning/` | onDemand | 1089 | 15 | 0 | — | — | — | yes | 11 | **READY** |
-| `/maid-salary/mumbai/` | marketplace | 1504 | 3 | 0 | — | — | — | yes | 4 | **READY** |
+| `/maid-salary/mumbai/` | marketplace | 1548 | 3 | 0 | — | — | — | yes | 4 | **READY** |
 
 ## City pages
 

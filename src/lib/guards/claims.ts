@@ -269,7 +269,8 @@ export const broadRefundPattern =
  * Salary guides (/maid-salary/mumbai/) publish indicative MARKET ranges only.
  * They must never present them as averages, legal/government/minimum rates or
  * prescribed rates (checked on guide pages by `npm run seo`). The required
- * disclosure itself says they are "not fixed MeeHelp rates", so that phrase is allowed.
+ * disclosure, which says the ranges are NOT averages, government rates or
+ * statutory minimum wages, is the only text exempt from this check.
  */
 export const salaryGuideClaimPattern =
   /\baverages?\b|\bminimum (?:wages?|salary|salaries|pay|rates?)\b|\bgovernment(?:-| )?(?:rates?|fixed|approved|notified|mandated)\b|\b(?:legal|statutory|official|prescribed|recommended) (?:rates?|salary|salaries|wages?|minimum)\b|\blegally (?:required|must|obliged)\b|\byou must (?:legally )?pay\b/i;

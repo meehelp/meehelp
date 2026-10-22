@@ -303,7 +303,8 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
     for (const figure of visible.match(guards.priceStringPattern) ?? []) {
       if (!figures.has(figure.replace(/\s/g, ""))) error(page, `Rupee figure "${figure}" is not one of this guide's salary ranges`);
     }
-    const claim = visible.match(guards.salaryGuideClaimPattern);
+    // The disclosure is the one place that may say the ranges are NOT averages / government / minimum rates.
+    const claim = visible.replace(guide.disclosure, "").match(guards.salaryGuideClaimPattern);
     if (claim) error(page, `Salary guide wording not allowed (average/legal/government/MeeHelp rate): "${claim[0]}"`);
     if (!visible.includes(guide.disclosure)) error(page, "Salary guide is missing its indicative-range disclosure");
     if (!body.querySelector("[data-salary-disclosure]")) error(page, "Salary disclosure must be rendered below the table");
