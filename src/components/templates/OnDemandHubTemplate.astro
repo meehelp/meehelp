@@ -1,5 +1,5 @@
 ---
-/** On-demand service hub (/hourly-maid/): book help in the app — now (where the app offers it) or scheduled. */
+/** On-demand service hub (/hourly-maid/): book help by the hour in the app — now (where the app offers it) or scheduled. */
 import { schemaSettings } from "@/data/business";
 import { onDemandSteps, scheduledOnlySteps } from "@/data/how-it-works";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
@@ -22,7 +22,8 @@ import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import Safeguards from "@/components/trust/Safeguards.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
-import { getServiceCategories, isHubBuilt } from "@/lib/content";
+import { productPath, products } from "@/data/products";
+import { getServiceCategories, isHubBuilt, isProductBuilt } from "@/lib/content";
 import { servicePath } from "@/lib/content/paths";
 import type { ResolvedRoute } from "@/lib/content/resolve";
 import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
@@ -37,6 +38,9 @@ const path = servicePath(service.slug, "onDemand");
 const related = getServiceCategories(undefined, "onDemand").filter((c) => c.service.slug !== service.slug && c.href);
 const marketplaceBuilt = isHubBuilt(service, "marketplace");
 const appFacts = factsFor(service.slug, "onDemand");
+// Link to a sibling product page (e.g. /one-time-cleaning/) only when it is built for this stage.
+const alternativeProduct = od.alternative && products.find((p) => productPath(p.slug) === od.alternative!.href);
+const alternative = alternativeProduct && isProductBuilt(alternativeProduct) ? od.alternative : undefined;
 const schema = [
   ...(schemaSettings.service ? [serviceSchema({ service, path, name: od.name, description: od.seo.description })] : []),
   ...(schemaSettings.faqPage ? [faqPageSchema(od.faqs)] : []),
@@ -98,6 +102,17 @@ const schema = [
     <h3>Tips for your booking</h3>
     <Safeguards extra={od.safeguards} kind="booking" />
   </Section>
+
+  {
+    alternative ? (
+      <Section id="one-time-or-hourly" title={alternative.heading}>
+        <p>{alternative.body}</p>
+        <p>
+          <a href={alternative.href}>{alternative.label}</a>
+        </p>
+      </Section>
+    ) : null
+  }
 
   <Section id="faqs" title={`${od.name}: frequently asked questions`} tone="tint">
     <FaqList faqs={od.faqs} />

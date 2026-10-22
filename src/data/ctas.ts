@@ -18,6 +18,7 @@ export type CtaKey =
   | "viewHelpers"
   | "choosePlan"
   | "bookNow"
+  | "bookOneTimeClean"
   | "bookHourly"
   | "bookInstant"
   | "scheduleHelp"
@@ -44,6 +45,7 @@ export const ctas: Record<CtaKey, CtaDefinition> = {
   choosePlan: { model: "marketplace", label: "Choose a plan", wording: "proposed", journey: "marketplace-plans", destination: appSection },
   // Instant CTAs are for the one-time cleaning flow only (biz.instant-scope); npm run seo enforces it.
   bookNow: { model: "onDemand", label: "Book a clean now", wording: "proposed", journey: "on-demand-booking", destination: appSection, scope: "one-time-cleaning" },
+  bookOneTimeClean: { model: "onDemand", label: "Book a one-time clean", wording: "proposed", journey: "on-demand-booking", destination: appSection, scope: "one-time-cleaning" },
   bookHourly: { model: "onDemand", label: "Book help in the app", wording: "proposed", journey: "on-demand-booking", destination: appSection },
   bookInstant: { model: "onDemand", label: "Book an instant clean", wording: "proposed", journey: "on-demand-booking", destination: appSection, scope: "one-time-cleaning" },
   scheduleHelp: { model: "onDemand", label: "Schedule help", wording: "proposed", journey: "on-demand-booking", destination: appSection },

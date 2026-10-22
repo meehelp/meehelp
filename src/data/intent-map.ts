@@ -31,10 +31,11 @@ export const intentTargets: Record<ServiceSlug, Record<BusinessModel, IntentTarg
       cityKeywords: ["maid in {city}", "house help in {city}", "domestic helper in {city}"],
     },
     onDemand: {
-      primaryIntent: "Book a one-time clean or a few hours of house help — now or scheduled",
-      primaryKeyword: "hourly maid near me",
-      supportingKeywords: ["instant maid", "maid for 2 hours", "book maid", "on demand maid", "hourly house help", "scheduled maid"],
-      proposition: "Book a 120–180 minute clean (now or scheduled) or hourly house help in the app; bring-your-own supplies",
+      // SEO batch 1: the one-time clean intent moved to /one-time-cleaning/ (productIntents below).
+      primaryIntent: "Book a maid for a few hours — longer household-help bookings of 2 to 12 hours",
+      primaryKeyword: "hourly maid",
+      supportingKeywords: ["maid for a few hours", "hourly house help", "longer household-help bookings", "2–12 hour cleaning/help"],
+      proposition: "Schedule 2–12 hours of household help in the app for larger jobs; bring-your-own supplies",
       cityKeywords: ["hourly maid in {city}", "book maid in {city}"],
     },
   },
@@ -103,6 +104,16 @@ export const intentTargets: Record<ServiceSlug, Record<BusinessModel, IntentTarg
     },
   },
 };
+
+/** On-demand product pages (src/data/products.ts). Separate intents from their service hub — never canonical to it. */
+export const productIntents = {
+  "one-time-cleaning": {
+    primaryIntent: "Book a one-time home cleaning visit",
+    primaryKeyword: "one-time cleaning",
+    supportingKeywords: ["one-time home cleaning", "one-off home cleaning", "book a cleaner for one visit", "short cleaning visit"],
+    proposition: "One cleaning visit of 120, 150 or 180 minutes for everyday tasks, booked now or scheduled in the app; bring-your-own supplies",
+  },
+} as const;
 
 export const siteIntents = {
   home: {

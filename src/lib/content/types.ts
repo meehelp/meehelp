@@ -90,6 +90,44 @@ export interface CityPageFrame {
   description: CityTemplate;
 }
 
+/** A same-model link to a related product, e.g. /hourly-maid/ ↔ /one-time-cleaning/. */
+export interface AlternativeLink {
+  heading: string;
+  body: string;
+  href: string;
+  label: string;
+}
+
+/**
+ * An on-demand PRODUCT page that owns one booking flow of a service, e.g.
+ * /one-time-cleaning/ (the maid one-time cleaning flow). It has its own URL,
+ * metadata and search intent, and is built through the same route registry.
+ */
+export interface OnDemandProduct {
+  /** Route slug: /one-time-cleaning/. */
+  slug: "one-time-cleaning";
+  service: ServiceSlug;
+  model: "onDemand";
+  /** "Book now" exists for this flow (evidence biz.instant-scope). */
+  bookNow: boolean;
+  name: string;
+  shortName: string;
+  headline: string;
+  description: string[];
+  steps: Step[];
+  useCases: string[];
+  tasksIncluded: string[];
+  tasksExcluded: string[];
+  /** Shared (not page-scoped) product facts shown on the page, by id. */
+  sharedFactIds: string[];
+  safeguards: string[];
+  faqs: Faq[];
+  alternative: AlternativeLink;
+  seo: Seo;
+  publishStatus: PublishStatus;
+  updatedAt: string;
+}
+
 /** The on-demand (book by the hour) proposition for a service — its own hub and city pages. */
 export interface OnDemandContent {
   /** Route slug, e.g. "hourly-maid" → /hourly-maid/ and /hourly-maid/mumbai/. */
@@ -106,6 +144,8 @@ export interface OnDemandContent {
    * booking only, even though the business has confirmed instant booking.
    */
   bookNow: boolean;
+  /** Optional same-model link shown on the hub, e.g. hourly maid → one-time cleaning. */
+  alternative?: AlternativeLink;
   headline: string;
   description: string[];
   useCases: string[];

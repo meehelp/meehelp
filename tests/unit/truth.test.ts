@@ -71,7 +71,8 @@ test("instant booking is limited to the one-time cleaning flow", () => {
   for (const f of ["src/components/templates/OnDemandHubTemplate.astro", "src/components/templates/OnDemandCityTemplate.astro"]) {
     for (const line of readFileSync(f, "utf8").split("\n").filter((l) => l.includes('ctaKey="bookNow"'))) assert.match(line, /od\.bookNow \?/, f);
   }
-  assert.doesNotMatch(readFileSync("src/pages/index.astro", "utf8"), /ctaKey="bookNow"|ctaKey="bookInstant"/);
+  for (const line of readFileSync("src/components/templates/OnDemandProductTemplate.astro", "utf8").split("\n").filter((l) => l.includes('ctaKey="bookOneTimeClean"'))) assert.match(line, /product\.bookNow \?/);
+  assert.doesNotMatch(readFileSync("src/pages/index.astro", "utf8"), /ctaKey="bookNow"|ctaKey="bookInstant"|ctaKey="bookOneTimeClean"/);
   // Instant facts are maid-only.
   for (const f of productFacts.filter((x) => /\bbook now\b|\binstant/i.test(x.text))) assert.deepEqual(f.services, ["maid"], f.id);
 });

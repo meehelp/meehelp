@@ -1,5 +1,5 @@
 /**
- * Phase 4 content architecture: business configuration, the 92-page preview
+ * Phase 4 content architecture: business configuration, the 92-page preview (93 since SEO batch 1)
  * inventory, wording guards, intent map, canonical separation and the
  * similarity analyser used by npm run seo and npm run report.
  */
@@ -12,6 +12,7 @@ import { home } from "@/data/home";
 import { bookingTypes, marketplaceSteps, onDemandSteps } from "@/data/how-it-works";
 import { intentTargets, siteIntents } from "@/data/intent-map";
 import { plans, pricingPage, pricingSettings } from "@/data/plans";
+import { products } from "@/data/products";
 import { firstRelease } from "@/data/release-plan";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
@@ -56,8 +57,10 @@ test("every service supports marketplace, on-demand, scheduled and hourly bookin
     }
     // Phase 4.6 (biz.instant-scope): Book Now exists only in the one-time cleaning flow (maid).
     assert.equal(s.models.instantBooking, s.slug === "maid", `${s.slug}.instantBooking`);
-    assert.equal(s.onDemand.bookNow, s.models.instantBooking, `${s.slug}: bookNow must follow models.instantBooking`);
+    // SEO batch 1: the one-time clean has its own page, so every hourly hub (incl. /hourly-maid/) is scheduled-only.
+    assert.equal(s.onDemand.bookNow, false, `${s.slug}: hourly hubs are scheduled-only`);
   }
+  for (const p of products.filter((x) => x.bookNow)) assert.equal(services.find((s) => s.slug === p.service)?.models.instantBooking, true, p.slug);
 });
 
 test("all 8 cities are active and available for every service in both models", () => {
@@ -113,9 +116,10 @@ test("no 'free hiring' or guarantee claims in evergreen copy", () => {
   }
 });
 
-test("city route inventory is complete: 5 + 5 hubs, 40 + 40 city pages, home and pricing = 92", () => {
+test("city route inventory is complete: 5 + 5 hubs, 40 + 40 city pages, home, pricing and /one-time-cleaning/ = 93", () => {
   const routes = getSiteRoutes("preview");
-  assert.equal(routes.length, 92);
+  assert.equal(routes.length, 93);
+  assert.ok(routes.some((r) => r.path === "/one-time-cleaning/" && r.kind === "product"));
   const paths = new Set(routes.map((r) => r.path));
   for (const s of services) {
     for (const m of MODELS) {
@@ -126,7 +130,7 @@ test("city route inventory is complete: 5 + 5 hubs, 40 + 40 city pages, home and
   assert.ok(paths.has("/") && paths.has("/pricing/"));
   assert.equal(serviceCities.length, 80);
   // No locality, blog, competitor or synonym routes in the preview inventory.
-  for (const r of routes) assert.ok(["home", "service", "service-city", "pricing"].includes(r.kind), r.path);
+  for (const r of routes) assert.ok(["home", "service", "service-city", "pricing", "product"].includes(r.kind), r.path);
   assert.deepEqual(
     services.map((s) => s.onDemand.slug),
     ["hourly-maid", "hourly-cook", "hourly-babysitter", "hourly-elder-care", "hourly-patient-care"],

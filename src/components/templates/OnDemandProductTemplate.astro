@@ -1,0 +1,156 @@
+---
+/**
+ * On-demand PRODUCT page (/one-time-cleaning/): one booking flow of a service
+ * with its own search intent. Built only from shared components and data
+ * (src/data/products.ts, src/data/product-facts.ts); it never repeats the
+ * hub's hourly content and links to it instead.
+ */
+import { schemaSettings } from "@/data/business";
+import { factsForPage } from "@/data/product-facts";
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import BulletList from "@/components/content/BulletList.astro";
+import CheckList from "@/components/content/CheckList.astro";
+import CityCoverage from "@/components/content/CityCoverage.astro";
+import CrossLink from "@/components/content/CrossLink.astro";
+import Cta from "@/components/content/Cta.astro";
+import FaqList from "@/components/content/FaqList.astro";
+import Icon from "@/components/content/Icon.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import Section from "@/components/content/Section.astro";
+import Steps from "@/components/content/Steps.astro";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import Safeguards from "@/components/trust/Safeguards.astro";
+import VerificationSummary from "@/components/trust/VerificationSummary.astro";
+import { productPath } from "@/data/products";
+import { isHubBuilt } from "@/lib/content";
+import { servicePath } from "@/lib/content/paths";
+import type { ResolvedRoute } from "@/lib/content/resolve";
+import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
+
+interface Props {
+  route: Extract<ResolvedRoute, { kind: "product" }>;
+}
+
+const { product, service } = Astro.props.route;
+const path = productPath(product.slug);
+const facts = factsForPage(product.slug, product.sharedFactIds);
+// A missing id fails the build rather than silently dropping a fact.
+const pick = (...ids: string[]) =>
+  ids.map((id) => {
+    const fact = facts.find((f) => f.id === id);
+    if (!fact) throw new Error(`Fact ${id} is not available on ${path}`);
+    return fact;
+  });
+const alternativeBuilt = isHubBuilt(service, "onDemand") && product.alternative.href === servicePath(service.slug, "onDemand");
+const marketplaceBuilt = isHubBuilt(service, "marketplace");
+const placement = product.slug.replaceAll("-", "_");
+const schema = [
+  ...(schemaSettings.service ? [serviceSchema({ service, path, name: product.name, description: product.seo.description })] : []),
+  ...(schemaSettings.faqPage ? [faqPageSchema(product.faqs)] : []),
+];
+---
+
+<Breadcrumbs items={[{ name: "Home", path: "/" }, { name: product.name, path }]} />
+<JsonLd data={schema} />
+
+<div data-model="onDemand">
+  <section class="hero hero--compact">
+    <div class="container">
+      <span class="hero__icon"><Icon name={service.icon} size={36} /></span>
+      <p class="eyebrow">Book in the app</p>
+      <h1>{product.headline}</h1>
+      {product.description.map((p) => <p class="lead">{p}</p>)}
+      <div class="cta-row">
+        {product.bookNow ? <Cta ctaKey="bookOneTimeClean" placement={`${placement}_hero`} /> : null}
+      </div>
+    </div>
+  </section>
+
+  <Section id="how-it-works" title="How a one-time cleaning visit works" tone="tint">
+    <Steps steps={product.steps} />
+  </Section>
+
+  <Section id="what-to-include" title="What you can include in the visit">
+    <ProductFacts facts={pick("o.otg.tasks")} />
+    <CheckList items={product.tasksIncluded} />
+  </Section>
+
+  <Section id="visit-length" title="Choose the length of the visit" tone="tint">
+    <ProductFacts facts={pick("o.otg.length")} />
+  </Section>
+
+  <Section id="book-now-or-schedule" title="Book now or schedule">
+    <ProductFacts facts={pick("o.otg.when")} />
+    <p class="note">Whether someone can come at a particular time depends on which helpers are free near your address.</p>
+  </Section>
+
+  <Section id="keep-ready" title="What to keep ready at home" tone="tint">
+    <ProductFacts facts={pick("o.otg.materials")} />
+  </Section>
+
+  <Section id="use-cases" title="When a one-time clean is useful">
+    <BulletList items={product.useCases} />
+  </Section>
+
+  <Section id="tasks" title="What is normally included" tone="tint">
+    <div class="two-col">
+      <div>
+        <h3>Usually included</h3>
+        <CheckList items={product.tasksIncluded} />
+      </div>
+      <div>
+        <h3>Usually not included</h3>
+        <CheckList items={product.tasksExcluded} variant="cross" />
+      </div>
+    </div>
+    <ProductFacts facts={pick("o.included")} />
+  </Section>
+
+  <Section id="cities" title="Where you can book a one-time clean" tone="warm">
+    <p>Bookings are available in all eight of these cities.</p>
+    <CityCoverage service={service.slug} model="onDemand" linkPrefix={`${service.onDemand.shortName} in`} />
+    <ProductFacts facts={pick("b.coverage")} />
+  </Section>
+
+  <Section id="booking-payment" title="Booking, payment and cancellation">
+    <ProductFacts facts={pick("o.otg.payment", "o.otg.cancel", "o.pin", "o.gender")} />
+  </Section>
+
+  <Section id="safety" title="Booking safely" tone="tint">
+    <VerificationSummary />
+    <h3>Tips for your booking</h3>
+    <Safeguards extra={product.safeguards} kind="booking" />
+  </Section>
+
+  {
+    alternativeBuilt ? (
+      <Section id="one-time-or-hourly" title={product.alternative.heading}>
+        <p>{product.alternative.body}</p>
+        <p>
+          <a href={product.alternative.href}>{product.alternative.label}</a>
+        </p>
+      </Section>
+    ) : null
+  }
+
+  <Section id="faqs" title={`${product.name}: frequently asked questions`} tone="tint">
+    <FaqList faqs={product.faqs} />
+  </Section>
+</div>
+
+{
+  marketplaceBuilt ? (
+    <CrossLink
+      targetModel="marketplace"
+      href={servicePath(service.slug)}
+      heading="Want the same person every week?"
+      body={`If you'd like the same person every day or every week, you can find ${service.roleWithArticle} on MeeHelp and agree the arrangement with them directly.`}
+      label={`${service.name}: find and hire`}
+    />
+  ) : null
+}
+
+<div data-model="onDemand">
+  <AppDownloadSection model="onDemand" placement={`${placement}_app_section`} title="Book a one-time clean in the MeeHelp app" />
+</div>

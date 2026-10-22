@@ -1,4 +1,5 @@
 import { siteStage, type SiteStage } from "@/lib/site";
+import { products } from "@/data/products";
 import { services } from "@/data/services";
 import {
   pricingPageStatus,
@@ -6,17 +7,20 @@ import {
   getLocalityPage,
   getServiceCity,
   getServiceCityContent,
+  getService,
   getSiteRoutes,
+  productStatus,
   serviceCityStatus,
   serviceHubStatus,
   type LocalityPage,
 } from "./index";
 import { isBuilt } from "./publishing";
 import { inStageScope } from "./release-scope";
-import type { BusinessModel, City, PublishStatus, Service, ServiceCity, ServiceCityContent } from "./types";
+import type { BusinessModel, City, OnDemandProduct, PublishStatus, Service, ServiceCity, ServiceCityContent } from "./types";
 
 export type ResolvedRoute =
   | { kind: "pricing"; status: PublishStatus }
+  | { kind: "product"; model: "onDemand"; product: OnDemandProduct; service: Service; status: PublishStatus }
   | { kind: "service"; model: BusinessModel; service: Service; status: PublishStatus }
   | {
       kind: "service-city";
@@ -42,6 +46,7 @@ function serviceForSlug(slug: string): { service: Service; model: BusinessModel 
  * Maps URL segments to content, applying publishing rules:
  *   /maid/, /maid/mumbai/, /maid/mumbai/andheri-west/       marketplace
  *   /hourly-maid/, /hourly-maid/mumbai/                      on-demand
+ *   /one-time-cleaning/                                      on-demand product page
  */
 export function resolveRoute(segments: string[], stage: SiteStage = siteStage): ResolvedRoute | null {
   const [serviceSlug, citySlug, localitySlug, ...extra] = segments;
@@ -52,6 +57,15 @@ export function resolveRoute(segments: string[], stage: SiteStage = siteStage): 
     if (citySlug) return null;
     const status = pricingPageStatus(stage);
     return isBuilt(status, stage) && inStageScope("/pricing/", stage) ? { kind: "pricing", status } : null;
+  }
+
+  // On-demand product pages (/one-time-cleaning/) are single-segment pages of their own.
+  const product = products.find((p) => p.slug === serviceSlug);
+  if (product) {
+    const service = getService(product.service);
+    if (citySlug || !service) return null;
+    const status = productStatus(product);
+    return isBuilt(status, stage) && inStageScope(`/${serviceSlug}/`, stage) ? { kind: "product", model: "onDemand", product, service, status } : null;
   }
 
   const match = serviceForSlug(serviceSlug);

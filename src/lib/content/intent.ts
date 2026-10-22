@@ -1,5 +1,5 @@
 /** Joins the intent map with the route registry: one entry per built page. */
-import { intentTargets, siteIntents } from "@/data/intent-map";
+import { intentTargets, productIntents, siteIntents } from "@/data/intent-map";
 import { home } from "@/data/home";
 import { pricingPage } from "@/data/plans";
 import { siteStage, absoluteUrl, type SiteStage } from "@/lib/site";
@@ -43,6 +43,10 @@ export function buildIntentMap(stage: SiteStage = siteStage): IntentEntry[] {
     if (r.kind === "pricing") return { ...base, service: null, city: null, ...siteIntents.pricing, h1: pricingPage.headline };
     const route = resolveRoute(r.path.split("/").filter(Boolean), stage);
     if (!route || route.kind === "pricing") throw new Error(`Unresolvable route ${r.path}`);
+    if (route.kind === "product") {
+      const t = productIntents[route.product.slug];
+      return { ...base, service: route.service.slug, city: null, ...t, supportingKeywords: [...t.supportingKeywords], h1: route.product.headline };
+    }
     const target = intentTargets[route.service.slug][route.model];
     if (route.kind === "service") {
       const h1 = route.model === "marketplace" ? route.service.headline : route.service.onDemand.headline;

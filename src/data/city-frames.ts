@@ -29,15 +29,15 @@ export const cityFrames: Record<ServiceSlug, Record<BusinessModel, CityPageFrame
     onDemand: {
       headline: "Book an hourly maid in {cityFull}",
       intro: [
-        "Book a maid by the hour through the MeeHelp app in {areas} — right away, or for a time you choose. You pick the hours and the tasks for each visit.",
+        "Book a maid by the hour through the MeeHelp app in {areas} for a time you choose. Pick 2 to 12 hours and the tasks for each visit, subject to helper availability near your address.",
       ],
       points: [
-        "A thorough clean before guests arrive",
-        "Cover while your regular maid is on leave",
-        "A deep clean of the kitchen or bathrooms",
+        "A longer clean of fans, windows or balconies",
+        "Cleaning the kitchen chimney or the fridge",
+        "A big household job before guests arrive",
       ],
-      title: "Hourly Maid in {city} – Book a One-Time Clean | MeeHelp",
-      description: "Book an hourly maid in {areas} with MeeHelp — book now or schedule — for dishes, bathrooms, floors or laundry. Keep your supplies ready.",
+      title: "Hourly Maid in {city} – Book Help by the Hour | MeeHelp",
+      description: "Book a maid by the hour in {areas} with MeeHelp for larger cleaning jobs. Schedule 2 to 12 hours in the app. Keep your supplies ready.",
     },
   },
   cook: {

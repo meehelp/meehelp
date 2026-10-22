@@ -4,8 +4,9 @@
  * these pages and remains review for the wider preview inventory.
  *
  * Chosen from docs/seo/QUALITY-REPORT.md (v3) — the home page,
- * pricing, the 10 hubs now backed by business truth, and the only 3 city
- * pages with genuinely local, hand-written content. Tests fail if a page here
+ * pricing, the 10 hubs now backed by business truth, the only 3 city
+ * pages with genuinely local, hand-written content and (SEO batch 1)
+ * /one-time-cleaning/. Tests fail if a page here
  * is not READY. docs/seo/FIRST-RELEASE-REVIEW.md is generated from this list.
  */
 export interface ReleaseEntry {
@@ -26,7 +27,8 @@ export const firstRelease: ReleaseEntry[] = [
   { path: "/babysitter-nanny/", when: "now", why: "Childcare hire intent with the business-approved baby care scope, framed by parental instructions.", risk: "Scope is business-supplied, not visible in the app; no developmental or safety guarantees are made." },
   { path: "/elder-care/", when: "now", why: "Elder care as a customer need mapped to the shared care-helper pool (biz.elder-pool), with the approved daily-living scope.", risk: "How a customer selects elder care in the app is unconfirmed (Q-ELDER-LABEL); special-care items depend on a trained caregiver (Q-CLINICAL)." },
   { path: "/patient-care/", when: "now", why: "Patient-attendant intent with the approved scope; injections, IV and invasive procedures explicitly excluded.", risk: "Monitoring is stated only 'where the assigned caregiver is trained' (Q-CLINICAL)." },
-  { path: "/hourly-maid/", when: "now", why: "The only instant flow: one-time clean (2+ tasks, 120/150/180 min, book now or schedule), no materials, pay part online and the rest to the helper, narrow cancellation rule.", risk: "Prices and fee percentages are deliberately not stated (Q-PRICE, Q-FEE); customer-initiated cancellation before acceptance is unspecified (Q-CANCEL)." },
+  { path: "/hourly-maid/", when: "now", why: "Hourly maid / maid for a few hours: 2–12 h scheduled bookings for larger jobs (fans, windows, balconies, chimney, fridge), no materials; links to /one-time-cleaning/ for a single visit (SEO batch 1).", risk: "Prices and fee percentages are deliberately not stated (Q-PRICE, Q-FEE); cancellation terms for hourly bookings are not stated (Q-CANCEL)." },
+  { path: "/one-time-cleaning/", when: "now", why: "SEO batch 1: the only instant flow gets its own intent page — one-time clean (2+ tasks, 120/150/180 min, book now or schedule), no materials, pay part online and the rest to the helper, narrow cancellation rule. Reuses only facts approved for /hourly-maid/.", risk: "Prices and fee percentages are deliberately not stated (Q-PRICE, Q-FEE); customer-initiated cancellation before acceptance is unspecified (Q-CANCEL); CTA wording is 'proposed'." },
   { path: "/hourly-cook/", when: "now", why: "Hourly cooking task with household size; scheduled 2 h–5 days ahead — no instant promise.", risk: "Cancellation terms for hourly bookings are not stated (Q-CANCEL)." },
   { path: "/hourly-babysitter/", when: "now", why: "Scheduled baby care by the hour with the approved scope.", risk: "Cancellation terms for hourly bookings are not stated (Q-CANCEL)." },
   { path: "/hourly-elder-care/", when: "now", why: "Scheduled elder care by the hour; daily-living scope; clinical work excluded.", risk: "Cancellation terms for hourly bookings are not stated (Q-CANCEL)." },

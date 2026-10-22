@@ -38,7 +38,7 @@ Requires Node.js ≥ 22.22.0 (an Astro 7 requirement).
 |---|---|---|---|---|
 | `development` (default) | everything (except unpublished localities) | no | `Disallow: /` | empty |
 | `preview` | `published` + `review` | no | `Disallow: /` | empty |
-| `release-review` | exactly the 15 approved first-release pages (`src/data/release-plan.ts`) + 404 | no (`noindex, nofollow, noarchive`) | `Disallow: /` | empty |
+| `release-review` | exactly the 16 approved first-release pages (`src/data/release-plan.ts`) + 404 | no (`noindex, nofollow, noarchive`) | `Disallow: /` | empty |
 | `production` | `published` only | yes | `Allow: /` + sitemap | published URLs |
 
 `SITE_URL` sets the canonical origin (default `https://meehelp.in`). Variable names are in
@@ -48,7 +48,7 @@ Production currently builds **only `/`**, on purpose: every other page is still 
 until the business approves it.
 
 `release-review` is the exact build to inspect before launch: `npm run build:release-review`,
-`npm run seo:release-review` (validator: exactly the 15 pages, no leaks, no placeholders, noarchive),
+`npm run seo:release-review` (validator: exactly the 16 pages, no leaks, no placeholders, noarchive),
 `npm run release-docs` (writes `docs/seo/FIRST-RELEASE-FINAL-AUDIT.md` and `FIRST-RELEASE-COPY.md`).
 Protected Vercel review deployment (not yet created): `docs/DEPLOYMENT-REVIEW.md`; local reproduction of the
 Vercel behaviour: `npm run smoke:hosting`.

@@ -1,6 +1,6 @@
 /**
- * Phase 5 — release-review stage: exactly the 15 approved first-release
- * pages, nothing else, no placeholders; other stages unchanged.
+ * Phase 5 — release-review stage: exactly the 16 approved first-release
+ * pages (15 from Phase 5 + /one-time-cleaning/ from SEO batch 1), nothing else, no placeholders; other stages unchanged.
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -32,9 +32,11 @@ const APPROVED = [
   "/maid/mumbai/",
   "/maid/delhi-ncr/",
   "/cook/mumbai/",
+  // SEO batch 1: the one-time cleaning intent moved off /hourly-maid/ onto its own page.
+  "/one-time-cleaning/",
 ].sort();
 
-test("release-review contains exactly the 15 approved SEO URLs", () => {
+test("release-review contains exactly the 16 approved SEO URLs", () => {
   assert.deepEqual([...releaseReviewPaths].sort(), APPROVED);
   assert.deepEqual(firstRelease.map((r) => r.path).sort(), APPROVED);
   assert.ok(firstRelease.every((r) => r.when === "now"));
@@ -79,10 +81,10 @@ test("release-review is noindex, sitemap-empty and placeholder-free", () => {
 });
 
 test("preview stays complete while production contains exactly the approved release", () => {
-  assert.equal(getSiteRoutes("preview").length, 92);
+  assert.equal(getSiteRoutes("preview").length, 93);
   assert.deepEqual(getSiteRoutes("production").map((r) => r.path).sort(), APPROVED);
   assert.ok(getSiteRoutes("production").every((r) => r.indexable), "production release pages must be indexable");
-  assert.ok(getSiteRoutes("development").length >= 92);
+  assert.ok(getSiteRoutes("development").length >= 93);
   for (const stage of ["development", "preview", "production"] as const) for (const p of ["/maid/bengaluru/", "/hourly-cook/pune/"]) assert.equal(inStageScope(p, stage), true);
 });
 

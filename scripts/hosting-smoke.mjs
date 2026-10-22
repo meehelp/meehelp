@@ -22,7 +22,7 @@ const DIST = join(ROOT, "dist");
 const RELEASE = [
   "/", "/pricing/", "/maid/", "/cook/", "/babysitter-nanny/", "/elder-care/", "/patient-care/",
   "/hourly-maid/", "/hourly-cook/", "/hourly-babysitter/", "/hourly-elder-care/", "/hourly-patient-care/",
-  "/maid/mumbai/", "/maid/delhi-ncr/", "/cook/mumbai/",
+  "/maid/mumbai/", "/maid/delhi-ncr/", "/cook/mumbai/", "/one-time-cleaning/",
 ];
 const EXCLUDED_SAMPLE = ["/maid/bengaluru/", "/hourly-maid/mumbai/", "/elder-care/pune/", "/patient-care/kolkata/", "/hourly-cook/pune/", "/maid/mumbai/andheri-west/", "/no-such-page/"];
 
@@ -80,7 +80,7 @@ const htmlPages = [];
     else if (n === "index.html") htmlPages.push("/" + f.slice(DIST.length + 1).replace(/index\.html$/, ""));
   }
 })(DIST);
-check(JSON.stringify(htmlPages.map((p) => p.replace(/^\/\//, "/")).sort()) === JSON.stringify([...RELEASE].sort()), `dist pages ≠ the 15 release pages: ${htmlPages.sort().join(", ")}`);
+check(JSON.stringify(htmlPages.map((p) => p.replace(/^\/\//, "/")).sort()) === JSON.stringify([...RELEASE].sort()), `dist pages ≠ the 16 release pages: ${htmlPages.sort().join(", ")}`);
 const jsFiles = execSync(`find "${DIST}" -name "*.js" -o -name "*.mjs"`).toString().trim();
 check(jsFiles === "", `JavaScript files in dist: ${jsFiles}`);
 

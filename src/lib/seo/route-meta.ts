@@ -1,5 +1,6 @@
 /** PageMeta for each resolved route kind (title/description come from src/data, never templates). */
 import { pricingPage } from "@/data/plans";
+import { productPath } from "@/data/products";
 import { localityPath, pricingPath, serviceCityPath, servicePath } from "@/lib/content/paths";
 import { isIndexable } from "@/lib/content/publishing";
 import type { ResolvedRoute } from "@/lib/content/resolve";
@@ -10,6 +11,8 @@ export function routeMetadata(route: ResolvedRoute): PageMeta {
   switch (route.kind) {
     case "pricing":
       return buildPageMetadata({ ...pricingPage.seo, path: pricingPath, indexable });
+    case "product":
+      return buildPageMetadata({ ...route.product.seo, path: productPath(route.product.slug), indexable });
     case "service": {
       const seo = route.model === "marketplace" ? route.service.seo : route.service.onDemand.seo;
       return buildPageMetadata({ ...seo, path: servicePath(route.service.slug, route.model), indexable });

@@ -85,7 +85,7 @@ if (stage === "release-review") {
   const built = new Set(pagePaths);
   for (const p of releaseReviewPaths) if (!built.has(p)) error(p, "Approved release page missing from the release-review build");
   for (const p of pagePaths) if (!utilityPaths.has(p) && !releaseReviewPaths.has(p)) error(p, "Page outside the approved release set leaked into the release-review build");
-  if (releaseReviewPaths.size !== 15) error("/", `Release set must contain exactly 15 pages (has ${releaseReviewPaths.size})`);
+  if (releaseReviewPaths.size !== 16) error("/", `Release set must contain exactly 16 pages (has ${releaseReviewPaths.size})`);
 }
 
 // ---------- Built pages must match the route registry exactly ----------
@@ -264,8 +264,9 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   for (const f of guards.clinicalClaimFindings(visibleText(claimable))) error(page, `Clinical claim not approved: "${f.slice(0, 140)}"`);
   if (guards.broadRefundPattern.test(visible)) error(page, `Cancellation wording broader than the app's policy: "${visible.match(guards.broadRefundPattern)![0]}"`);
   if (guards.stalePricePattern.test(visible)) error(page, `Stale app price ₹299 found: "${visible.match(guards.stalePricePattern)![0]}"`);
-  // Instant booking exists only for the one-time cleaning flow (maid on-demand pages).
-  const oneTimeCleaningPage = page.startsWith("/hourly-maid/");
+  // Instant booking exists only for the one-time cleaning flow, which has its own page (SEO batch 1).
+  // /hourly-maid/ and its city pages are scheduled-only like every other hourly booking.
+  const oneTimeCleaningPage = page === "/one-time-cleaning/";
   for (const cta of body.querySelectorAll("[data-cta]")) {
     const key = cta.getAttribute("data-cta") as keyof typeof ctas;
     if (ctas[key]?.scope === "one-time-cleaning" && !oneTimeCleaningPage) error(page, `Instant CTA "${key}" outside the one-time cleaning pages`);

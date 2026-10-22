@@ -36,6 +36,7 @@ if (!process.argv.includes("--no-build")) {
 const { getSiteRoutes, getServiceCity, getServiceCityContent } = await import("@/lib/content");
 const { cities } = await import("@/data/cities");
 const { services } = await import("@/data/services");
+const { products } = await import("@/data/products");
 const { serviceModelEvidence, openQuestions } = await import("@/data/evidence");
 const guards = await import("@/lib/guards/claims");
 
@@ -122,12 +123,14 @@ for (const r of routes) {
   if (broad) unsupported.push(`broad-refund: "${broad[0]}"`);
   const stale = text.match(guards.stalePricePattern);
   if (stale) unsupported.push(`stale-price: "${stale[0]}"`);
-  if (r.model === "onDemand" && !r.path.startsWith("/hourly-maid/")) {
+  // Instant booking = the one-time cleaning flow only, which has its own page since SEO batch 1.
+  if (r.model === "onDemand" && r.path !== "/one-time-cleaning/") {
     const m = text.match(/\binstant(?:ly)?\b|\bbook now\b|\bright away\b|\bstraight away\b/i);
     if (m) unsupported.push(`instant-scope: "${m[0]}"`);
   }
   const segments = r.path.split("/").filter(Boolean);
-  const service = services.find((s) => s.slug === segments[0] || s.onDemand.slug === segments[0]) ?? null;
+  const product = products.find((p) => p.slug === segments[0]);
+  const service = services.find((s) => s.slug === segments[0] || s.onDemand.slug === segments[0] || s.slug === product?.service) ?? null;
   const city = segments[1] ? cities.find((c) => c.slug === segments[1]) ?? null : null;
   let localNotes: number | null = null;
   let handWritten: boolean | null = null;
@@ -325,7 +328,7 @@ Every page is still \`publishStatus: review\`; readiness is a content judgement 
 |---|---|---|---|
 | Doorway similarity — 80 city pages | ${fmt(beforeAfter.before.doorway)} | ${fmt(phase45.doorway)} | ${fmt(beforeAfter.after.doorway)} |
 | Same-city service overlap — 80 city pages | ${fmt(beforeAfter.before.overlap)} | ${fmt(phase45.overlap)} | ${fmt(beforeAfter.after.overlap)} |
-| Evidence-backed claims (distinct evidence items per page, summed over 92 pages) | 0 (not tracked) | ${phase45.evidence} | ${phase46.evidence} |
+| Evidence-backed claims (distinct evidence items per page, summed over ${rows.length} pages) | 0 (not tracked) | ${phase45.evidence} | ${phase46.evidence} |
 | Unsupported claims found | not measured | ${phase45.unsupported} (Phase 4.5 guards) | ${phase46.unsupported} (Phase 4.6 guards) |
 | Readiness | — | READY ${phase45.readiness.READY} · REVIEW ${phase45.readiness.REVIEW} · HOLD ${phase45.readiness.HOLD} | READY ${phase46.readiness.READY} · REVIEW ${phase46.readiness.REVIEW} · HOLD ${phase46.readiness.HOLD} |
 | Elder/patient care city pages with high overlap | ${careBefore} | — | ${careAfter} |

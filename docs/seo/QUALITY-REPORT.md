@@ -5,20 +5,20 @@ Every page is still `publishStatus: review`; readiness is a content judgement to
 
 ## Summary
 
-- Pages: **92** — READY **15** · REVIEW **24** · HOLD **53**
-- READY: `/`, `/pricing/`, `/maid/`, `/cook/`, `/babysitter-nanny/`, `/elder-care/`, `/patient-care/`, `/hourly-maid/`, `/hourly-cook/`, `/hourly-babysitter/`, `/hourly-elder-care/`, `/hourly-patient-care/`, `/maid/mumbai/`, `/maid/delhi-ncr/`, `/cook/mumbai/`
+- Pages: **93** — READY **16** · REVIEW **24** · HOLD **53**
+- READY: `/`, `/pricing/`, `/maid/`, `/cook/`, `/babysitter-nanny/`, `/elder-care/`, `/patient-care/`, `/hourly-maid/`, `/hourly-cook/`, `/hourly-babysitter/`, `/hourly-elder-care/`, `/hourly-patient-care/`, `/one-time-cleaning/`, `/maid/mumbai/`, `/maid/delhi-ncr/`, `/cook/mumbai/`
 - Unsupported claims found: **0**
-- Evidence-backed facts: hubs average 13 distinct evidence items; city pages 6
+- Evidence-backed facts: hubs average 12 distinct evidence items; city pages 5
 
 ## Before and after
 
 | Measure | Phase 4 | Phase 4.5 (before) | Phase 4.6 (after) |
 |---|---|---|---|
 | Doorway similarity — 80 city pages | low 4 · medium 46 · high 30 (median 0.556, max 0.719) | low 3 · medium 0 · high 77 (median 0.832, max 0.968) | low 3 · medium 0 · high 77 (median 0.836, max 0.969) |
-| Same-city service overlap — 80 city pages | low 3 · medium 41 · high 36 (median 0.564, max 0.78) | low 0 · medium 26 · high 54 (median 0.63, max 0.712) | low 0 · medium 14 · high 66 (median 0.658, max 0.747) |
-| Evidence-backed claims (distinct evidence items per page, summed over 92 pages) | 0 (not tracked) | 452 | 566 |
+| Same-city service overlap — 80 city pages | low 3 · medium 41 · high 36 (median 0.564, max 0.78) | low 0 · medium 26 · high 54 (median 0.63, max 0.712) | low 0 · medium 12 · high 68 (median 0.658, max 0.747) |
+| Evidence-backed claims (distinct evidence items per page, summed over 93 pages) | 0 (not tracked) | 452 | 566 |
 | Unsupported claims found | not measured | 0 (Phase 4.5 guards) | 0 (Phase 4.6 guards) |
-| Readiness | — | READY 11 · REVIEW 25 · HOLD 56 | READY 15 · REVIEW 24 · HOLD 53 |
+| Readiness | — | READY 11 · REVIEW 25 · HOLD 56 | READY 16 · REVIEW 24 · HOLD 53 |
 | Elder/patient care city pages with high overlap | 31 | — | 32 |
 
 Thresholds are unchanged from Phase 4.5. The new care scopes are **service** facts, so they live on the hubs, not on
@@ -59,9 +59,9 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 - `/patient-care/chennai/`: Near-duplicate of other city pages (similarity 0.823 with /patient-care/bengaluru/) and only 1 local note — no genuine local information to add; Template overlap high with /elder-care/chennai/ (0.726); Composed page: no hand-written local copy
 - `/patient-care/pune/`: Near-duplicate of other city pages (similarity 0.9 with /patient-care/ahmedabad/) and only 1 local note — no genuine local information to add; Template overlap high with /elder-care/pune/ (0.721); Composed page: no hand-written local copy
 - `/patient-care/ahmedabad/`: Near-duplicate of other city pages (similarity 0.9 with /patient-care/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /elder-care/ahmedabad/ (0.723); Composed page: no hand-written local copy
-- `/hourly-maid/bengaluru/`: Near-duplicate of other city pages (similarity 0.825 with /hourly-maid/chennai/) and only 1 local note — no genuine local information to add; Composed page: no hand-written local copy
-- `/hourly-maid/chennai/`: Near-duplicate of other city pages (similarity 0.842 with /hourly-maid/ahmedabad/) and only 1 local note — no genuine local information to add; Composed page: no hand-written local copy
-- `/hourly-maid/ahmedabad/`: Near-duplicate of other city pages (similarity 0.842 with /hourly-maid/chennai/) and only 1 local note — no genuine local information to add; Composed page: no hand-written local copy
+- `/hourly-maid/bengaluru/`: Near-duplicate of other city pages (similarity 0.832 with /hourly-maid/chennai/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-babysitter/bengaluru/ (0.635); Composed page: no hand-written local copy
+- `/hourly-maid/chennai/`: Near-duplicate of other city pages (similarity 0.848 with /hourly-maid/ahmedabad/) and only 1 local note — no genuine local information to add; Composed page: no hand-written local copy
+- `/hourly-maid/ahmedabad/`: Near-duplicate of other city pages (similarity 0.848 with /hourly-maid/chennai/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-babysitter/ahmedabad/ (0.608); Composed page: no hand-written local copy
 - `/hourly-cook/mumbai/`: Near-duplicate of other city pages (similarity 0.79 with /hourly-cook/kolkata/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-babysitter/mumbai/ (0.649); Composed page: no hand-written local copy
 - `/hourly-cook/delhi-ncr/`: Near-duplicate of other city pages (similarity 0.811 with /hourly-cook/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-babysitter/delhi-ncr/ (0.646); Composed page: no hand-written local copy
 - `/hourly-cook/bengaluru/`: Near-duplicate of other city pages (similarity 0.843 with /hourly-cook/chennai/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-babysitter/bengaluru/ (0.628); Composed page: no hand-written local copy
@@ -72,12 +72,12 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 - `/hourly-cook/ahmedabad/`: Near-duplicate of other city pages (similarity 0.969 with /hourly-cook/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-babysitter/ahmedabad/ (0.602); Composed page: no hand-written local copy
 - `/hourly-babysitter/mumbai/`: Near-duplicate of other city pages (similarity 0.782 with /hourly-babysitter/kolkata/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-cook/mumbai/ (0.649); Composed page: no hand-written local copy
 - `/hourly-babysitter/delhi-ncr/`: Near-duplicate of other city pages (similarity 0.804 with /hourly-babysitter/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-cook/delhi-ncr/ (0.646); Composed page: no hand-written local copy
-- `/hourly-babysitter/bengaluru/`: Near-duplicate of other city pages (similarity 0.836 with /hourly-babysitter/chennai/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-cook/bengaluru/ (0.628); Composed page: no hand-written local copy
+- `/hourly-babysitter/bengaluru/`: Near-duplicate of other city pages (similarity 0.836 with /hourly-babysitter/chennai/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-maid/bengaluru/ (0.635); Composed page: no hand-written local copy
 - `/hourly-babysitter/hyderabad/`: Near-duplicate of other city pages (similarity 0.87 with /hourly-babysitter/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-cook/hyderabad/ (0.626); Composed page: no hand-written local copy
 - `/hourly-babysitter/chennai/`: Near-duplicate of other city pages (similarity 0.852 with /hourly-babysitter/kolkata/) and only 1 local note — no genuine local information to add; Composed page: no hand-written local copy
 - `/hourly-babysitter/pune/`: Near-duplicate of other city pages (similarity 0.967 with /hourly-babysitter/ahmedabad/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-cook/pune/ (0.602); Composed page: no hand-written local copy
 - `/hourly-babysitter/kolkata/`: Near-duplicate of other city pages (similarity 0.875 with /hourly-babysitter/ahmedabad/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-cook/kolkata/ (0.602); Composed page: no hand-written local copy
-- `/hourly-babysitter/ahmedabad/`: Near-duplicate of other city pages (similarity 0.967 with /hourly-babysitter/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-cook/ahmedabad/ (0.602); Composed page: no hand-written local copy
+- `/hourly-babysitter/ahmedabad/`: Near-duplicate of other city pages (similarity 0.967 with /hourly-babysitter/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-maid/ahmedabad/ (0.608); Composed page: no hand-written local copy
 - `/hourly-elder-care/delhi-ncr/`: Near-duplicate of other city pages (similarity 0.812 with /hourly-elder-care/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-patient-care/delhi-ncr/ (0.677); Composed page: no hand-written local copy
 - `/hourly-elder-care/bengaluru/`: Near-duplicate of other city pages (similarity 0.843 with /hourly-elder-care/chennai/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-patient-care/bengaluru/ (0.661); Composed page: no hand-written local copy
 - `/hourly-elder-care/hyderabad/`: Near-duplicate of other city pages (similarity 0.876 with /hourly-elder-care/pune/) and only 1 local note — no genuine local information to add; Template overlap high with /hourly-patient-care/hyderabad/ (0.658); Composed page: no hand-written local copy
@@ -108,11 +108,11 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 - `/patient-care/delhi-ncr/`: Doorway risk high (similarity 0.767 with /patient-care/pune/); Template overlap high with /babysitter-nanny/delhi-ncr/ (0.694); Composed page: no hand-written local copy
 - `/patient-care/bengaluru/`: Doorway risk high (similarity 0.823 with /patient-care/chennai/); Template overlap high with /maid/bengaluru/ (0.691); Composed page: no hand-written local copy
 - `/patient-care/kolkata/`: Doorway risk high (similarity 0.787 with /patient-care/ahmedabad/); Template overlap high with /elder-care/kolkata/ (0.747); Composed page: no hand-written local copy
-- `/hourly-maid/mumbai/`: Doorway risk high (similarity 0.669 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
-- `/hourly-maid/delhi-ncr/`: Doorway risk high (similarity 0.652 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
-- `/hourly-maid/hyderabad/`: Doorway risk high (similarity 0.778 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
-- `/hourly-maid/pune/`: Doorway risk high (similarity 0.812 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
-- `/hourly-maid/kolkata/`: Doorway risk high (similarity 0.783 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
+- `/hourly-maid/mumbai/`: Doorway risk high (similarity 0.679 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
+- `/hourly-maid/delhi-ncr/`: Doorway risk high (similarity 0.662 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
+- `/hourly-maid/hyderabad/`: Doorway risk high (similarity 0.786 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
+- `/hourly-maid/pune/`: Doorway risk high (similarity 0.819 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
+- `/hourly-maid/kolkata/`: Doorway risk high (similarity 0.791 with /hourly-maid/ahmedabad/); Composed page: no hand-written local copy
 - `/hourly-elder-care/mumbai/`: Doorway risk high (similarity 0.716 with /hourly-elder-care/kolkata/); Template overlap high with /hourly-patient-care/mumbai/ (0.716); Composed page: no hand-written local copy
 - `/hourly-elder-care/kolkata/`: Doorway risk high (similarity 0.786 with /hourly-elder-care/ahmedabad/); Template overlap high with /hourly-patient-care/kolkata/ (0.665); Composed page: no hand-written local copy
 - `/hourly-patient-care/mumbai/`: Doorway risk high (similarity 0.719 with /hourly-patient-care/kolkata/); Template overlap high with /hourly-elder-care/mumbai/ (0.716); Composed page: no hand-written local copy
@@ -122,31 +122,32 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 
 | Page | Prop. | Words | Evidence | Unsupported | Local notes | Cross-city sim. | Cross-service sim. | Title/meta unique | Links | Readiness |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `/` | both | 1258 | 0 | 0 | — | — | — | yes | 11 | **READY** |
+| `/` | both | 1269 | 0 | 0 | — | — | — | yes | 12 | **READY** |
 | `/pricing/` | marketplace | 755 | 0 | 0 | — | — | — | yes | 6 | **READY** |
-| `/maid/` | marketplace | 1384 | 12 | 0 | — | — | 0.451 (medium) | yes | 15 | **READY** |
+| `/maid/` | marketplace | 1383 | 12 | 0 | — | — | 0.451 (medium) | yes | 15 | **READY** |
 | `/cook/` | marketplace | 1377 | 12 | 0 | — | — | 0.451 (medium) | yes | 15 | **READY** |
 | `/babysitter-nanny/` | marketplace | 1499 | 13 | 0 | — | — | 0.422 (medium) | yes | 15 | **READY** |
 | `/elder-care/` | marketplace | 1540 | 16 | 0 | — | — | 0.423 (medium) | yes | 15 | **READY** |
 | `/patient-care/` | marketplace | 1451 | 14 | 0 | — | — | 0.427 (medium) | yes | 15 | **READY** |
-| `/hourly-maid/` | onDemand | 1059 | 17 | 0 | — | — | 0.295 (low) | yes | 14 | **READY** |
-| `/hourly-cook/` | onDemand | 891 | 9 | 0 | — | — | 0.37 (low) | yes | 14 | **READY** |
+| `/hourly-maid/` | onDemand | 1019 | 10 | 0 | — | — | 0.379 (low) | yes | 15 | **READY** |
+| `/hourly-cook/` | onDemand | 891 | 9 | 0 | — | — | 0.379 (low) | yes | 14 | **READY** |
 | `/hourly-babysitter/` | onDemand | 1070 | 10 | 0 | — | — | 0.37 (low) | yes | 14 | **READY** |
 | `/hourly-elder-care/` | onDemand | 1094 | 12 | 0 | — | — | 0.347 (low) | yes | 14 | **READY** |
 | `/hourly-patient-care/` | onDemand | 1052 | 11 | 0 | — | — | 0.36 (low) | yes | 14 | **READY** |
+| `/one-time-cleaning/` | onDemand | 1089 | 15 | 0 | — | — | — | yes | 11 | **READY** |
 
 ## City pages
 
 | Page | Prop. | Words | Evidence | Unsupported | Local notes | Cross-city sim. | Cross-service sim. | Title/meta unique | Links | Readiness |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `/maid/mumbai/` | marketplace | 656 | 5 | 0 | 3 + hand-written | 0.342 (low) | 0.426 (medium) | yes | 16 | **READY** |
-| `/maid/delhi-ncr/` | marketplace | 643 | 5 | 0 | 3 + hand-written | 0.355 (low) | 0.435 (medium) | yes | 16 | **READY** |
-| `/maid/bengaluru/` | marketplace | 482 | 5 | 0 | 2 | 0.82 (high) | 0.708 (high) | yes | 16 | **REVIEW** |
-| `/maid/hyderabad/` | marketplace | 475 | 5 | 0 | 2 | 0.824 (high) | 0.622 (high) | yes | 16 | **REVIEW** |
-| `/maid/chennai/` | marketplace | 453 | 5 | 0 | 1 | 0.82 (high) | 0.685 (high) | yes | 16 | **HOLD** |
-| `/maid/pune/` | marketplace | 502 | 5 | 0 | 2 | 0.775 (high) | 0.58 (medium) | yes | 16 | **REVIEW** |
-| `/maid/kolkata/` | marketplace | 490 | 5 | 0 | 2 | 0.802 (high) | 0.63 (high) | yes | 16 | **REVIEW** |
-| `/maid/ahmedabad/` | marketplace | 454 | 5 | 0 | 1 | 0.824 (high) | 0.681 (high) | yes | 16 | **HOLD** |
+| `/maid/mumbai/` | marketplace | 653 | 5 | 0 | 3 + hand-written | 0.342 (low) | 0.426 (medium) | yes | 16 | **READY** |
+| `/maid/delhi-ncr/` | marketplace | 640 | 5 | 0 | 3 + hand-written | 0.355 (low) | 0.435 (medium) | yes | 16 | **READY** |
+| `/maid/bengaluru/` | marketplace | 479 | 5 | 0 | 2 | 0.82 (high) | 0.708 (high) | yes | 16 | **REVIEW** |
+| `/maid/hyderabad/` | marketplace | 472 | 5 | 0 | 2 | 0.824 (high) | 0.622 (high) | yes | 16 | **REVIEW** |
+| `/maid/chennai/` | marketplace | 450 | 5 | 0 | 1 | 0.82 (high) | 0.685 (high) | yes | 16 | **HOLD** |
+| `/maid/pune/` | marketplace | 499 | 5 | 0 | 2 | 0.775 (high) | 0.58 (medium) | yes | 16 | **REVIEW** |
+| `/maid/kolkata/` | marketplace | 487 | 5 | 0 | 2 | 0.802 (high) | 0.63 (high) | yes | 16 | **REVIEW** |
+| `/maid/ahmedabad/` | marketplace | 451 | 5 | 0 | 1 | 0.824 (high) | 0.681 (high) | yes | 16 | **HOLD** |
 | `/cook/mumbai/` | marketplace | 595 | 5 | 0 | 2 + hand-written | 0.366 (low) | 0.475 (medium) | yes | 16 | **READY** |
 | `/cook/delhi-ncr/` | marketplace | 507 | 5 | 0 | 2 | 0.77 (high) | 0.692 (high) | yes | 16 | **REVIEW** |
 | `/cook/bengaluru/` | marketplace | 474 | 5 | 0 | 2 | 0.82 (high) | 0.697 (high) | yes | 16 | **REVIEW** |
@@ -179,14 +180,14 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 | `/patient-care/pune/` | marketplace | 460 | 5 | 0 | 1 | 0.9 (high) | 0.721 (high) | yes | 16 | **HOLD** |
 | `/patient-care/kolkata/` | marketplace | 506 | 5 | 0 | 2 | 0.787 (high) | 0.747 (high) | yes | 16 | **REVIEW** |
 | `/patient-care/ahmedabad/` | marketplace | 462 | 5 | 0 | 1 | 0.9 (high) | 0.723 (high) | yes | 16 | **HOLD** |
-| `/hourly-maid/mumbai/` | onDemand | 530 | 6 | 0 | 2 | 0.669 (high) | 0.489 (medium) | yes | 15 | **REVIEW** |
-| `/hourly-maid/delhi-ncr/` | onDemand | 563 | 6 | 0 | 2 | 0.652 (high) | 0.449 (medium) | yes | 15 | **REVIEW** |
-| `/hourly-maid/bengaluru/` | onDemand | 460 | 6 | 0 | 1 | 0.825 (high) | 0.515 (medium) | yes | 15 | **HOLD** |
-| `/hourly-maid/hyderabad/` | onDemand | 485 | 6 | 0 | 2 | 0.778 (high) | 0.468 (medium) | yes | 15 | **REVIEW** |
-| `/hourly-maid/chennai/` | onDemand | 421 | 6 | 0 | 1 | 0.842 (high) | 0.468 (medium) | yes | 15 | **HOLD** |
-| `/hourly-maid/pune/` | onDemand | 476 | 6 | 0 | 2 | 0.812 (high) | 0.417 (medium) | yes | 15 | **REVIEW** |
-| `/hourly-maid/kolkata/` | onDemand | 466 | 6 | 0 | 2 | 0.783 (high) | 0.44 (medium) | yes | 15 | **REVIEW** |
-| `/hourly-maid/ahmedabad/` | onDemand | 434 | 6 | 0 | 1 | 0.842 (high) | 0.481 (medium) | yes | 15 | **HOLD** |
+| `/hourly-maid/mumbai/` | onDemand | 538 | 5 | 0 | 2 | 0.679 (high) | 0.591 (medium) | yes | 15 | **REVIEW** |
+| `/hourly-maid/delhi-ncr/` | onDemand | 571 | 5 | 0 | 2 | 0.662 (high) | 0.543 (medium) | yes | 15 | **REVIEW** |
+| `/hourly-maid/bengaluru/` | onDemand | 468 | 5 | 0 | 1 | 0.832 (high) | 0.635 (high) | yes | 15 | **HOLD** |
+| `/hourly-maid/hyderabad/` | onDemand | 493 | 5 | 0 | 2 | 0.786 (high) | 0.578 (medium) | yes | 15 | **REVIEW** |
+| `/hourly-maid/chennai/` | onDemand | 429 | 5 | 0 | 1 | 0.848 (high) | 0.598 (medium) | yes | 15 | **HOLD** |
+| `/hourly-maid/pune/` | onDemand | 484 | 5 | 0 | 2 | 0.819 (high) | 0.525 (medium) | yes | 15 | **REVIEW** |
+| `/hourly-maid/kolkata/` | onDemand | 474 | 5 | 0 | 2 | 0.791 (high) | 0.556 (medium) | yes | 15 | **REVIEW** |
+| `/hourly-maid/ahmedabad/` | onDemand | 442 | 5 | 0 | 1 | 0.848 (high) | 0.608 (high) | yes | 15 | **HOLD** |
 | `/hourly-cook/mumbai/` | onDemand | 537 | 6 | 0 | 1 | 0.79 (high) | 0.649 (high) | yes | 15 | **HOLD** |
 | `/hourly-cook/delhi-ncr/` | onDemand | 545 | 6 | 0 | 1 | 0.811 (high) | 0.646 (high) | yes | 15 | **HOLD** |
 | `/hourly-cook/bengaluru/` | onDemand | 501 | 6 | 0 | 1 | 0.843 (high) | 0.628 (high) | yes | 15 | **HOLD** |
@@ -197,12 +198,12 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 | `/hourly-cook/ahmedabad/` | onDemand | 475 | 6 | 0 | 1 | 0.969 (high) | 0.602 (high) | yes | 15 | **HOLD** |
 | `/hourly-babysitter/mumbai/` | onDemand | 524 | 6 | 0 | 1 | 0.782 (high) | 0.649 (high) | yes | 15 | **HOLD** |
 | `/hourly-babysitter/delhi-ncr/` | onDemand | 532 | 6 | 0 | 1 | 0.804 (high) | 0.646 (high) | yes | 15 | **HOLD** |
-| `/hourly-babysitter/bengaluru/` | onDemand | 488 | 6 | 0 | 1 | 0.836 (high) | 0.628 (high) | yes | 15 | **HOLD** |
+| `/hourly-babysitter/bengaluru/` | onDemand | 488 | 6 | 0 | 1 | 0.836 (high) | 0.635 (high) | yes | 15 | **HOLD** |
 | `/hourly-babysitter/hyderabad/` | onDemand | 490 | 6 | 0 | 1 | 0.87 (high) | 0.626 (high) | yes | 15 | **HOLD** |
-| `/hourly-babysitter/chennai/` | onDemand | 449 | 6 | 0 | 1 | 0.852 (high) | 0.592 (medium) | yes | 15 | **HOLD** |
+| `/hourly-babysitter/chennai/` | onDemand | 449 | 6 | 0 | 1 | 0.852 (high) | 0.598 (medium) | yes | 15 | **HOLD** |
 | `/hourly-babysitter/pune/` | onDemand | 462 | 6 | 0 | 1 | 0.967 (high) | 0.602 (high) | yes | 15 | **HOLD** |
 | `/hourly-babysitter/kolkata/` | onDemand | 472 | 6 | 0 | 1 | 0.875 (high) | 0.602 (high) | yes | 15 | **HOLD** |
-| `/hourly-babysitter/ahmedabad/` | onDemand | 462 | 6 | 0 | 1 | 0.967 (high) | 0.602 (high) | yes | 15 | **HOLD** |
+| `/hourly-babysitter/ahmedabad/` | onDemand | 462 | 6 | 0 | 1 | 0.967 (high) | 0.608 (high) | yes | 15 | **HOLD** |
 | `/hourly-elder-care/mumbai/` | onDemand | 595 | 6 | 0 | 2 | 0.716 (high) | 0.716 (high) | yes | 15 | **REVIEW** |
 | `/hourly-elder-care/delhi-ncr/` | onDemand | 547 | 6 | 0 | 1 | 0.812 (high) | 0.677 (high) | yes | 15 | **HOLD** |
 | `/hourly-elder-care/bengaluru/` | onDemand | 503 | 6 | 0 | 1 | 0.843 (high) | 0.661 (high) | yes | 15 | **HOLD** |

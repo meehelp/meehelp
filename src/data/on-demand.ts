@@ -7,8 +7,9 @@ import type { OnDemandContent, ServiceSlug } from "@/lib/content/types";
  *
  * Phase 4.5: copy follows how the app implements booking today
  * (src/data/evidence.ts):
- *   - one-time cleaning visits (maid) can be booked now or scheduled;
- *   - hourly bookings — cooking, baby care, elder care, patient care — are
+ *   - one-time cleaning visits (maid) can be booked now or scheduled — they
+ *     have their own page, /one-time-cleaning/ (src/data/products.ts);
+ *   - hourly bookings — cleaning, cooking, baby care, elder care, patient care — are
  *     scheduled at least 2 hours ahead (`bookNow: false`), so this copy never
  *     promises instant help for them.
  * App mechanics (durations, windows) are stated only in src/data/product-facts.ts.
@@ -21,27 +22,27 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
   maid: {
     slug: "hourly-maid",
     bookingNoun: "an hourly maid",
-    bookNow: true,
+    // One-time cleaning (the only instant flow) has its own page: /one-time-cleaning/.
+    bookNow: false,
     name: "Hourly Maid",
     shortName: "Hourly maid",
-    headline: "Book an hourly maid for cleaning at home",
+    headline: "Book a maid for a few hours of help at home",
     description: [
-      "Book a cleaner through the MeeHelp app for one visit: dishes, bathrooms, floors, dusting or laundry. Book for now, or pick a time in the next few days.",
-      "Each visit is a one-off booking with no monthly commitment. Book again whenever the house needs it.",
+      "Book household help for a few hours when the work needs more time. Choose 2 to 12 hours in the MeeHelp app for eligible household tasks, subject to helper availability near your address.",
+      "Each booking is one visit with no monthly commitment. Book again whenever the house needs it.",
     ],
     useCases: [
-      "Your regular maid is on leave and the dishes and floors are piling up.",
-      "Guests are arriving and the house needs a proper clean first.",
       "The kitchen chimney, fans or windows haven't been cleaned in months.",
-      "You're moving in or out and the flat needs a clean.",
+      "You're moving in or out and the flat needs a longer clean.",
+      "The balconies and the fridge need a thorough clean before guests arrive.",
+      "A big household job needs more time than a short cleaning visit.",
     ],
     tasksIncluded: [
+      "Deep cleaning fans, windows and balconies",
+      "Cleaning the kitchen chimney or the fridge",
       "Sweeping and mopping floors",
       "Dusting furniture and surfaces",
-      "Washing dishes and wiping kitchen counters",
       "Cleaning bathrooms and toilets",
-      "Laundry — machine or hand wash",
-      "Deep cleaning on an hourly booking: fans, windows, balconies, the chimney or the fridge",
     ],
     tasksExcluded: [
       "Bringing cleaning machines or materials — keep your own supplies ready",
@@ -54,29 +55,39 @@ export const onDemandContent: Record<ServiceSlug, OnDemandContent> = {
     ],
     faqs: [
       {
-        question: "Can I get a maid today?",
-        answer: "For a one-time clean you can book now in the app, or schedule a visit up to 5 days ahead. Whether someone can come straight away depends on who is free near you.",
+        question: "How many hours can I book a maid for?",
+        answer: "You can book 2 to 12 hours, in 2-hour steps. Later start times allow shorter bookings only.",
       },
       {
-        question: "How long is a cleaning visit?",
-        answer: "A one-time cleaning visit is 120, 150 or 180 minutes. For a bigger job, such as a deep clean, book hourly help for longer.",
+        question: "How far ahead do I need to book?",
+        answer: "Hourly bookings are scheduled at least 2 hours ahead, and up to 5 days ahead, for a start time between 7 AM and 8 PM. Whether someone can come depends on which helpers are free near your address.",
       },
       {
-        question: "Do I need to give the cleaner supplies?",
-        answer: "Yes. Cleaners don't bring machines or materials, so keep a mop, bucket, brushes and cleaning liquids ready.",
+        question: "Do I need to give the helper supplies?",
+        answer: "Yes. Helpers don't bring cleaning machines or materials, so keep a mop, bucket, brushes and cleaning liquids ready.",
+      },
+      {
+        question: "Should I book hourly help or a one-time clean?",
+        answer: "Hourly help suits bigger jobs that need more time, such as fans, windows, balconies, the chimney or the fridge. For everyday cleaning such as floors, bathrooms, dishes, dusting and laundry, a shorter one-time cleaning visit may be enough.",
       },
       {
         question: "How is this different from hiring a regular maid?",
         answer: "An hourly booking is one visit, booked and confirmed in the app. If you want the same person every day, a regular part-time maid may suit you better.",
       },
     ],
+    alternative: {
+      heading: "Only need one cleaning visit?",
+      body: "For regular household cleaning such as floors, bathrooms, dishes, dusting and laundry, you can book a shorter one-time cleaning visit instead.",
+      href: "/one-time-cleaning/",
+      label: "Book a one-time clean",
+    },
     seo: {
-      title: "Hourly Maid – Book a One-Time Clean at Home | MeeHelp",
+      title: "Hourly Maid Service – Book Help by the Hour | MeeHelp",
       description:
-        "Book an hourly maid in the MeeHelp app for dishes, bathrooms, floors or laundry — book now or schedule a visit. Keep your own cleaning supplies ready.",
+        "Book a maid by the hour through MeeHelp for larger cleaning and household jobs. Choose 2 to 12 hours in the app, subject to helper availability near you.",
     },
     publishStatus: "published",
-    updatedAt: "2026-10-17",
+    updatedAt: "2026-10-22",
   },
   cook: {
     slug: "hourly-cook",

@@ -5,6 +5,7 @@
 import { cities } from "@/data/cities";
 import { home } from "@/data/home";
 import { pricingPage } from "@/data/plans";
+import { productPath, products } from "@/data/products";
 import { localities } from "@/data/localities";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
@@ -21,6 +22,7 @@ import type {
   CitySlug,
   Locality,
   LocalityServiceContent,
+  OnDemandProduct,
   PublishStatus,
   Service,
   ServiceCity,
@@ -157,11 +159,29 @@ export function getVisibleTestimonials(stage: SiteStage = siteStage): Testimonia
   return testimonials;
 }
 
-export type RouteKind = "home" | "service" | "service-city" | "locality" | "pricing";
+export type RouteKind = "home" | "service" | "service-city" | "locality" | "pricing" | "product";
 
 /** The pricing page is held in review until prices may be shown on production. */
 export function pricingPageStatus(stage: SiteStage = siteStage): PublishStatus {
   return combineStatus(pricingPage.publishStatus, arePricesPublishable(stage) ? "published" : "review");
+}
+
+/**
+ * An on-demand product page (/one-time-cleaning/) is only as published as its
+ * own copy AND the on-demand hub of its service (which carries the model confirmation).
+ */
+export function productStatus(p: OnDemandProduct): PublishStatus {
+  const service = getService(p.service);
+  if (!service) return "draft";
+  return combineStatus(p.publishStatus, serviceHubStatus(service, p.model));
+}
+
+export function isProductBuilt(p: OnDemandProduct, stage: SiteStage = siteStage): boolean {
+  return isBuilt(productStatus(p), stage) && inStageScope(productPath(p.slug), stage);
+}
+
+export function getBuiltProducts(stage: SiteStage = siteStage): OnDemandProduct[] {
+  return products.filter((p) => isProductBuilt(p, stage));
 }
 
 /** Whether /pricing/ is built for the stage. */
@@ -205,6 +225,9 @@ export function getSiteRoutes(stage: SiteStage = siteStage): SiteRoute[] {
         updatedAt: copy.updatedAt,
       });
     }
+  }
+  for (const p of getBuiltProducts(stage)) {
+    add({ path: productPath(p.slug), kind: "product", model: p.model, ...p.seo, status: productStatus(p), updatedAt: p.updatedAt });
   }
   for (const sc of getBuiltServiceCities(stage)) {
     add({

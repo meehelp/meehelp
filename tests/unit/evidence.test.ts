@@ -12,6 +12,7 @@ import { evidence, openQuestions, serviceModelEvidence } from "@/data/evidence";
 import { home } from "@/data/home";
 import { onDemandContent } from "@/data/on-demand";
 import { productFacts } from "@/data/product-facts";
+import { products } from "@/data/products";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
 import { getServiceCityContent } from "@/lib/content";
@@ -148,7 +149,7 @@ test("no fabricated local coverage", () => {
 });
 
 test("on-demand durations, windows and booking modes match the app", () => {
-  const onDemandCopy = strings([onDemandContent, Object.values(cityFrames).map((f) => f.onDemand), productFacts.filter((f) => f.model === "onDemand")]);
+  const onDemandCopy = strings([onDemandContent, products, Object.values(cityFrames).map((f) => f.onDemand), productFacts.filter((f) => f.model === "onDemand")]);
   const allowed = { hour: new Set([2, 4, 6, 8, 10, 12]), minute: new Set([120, 150, 180]), day: new Set([5]) };
   for (const s of onDemandCopy) {
     for (const m of s.matchAll(/\b(\d+)[- ]?(hours?|minutes?|days?)\b/gi)) {
@@ -164,7 +165,9 @@ test("on-demand durations, windows and booking modes match the app", () => {
     const copy = strings([od, cityFrames[svc.slug].onDemand]);
     assert.deepEqual(copy.filter((t) => /\b(?:instant(?:ly)?|book now|right away|straight away|right now|at short notice)\b/i.test(t)), [], svc.slug);
   }
-  assert.equal(onDemandContent.maid.bookNow, true);
+  // SEO batch 1: "Book now" lives on /one-time-cleaning/ only; /hourly-maid/ is scheduled-only.
+  assert.equal(onDemandContent.maid.bookNow, false);
+  assert.deepEqual(products.filter((p) => p.bookNow).map((p) => p.slug), ["one-time-cleaning"]);
 });
 
 test("hand-written city pages exist only where they add local information", () => {

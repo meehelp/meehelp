@@ -28,7 +28,8 @@ import Testimonials from "@/components/trust/Testimonials.astro";
 import TrustMetrics from "@/components/trust/TrustMetrics.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getServiceCategories } from "@/lib/content";
+import { getBuiltProducts, getServiceCategories } from "@/lib/content";
+import { productPath } from "@/data/products";
 import { isIndexable } from "@/lib/content/publishing";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/seo/schema";
@@ -38,12 +39,15 @@ const meta = buildPageMetadata({ ...home.seo, path: "/", indexable: isIndexable(
 const hire = getServiceCategories(undefined, "marketplace");
 const book = getServiceCategories(undefined, "onDemand");
 const categories = hire.map((h, i) => ({ service: h.service, hireHref: h.href, bookHref: book[i]?.href ?? null }));
+// On-demand product pages (e.g. /one-time-cleaning/) built for this stage.
+const productLinks = getBuiltProducts().map((p) => ({ href: productPath(p.slug), label: p.shortName }));
 const activeCities = cities.filter((c) => c.marketActive === true);
 const { marketplace, onDemand } = businessModels;
 
 /**
  * Phase 4.5 linking review: the home page links to the 10 hubs (path cards
- * and category grid) and pricing. City pages are reached from their hub, so
+ * and category grid), pricing and the on-demand product pages (SEO batch 1:
+ * /one-time-cleaning/ for the one-time clean intent, /hourly-maid/ for hourly help). City pages are reached from their hub, so
  * no single category is promoted city by city from the home page.
  */
 const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPage ? [faqPageSchema(home.faqs)] : [])];
@@ -81,8 +85,13 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
             <li class="path path--alt" data-model="onDemand">
               <h2 class="path__title">{onDemand.name}</h2>
               <p>{onDemand.summary}</p>
-              {book.some((c) => c.href) ? (
-                <ul class="path__links" aria-label="Book by the hour">
+              {book.some((c) => c.href) || productLinks.length > 0 ? (
+                <ul class="path__links" aria-label="Book in the app">
+                  {productLinks.map((l) => (
+                    <li>
+                      <a href={l.href}>{l.label}</a>
+                    </li>
+                  ))}
                   {book.filter((c) => c.href).map((c) => (
                     <li>
                       <a href={c.href!}>{c.service.onDemand.shortName}</a>
@@ -150,6 +159,11 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
       <Section id="on-demand" title="How booking by the hour works" intro={onDemand.summary} model="onDemand">
         <BookingTypes />
         <Steps steps={onDemandSteps} />
+        {productLinks.map((l) => (
+          <p>
+            Only need one cleaning visit? <a href={l.href}>Book a one-time clean</a>
+          </p>
+        ))}
         <div class="cta-row">
           <Cta ctaKey="bookHourly" placement="home_on_demand" />
         </div>

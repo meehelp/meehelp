@@ -501,7 +501,8 @@
       "note": "Server text with this exact fallback; also schedule_date_time_widget.dart:321 and backend customer.php ~8013.",
       "sourceType": "codeEvidence",
       "productFacts": [
-        "o.otg.materials"
+        "o.otg.materials",
+        "o.maid.materials"
       ]
     },
     {

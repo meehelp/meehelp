@@ -17,11 +17,21 @@ export interface ProductFact {
   model: BusinessModel | "both";
   /** Omit for every service. */
   services?: ServiceSlug[];
+  /**
+   * Facts that belong to ONE product page (e.g. the one-time cleaning flow,
+   * src/data/products.ts) and not to the service's hub or city pages.
+   */
+  page?: ProductPageSlug;
 }
+
+/** Product pages that own facts of their own (src/data/products.ts). */
+export type ProductPageSlug = "one-time-cleaning";
 
 const STAFF: ServiceSlug[] = ["maid", "cook", "babysitter-nanny", "elder-care", "patient-care"];
 const CARE_HOURLY: ServiceSlug[] = ["babysitter-nanny", "elder-care", "patient-care"];
-const HOURLY_ONLY: ServiceSlug[] = ["cook", ...CARE_HOURLY];
+// Hourly bookings are scheduled for every category, including maid (biz.instant-scope);
+// the maid "Book now" flow is the one-time cleaning product page.
+const HOURLY_ONLY: ServiceSlug[] = ["maid", "cook", ...CARE_HOURLY];
 
 export const productFacts: ProductFact[] = [
   // ── Marketplace: hiring directly ──────────────────────────────────────────
@@ -115,6 +125,7 @@ export const productFacts: ProductFact[] = [
     id: "o.otg.tasks",
     model: "onDemand",
     services: ["maid"],
+    page: "one-time-cleaning",
     text: "For a one-time clean, pick at least two tasks — for example kitchen prep and cleaning, dishes, bathrooms, sweeping and mopping, dusting, or laundry. The app asks for your house size and number of bathrooms.",
     evidence: ["od.otg-tasks", "shot.otg-tasks"],
   },
@@ -122,6 +133,7 @@ export const productFacts: ProductFact[] = [
     id: "o.otg.length",
     model: "onDemand",
     services: ["maid"],
+    page: "one-time-cleaning",
     text: "Choose a 120, 150 or 180-minute visit.",
     evidence: ["od.otg-durations", "shot.otg-durations-booking"],
   },
@@ -129,6 +141,7 @@ export const productFacts: ProductFact[] = [
     id: "o.otg.when",
     model: "onDemand",
     services: ["maid"],
+    page: "one-time-cleaning",
     text: "Book now, or schedule the visit up to 5 days ahead for a start time between 7 AM and 8 PM.",
     evidence: ["od.otg-book-now", "impl.instant-scope", "biz.instant-scope", "shot.otg-durations-booking"],
   },
@@ -136,6 +149,7 @@ export const productFacts: ProductFact[] = [
     id: "o.otg.materials",
     model: "onDemand",
     services: ["maid"],
+    page: "one-time-cleaning",
     text: "Keep your mop, bucket and cleaning liquids ready: cleaners don't bring machines or materials.",
     evidence: ["od.no-materials", "shot.otg-no-materials"],
   },
@@ -143,6 +157,7 @@ export const productFacts: ProductFact[] = [
     id: "o.otg.payment",
     model: "onDemand",
     services: ["maid"],
+    page: "one-time-cleaning",
     text: "To confirm a one-time clean, you pay part of the amount online in the app. You pay the rest directly to the helper, in cash, once the job is done.",
     evidence: ["shot.otg-payment"],
   },
@@ -150,6 +165,7 @@ export const productFacts: ProductFact[] = [
     id: "o.otg.cancel",
     model: "onDemand",
     services: ["maid"],
+    page: "one-time-cleaning",
     text: "If an order cancels automatically because no helper was assigned, the online payment is refunded in full to your original payment method within 2–7 working days. Once a helper has accepted your order, cancelling is not refunded.",
     evidence: ["shot.cancellation"],
   },
@@ -157,11 +173,18 @@ export const productFacts: ProductFact[] = [
     id: "o.maid.hourly",
     model: "onDemand",
     services: ["maid"],
-    text: "For bigger jobs, book hourly help instead — 2 to 12 hours for work such as deep-cleaning fans, windows, balconies, the chimney or the fridge.",
+    text: "Hourly help suits bigger jobs — 2 to 12 hours for work such as deep-cleaning fans, windows, balconies, the chimney or the fridge.",
     evidence: ["od.hourly-tasks", "od.hourly-durations"],
   },
 
   // ── On-demand: hourly (cook and care) ─────────────────────────────────────
+  {
+    id: "o.maid.materials",
+    model: "onDemand",
+    services: ["maid"],
+    text: "Keep your mop, bucket and cleaning liquids ready: helpers don't bring cleaning machines or materials.",
+    evidence: ["od.no-materials"],
+  },
   {
     id: "o.cook.members",
     model: "onDemand",
@@ -234,7 +257,20 @@ export const productFacts: ProductFact[] = [
   },
 ];
 
-/** Facts for a service and model, in file order. */
+/** Facts for a service's hub and city pages in a model (page-scoped facts excluded). */
 export function factsFor(service: ServiceSlug, model: BusinessModel): ProductFact[] {
-  return productFacts.filter((f) => (f.model === model || f.model === "both") && (!f.services || f.services.includes(service)));
+  return productFacts.filter((f) => !f.page && (f.model === model || f.model === "both") && (!f.services || f.services.includes(service)));
+}
+
+/** Facts for a product page: its own page-scoped facts plus the shared facts listed by id, in the given order. */
+export function factsForPage(page: ProductPageSlug, sharedIds: string[] = []): ProductFact[] {
+  const own = productFacts.filter((f) => f.page === page);
+  const shared = sharedIds.map((id) => productFacts.find((f) => f.id === id && !f.page)).filter((f): f is ProductFact => Boolean(f));
+  return [...own, ...shared];
+}
+
+export function factById(id: string): ProductFact {
+  const f = productFacts.find((x) => x.id === id);
+  if (!f) throw new Error(`Unknown product fact ${id}`);
+  return f;
 }
