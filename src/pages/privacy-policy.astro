@@ -8,8 +8,10 @@ const meta = buildPageMetadata({
   title: "Privacy Policy | MeeHelp",
   description: "MeeHelp Privacy Policy covering information collection, use, disclosure, cookies, security and policy updates.",
   path: "/privacy-policy/",
-  // Legal utility page: accessible publicly but kept outside the SEO release sitemap.
+  // Legal utility page: built in every stage (footer link), kept out of search results
+  // and the sitemap, but its links are followed: "noindex, follow".
   indexable: false,
+  follow: true,
 });
 ---
 

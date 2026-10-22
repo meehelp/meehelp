@@ -71,7 +71,8 @@ const fileSet = new Set(allFiles.map((f) => "/" + relative(OUT, f).split("\\").j
 const routes = getSiteRoutes();
 const routeByPath = new Map(routes.map((r) => [r.path, r]));
 // Public utility/legal pages are intentionally outside the SEO route registry and sitemap.
-const utilityPaths = new Set(["/privacy-policy/"]);
+const { utilityPagePaths } = await import("@/lib/content/release-scope");
+const utilityPaths = new Set(utilityPagePaths);
 
 /** Generated HTML pages, as URL paths ("/maid/"). Excludes framework 404 files. */
 const pagePaths = allFiles
@@ -86,6 +87,18 @@ if (stage === "release-review") {
   for (const p of releaseReviewPaths) if (!built.has(p)) error(p, "Approved release page missing from the release-review build");
   for (const p of pagePaths) if (!utilityPaths.has(p) && !releaseReviewPaths.has(p)) error(p, "Page outside the approved release set leaked into the release-review build");
   if (releaseReviewPaths.size !== 16) error("/", `Release set must contain exactly 16 pages (has ${releaseReviewPaths.size})`);
+}
+
+// ---------- Utility pages: in every artifact, never indexed, never in the sitemap ----------
+for (const p of utilityPaths) {
+  const file = join(OUT, p, "index.html");
+  if (!existsSync(file)) {
+    error(p, "Utility page missing from the build (the footer links to it)");
+    continue;
+  }
+  const robots = parse(readFileSync(file, "utf8")).querySelector('meta[name="robots"]')?.getAttribute("content") ?? "";
+  const expected = `noindex, follow${stage === "release-review" ? ", noarchive" : ""}`;
+  if (robots !== expected) error(p, `Utility page robots must be "${expected}" (is "${robots}")`);
 }
 
 // ---------- Built pages must match the route registry exactly ----------

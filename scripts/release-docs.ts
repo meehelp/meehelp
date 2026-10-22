@@ -8,7 +8,8 @@
  *
  * The audit fails (exit 1) if a release page breaks a launch rule: duplicate
  * title/meta, not exactly one H1, wrong canonical, missing breadcrumb on an
- * inner page, Review/AggregateRating schema, or a link outside the release set.
+ * inner page, Review/AggregateRating schema, or a link outside the release set
+ * (the release pages plus the footer utility pages, which must be in the build).
  */
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -21,7 +22,7 @@ if (!process.argv.includes("--no-build")) {
 }
 
 const { firstRelease } = await import("@/data/release-plan");
-const { releaseReviewPaths } = await import("@/lib/content/release-scope");
+const { releaseReviewPaths, utilityPagePaths } = await import("@/lib/content/release-scope");
 const { getSiteRoutes } = await import("@/lib/content");
 const { buildIntentMap } = await import("@/lib/content/intent");
 const { absoluteUrl } = await import("@/lib/site");
@@ -66,6 +67,9 @@ const copy: string[] = [];
 const titles = new Map<string, string[]>();
 const metas = new Map<string, string[]>();
 
+// Footer utility pages are linked from every release page, so they must be in the build too.
+for (const path of utilityPagePaths) if (!existsSync(join(DIST, path, "index.html"))) problems.push(`${path}: utility page not built`);
+
 for (const entry of firstRelease) {
   const path = entry.path;
   const file = join(DIST, path, "index.html");
@@ -104,7 +108,7 @@ for (const entry of firstRelease) {
   if (!/noindex/.test(robots) || !/noarchive/.test(robots)) problems.push(`${path}: robots "${robots}"`);
   if (path !== "/" && !root.querySelector('nav[aria-label="Breadcrumb"], .breadcrumbs')) problems.push(`${path}: no breadcrumb`);
   if (schema.some((t) => /Review|AggregateRating/.test(t))) problems.push(`${path}: review/rating schema`);
-  for (const l of links) if (l !== "/" && !releaseReviewPaths.has(l) && !l.startsWith("/brand/") && !/\.[a-z0-9]+$/i.test(l)) problems.push(`${path}: links to ${l} (outside the release set)`);
+  for (const l of links) if (l !== "/" && !releaseReviewPaths.has(l) && !utilityPagePaths.includes(l) && !l.startsWith("/brand/") && !/\.[a-z0-9]+$/i.test(l)) problems.push(`${path}: links to ${l} (outside the release set)`);
 
   audit.push(`## \`${path}\`
 

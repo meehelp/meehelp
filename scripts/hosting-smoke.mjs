@@ -24,6 +24,11 @@ const RELEASE = [
   "/hourly-maid/", "/hourly-cook/", "/hourly-babysitter/", "/hourly-elder-care/", "/hourly-patient-care/",
   "/maid/mumbai/", "/maid/delhi-ncr/", "/cook/mumbai/", "/one-time-cleaning/",
 ];
+// Footer utility pages: part of the artifact (so the footer link resolves) but noindex, follow and never in
+// the sitemap. Copy of utilityPagePaths in src/lib/content/release-scope.ts (kept in sync by a unit test).
+const UTILITY = ["/privacy-policy/"];
+/** Every HTML page the release-review artifact must contain: the SEO release pages plus the utility pages. */
+const ARTIFACT = [...RELEASE, ...UTILITY];
 const EXCLUDED_SAMPLE = ["/maid/bengaluru/", "/hourly-maid/mumbai/", "/elder-care/pune/", "/patient-care/kolkata/", "/hourly-cook/pune/", "/maid/mumbai/andheri-west/", "/no-such-page/"];
 
 if (!process.argv.includes("--no-build")) {
@@ -80,13 +85,13 @@ const htmlPages = [];
     else if (n === "index.html") htmlPages.push("/" + f.slice(DIST.length + 1).replace(/index\.html$/, ""));
   }
 })(DIST);
-check(JSON.stringify(htmlPages.map((p) => p.replace(/^\/\//, "/")).sort()) === JSON.stringify([...RELEASE].sort()), `dist pages ≠ the 16 release pages: ${htmlPages.sort().join(", ")}`);
+check(JSON.stringify(htmlPages.map((p) => p.replace(/^\/\//, "/")).sort()) === JSON.stringify([...ARTIFACT].sort()), `dist pages ≠ the ${RELEASE.length} release pages + ${UTILITY.length} utility page(s): ${htmlPages.sort().join(", ")}`);
 const jsFiles = execSync(`find "${DIST}" -name "*.js" -o -name "*.mjs"`).toString().trim();
 check(jsFiles === "", `JavaScript files in dist: ${jsFiles}`);
 
 // ---------- Routes ----------
 const assetRefs = new Set();
-for (const p of RELEASE) {
+for (const p of ARTIFACT) {
   const r = await get(p);
   check(r.status === 200, `${p} → ${r.status}`);
   const html = await r.text();
@@ -95,13 +100,14 @@ for (const p of RELEASE) {
   check(!r.headers.get("x-robots-tag"), `${p}: X-Robots-Tag must apply to *.vercel.app hosts only`);
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   check(canonical === `https://meehelp.in${p}`, `${p} canonical ${canonical}`);
-  check(/<meta name="robots" content="noindex, nofollow, noarchive"/.test(html), `${p} robots meta`);
+  const expectedRobots = UTILITY.includes(p) ? "noindex, follow, noarchive" : "noindex, nofollow, noarchive";
+  check(html.includes(`<meta name="robots" content="${expectedRobots}"`), `${p} robots meta (expected "${expectedRobots}")`);
   check(!/vercel\.app|vercel\.com/i.test(html), `${p} mentions a Vercel hostname`);
   for (const m of html.matchAll(/(?:src|href)="(\/[^"#?]*\.(?:png|ttf|svg|ico|webmanifest|json|txt|xml))"/g)) assetRefs.add(m[1]);
   for (const m of html.matchAll(/url\((\/[^)]+)\)/g)) assetRefs.add(m[1]);
   for (const m of html.matchAll(/href="(\/[^"#?]*)"/g)) {
     const t = m[1];
-    if (!extname(t)) check(RELEASE.includes(t), `${p} links to ${t} (not in the release build)`);
+    if (!extname(t)) check(ARTIFACT.includes(t), `${p} links to ${t} (not in the release build)`);
   }
   for (const m of html.matchAll(/href="(https:\/\/(?:play\.google\.com|apps\.apple\.com)[^"]*)"/g)) {
     const u = m[1].replace(/&amp;/g, "&");
@@ -153,7 +159,7 @@ let browserChecked = 0;
 try {
   const { chromium } = await import("/opt/node22/lib/node_modules/playwright/index.mjs").catch(() => import("playwright"));
   const browser = await chromium.launch();
-  for (const p of RELEASE) {
+  for (const p of ARTIFACT) {
     const page = await browser.newPage();
     const errors = [];
     page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
@@ -184,7 +190,7 @@ try {
 }
 
 server.close();
-console.log(`hosting smoke: ${RELEASE.length} pages, ${assetRefs.size} assets, ${EXCLUDED_SAMPLE.length} excluded paths, ${browserChecked} pages in Chromium`);
+console.log(`hosting smoke: ${RELEASE.length} release + ${UTILITY.length} utility pages, ${assetRefs.size} assets, ${EXCLUDED_SAMPLE.length} excluded paths, ${browserChecked} pages in Chromium`);
 if (failures.length) {
   for (const f of failures) console.log(`✗ ${f}`);
   process.exit(1);

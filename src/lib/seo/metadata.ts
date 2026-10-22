@@ -40,17 +40,19 @@ interface PageMetaInput {
   description: string;
   path: string;
   indexable: boolean;
+  /** For a noindex page whose links should still be followed (utility pages such as /privacy-policy/). */
+  follow?: boolean;
 }
 
 /** Builds complete per-page metadata: title, description, canonical, robots, Open Graph and Twitter. */
-export function buildPageMetadata({ title, description, path, indexable }: PageMetaInput): PageMeta {
+export function buildPageMetadata({ title, description, path, indexable, follow = false }: PageMetaInput): PageMeta {
   const url = absoluteUrl(path);
   const image = { ...defaultOgImage, url: `${siteUrl}${defaultOgImage.url}` };
   return {
     title,
     description,
     canonical: url,
-    robots: indexable ? "index, follow" : `noindex, nofollow${noArchive}`,
+    robots: indexable ? "index, follow" : `noindex, ${follow ? "follow" : "nofollow"}${noArchive}`,
     googlebot: indexable ? "index, follow, max-image-preview:large" : null,
     openGraph: { type: "website", locale: "en_IN", siteName: business.brandName, url, title, description, image },
     twitter: { card: "summary_large_image", title, description, image: image.url },

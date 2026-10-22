@@ -38,7 +38,7 @@ Requires Node.js ≥ 22.22.0 (an Astro 7 requirement).
 |---|---|---|---|---|
 | `development` (default) | everything (except unpublished localities) | no | `Disallow: /` | empty |
 | `preview` | `published` + `review` | no | `Disallow: /` | empty |
-| `release-review` | exactly the 16 approved first-release pages (`src/data/release-plan.ts`) + 404 | no (`noindex, nofollow, noarchive`) | `Disallow: /` | empty |
+| `release-review` | exactly the 16 approved first-release pages (`src/data/release-plan.ts`) + `/privacy-policy/` (noindex, follow) + 404 | no (`noindex, nofollow, noarchive`) | `Disallow: /` | empty |
 | `production` | `published` only | yes | `Allow: /` + sitemap | published URLs |
 
 `SITE_URL` sets the canonical origin (default `https://meehelp.in`). Variable names are in
