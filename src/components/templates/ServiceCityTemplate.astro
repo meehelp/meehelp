@@ -1,22 +1,27 @@
 ---
-/** Service × city — a MARKETPLACE page (on-demand city pages will use their own route). */
+/**
+ * Marketplace service × city page (/maid/mumbai/). The substance is the
+ * city-specific material (local notes, requirements, FAQs); shared
+ * explanations stay brief and link to the service hub.
+ */
 import { schemaSettings } from "@/data/business";
 import { marketplaceSteps } from "@/data/how-it-works";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
 import BulletList from "@/components/content/BulletList.astro";
-import CheckList from "@/components/content/CheckList.astro";
+import CrossLink from "@/components/content/CrossLink.astro";
 import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
 import LinkList from "@/components/content/LinkList.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import { factsFor } from "@/data/product-facts";
 import Section from "@/components/content/Section.astro";
-import Steps from "@/components/content/Steps.astro";
+import StepsInline from "@/components/content/StepsInline.astro";
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
-import PlansSummary from "@/components/pricing/PlansSummary.astro";
+import PlansLine from "@/components/pricing/PlansLine.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
-import Safeguards from "@/components/trust/Safeguards.astro";
-import Testimonials from "@/components/trust/Testimonials.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
-import { cityName, getBuiltServiceCities, getService } from "@/lib/content";
+import { cityName, getBuiltSalaryGuides, getBuiltServiceCities, getService, getServiceCity, isServiceCityBuilt } from "@/lib/content";
+import { salaryGuidePath } from "@/lib/content/salary-guides";
 import { serviceCityPath, servicePath } from "@/lib/content/paths";
 import type { ResolvedRoute } from "@/lib/content/resolve";
 import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
@@ -25,18 +30,24 @@ interface Props {
   route: Extract<ResolvedRoute, { kind: "service-city" }>;
 }
 
-const { page, service, city } = Astro.props.route;
+const { page, service, city, content } = Astro.props.route;
 const path = serviceCityPath(page.service, page.city);
-const built = getBuiltServiceCities();
+const built = getBuiltServiceCities(undefined, "marketplace");
 const otherServicesHere = built.filter((sc) => sc.city === city.slug && sc.service !== service.slug);
 const sameServiceElsewhere = built.filter((sc) => sc.service === service.slug && sc.city !== city.slug);
+const counterpart = getServiceCity(service.slug, city.slug, "onDemand");
+const counterpartBuilt = counterpart ? isServiceCityBuilt(counterpart) : false;
 const placement = `${service.slug}_${city.slug}`;
-const availability = city.availability[service.slug][page.model];
+// Salary guide for this service and city (e.g. /maid-salary/mumbai/), linked when built.
+const salaryGuide = getBuiltSalaryGuides().find((g) => g.service === service.slug && g.city === city.slug);
+const facts = factsFor(service.slug, "marketplace");
+const keyFacts = facts.filter((f) => ["m.hours", "m.contact"].includes(f.id));
+const coverage = facts.filter((f) => f.id === "b.coverage");
 const schema = [
   ...(schemaSettings.service
-    ? [serviceSchema({ service, path, city, name: `${service.name} in ${city.name}`, description: page.seo.description })]
+    ? [serviceSchema({ service, path, city, name: `${service.name} in ${city.name}`, description: content.seo.description })]
     : []),
-  ...(schemaSettings.faqPage ? [faqPageSchema(page.localFaqs)] : []),
+  ...(schemaSettings.faqPage ? [faqPageSchema(content.localFaqs)] : []),
 ];
 ---
 
@@ -53,9 +64,8 @@ const schema = [
   <section class="hero hero--compact">
     <div class="container">
       <p class="eyebrow">{service.name} · {city.displayName}</p>
-      <h1>{page.localHeadline}</h1>
-      {page.localIntroduction.map((para) => <p class="lead">{para}</p>)}
-      {availability === "limited" ? <p class="availability">Helpers are available in some parts of {city.name}.</p> : null}
+      <h1>{content.headline}</h1>
+      {content.introduction.map((para) => <p class="lead">{para}</p>)}
       <div class="cta-row">
         <Cta ctaKey="findService" role={service.roleWithArticle} placement={`${placement}_hero`} />
         <a class="text-link" href="#plans">See plans</a>
@@ -63,59 +73,78 @@ const schema = [
     </div>
   </section>
 
+  <Section id="local-info" title={`Hiring in ${city.name}: good to know`} tone="warm">
+    <ProductFacts facts={coverage} />
+    {content.localNotes.length > 0 ? <BulletList items={content.localNotes} /> : null}
+  </Section>
+
   <Section id="requirements" title={`What ${city.name} households usually ask for`}>
-    <BulletList items={page.commonRequirements} />
+    <BulletList items={content.points} />
+    <p class="note">
+      For what {service.roleWithArticle} usually does and doesn't do, see <a href={servicePath(service.slug)}>{service.name.toLowerCase()}</a>.
+    </p>
+    {
+      salaryGuide ? (
+        <p class="note">
+          Wondering what to pay? <a href={salaryGuidePath(salaryGuide)}>See our {city.name} {service.shortName.toLowerCase()} salary guide</a>.
+        </p>
+      ) : null
+    }
   </Section>
 
   {
-    page.areasServed.length > 0 ? (
+    content.areasServed.length > 0 ? (
       <Section id="areas" title={`Areas in ${city.displayName}`} tone="tint">
-        <BulletList items={page.areasServed} />
+        <BulletList items={content.areasServed} />
       </Section>
     ) : null
   }
 
-  <Section id="tasks" title="What's usually included" tone="tint">
-    <CheckList items={service.tasksIncluded} />
-    <p class="note">
-      See the full list on our <a href={servicePath(service.slug)}>{service.name.toLowerCase()} page</a>.
-    </p>
+  <Section id="how-it-works" title="How direct hiring works" tone="tint">
+    {keyFacts.length > 0 ? <ProductFacts facts={keyFacts} /> : null}
+    <StepsInline
+      steps={marketplaceSteps}
+      moreHref={`${servicePath(service.slug)}#how-it-works`}
+      moreLabel={`How hiring ${service.roleWithArticle} works, step by step`}
+    />
   </Section>
 
-  <Section id="local-info" title={`Hiring in ${city.name}: good to know`} tone="warm">
-    <BulletList items={city.localInformation} />
+  <Section id="plans" title="Plans for contacting helpers">
+    <PlansLine fallbackHref={`${servicePath(service.slug)}#plans`} />
   </Section>
 
-  <Section id="how-it-works" title="How to find and hire on MeeHelp">
-    <Steps steps={marketplaceSteps} />
+  <Section id="verification" title="Helper verification" tone="tint">
+    <VerificationSummary compact />
   </Section>
-
-  <Section id="plans" title="Plans for contacting helpers" tone="tint">
-    <PlansSummary placement={`${placement}_plans`} />
-  </Section>
-
-  <Section id="hiring-safely" title="Hiring safely">
-    <VerificationSummary />
-    <h3>Tips for hiring</h3>
-    <Safeguards extra={service.safeguards} />
-  </Section>
-
-  <Testimonials service={service.slug} model="marketplace" />
 
   <Section id="faqs" title={`${service.shortName} in ${city.name}: frequently asked questions`}>
-    <FaqList faqs={page.localFaqs} />
+    <FaqList faqs={content.localFaqs} />
   </Section>
+</div>
 
+{
+  counterpartBuilt ? (
+    <CrossLink
+      targetModel="onDemand"
+      href={serviceCityPath(service.slug, city.slug, "onDemand")}
+      heading={`Need help in ${city.name} for just a few hours?`}
+      body={`You can also book ${service.onDemand.bookingNoun} in ${city.name} through the MeeHelp app${service.onDemand.bookNow ? " — now or for a scheduled time" : " for a scheduled time"}.`}
+      label={`${service.onDemand.shortName} in ${city.name}`}
+    />
+  ) : null
+}
+
+<div data-model="marketplace">
   <AppDownloadSection
     model="marketplace"
     placement={`${placement}_app_section`}
-    title={page.localCta.heading}
-    body={page.localCta.body}
+    title={content.localCta.heading}
+    body={content.localCta.body}
   />
 
   {
     otherServicesHere.length > 0 || sameServiceElsewhere.length > 0 ? (
-      <Section id="related" title="Related pages">
+      <Section id="related" title="Related pages" boilerplate>
         <div class="two-col">
           {otherServicesHere.length > 0 ? (
             <div>

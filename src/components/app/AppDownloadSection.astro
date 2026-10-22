@@ -23,7 +23,7 @@ const defaultBody = {
 const { title = "Get the MeeHelp app", body, model, placement } = Astro.props;
 ---
 
-<Section id="get-the-app" title={title} tone="tint" model={model === "both" ? undefined : model}>
+<Section id="get-the-app" title={title} tone="tint" model={model === "both" ? undefined : model} boilerplate>
   <div class="app-download">
     <div class="app-download__copy">
       <p class="lead">{body ?? defaultBody[model]}</p>

@@ -9,6 +9,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import config from "../../astro.config.mjs";
 import { getSiteRoutes } from "@/lib/content";
+import { firstRelease } from "@/data/release-plan";
 import { getServiceRouteParams, resolveRoute } from "@/lib/content/resolve";
 
 function walk(dir: string, out: string[] = []): string[] {
@@ -79,9 +80,10 @@ test("getStaticPaths params round-trip to the same routes", () => {
   }
 });
 
-// Locks the CURRENT publishing state. Update deliberately when the business confirms
-// marketplace support or availability — it must never change as a side effect.
-test("production builds only the home page while business facts are unconfirmed", () => {
-  assert.deepEqual(getServiceRouteParams("production"), []);
-  assert.deepEqual(getSiteRoutes("production").map((r) => r.path), ["/"]);
+// Locks the business-approved first public release. It must never expand as a side effect.
+test("production builds exactly the approved first-release routes", () => {
+  const approved = firstRelease.map((r) => r.path).sort();
+  assert.deepEqual(getSiteRoutes("production").map((r) => r.path).sort(), approved);
+  const params = getServiceRouteParams("production").map((p) => `/${[p.service, ...p.rest].join("/")}/`).sort();
+  assert.deepEqual(params, approved.filter((p) => p !== "/"));
 });

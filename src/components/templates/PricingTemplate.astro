@@ -1,23 +1,27 @@
 ---
 /**
- * Marketplace plans for all three segments. The only page that shows Office
- * and Business plans. Held in review until prices may be shown on production
- * (see src/data/plans.ts — the meaning of the app's "*" is unconfirmed).
+ * Marketplace plans for all three segments — the only page that shows
+ * Office and Business plans. Prices come from src/data/plans.ts, with no
+ * asterisk and no tax wording.
  */
 import { marketplaceSteps } from "@/data/how-it-works";
 import { pricingPage } from "@/data/plans";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import BulletList from "@/components/content/BulletList.astro";
 import Cta from "@/components/content/Cta.astro";
+import FaqList from "@/components/content/FaqList.astro";
 import Section from "@/components/content/Section.astro";
 import Steps from "@/components/content/Steps.astro";
 import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
 import PlanCards from "@/components/pricing/PlanCards.astro";
-import PlansSummary from "@/components/pricing/PlansSummary.astro";
 import Claims from "@/components/trust/Claims.astro";
+import { getServiceCategories } from "@/lib/content";
 import { pricingPath } from "@/lib/content/paths";
 import { getSegments } from "@/lib/pricing";
 
-const b2b = getSegments("b2b");
+const segments = getSegments();
+/** Contextual links back to the marketplace hubs a contact plan is used on (built pages only). */
+const hubs = getServiceCategories(undefined, "marketplace").filter((c) => c.href);
 ---
 
 <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Plans", path: pricingPath }]} />
@@ -32,21 +36,48 @@ const b2b = getSegments("b2b");
     </div>
   </section>
 
-  <Section id="home-plans" title="Home plans" intro="For households hiring help at home." tone="tint">
+  <Section id="what-is-a-contact" title="What a contact is">
+    <BulletList items={pricingPage.whatIsAContact} />
     <Claims model="marketplace" />
-    <PlansSummary placement="pricing_home" linkToAllPlans={false} />
   </Section>
 
   {
-    b2b.map((segment) => (
-      <Section id={`${segment.id}-plans`} title={`${segment.name} plans`} intro={segment.description}>
+    segments.map((segment, i) => (
+      <Section
+        id={`${segment.id}-plans`}
+        title={`${segment.name} plans`}
+        intro={pricingPage.segmentIntros[segment.id]}
+        tone={segment.id === "home" ? "warm" : i % 2 === 0 ? "tint" : "plain"}
+        eyebrow={segment.id === "home" ? "For households" : "For offices and businesses"}
+      >
         <PlanCards segment={segment.id} placement={`pricing_${segment.id}`} />
       </Section>
     ))
   }
 
+  {
+    hubs.length > 0 ? (
+      <Section id="what-plans-are-for" title="What you can use a plan for">
+        <p>
+          One plan covers every kind of helper. Use your contacts to find{" "}
+          {hubs.map((c, i) => (
+            <>
+              <a href={c.href!}>{c.service.roleWithArticle}</a>
+              {i < hubs.length - 2 ? ", " : i === hubs.length - 2 ? " or " : ""}
+            </>
+          ))}
+          , and mix them as you like.
+        </p>
+      </Section>
+    ) : null
+  }
+
   <Section id="how-it-works" title="How contact plans work" tone="warm">
     <Steps steps={marketplaceSteps} />
+  </Section>
+
+  <Section id="faqs" title="Plans: frequently asked questions">
+    <FaqList faqs={pricingPage.faqs} />
   </Section>
 
   <AppDownloadSection model="marketplace" placement="pricing_app_section" title="Choose a plan in the MeeHelp app" />

@@ -1,21 +1,34 @@
 import type { Availability, BusinessModel, City, ServiceSlug } from "@/lib/content/types";
 
 /**
- * Target metros. All eight are confirmed commercially active markets
- * (`marketActive: true`), but availability of each SERVICE for each BUSINESS
- * MODEL is not confirmed yet ("unknown"). A service-city page can only be
- * published when its availability for that model is "available" or "limited".
+ * The eight active metros. CONFIRMED in the Phase 4 brief (2026-10-17):
+ * every service is available in every listed city for BOTH the marketplace
+ * and on-demand models. This is city-level availability — it is never a claim
+ * that a particular locality is served.
  *
- * City copy is in "review" until approved.
+ * `facts` (Phase 4.5): ONLY local context that changes a hiring or booking
+ * decision — society/gate access, housing types that change the hours you
+ * need, distances that make the app's distance sort matter, buildings without
+ * lifts for care. Weather, festivals, cuisine, languages and police processes
+ * were removed: they made pages look different without helping the customer
+ * (tests block them). Facts are tagged by service and model; they must never
+ * contain statistics, demand figures, helper counts, response times or claims
+ * that a locality is served. A city with little relevant context simply has
+ * a shorter page — and the quality report says so.
+ *
+ * Mumbai and Delhi NCR are approved as parent cities for the first release; other city copy stays in review.
  */
-const unknownForBothModels: Record<BusinessModel, Availability> = { marketplace: "unknown", onDemand: "unknown" };
-const unconfirmed = (): Record<ServiceSlug, Record<BusinessModel, Availability>> => ({
-  maid: { ...unknownForBothModels },
-  cook: { ...unknownForBothModels },
-  "babysitter-nanny": { ...unknownForBothModels },
-  "elder-care": { ...unknownForBothModels },
-  "patient-care": { ...unknownForBothModels },
+const availableForBothModels: Record<BusinessModel, Availability> = { marketplace: "available", onDemand: "available" };
+const allServicesAvailable = (): Record<ServiceSlug, Record<BusinessModel, Availability>> => ({
+  maid: { ...availableForBothModels },
+  cook: { ...availableForBothModels },
+  "babysitter-nanny": { ...availableForBothModels },
+  "elder-care": { ...availableForBothModels },
+  "patient-care": { ...availableForBothModels },
 });
+
+const M: BusinessModel[] = ["marketplace"];
+const O: BusinessModel[] = ["onDemand"];
 
 export const cities: City[] = [
   {
@@ -25,34 +38,37 @@ export const cities: City[] = [
     displayName: "Mumbai & MMR",
     includes: ["Thane", "Navi Mumbai"],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "In Mumbai, part-time house help often works in several homes in the same building or neighbourhood, so a helper's timings matter as much as their skills.",
-      "Across the Mumbai Metropolitan Region — the island city, the western and central suburbs, Thane and Navi Mumbai — finding someone who lives close by usually makes the arrangement more dependable.",
-    ],
-    localInformation: [
-      "Many housing societies register domestic staff at the gate, and some ask for police verification before issuing an entry pass.",
-      "Heavy monsoon rain can disrupt local trains and roads. Agree in advance what happens on days when travel isn't possible.",
-      "Flats are often compact, so be specific about the size of your home — a 1 BHK may need far fewer hours than you expect.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Mumbai, Thane and Navi Mumbai" },
+    facts: [
+      { models: M, text: "Most housing societies register household staff at the gate before they start. Ask your society office what it needs — usually a photo ID — so the helper isn't turned away on day one." },
+      { models: O, text: "For a single visit, many societies log the helper as a visitor or through a visitor-management app. Approve the entry before the booked time so the helper isn't held at the gate." },
+      { services: ["maid"], text: "Flats are often compact, so say exactly how many rooms and bathrooms there are — a 1 BHK needs far less time than you might expect, and the hours you choose depend on it." },
+      { services: ["maid", "cook", "babysitter-nanny", "patient-care"], models: M, text: "Thane, Navi Mumbai and the island city are a long commute apart. The app shows each helper's distance in km — sort by distance so the person you hire lives close enough to arrive on time." },
+      { services: ["elder-care", "patient-care"], text: "Many older buildings have no lift. If the person being cared for lives on an upper floor, tell the attendant whether they'll need to help with stairs." },
     ],
     faqs: [
       {
-        question: "Can I find help in Thane or Navi Mumbai as well?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you. Availability depends on your exact location.",
+        models: M,
+        question: "Does my society need to register my helper?",
+        answer: "Most Mumbai societies do. Ask the society office what it needs — usually a photo ID — before the helper's first day.",
       },
       {
-        question: "Does my society need to register my helper?",
-        answer:
-          "Many Mumbai societies do. Ask your society office what they need — usually a photo ID and sometimes a police verification form — before the helper's first day.",
+        models: O,
+        question: "Do I need to tell my society about a one-time booking?",
+        answer: "It helps. Many societies log visiting helpers at the gate or through a visitor-management app, so approve the entry before the booked time.",
+      },
+      {
+        services: ["elder-care", "patient-care"],
+        question: "What if there is no lift in our building?",
+        answer: "Tell the attendant before they start, so they know whether they'll need to help with stairs on outings or appointments.",
       },
     ],
     seo: {
       title: "Domestic Help in Mumbai – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help in Mumbai, Thane and Navi Mumbai: maids, cooks, nannies, elder care and patient attendants near you, through the MeeHelp app.",
+      description: "Find house help in Mumbai, Thane and Navi Mumbai: maids, cooks, nannies, elder care and patient attendants near you, through the MeeHelp app.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   {
@@ -62,34 +78,31 @@ export const cities: City[] = [
     displayName: "Delhi NCR",
     includes: ["Delhi", "Gurugram", "Noida", "Ghaziabad", "Faridabad"],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "Delhi NCR spans Delhi, Gurugram, Noida, Ghaziabad and Faridabad, and homes range from independent floors to large gated societies.",
-      "Because requirements vary so much, it helps to be precise about the size of your home, the tasks you need and the hours that suit you.",
-    ],
-    localInformation: [
-      "Delhi Police and police in neighbouring NCR districts offer verification for domestic workers, and many RWAs and societies expect it.",
-      "Summer heat and winter fog can affect travel. Agree timings that work across seasons.",
-      "Gated societies in Gurugram and Noida usually issue staff passes through the society office or a visitor-management app.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Delhi, Gurugram and Noida" },
+    facts: [
+      { models: M, text: "RWAs and gated societies usually issue a pass for household staff. Check what your RWA or society office needs before the helper starts." },
+      { models: O, text: "Gated societies in Gurugram and Noida usually log visiting helpers at the gate or through a visitor-management app. Approve the entry before the booked time." },
+      { services: ["maid"], text: "Homes range from compact flats to independent floors on several storeys. Count the floors, rooms, bathrooms and terraces — it decides how many hours of help you need." },
+      { services: ["maid", "cook", "babysitter-nanny", "patient-care"], models: M, text: "Delhi, Gurugram and Noida are far apart. The app shows each helper's distance in km, so sort by distance and shortlist people who live near your sector." },
     ],
     faqs: [
       {
-        question: "Can I find help in Gurugram and Noida?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you. Availability depends on your exact location.",
+        services: ["maid"],
+        question: "Can a maid clean a multi-storey independent floor?",
+        answer: "Yes, but it takes longer than a flat. Say how many floors, rooms and bathrooms there are, and choose the hours to match.",
       },
       {
-        question: "How do I get police verification for my helper in Delhi?",
-        answer:
-          "Delhi Police offers domestic help verification, including online. Neighbouring districts have their own processes. Your RWA or society office can usually tell you what they need.",
+        models: O,
+        question: "Will a visiting helper be allowed into my society?",
+        answer: "Most gated societies in Gurugram and Noida log visitors at the gate or through an app. Approve the entry before the booked time so the helper isn't held up.",
       },
     ],
     seo: {
       title: "Domestic Help in Delhi NCR – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help across Delhi, Gurugram, Noida, Ghaziabad and Faridabad — maids, cooks, nannies, elder care and patient attendants, via MeeHelp.",
+      description: "Find house help across Delhi, Gurugram, Noida, Ghaziabad and Faridabad — maids, cooks, nannies, elder care and patient attendants, via MeeHelp.",
     },
-    publishStatus: "review",
+    publishStatus: "published",
     updatedAt: "2026-10-17",
   },
   {
@@ -99,32 +112,23 @@ export const cities: City[] = [
     displayName: "Bengaluru",
     includes: [],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "Many Bengaluru homes have two working adults with long or flexible hours, so help in the early morning and evening is often what families need most.",
-      "With heavy traffic between neighbourhoods, a helper who lives nearby is usually more dependable than one travelling across the city.",
-    ],
-    localInformation: [
-      "Kannada, Tamil, Telugu, Hindi and English are all widely spoken. Check language when you speak to helpers.",
-      "Apartment complexes typically register household staff at security and may ask for a photo ID.",
-      "If you work flexible hours, agree a fixed daily window so the helper can plan work in other homes around it.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Bengaluru" },
+    facts: [
+      { models: M, text: "Apartment complexes typically register household staff at security and may ask for a photo ID." },
+      { models: O, text: "Most apartment complexes log visiting helpers at security or through an app. Approve the entry before the booked time." },
+      { services: ["maid", "cook", "babysitter-nanny", "patient-care"], models: M, text: "Peak-hour traffic makes even short distances slow. The app shows each helper's distance in km — someone who lives nearby is far more likely to arrive on time every day." },
     ],
     faqs: [
       {
-        question: "Can I ask for a helper who speaks a particular language?",
-        answer:
-          "Yes. Look for it in helper profiles and confirm it when you speak to the helper.",
-      },
-      {
-        question: "Is MeeHelp available in my part of Bengaluru?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you.",
+        models: O,
+        question: "Will security let a visiting helper into my apartment complex?",
+        answer: "Most complexes log visitors at security or through an app. Approve the entry in advance so the helper isn't held at the gate.",
       },
     ],
     seo: {
       title: "Domestic Help in Bengaluru – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help in Bengaluru — maids, cooks, nannies, elder care and patient care attendants who live near you. Connect through the MeeHelp app.",
+      description: "Find house help in Bengaluru — maids, cooks, nannies, elder care and patient care attendants who live near you. Connect through the MeeHelp app.",
     },
     publishStatus: "review",
     updatedAt: "2026-10-17",
@@ -136,32 +140,23 @@ export const cities: City[] = [
     displayName: "Hyderabad",
     includes: ["Secunderabad"],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "Hyderabad's homes range from gated communities in the western IT corridor to older neighbourhoods in the heart of the city, and household routines vary just as much.",
-      "Being clear about your timings, food preferences and the size of your home helps you find someone who fits.",
-    ],
-    localInformation: [
-      "Telugu, Hindi, Urdu and English are commonly spoken. Mention any language preference.",
-      "Gated communities usually register household staff and may issue ID cards or app-based passes.",
-      "Summers are hot. Agree timings, breaks and drinking water for anyone working long hours.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Hyderabad and Secunderabad" },
+    facts: [
+      { models: M, text: "Gated communities usually register household staff and may issue ID cards or app-based passes." },
+      { models: O, text: "Gated communities usually log visiting helpers through the gate or an app. Approve the entry before the booked time." },
+      { services: ["maid"], text: "Homes range from large gated-community flats to older independent houses. Describe the size and layout of your home when you choose the hours." },
     ],
     faqs: [
       {
-        question: "Can I find a cook for Hyderabadi or Andhra-style food?",
-        answer:
-          "Tell cooks the cuisine you want when you speak to them, and call them for a trial before agreeing to a longer arrangement.",
-      },
-      {
-        question: "Does MeeHelp cover Secunderabad?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you.",
+        models: O,
+        question: "Will a visiting helper be let into my gated community?",
+        answer: "Most gated communities log visitors at the gate or through an app. Approve the entry before the booked time.",
       },
     ],
     seo: {
       title: "Domestic Help in Hyderabad – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help in Hyderabad and Secunderabad — maids, cooks, nannies, elder care and patient attendants near you, through the MeeHelp app.",
+      description: "Find house help in Hyderabad and Secunderabad — maids, cooks, nannies, elder care and patient attendants near you, through the MeeHelp app.",
     },
     publishStatus: "review",
     updatedAt: "2026-10-17",
@@ -173,32 +168,16 @@ export const cities: City[] = [
     displayName: "Chennai",
     includes: [],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "In Chennai, many families look for help that fits a traditional daily rhythm — an early start in the kitchen, and cleaning done before the heat of the day.",
-      "Be specific about your timings and food preferences to find a helper who fits your household.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Chennai" },
+    facts: [
+      { models: M, text: "Apartment associations often keep a register of household staff, and some ask for a photo ID." },
+      { models: O, text: "Apartment security often logs visiting helpers. Approve the entry before the booked time." },
     ],
-    localInformation: [
-      "Tamil is the main language for most household staff. Mention if you need someone who also speaks English or Hindi.",
-      "Many families want South Indian vegetarian cooking. Specify the dishes and style you are used to.",
-      "During the north-east monsoon, flooding can disrupt travel in some areas. Agree a plan for those days.",
-    ],
-    faqs: [
-      {
-        question: "Can I find a cook for South Indian vegetarian food?",
-        answer:
-          "Tell cooks the dishes and style you want when you speak to them, and call them for a trial before agreeing to a longer arrangement.",
-      },
-      {
-        question: "Is MeeHelp available in my area of Chennai?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you.",
-      },
-    ],
+    faqs: [],
     seo: {
       title: "Domestic Help in Chennai – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help in Chennai — maids, cooks for South Indian meals, nannies, elder care and patient care attendants near you, through MeeHelp.",
+      description: "Find house help in Chennai — maids, cooks for South Indian meals, nannies, elder care and patient care attendants near you, through MeeHelp.",
     },
     publishStatus: "review",
     updatedAt: "2026-10-17",
@@ -210,32 +189,31 @@ export const cities: City[] = [
     displayName: "Pune",
     includes: ["Pimpri-Chinchwad"],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "Pune's households include young professionals sharing flats, families in large housing societies, and parents who have moved to be near their children.",
-      "Whether you need a few hours of cleaning or full-day care for a parent, start by being clear about the tasks and timings.",
-    ],
-    localInformation: [
-      "If you share a flat, agree between flatmates how tasks and payments will be split before hiring.",
-      "Large societies, especially in newer areas, usually register household staff at the gate.",
-      "Marathi and Hindi are the most common languages among household staff.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Pune and Pimpri-Chinchwad" },
+    facts: [
+      { models: M, text: "Large housing societies, especially in newer areas, usually register household staff at the gate." },
+      { models: O, text: "Housing societies usually log visiting helpers at the gate or through an app. Approve the entry before the booked time." },
+      { services: ["maid"], models: M, text: "If you share a flat, agree between flatmates who the main contact is and how the helper's salary will be split." },
+      { services: ["maid"], models: O, text: "Shared flats often book a one-time clean between tenants or when someone moves out." },
     ],
     faqs: [
       {
+        services: ["maid"],
+        models: M,
         question: "Can flatmates hire one helper together?",
-        answer:
-          "Yes. Agree among yourselves who the main contact is and how the salary will be split before you speak to helpers.",
+        answer: "Yes. Agree who the helper's main contact is, the tasks for each room and how the salary is split before the helper starts.",
       },
       {
-        question: "Does MeeHelp cover Pimpri-Chinchwad?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you.",
+        services: ["maid"],
+        models: O,
+        question: "Can I book a clean when moving out of a flat?",
+        answer: "Yes. Book a one-time clean and choose the tasks. Remember that cleaners don't bring machines or materials.",
       },
     ],
     seo: {
       title: "Domestic Help in Pune – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help in Pune and Pimpri-Chinchwad — maids, cooks, nannies, elder care and patient attendants near you, through the MeeHelp app.",
+      description: "Find house help in Pune and Pimpri-Chinchwad — maids, cooks, nannies, elder care and patient attendants near you, through the MeeHelp app.",
     },
     publishStatus: "review",
     updatedAt: "2026-10-17",
@@ -247,32 +225,18 @@ export const cities: City[] = [
     displayName: "Kolkata",
     includes: ["Salt Lake", "New Town"],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "Many Kolkata homes include elderly family members, and families often look for help that covers both daily care and cooking.",
-      "Being clear about who needs care, and which meals you need, helps you find the right person.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Kolkata, Salt Lake and New Town" },
+    facts: [
+      { models: M, text: "Apartment buildings and housing complexes often register household staff and may ask for a photo ID." },
+      { models: O, text: "Apartment complexes often log visiting helpers at the gate. Approve the entry before the booked time." },
+      { services: ["maid"], text: "Many older houses and flats have high ceilings and large rooms. Describe your home so you choose enough hours for the work." },
+      { services: ["elder-care", "patient-care"], text: "Many older houses have steep stairs and no lift. If the person being cared for is on an upper floor, tell the attendant whether they'll need to help with stairs." },
     ],
-    localInformation: [
-      "If you need help for elderly parents, mention whether you also need cooking. Many families combine the two.",
-      "Bengali is the main language for most household staff.",
-      "Monsoon waterlogging can affect travel in some neighbourhoods. Agree a plan for those days.",
-    ],
-    faqs: [
-      {
-        question: "Can one person help with elder care and cooking?",
-        answer:
-          "Some helpers can do both. Mention both needs when you speak to helpers and agree the daily routine before they start.",
-      },
-      {
-        question: "Does MeeHelp cover Salt Lake and New Town?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you.",
-      },
-    ],
+    faqs: [],
     seo: {
       title: "Domestic Help in Kolkata – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help in Kolkata, Salt Lake and New Town — maids, cooks, nannies, elder care and patient care attendants near you, through MeeHelp.",
+      description: "Find house help in Kolkata, Salt Lake and New Town — maids, cooks, nannies, elder care and patient care attendants near you, through MeeHelp.",
     },
     publishStatus: "review",
     updatedAt: "2026-10-17",
@@ -284,32 +248,16 @@ export const cities: City[] = [
     displayName: "Ahmedabad",
     includes: ["Gandhinagar"],
     marketActive: true,
-    availability: unconfirmed(),
-    intro: [
-      "Many Ahmedabad households want vegetarian or Jain cooking, and food preferences are often the first thing families mention when looking for a cook.",
-      "For cleaning and care, timings that fit around family routines matter most.",
+    availability: allServicesAvailable(),
+    descriptors: { areas: "Ahmedabad and Gandhinagar" },
+    facts: [
+      { models: M, text: "Housing societies often register household staff at the gate and may ask for a photo ID." },
+      { models: O, text: "Housing societies often log visiting helpers at the gate or through an app. Approve the entry before the booked time." },
     ],
-    localInformation: [
-      "If you follow Jain food rules, write them down for the cook — including what not to use and when.",
-      "Gujarati and Hindi are the most common languages among household staff.",
-      "Summers are very hot. Agree working hours, breaks and drinking water for long shifts.",
-    ],
-    faqs: [
-      {
-        question: "Can I find a cook for Jain food in Ahmedabad?",
-        answer:
-          "Tell cooks you need Jain food when you speak to them, and confirm the specific rules before they start.",
-      },
-      {
-        question: "Does MeeHelp cover Gandhinagar?",
-        answer:
-          "Open the MeeHelp app and enter your address to see the helpers available near you.",
-      },
-    ],
+    faqs: [],
     seo: {
       title: "Domestic Help in Ahmedabad – Maids, Cooks & Care | MeeHelp",
-      description:
-        "Find house help in Ahmedabad and Gandhinagar — maids, cooks for veg and Jain food, nannies, elder care and patient attendants, via MeeHelp.",
+      description: "Find house help in Ahmedabad and Gandhinagar — maids, cooks for veg and Jain food, nannies, elder care and patient attendants, via MeeHelp.",
     },
     publishStatus: "review",
     updatedAt: "2026-10-17",

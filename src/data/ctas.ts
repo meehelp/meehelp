@@ -18,6 +18,7 @@ export type CtaKey =
   | "viewHelpers"
   | "choosePlan"
   | "bookNow"
+  | "bookOneTimeClean"
   | "bookHourly"
   | "bookInstant"
   | "scheduleHelp"
@@ -30,6 +31,8 @@ export interface CtaDefinition {
   wording: "proposed" | "approved";
   journey: "marketplace-search" | "marketplace-plans" | "on-demand-booking" | "app-home";
   destination: { type: "app-download-section"; anchor: "#get-the-app" };
+  /** Restricts where the CTA may appear (instant CTAs: one-time cleaning pages only). */
+  scope?: "one-time-cleaning";
 }
 
 const appSection = { type: "app-download-section", anchor: "#get-the-app" } as const;
@@ -40,9 +43,11 @@ export const ctas: Record<CtaKey, CtaDefinition> = {
   exploreHelpers: { model: "marketplace", label: "Explore helpers", wording: "proposed", journey: "marketplace-search", destination: appSection },
   viewHelpers: { model: "marketplace", label: "View helper profiles", wording: "proposed", journey: "marketplace-search", destination: appSection },
   choosePlan: { model: "marketplace", label: "Choose a plan", wording: "proposed", journey: "marketplace-plans", destination: appSection },
-  bookNow: { model: "onDemand", label: "Book now", wording: "proposed", journey: "on-demand-booking", destination: appSection },
-  bookHourly: { model: "onDemand", label: "Book hourly help", wording: "proposed", journey: "on-demand-booking", destination: appSection },
-  bookInstant: { model: "onDemand", label: "Book instant help", wording: "proposed", journey: "on-demand-booking", destination: appSection },
+  // Instant CTAs are for the one-time cleaning flow only (biz.instant-scope); npm run seo enforces it.
+  bookNow: { model: "onDemand", label: "Book a clean now", wording: "proposed", journey: "on-demand-booking", destination: appSection, scope: "one-time-cleaning" },
+  bookOneTimeClean: { model: "onDemand", label: "Book a one-time clean", wording: "proposed", journey: "on-demand-booking", destination: appSection, scope: "one-time-cleaning" },
+  bookHourly: { model: "onDemand", label: "Book help in the app", wording: "proposed", journey: "on-demand-booking", destination: appSection },
+  bookInstant: { model: "onDemand", label: "Book an instant clean", wording: "proposed", journey: "on-demand-booking", destination: appSection, scope: "one-time-cleaning" },
   scheduleHelp: { model: "onDemand", label: "Schedule help", wording: "proposed", journey: "on-demand-booking", destination: appSection },
   getApp: { model: "app", label: "Get the MeeHelp app", wording: "proposed", journey: "app-home", destination: appSection },
 };

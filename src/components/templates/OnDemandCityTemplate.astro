@@ -1,0 +1,148 @@
+---
+/**
+ * On-demand service × city page (/hourly-maid/mumbai/). Booking-focused: no
+ * contact plans, no hiring language. Substance comes from city facts tagged
+ * for on-demand bookings.
+ */
+import { schemaSettings } from "@/data/business";
+import { onDemandSteps, scheduledOnlySteps } from "@/data/how-it-works";
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import BulletList from "@/components/content/BulletList.astro";
+import CrossLink from "@/components/content/CrossLink.astro";
+import Cta from "@/components/content/Cta.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import { factsFor } from "@/data/product-facts";
+import FaqList from "@/components/content/FaqList.astro";
+import LinkList from "@/components/content/LinkList.astro";
+import Section from "@/components/content/Section.astro";
+import StepsInline from "@/components/content/StepsInline.astro";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import VerificationSummary from "@/components/trust/VerificationSummary.astro";
+import { cityName, getBuiltServiceCities, getService, getServiceCity, isServiceCityBuilt } from "@/lib/content";
+import { serviceCityPath, servicePath } from "@/lib/content/paths";
+import type { ResolvedRoute } from "@/lib/content/resolve";
+import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
+
+interface Props {
+  route: Extract<ResolvedRoute, { kind: "service-city" }>;
+}
+
+const { page, service, city, content } = Astro.props.route;
+const od = service.onDemand;
+const path = serviceCityPath(page.service, page.city, "onDemand");
+const built = getBuiltServiceCities(undefined, "onDemand");
+const otherServicesHere = built.filter((sc) => sc.city === city.slug && sc.service !== service.slug);
+const sameServiceElsewhere = built.filter((sc) => sc.service === service.slug && sc.city !== city.slug);
+const counterpart = getServiceCity(service.slug, city.slug, "marketplace");
+const counterpartBuilt = counterpart ? isServiceCityBuilt(counterpart) : false;
+const placement = `${od.slug}_${city.slug}`;
+const facts = factsFor(service.slug, "onDemand");
+const keyFacts = facts.filter((f) => ["o.baby.task", "o.elder.task", "o.patient.task", "o.cook.members", "o.otg.when", "o.otg.length", "o.hourly.when", "o.hourly.length"].includes(f.id));
+const coverage = facts.filter((f) => f.id === "b.coverage");
+const schema = [
+  ...(schemaSettings.service
+    ? [serviceSchema({ service, path, city, name: `${od.name} in ${city.name}`, description: content.seo.description })]
+    : []),
+  ...(schemaSettings.faqPage ? [faqPageSchema(content.localFaqs)] : []),
+];
+---
+
+<Breadcrumbs
+  items={[
+    { name: "Home", path: "/" },
+    { name: od.name, path: servicePath(service.slug, "onDemand") },
+    { name: city.name, path },
+  ]}
+/>
+<JsonLd data={schema} />
+
+<div data-model="onDemand">
+  <section class="hero hero--compact">
+    <div class="container">
+      <p class="eyebrow">{od.name} · {city.displayName}</p>
+      <h1>{content.headline}</h1>
+      {content.introduction.map((para) => <p class="lead">{para}</p>)}
+      <div class="cta-row">
+        {od.bookNow ? <Cta ctaKey="bookNow" placement={`${placement}_hero`} /> : null}
+        <Cta ctaKey="scheduleHelp" placement={`${placement}_hero_schedule`} variant={od.bookNow ? "secondary" : undefined} />
+      </div>
+    </div>
+  </section>
+
+  <Section id="local-info" title={`Booking in ${city.name}: good to know`} tone="warm">
+    <ProductFacts facts={coverage} />
+    {content.localNotes.length > 0 ? <BulletList items={content.localNotes} /> : null}
+  </Section>
+
+  <Section id="use-cases" title={`When people in ${city.name} book ${od.bookingNoun}`}>
+    <BulletList items={content.points} />
+    <p class="note">
+      For what can and can't be done in a booking, see <a href={servicePath(service.slug, "onDemand")}>{od.name.toLowerCase()}</a>.
+    </p>
+  </Section>
+
+  <Section id="how-booking-works" title="How booking works" tone="tint">
+    <ProductFacts facts={keyFacts} />
+    <StepsInline
+      steps={od.bookNow ? onDemandSteps : scheduledOnlySteps}
+      moreHref={`${servicePath(service.slug, "onDemand")}#how-booking-works`}
+      moreLabel={`How booking ${od.bookingNoun} works`}
+    />
+  </Section>
+
+  <Section id="verification" title="Helper verification">
+    <VerificationSummary compact />
+  </Section>
+
+  <Section id="faqs" title={`${od.shortName} in ${city.name}: frequently asked questions`} tone="tint">
+    <FaqList faqs={content.localFaqs} />
+  </Section>
+</div>
+
+{
+  counterpartBuilt ? (
+    <CrossLink
+      targetModel="marketplace"
+      href={serviceCityPath(service.slug, city.slug, "marketplace")}
+      heading={`Want the same person every week in ${city.name}?`}
+      body={`If you'd like the same person every day or every week, you can find ${service.roleWithArticle} in ${city.name} on MeeHelp and agree the arrangement with them directly.`}
+      label={`${service.shortName} in ${city.name}: find and hire`}
+    />
+  ) : null
+}
+
+<div data-model="onDemand">
+  <AppDownloadSection model="onDemand" placement={`${placement}_app_section`} title={content.localCta.heading} body={content.localCta.body} />
+
+  {
+    otherServicesHere.length > 0 || sameServiceElsewhere.length > 0 ? (
+      <Section id="related" title="Related pages" boilerplate>
+        <div class="two-col">
+          {otherServicesHere.length > 0 ? (
+            <div>
+              <h3>Other help to book in {city.name}</h3>
+              <LinkList
+                links={otherServicesHere.map((sc) => ({
+                  href: serviceCityPath(sc.service, sc.city, "onDemand"),
+                  label: `${getService(sc.service)?.onDemand.name} in ${city.name}`,
+                }))}
+              />
+            </div>
+          ) : null}
+          {sameServiceElsewhere.length > 0 ? (
+            <div>
+              <h3>{od.name} in other cities</h3>
+              <LinkList
+                links={sameServiceElsewhere.map((sc) => ({
+                  href: serviceCityPath(sc.service, sc.city, "onDemand"),
+                  label: `${od.shortName} in ${cityName(sc.city)}`,
+                }))}
+              />
+            </div>
+          ) : null}
+        </div>
+      </Section>
+    ) : null
+  }
+</div>

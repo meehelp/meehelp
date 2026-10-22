@@ -8,7 +8,7 @@ Everything below is configuration in `src/data/`. Page copy never repeats prices
 |---|---|---|
 | Business level | confirmed | confirmed (instant, scheduled, hourly) |
 | Customer pays | a contact plan; salary agreed directly with the helper | a booking in the app |
-| Pages today | service hubs, service × city, `/pricing/` | home page section only |
+| Pages (preview) | `/{service}/`, `/{service}/{city}/`, `/pricing/` | `/hourly-{service}/`, `/hourly-{service}/{city}/` — no plans, no prices |
 | CTAs | findHelpers, findService, exploreHelpers, viewHelpers, choosePlan | bookNow, bookHourly, bookInstant, scheduleHelp |
 
 Sections are marked `data-model="marketplace"` / `data-model="onDemand"`. `npm run seo` fails if a section contains
@@ -17,13 +17,35 @@ the other proposition's wording or CTAs, or if a marketplace page contains any o
 ## Per-service support (`src/data/services.ts` → `models`)
 
 `marketplace`, `onDemand`, `instantBooking`, `scheduledBooking`, `hourlyBooking` are each `true` / `false` / `null`.
-**All are `null` (not confirmed) today.** `null` holds pages in review; `false` removes them. A service hub is built on
-production only when `models.marketplace === true`.
+**All are `true` for all five services (confirmed in the Phase 4 brief).** `null` holds pages in review; `false` removes them.
+A hub is built on production only when its model is `true` **and** its copy is `published`. All copy is in `review` today,
+so production still builds the home page only.
+
+### How the product implements it (Phase 4.5, `docs/seo/CONTENT-EVIDENCE.md`)
+
+| | Marketplace (hire directly) | On-demand (book) |
+|---|---|---|
+| Maid | Part-time 2–12 h/day or full-time live-in; house size 1–5 BHK; gender preference | One-time clean: ≥ 2 tasks, 120/150/180 min, **book now** or schedule ≤ 5 days, 7 AM–8 PM; hourly deep-clean tasks |
+| Cook | Same, with household members 1–5 | Hourly cooking task (members 1–5), scheduled ≥ 2 h ahead |
+| Babysitter / nanny | "Baby Care" helper category | Hourly "baby care" task, scheduled |
+| Elder care | Same care-helper pool as patient care (business-confirmed); no separate category is claimed | Hourly "elder care" task, scheduled |
+| Patient care | "Patient Care" helper category | Hourly "patient care" task, scheduled |
+
+Hourly bookings: 2–12 hours in 2-hour steps, start 7 AM–8 PM, booked 2 hours to 5 days ahead — **scheduled, never
+instant**. Instant ("Book a clean now") exists only for one-time cleaning, which also publishes its payment split (part
+online to confirm, the rest in cash to the helper after the job) and its narrow cancellation rule (full refund to the
+original payment source in 2–7 working days only when the order auto-cancels because no helper was assigned; no refund
+after a helper accepts). Prices and fee percentages seen in the current app are kept in
+`src/data/observed-app-values.ts` and never published. Care scopes (baby, elder, patient) come from
+`src/data/care-scope.ts`; injections, insulin, IV and other invasive procedures are disabled, and wound, bed-sore and
+catheter care are review-only. Full reconciliation: `docs/seo/PRODUCT-TRUTH-RECONCILIATION.md`. The search has no experience/age/language/salary
+filters, and the app has no trial feature, tracking or SOS — guards in `src/lib/guards/claims.ts` block those claims.
 
 ## Per-city availability (`src/data/cities.ts`)
 
-`marketActive: true` for all 8 cities (confirmed). `availability[service][model]` is `"unknown"` everywhere.
-A service × city page publishes only when its availability is `available` or `limited`, as well as all the other conditions.
+`marketActive: true` for all 8 cities and `availability[service][model] = "available"` for every service in both models
+(confirmed in the Phase 4 brief). A service × city page publishes only when its own copy, its hub and its city are all
+`published` as well.
 
 ## Marketplace plans (`src/data/plans.ts`)
 
@@ -42,30 +64,44 @@ A service × city page publishes only when its availability is `available` or `l
 (INR. The table is documentation only; the site reads `src/data/plans.ts`.)
 
 - Fields: id, segment, displayName, contacts, currentPrice, previousPrice, discountPercent, validity {value, unit},
-  bestValue, active, displayOrder, effectiveDate, lastReviewed, priceNote, ctaKey.
-- `freeProfileViews: 1` is rendered only by `PlansSummary`.
-- **Price note:** the app shows "*" beside prices; its meaning is unconfirmed. `priceNote.status = "pending"`,
-  `publishPrices = false`. Until both change, production pages show plan contacts and validity **without prices**,
-  and `/pricing/` is not built on production. Preview shows prices with a visible "Pending" note.
+  bestValue, active, displayOrder, effectiveDate, lastReviewed, ctaKey.
+- **Asterisk:** the "*" the app shows beside prices has no business meaning and is removed
+  (`pricingSettings.asterisk.show = false`). `npm test` and `npm run seo` fail on any price followed by "*".
+- **Tax:** no tax statement has been provided (`taxStatement: null`), so no GST/tax wording of any kind is allowed.
+- `publishPrices: true`. `/pricing/` is still held in `review`, so it is built on preview only.
+- What the pricing page says: a plan is paid to MeeHelp, not to the helper; one contact = one helper's contact details;
+  the helper's salary is agreed separately and is not included; there is no replacement guarantee.
+
+## Promotions (`src/data/promotions.ts`)
+
+`freeProfileViews` (currently 1) is a **temporary, dynamic promotion**. It is never rendered: `evergreenCopyAllowed: false`
+blocks free-profile-view wording in all copy, titles and meta descriptions (`promo-free-profile` rule).
 - Consumer pages show **Home** plans only. Office/Business appear only on `/pricing/` (enforced by `npm run seo`).
 - Guards: tests fail if any price string appears outside `src/data/plans.ts`; `npm run seo` fails if a page shows a price
-  that isn't configured, or any price on production while the note is unconfirmed.
+  that isn't configured, a priced asterisk, or any plan/price on an on-demand page.
+
+## Marketplace journey (`src/data/how-it-works.ts`)
+
+Search for helpers → choose a contact plan → contact helpers directly → discuss and agree terms → arrange a trial →
+hire directly. On-demand: choose the help → book now or schedule → choose the hours → confirm in the app.
 
 ## Verification (`src/data/verification.ts`)
 
 | Check | Enabled | Wording |
 |---|---|---|
 | mobileOtpVerified | ✓ | Mobile number verified by OTP |
-| aadhaarVerified | ✓ | Aadhaar verified |
-| currentAddressRecorded | ✓ | Current address on record |
-| permanentAddressRecorded | ✓ | Permanent address on record |
+| aadhaarDocumentReviewed | ✓ | Aadhaar document collected and manually reviewed (submitted at registration, reviewed manually; the address on it is available to MeeHelp) |
+| currentAddressRecorded | ✗ | — superseded (Phase 4.6): the address is the one on the Aadhaar document |
+| permanentAddressRecorded | ✗ | — superseded (Phase 4.6) |
 | policeVerification | ✗ | — |
 | criminalBackgroundCheck | ✗ | — |
 | referenceVerification | ✗ | — |
 | employmentHistoryVerification | ✗ | — |
 
-`VerificationSummary` is the only component that renders this. It adds the scope note: "Aadhaar verification confirms
-a helper's identity. It is not a police verification or a criminal background check…". `src/lib/guards/claims.ts` blocks
+`VerificationSummary` is the only component that renders this. It adds the scope note: "MeeHelp reviews the helper's
+Aadhaar document to check their identity. It is not a police verification or a background check, and MeeHelp does not
+separately check where the helper lives…". Guards also block "Aadhaar verified", OTP / e-KYC / UIDAI / government-
+database verification, "fully verified" and any current/permanent address verification wording. `src/lib/guards/claims.ts` blocks
 police/background/reference/employment-history claims, "fully/100% verified", "vetted" and unqualified "verified helpers"
 in all builds while those checks are disabled.
 

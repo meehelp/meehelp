@@ -6,6 +6,7 @@ import { cities } from "@/data/cities";
 import { home } from "@/data/home";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
+import { getServiceCityContent } from "@/lib/content";
 import { verificationChecks } from "@/data/verification";
 import { commercialRules, findViolations, forbiddenInModel, priceStringPattern, verificationRules } from "@/lib/guards/claims";
 
@@ -13,10 +14,10 @@ const rules = [...verificationRules(), ...commercialRules()];
 const flagged = (text: string) => findViolations(text, rules).map((v) => v.rule.id);
 
 test("unconfirmed checks are disabled; confirmed identity checks are enabled", () => {
-  for (const key of ["policeVerification", "criminalBackgroundCheck", "referenceVerification", "employmentHistoryVerification"] as const) {
+  for (const key of ["policeVerification", "criminalBackgroundCheck", "referenceVerification", "employmentHistoryVerification", "currentAddressRecorded", "permanentAddressRecorded"] as const) {
     assert.equal(verificationChecks[key].enabled, false, key);
   }
-  for (const key of ["mobileOtpVerified", "aadhaarVerified", "currentAddressRecorded", "permanentAddressRecorded"] as const) {
+  for (const key of ["mobileOtpVerified", "aadhaarDocumentReviewed"] as const) {
     assert.equal(verificationChecks[key].enabled, true, key);
     assert.ok(verificationChecks[key].approvedBy && verificationChecks[key].approvedOn, key);
   }
@@ -42,10 +43,10 @@ test("unsupported verification claims are caught", () => {
 
 test("honest advice and confirmed wording are allowed", () => {
   const ok = [
-    "Aadhaar verified",
-    "Aadhaar-verified helpers near you",
+    "Aadhaar document collected and manually reviewed",
+    "Each helper submits their Aadhaar document, and MeeHelp reviews it manually.",
     "Mobile number verified by OTP",
-    "Aadhaar verification confirms a helper's identity. It is not a police verification or a criminal background check, so follow the hiring tips below as well.",
+    "MeeHelp reviews the helper's Aadhaar document to check their identity. It is not a police verification or a background check, and MeeHelp does not separately check where the helper lives.",
     "Many housing societies and local police ask households to register domestic staff.",
     "Delhi Police offers domestic help verification, and many RWAs and societies expect it.",
     "Most societies ask for a photo ID, and some ask for a police verification form.",
@@ -98,13 +99,25 @@ test("content copy contains no unsupported claims", () => {
 });
 
 test("marketplace content never uses on-demand wording", () => {
-  const copy = strings([services, serviceCities.filter((sc) => sc.model === "marketplace")]);
+  const marketplaceOnly = services.map(({ onDemand: _o, cityPage, ...rest }) => [rest, cityPage.marketplace]);
+  const pages = serviceCities.filter((sc) => sc.model === "marketplace").map(getServiceCityContent);
+  const copy = strings([marketplaceOnly, pages]);
   const hits = copy.filter((s) => forbiddenInModel("marketplace").test(s));
   assert.deepEqual(hits, []);
 });
 
+test("on-demand content never uses marketplace wording", () => {
+  const onDemandOnly = services.map((s) => [s.onDemand, s.cityPage.onDemand]);
+  const pages = serviceCities.filter((sc) => sc.model === "onDemand").map(getServiceCityContent);
+  const hits = strings([onDemandOnly, pages]).filter((s) => forbiddenInModel("onDemand").test(s));
+  assert.deepEqual(hits, []);
+});
+
 test("no prices or free-view counts are typed into copy — they come from src/data/plans.ts", () => {
-  const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts"));
+  const files = walk("src").filter((f) => /\.(ts|tsx|astro)$/.test(f) && !f.endsWith("src/data/plans.ts") && !f.endsWith("src/data/evidence.ts") && !f.endsWith("src/data/reconciliation.ts") && !f.endsWith("src/data/observed-app-values.ts"));
+  // The evidence ledger quotes app copy (including prices) as documentation; it is never rendered.
+  // The promotion's own config and the guard that blocks it are the only places it may be named.
+  const ruleFiles = ["src/data/promotions.ts", "src/lib/guards/claims.ts"];
   assert.ok(files.some((f) => f.endsWith(".astro")), "Astro components must be scanned");
   const priceHits: string[] = [];
   const freeHits: string[] = [];
@@ -115,7 +128,7 @@ test("no prices or free-view counts are typed into copy — they come from src/d
       .replace(/<!--[\s\S]*?-->/g, "")
       .replace(/^\s*\/\/.*$/gm, "");
     if (text.match(priceStringPattern)) priceHits.push(f);
-    if (/\b(?:1|one|first)\s+(?:free\s+)?(?:helper\s+)?profile view|free profile view/i.test(text)) freeHits.push(f);
+    if (!ruleFiles.some((r) => f.endsWith(r)) && /\b(?:1|one|first)\s+(?:free\s+)?(?:helper\s+)?profile view|free profile view/i.test(text)) freeHits.push(f);
   }
   assert.deepEqual(priceHits, []);
   assert.deepEqual(freeHits, []);

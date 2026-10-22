@@ -77,10 +77,150 @@ export interface Step {
   body: string;
 }
 
+/** Text with placeholders filled per city: {city} {cityFull} {areas} {cuisine} {festivals} {festival} {languages}. */
+export type CityTemplate = string;
+
+/** How a service's city pages are framed for one model. Facts come from the city. */
+export interface CityPageFrame {
+  headline: CityTemplate;
+  intro: CityTemplate[];
+  /** Marketplace: what households usually ask for. On-demand: when people book. */
+  points: string[];
+  title: CityTemplate;
+  description: CityTemplate;
+}
+
+/** A same-model link to a related product, e.g. /hourly-maid/ ↔ /one-time-cleaning/. */
+export interface AlternativeLink {
+  heading: string;
+  body: string;
+  href: string;
+  label: string;
+}
+
 /**
- * A helper category. Its hub page (/maid/) is a MARKETPLACE page (find & hire
- * directly). On-demand pages for the category will use their own route
- * (see docs/URL-ARCHITECTURE.md) and are not built yet.
+ * An on-demand PRODUCT page that owns one booking flow of a service, e.g.
+ * /one-time-cleaning/ (the maid one-time cleaning flow). It has its own URL,
+ * metadata and search intent, and is built through the same route registry.
+ */
+export interface OnDemandProduct {
+  /** Route slug: /one-time-cleaning/. */
+  slug: "one-time-cleaning";
+  service: ServiceSlug;
+  model: "onDemand";
+  /** "Book now" exists for this flow (evidence biz.instant-scope). */
+  bookNow: boolean;
+  name: string;
+  shortName: string;
+  headline: string;
+  description: string[];
+  steps: Step[];
+  useCases: string[];
+  tasksIncluded: string[];
+  tasksExcluded: string[];
+  /** Shared (not page-scoped) product facts shown on the page, by id. */
+  sharedFactIds: string[];
+  safeguards: string[];
+  faqs: Faq[];
+  alternative: AlternativeLink;
+  seo: Seo;
+  publishStatus: PublishStatus;
+  updatedAt: string;
+}
+
+/** One row of a salary guide's table: an indicative monthly range in rupees. */
+export interface SalaryRange {
+  key: "part-time" | "full-time-live-out" | "live-in";
+  arrangement: string;
+  min: number;
+  max: number;
+  /** "₹28,000+": the top of the range is open-ended. */
+  openEnded?: boolean;
+}
+
+/** A section of a salary guide. Text may use {range:<key>}, {year} and {reviewed} tokens. */
+export interface SalaryGuideSection {
+  id: string;
+  title: string;
+  /** Shows that row's indicative range above the text. */
+  rangeKey?: SalaryRange["key"];
+  paragraphs: string[];
+  bullets?: string[];
+}
+
+export interface SalarySource {
+  name: string;
+  /** What the source publishes and what it was used for (our wording, not theirs). */
+  usedFor: string;
+  /** Only pages that were checked to exist; omitted where no stable page was confirmed. */
+  links?: { href: string; label: string }[];
+}
+
+/**
+ * An informational salary guide for one service in one city, e.g.
+ * /maid-salary/mumbai/. Market salary ranges only — never MeeHelp prices,
+ * never legal or government rates. Ranges, year and review date live here so
+ * they can be refreshed without touching the template.
+ */
+export interface SalaryGuide {
+  /** Route slug: /maid-salary/mumbai/. */
+  slug: "maid-salary";
+  service: ServiceSlug;
+  city: CitySlug;
+  /** The year the guide speaks for: used in title, description and H1 via {year}. */
+  year: number;
+  /** When the ranges were last checked against the sources (YYYY-MM-DD). Publishing requires a current date. */
+  evidenceReviewedOn: string;
+  /** Breadcrumb / short name. */
+  name: string;
+  headline: string;
+  intro: string[];
+  ranges: SalaryRange[];
+  /** Shown immediately below the table. */
+  disclosure: string;
+  sections: SalaryGuideSection[];
+  methodology: string[];
+  sources: SalarySource[];
+  faqs: Faq[];
+  seo: Seo;
+  publishStatus: PublishStatus;
+  updatedAt: string;
+}
+
+/** The on-demand (book by the hour) proposition for a service — its own hub and city pages. */
+export interface OnDemandContent {
+  /** Route slug, e.g. "hourly-maid" → /hourly-maid/ and /hourly-maid/mumbai/. */
+  slug: string;
+  /** e.g. "Hourly Maid". */
+  name: string;
+  /** e.g. "Hourly maid" — used in sentences and links. */
+  shortName: string;
+  /** With article, for sentences: "an hourly maid", "a cook by the hour". */
+  bookingNoun: string;
+  /**
+   * Whether the app offers "Book now" (instant) for this category today
+   * (evidence impl.instant-scope). When false, copy describes scheduled
+   * booking only, even though the business has confirmed instant booking.
+   */
+  bookNow: boolean;
+  /** Optional same-model link shown on the hub, e.g. hourly maid → one-time cleaning. */
+  alternative?: AlternativeLink;
+  headline: string;
+  description: string[];
+  useCases: string[];
+  tasksIncluded: string[];
+  tasksExcluded: string[];
+  safeguards: string[];
+  faqs: Faq[];
+  seo: Seo;
+  publishStatus: PublishStatus;
+  updatedAt: string;
+}
+
+/**
+ * A helper category. The top-level fields are its MARKETPLACE content
+ * (/maid/: find & hire directly). `onDemand` is its separate on-demand
+ * proposition (/hourly-maid/: book by the hour). The two never share a page.
  */
 export interface Service {
   slug: ServiceSlug;
@@ -111,6 +251,27 @@ export interface Service {
   publishStatus: PublishStatus;
   /** ISO date of the last substantive content change (used for sitemap lastmod). */
   updatedAt: string;
+  onDemand: OnDemandContent;
+  /** Framing for this service's city pages, per model. */
+  cityPage: Record<BusinessModel, CityPageFrame>;
+}
+
+/**
+ * A genuine, practical fact about hiring or booking help in a city. Tagged so
+ * each page uses only the facts that are relevant to it. Never statistics,
+ * demand figures, response times or locality coverage claims.
+ */
+export interface CityFact {
+  text: string;
+  /** Services the fact is relevant to (all when omitted). */
+  services?: ServiceSlug[];
+  /** Models the fact is relevant to (both when omitted). */
+  models?: BusinessModel[];
+}
+
+export interface CityFaq extends Faq {
+  services?: ServiceSlug[];
+  models?: BusinessModel[];
 }
 
 export interface City {
@@ -127,33 +288,48 @@ export interface City {
   marketActive: Confirmed;
   /** Availability per service AND per business model. */
   availability: Record<ServiceSlug, Record<BusinessModel, Availability>>;
-  intro: string[];
-  /** Practical local context that helps someone hiring in this city. */
-  localInformation: string[];
-  faqs: Faq[];
+  /** Short phrases used in titles, descriptions and intros. */
+  descriptors: {
+    /** e.g. "Mumbai, Thane and Navi Mumbai". */
+    areas: string;
+  };
+  facts: CityFact[];
+  faqs: CityFaq[];
+  /** Reserved for a future city hub page; not used by service pages. */
   seo: Seo;
   publishStatus: PublishStatus;
   updatedAt: string;
 }
 
 /**
- * Unique content for one service, in one city, for one business model.
- * Written per combination — never generated by swapping the city name into service copy.
+ * One service, in one city, for one business model. Every page is an
+ * explicit entry in src/data/service-cities.ts. Its content is composed from
+ * the service's city frame and the city's tagged facts
+ * (src/lib/content/compose.ts); `overrides` holds hand-written content where
+ * we have more to say.
  */
 export interface ServiceCity {
   service: ServiceSlug;
   city: CitySlug;
   model: BusinessModel;
-  localHeadline: string;
-  localIntroduction: string[];
-  commonRequirements: string[];
-  /** Only list areas the business has confirmed. Empty hides the section. */
+  publishStatus: PublishStatus;
+  updatedAt: string;
+  overrides?: Partial<ServiceCityContent>;
+}
+
+/** The rendered content of a service-city page. */
+export interface ServiceCityContent {
+  headline: string;
+  introduction: string[];
+  /** Marketplace: common requirements. On-demand: typical bookings. */
+  points: string[];
+  /** City facts relevant to this service and model. */
+  localNotes: string[];
+  /** Only areas the business has confirmed. Empty hides the section. */
   areasServed: string[];
   localFaqs: Faq[];
   localCta: { heading: string; body: string };
   seo: Seo;
-  publishStatus: PublishStatus;
-  updatedAt: string;
 }
 
 /** Content for one service within a locality, e.g. maid in Andheri West. */

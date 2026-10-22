@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "MeeHelp Website V2 \u2014 SEO-first static marketing site. Independent of production systems.",
+  "description": "MeeHelp Website V2 — SEO-first static marketing site. Independent of production systems.",
   "engines": {
     "node": ">=22.22.0"
   },
@@ -18,7 +18,14 @@
     "seo": "tsx scripts/seo-check.ts",
     "seo:preview": "tsx scripts/seo-check.ts --stage=preview",
     "measure:js": "node scripts/measure-js.mjs",
-    "check": "npm run typecheck && npm test && npm run seo && npm run seo:preview"
+    "check": "npm run typecheck && npm test && npm run seo && npm run seo:preview && npm run seo:release-review",
+    "intent-map": "tsx scripts/intent-map.ts",
+    "report": "tsx scripts/content-report.ts",
+    "evidence": "tsx scripts/evidence.ts",
+    "build:release-review": "SITE_STAGE=release-review astro build",
+    "seo:release-review": "tsx scripts/seo-check.ts --stage=release-review",
+    "release-docs": "tsx scripts/release-docs.ts",
+    "smoke:hosting": "node scripts/hosting-smoke.mjs"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

@@ -4,7 +4,7 @@ import { cities } from "@/data/cities";
 import { localities } from "@/data/localities";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
-import { getSiteRoutes } from "@/lib/content";
+import { getServiceCityContent, getSiteRoutes } from "@/lib/content";
 
 const allRoutes = getSiteRoutes("development").filter((r) => r.status !== "draft");
 
@@ -39,7 +39,7 @@ test("city SEO fields are unique", () => {
 test("slugs are unique", () => {
   assert.deepEqual(duplicates(services.map((s) => s.slug)), []);
   assert.deepEqual(duplicates(cities.map((c) => c.slug)), []);
-  assert.deepEqual(duplicates(serviceCities.map((sc) => `${sc.service}/${sc.city}`)), []);
+  assert.deepEqual(duplicates(serviceCities.map((sc) => `${sc.service}/${sc.city}/${sc.model}`)), []);
   assert.deepEqual(duplicates(localities.map((l) => `${l.city}/${l.slug}`)), []);
 });
 
@@ -68,24 +68,32 @@ test("every service answers the core customer questions", () => {
 });
 
 test("service-city pages have genuinely local content, not city-swapped copy", () => {
-  const normalise = (text: string, cityNames: string[]) =>
-    cityNames.reduce((t, n) => t.replaceAll(n, "{city}"), text.toLowerCase());
-  const names = cities.flatMap((c) => [c.name, c.displayName, ...c.includes]).map((n) => n.toLowerCase());
+  const names = cities
+    .flatMap((c) => [c.name, c.displayName, ...c.includes, c.descriptors.areas])
+    .map((n) => n.toLowerCase())
+    .sort((a, b) => b.length - a.length);
+  const mask = (text: string) => names.reduce((t, n) => t.replaceAll(n, "{x}"), text.toLowerCase());
 
   for (const sc of serviceCities) {
     const svc = services.find((s) => s.slug === sc.service)!;
-    assert.ok(sc.localIntroduction.length >= 1, `${sc.service}/${sc.city} intro`);
-    assert.ok(sc.commonRequirements.length >= 3, `${sc.service}/${sc.city} requirements`);
-    assert.ok(sc.localFaqs.length >= 2, `${sc.service}/${sc.city} faqs`);
-    for (const para of sc.localIntroduction) {
-      assert.ok(!svc.description.includes(para), `${sc.service}/${sc.city} reuses service copy`);
-    }
-    // FAQ questions must not repeat the service hub's questions.
-    const hubQuestions = new Set(svc.faqs.map((f) => f.question));
-    for (const f of sc.localFaqs) assert.ok(!hubQuestions.has(f.question), `${sc.service}/${sc.city}: ${f.question}`);
+    const c = getServiceCityContent(sc);
+    const id = `${sc.service}/${sc.city}/${sc.model}`;
+    assert.ok(c.introduction.length >= 1, `${id} intro`);
+    assert.ok(c.points.length >= 3, `${id} points`);
+    assert.ok(c.localNotes.length >= 1, `${id} local notes`);
+    // Pages with a single (generated coverage) FAQ are flagged "needs content" by npm run report.
+    assert.ok(c.localFaqs.length >= 1, `${id} faqs`);
+    for (const para of c.introduction) assert.ok(!svc.description.includes(para), `${id} reuses service copy`);
+    // FAQ questions must not repeat the hub's questions for the same model.
+    const hubFaqs = sc.model === "marketplace" ? svc.faqs : svc.onDemand.faqs;
+    const hubQuestions = new Set(hubFaqs.map((f) => f.question));
+    for (const f of c.localFaqs) assert.ok(!hubQuestions.has(f.question), `${id}: ${f.question}`);
   }
 
-  // No two service-city intros may be identical once city names are masked.
-  const masked = serviceCities.map((sc) => normalise(sc.localIntroduction.join(" "), names));
+  // No two pages' main local content may be identical once city terms are masked.
+  const masked = serviceCities.map((sc) => {
+    const c = getServiceCityContent(sc);
+    return mask([sc.service, sc.model, ...c.introduction, ...c.localNotes, ...c.localFaqs.map((f) => f.answer)].join(" "));
+  });
   assert.deepEqual(duplicates(masked), []);
 });

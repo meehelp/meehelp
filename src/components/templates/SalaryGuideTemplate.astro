@@ -1,0 +1,142 @@
+---
+/**
+ * Salary guide (/maid-salary/mumbai/): an informational page that answers
+ * "what does a maid cost here?" with indicative MARKET ranges, then sends the
+ * reader to the marketplace city page to find helpers. Never MeeHelp prices:
+ * the contact plans are linked (/pricing/), not quoted. Content and ranges
+ * live in src/data/salary-guides.ts; tokens are filled by fillGuideText.
+ */
+import { factById } from "@/data/product-facts";
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import BulletList from "@/components/content/BulletList.astro";
+import FaqList from "@/components/content/FaqList.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import Section from "@/components/content/Section.astro";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
+import { isPricingBuilt } from "@/lib/content";
+import { pricingPath, serviceCityPath, servicePath } from "@/lib/content/paths";
+import type { ResolvedRoute } from "@/lib/content/resolve";
+import { fillGuideText, formatRange, reviewedLabel, salaryGuidePath } from "@/lib/content/salary-guides";
+
+interface Props {
+  route: Extract<ResolvedRoute, { kind: "guide" }>;
+}
+
+const { guide, service, city } = Astro.props.route;
+const path = salaryGuidePath(guide);
+const t = (text: string) => fillGuideText(guide, text);
+const rangeOf = (key: string) => guide.ranges.find((r) => r.key === key)!;
+const cityPagePath = serviceCityPath(guide.service, guide.city);
+const pricingBuilt = isPricingBuilt();
+// How MeeHelp works for the reader: salary isn't on profiles, contacts come from a plan.
+const meehelpFacts = [factById("m.profile"), factById("m.contact"), factById("m.advance")];
+const faqs = guide.faqs.map((f) => ({ question: t(f.question), answer: t(f.answer) }));
+---
+
+<!-- BreadcrumbList only: there is no /maid-salary/ parent page yet and no approved Article schema. -->
+<Breadcrumbs items={[{ name: "Home", path: "/" }, { name: guide.name, path }]} />
+
+<div data-model="marketplace">
+  <section class="hero hero--compact">
+    <div class="container">
+      <p class="eyebrow">Salary guide · {city.displayName} · Last reviewed {reviewedLabel(guide)}</p>
+      <h1>{t(guide.headline)}</h1>
+      {guide.intro.map((p) => <p class="lead">{t(p)}</p>)}
+      <div class="cta-row">
+        <a class="button" href={cityPagePath}>Find maids in {city.name}</a>
+      </div>
+    </div>
+  </section>
+
+  <Section id="salary-table" title={`Indicative maid salary in ${city.name}, ${guide.year}`} tone="tint">
+    <div class="salary-table-wrap">
+      <table class="salary-table" data-salary-guide>
+        <caption class="visually-hidden">Indicative monthly salary ranges for maids in {city.name}, {guide.year}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Arrangement</th>
+            <th scope="col">Indicative monthly range</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            guide.ranges.map((r) => (
+              <tr>
+                <th scope="row">{r.arrangement}</th>
+                <td>{formatRange(r)}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="note" data-salary-disclosure>{guide.disclosure}</p>
+  </Section>
+
+  {
+    guide.sections.map((s, i) => (
+      <Section id={s.id} title={s.title} tone={i % 2 === 1 ? "tint" : "plain"}>
+        {s.rangeKey ? <p class="salary-range" data-salary-guide>Indicative range: {formatRange(rangeOf(s.rangeKey))} a month</p> : null}
+        {s.paragraphs.map((p) => <p>{t(p)}</p>)}
+        {s.bullets ? <BulletList items={s.bullets.map(t)} /> : null}
+        {s.id === "agree" ? (
+          <p class="note">
+            Once you have agreed the arrangement, see <a href={servicePath(service.slug)}>what a maid usually does and how hiring works</a>.
+          </p>
+        ) : null}
+      </Section>
+    ))
+  }
+
+  <Section id="salary-vs-meehelp" title="Helper salary and MeeHelp contact plans are different">
+    <p>
+      With MeeHelp Find &amp; Hire, your household and the helper agree the work arrangement and the salary directly. The salary ranges in this guide are about
+      that arrangement.
+    </p>
+    <p>
+      A MeeHelp contact plan pays for the platform and for getting helpers' contact details in the app. It is not the helper's salary.
+      {pricingBuilt ? <a href={pricingPath}>See MeeHelp's contact plans</a> : null}
+    </p>
+    <ProductFacts facts={meehelpFacts} />
+  </Section>
+
+  <Section id="find" title={`Find a maid in ${city.name}`} tone="warm">
+    <p>
+      When you know the hours, tasks and arrangement you need, look for helpers near your address in {city.name}, contact them directly and agree the salary
+      with them.
+    </p>
+    <div class="cta-row">
+      <a class="button" href={cityPagePath}>Find maids in {city.name}</a>
+    </div>
+  </Section>
+
+  <Section id="faqs" title={`${guide.name}: frequently asked questions`} tone="tint">
+    <FaqList faqs={faqs} />
+  </Section>
+
+  <AppDownloadSection model="marketplace" placement={`${guide.slug.replaceAll("-", "_")}_${guide.city}_app_section`} title={`Find house help in ${city.name} with the MeeHelp app`} />
+
+  <Section id="methodology" title="Sources and methodology">
+    {guide.methodology.map((p) => <p>{t(p)}</p>)}
+    <ul class="sources">
+      {
+        guide.sources.map((s) => (
+          <li>
+            <strong>{s.name}</strong> — {s.usedFor}
+            {s.links
+              ? s.links.map((l, i) => (
+                  <>
+                    {i === 0 ? " " : ", "}
+                    <a href={l.href} rel="nofollow noopener noreferrer">
+                      {l.label}
+                    </a>
+                  </>
+                ))
+              : null}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="note">MeeHelp is not affiliated with these sites. They are listed so you can see where the figures come from.</p>
+  </Section>
+</div>

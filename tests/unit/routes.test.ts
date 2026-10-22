@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { localities } from "@/data/localities";
+import { serviceCityPath } from "@/lib/content/paths";
 import { serviceCities } from "@/data/service-cities";
 import { getPublishedLocalityPages, getSiteRoutes, serviceCityStatus } from "@/lib/content";
 import { getServiceRouteParams, resolveRoute } from "@/lib/content/resolve";
@@ -26,7 +27,7 @@ test("service-city pages in review are built on preview but not on production", 
   const prodPaths = new Set(getSiteRoutes("production").map((r) => r.path));
   const previewPaths = new Set(getSiteRoutes("preview").map((r) => r.path));
   for (const sc of review) {
-    const path = `/${sc.service}/${sc.city}/`;
+    const path = serviceCityPath(sc.service, sc.city, sc.model);
     assert.equal(prodPaths.has(path), false, `${path} must not be on production`);
     assert.equal(previewPaths.has(path), true, `${path} should be on preview`);
   }
@@ -49,10 +50,10 @@ test("locality pages require explicit 'published' at every level, in every stage
 });
 
 test("combinations that are not explicitly listed never resolve", () => {
-  const listed = new Set(serviceCities.map((sc) => `${sc.service}/${sc.city}`));
-  assert.equal(listed.has("patient-care/kolkata"), false, "test assumes this combination is unlisted");
   for (const stage of stages) {
-    assert.equal(resolveRoute(["patient-care", "kolkata"], stage), null);
+    assert.equal(resolveRoute(["patient-care", "surat"], stage), null);
+    assert.equal(resolveRoute(["hourly-nanny", "mumbai"], stage), null, "no synonym routes");
+    assert.equal(resolveRoute(["hourly-maid", "mumbai", "andheri-west"], stage), null);
     assert.equal(resolveRoute(["maid", "atlantis"], stage), null);
     assert.equal(resolveRoute(["not-a-service"], stage), null);
     assert.equal(resolveRoute(["maid", "mumbai", "andheri-west", "extra"], stage), null);

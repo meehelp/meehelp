@@ -1,10 +1,10 @@
 import { plans, pricingSettings, segments, type Plan, type PlanSegment } from "@/data/plans";
 import { siteStage, type SiteStage } from "@/lib/site";
 
-/** Prices may appear on production only once the price note (the app's "*") is confirmed. */
+/** Prices appear on production only while the business-controlled `publishPrices` gate is on. */
 export function arePricesPublishable(stage: SiteStage = siteStage): boolean {
   if (stage !== "production") return true;
-  return pricingSettings.publishPrices && pricingSettings.priceNote.status === "confirmed";
+  return pricingSettings.publishPrices;
 }
 
 export function getActivePlans(segment: PlanSegment): Plan[] {

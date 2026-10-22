@@ -3,6 +3,8 @@
  *
  *   npm run seo                     production build (default)
  *   npm run seo -- --stage=preview  preview build (everything must be noindex)
+ *   npm run seo -- --stage=release-review  first-release review build: exactly the
+ *                                   approved release pages, noindex/noarchive, no placeholders
  *   npm run seo -- --no-build       validate the existing dist/ folder
  *
  * Checks every generated page for: title, meta description, canonical,
@@ -21,8 +23,8 @@ import { parse, type HTMLElement } from "node-html-parser";
 
 const args = process.argv.slice(2);
 const stageArg = args.find((a) => a.startsWith("--stage="))?.split("=")[1] ?? "production";
-if (stageArg !== "production" && stageArg !== "preview") {
-  console.error(`Unknown stage "${stageArg}". Use production or preview.`);
+if (stageArg !== "production" && stageArg !== "preview" && stageArg !== "release-review") {
+  console.error(`Unknown stage "${stageArg}". Use production, preview or release-review.`);
   process.exit(2);
 }
 const stage = stageArg;
@@ -39,6 +41,8 @@ if (!skipBuild) {
 // Import after SITE_STAGE is set, so the registry reflects the same stage as the build.
 const { getSiteRoutes } = await import("@/lib/content");
 const guards = await import("@/lib/guards/claims");
+const sim = await import("./lib/similarity");
+let similaritySummary = "no service-city pages built";
 const { allowedPriceStrings, arePricesPublishable } = await import("@/lib/pricing");
 const { ctas } = await import("@/data/ctas");
 const { siteUrl } = await import("@/lib/site");
@@ -66,6 +70,9 @@ const allFiles = walk(OUT);
 const fileSet = new Set(allFiles.map((f) => "/" + relative(OUT, f).split("\\").join("/")));
 const routes = getSiteRoutes();
 const routeByPath = new Map(routes.map((r) => [r.path, r]));
+// Public utility/legal pages are intentionally outside the SEO route registry and sitemap.
+const { utilityPagePaths } = await import("@/lib/content/release-scope");
+const utilityPaths = new Set(utilityPagePaths);
 
 /** Generated HTML pages, as URL paths ("/maid/"). Excludes framework 404 files. */
 const pagePaths = allFiles
@@ -73,18 +80,43 @@ const pagePaths = allFiles
   .map((f) => "/" + relative(OUT, f).replace(/index\.html$/, "").split("\\").join("/"))
   .filter((p) => p !== "/404/" && p !== "/_not-found/");
 
+// ---------- Release-review: exactly the approved first-release pages ----------
+if (stage === "release-review") {
+  const { releaseReviewPaths } = await import("@/lib/content/release-scope");
+  const built = new Set(pagePaths);
+  for (const p of releaseReviewPaths) if (!built.has(p)) error(p, "Approved release page missing from the release-review build");
+  for (const p of pagePaths) if (!utilityPaths.has(p) && !releaseReviewPaths.has(p)) error(p, "Page outside the approved release set leaked into the release-review build");
+  if (releaseReviewPaths.size !== 17) error("/", `Release set must contain exactly 17 pages (has ${releaseReviewPaths.size})`);
+}
+
+// ---------- Utility pages: in every artifact, never indexed, never in the sitemap ----------
+for (const p of utilityPaths) {
+  const file = join(OUT, p, "index.html");
+  if (!existsSync(file)) {
+    error(p, "Utility page missing from the build (the footer links to it)");
+    continue;
+  }
+  const robots = parse(readFileSync(file, "utf8")).querySelector('meta[name="robots"]')?.getAttribute("content") ?? "";
+  const expected = `noindex, follow${stage === "release-review" ? ", noarchive" : ""}`;
+  if (robots !== expected) error(p, `Utility page robots must be "${expected}" (is "${robots}")`);
+}
+
 // ---------- Built pages must match the route registry exactly ----------
-for (const p of pagePaths) if (!routeByPath.has(p)) error(p, "Page was generated but is not in the route registry");
+for (const p of pagePaths) if (!utilityPaths.has(p) && !routeByPath.has(p)) error(p, "Page was generated but is not in the route registry");
 for (const r of routes) if (!pagePaths.includes(r.path)) error(r.path, "Route is registered but no page was generated");
 
 // ---------- Claims / wording / pricing guards ----------
 // Built from the business configuration, so enabling a fact later relaxes its guard.
-const wordingRules = [...guards.verificationRules(), ...guards.commercialRules()];
+const wordingRules = [...guards.verificationRules(), ...guards.commercialRules(), ...guards.unsupportedClaimRules()];
 const placeholderText = /\[DEV PLACEHOLDER\]|\[DRAFT\]|lorem ipsum|TODO/i;
 const priceStrings = allowedPriceStrings();
 const homePrices = new Set(priceStrings.home);
 const allPrices = new Set([...priceStrings.home, ...priceStrings.office, ...priceStrings.business]);
 const pricesPublishable = arePricesPublishable();
+// Salary guides may show their own market ranges — and no other rupee figure (never MeeHelp plan prices).
+const { salaryGuides, salaryFigures } = await import("@/data/salary-guides");
+const { rupees, salaryGuidePath, salaryGuideProblems } = await import("@/lib/content/salary-guides");
+const guideByPath = new Map(salaryGuides.map((g) => [salaryGuidePath(g), g]));
 const ctaUsage = new Map<string, number>();
 
 /** Visible text of an element: scripts/styles removed, and optionally nested [data-model] blocks removed. */
@@ -152,6 +184,7 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   const noindex = /noindex/i.test(robots);
   if (expectIndexable && noindex) error(page, `Expected indexable page but robots="${robots}"`);
   if (!expectIndexable && !noindex) error(page, `Expected noindex but robots="${robots || "(none)"}"`);
+  if (stage === "release-review" && !/noarchive/i.test(robots)) error(page, `Release-review page must be noarchive: robots="${robots}"`);
 
   if (!isNotFound) {
     const canonical = head.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? "";
@@ -234,22 +267,57 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   const visible = visibleText(body);
 
   // Placeholders never reach production.
-  if (stage === "production" && placeholderText.test(visible)) error(page, "Placeholder or draft text in production HTML");
+  if ((stage === "production" || stage === "release-review") && placeholderText.test(visible)) error(page, `Placeholder or draft text in ${stage} HTML`);
+  if (stage === "release-review" && body.querySelector(".qr-panel--placeholder, [data-placeholder]")) error(page, "Placeholder element in release-review HTML");
 
   // Unsupported verification / commercial claims (every stage — preview mirrors production rules).
   for (const { rule, match } of guards.findViolations(visible, wordingRules)) {
     error(page, `Unsupported claim (${rule.reason}): "${match}"`);
   }
 
-  // Prices: only configured plan prices; Office/Business only on /pricing/; none on production until publishable.
-  const prices = visible.match(guards.priceStringPattern) ?? [];
+  // Clinical safety: no positive invasive / wound / catheter / nursing claims; vitals only "where trained".
+  const claimable = parse(body.toString());
+  claimable.querySelectorAll("[data-excluded], script, style").forEach((n) => n.remove());
+  for (const f of guards.clinicalClaimFindings(visibleText(claimable))) error(page, `Clinical claim not approved: "${f.slice(0, 140)}"`);
+  if (guards.broadRefundPattern.test(visible)) error(page, `Cancellation wording broader than the app's policy: "${visible.match(guards.broadRefundPattern)![0]}"`);
+  if (guards.stalePricePattern.test(visible)) error(page, `Stale app price ₹299 found: "${visible.match(guards.stalePricePattern)![0]}"`);
+  // Instant booking exists only for the one-time cleaning flow, which has its own page (SEO batch 1).
+  // /hourly-maid/ and its city pages are scheduled-only like every other hourly booking.
+  const oneTimeCleaningPage = page === "/one-time-cleaning/";
+  for (const cta of body.querySelectorAll("[data-cta]")) {
+    const key = cta.getAttribute("data-cta") as keyof typeof ctas;
+    if (ctas[key]?.scope === "one-time-cleaning" && !oneTimeCleaningPage) error(page, `Instant CTA "${key}" outside the one-time cleaning pages`);
+  }
+  if (routeByPath.get(page)?.model === "onDemand" && !oneTimeCleaningPage) {
+    const m = visible.match(/\binstant(?:ly)?\b|\bbook now\b|\bright away\b|\bstraight away\b/i);
+    if (m) error(page, `Instant-booking wording on a scheduled-only page: "${m[0]}"`);
+  }
+
+  // Prices: only configured plan prices, never with the app's "*"; Office/Business only on /pricing/.
+  const asterisk = visible.match(guards.pricedAsteriskPattern);
+  if (asterisk) error(page, `Price shown with an asterisk: "${asterisk[0]}"`);
+  for (const el of body.querySelectorAll(".plan__price")) if (el.text.includes("*")) error(page, "Asterisk inside a plan price");
+  const guide = guideByPath.get(page);
+  if (guide) {
+    const figures = new Set(salaryFigures(guide).map(rupees));
+    for (const figure of visible.match(guards.priceStringPattern) ?? []) {
+      if (!figures.has(figure.replace(/\s/g, ""))) error(page, `Rupee figure "${figure}" is not one of this guide's salary ranges`);
+    }
+    // The disclosure is the one place that may say the ranges are NOT averages / government / minimum rates.
+    const claim = visible.replace(guide.disclosure, "").match(guards.salaryGuideClaimPattern);
+    if (claim) error(page, `Salary guide wording not allowed (average/legal/government/MeeHelp rate): "${claim[0]}"`);
+    if (!visible.includes(guide.disclosure)) error(page, "Salary guide is missing its indicative-range disclosure");
+    if (!body.querySelector("[data-salary-disclosure]")) error(page, "Salary disclosure must be rendered below the table");
+    if (stage === "production") for (const problem of salaryGuideProblems(guide)) error(page, `Salary guide cannot be published: ${problem}`);
+  }
+  const prices = guide ? [] : (visible.match(guards.priceStringPattern) ?? []);
   for (const price of prices) {
     const normalised = price.replace(/\s/g, "");
     if (!allPrices.has(normalised)) error(page, `Price "${price}" is not from src/data/plans.ts`);
     else if (page !== "/pricing/" && !homePrices.has(normalised)) error(page, `Office/Business price "${price}" outside /pricing/`);
   }
   if (stage === "production" && !pricesPublishable && prices.length > 0) {
-    error(page, "Prices shown on production while the price note (app '*') is unconfirmed");
+    error(page, "Prices shown on production while publishPrices is off");
   }
 
   // Marketplace and on-demand must not mix: wording and CTAs inside each [data-model] block.
@@ -274,6 +342,27 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
     if (body.querySelector('[data-model="onDemand"]')) error(page, "Marketplace page contains an on-demand section");
     if (body.querySelector('[data-cta-model="onDemand"]')) error(page, "Marketplace page contains an on-demand CTA");
   }
+  if (route?.model === "onDemand") {
+    if (body.querySelector('[data-model="marketplace"]')) error(page, "On-demand page contains a marketplace section");
+    if (body.querySelector('[data-cta-model="marketplace"]')) error(page, "On-demand page contains a marketplace CTA");
+    if (body.querySelector(".plans, .plan, .plans-summary")) error(page, "On-demand page shows marketplace contact plans");
+    if (guards.priceStringPattern.test(visible)) error(page, "On-demand page shows a price (no on-demand prices have been supplied)");
+    guards.priceStringPattern.lastIndex = 0;
+  }
+
+  // Cross-model links: outside any proposition section, and pointing at a page of the declared model.
+  for (const aside of body.querySelectorAll("[data-cross-model]")) {
+    const target = aside.getAttribute("data-cross-model");
+    if (aside.parentNode && (aside.parentNode as HTMLElement).closest?.("[data-model]")) error(page, "Cross-model link nested inside a proposition section");
+    const hrefs = aside.querySelectorAll("a[href]").map((a) => linkTarget(a.getAttribute("href") ?? "")).filter(Boolean) as string[];
+    if (hrefs.length === 0) error(page, "Cross-model link without an internal link");
+    for (const h of hrefs) {
+      const targetRoute = routeByPath.get(h);
+      if (!targetRoute) error(page, `Cross-model link to unknown page ${h}`);
+      else if (targetRoute.model !== target) error(page, `Cross-model link to ${h} (${targetRoute.model}) declared as ${target}`);
+      else if (route && targetRoute.model === route.model) error(page, `Cross-model link to a page of the same model: ${h}`);
+    }
+  }
   for (const cta of body.querySelectorAll("[data-cta]")) {
     const key = cta.getAttribute("data-cta")!;
     if (!(key in ctas)) error(page, `Unknown CTA "${key}"`);
@@ -292,6 +381,37 @@ for (const page of pagePaths) {
 const notFoundFile = join(OUT, "404.html");
 if (!existsSync(notFoundFile)) error("/404.html", "Missing 404.html");
 else checkPage("/404.html", readFileSync(notFoundFile, "utf8"), false, true);
+
+// ---------- Anti-doorway similarity (reported as warnings — never "fixed" by inventing content) ----------
+{
+  const cityPages = routes.filter((r) => r.kind === "service-city");
+  if (cityPages.length > 1) {
+    const { cities } = await import("@/data/cities");
+    const cityTerms = cities.flatMap((c) => [c.name, c.displayName, ...c.includes, c.descriptors.areas]);
+    const normalise = sim.makeNormaliser(cityTerms, ["xnoservicex"]);
+    const bodyText = (path: string) => {
+      const main = parse(readFileSync(join(OUT, path, "index.html"), "utf8")).querySelector("main");
+      if (!main) return "";
+      main.querySelectorAll("script, style, [data-boilerplate]").forEach((n) => n.remove());
+      return main.structuredText;
+    };
+    const groups = new Map<string, typeof cityPages>();
+    for (const r of cityPages) {
+      const [first] = r.path.split("/").filter(Boolean);
+      groups.set(first!, [...(groups.get(first!) ?? []), r]);
+    }
+    let high = 0;
+    for (const group of groups.values()) {
+      for (const res of sim.analyseSimilarity(group.map((r) => ({ path: r.path, text: bodyText(r.path) })), normalise)) {
+        if (res.risk === "high") {
+          high++;
+          warn(res.path, `Doorway risk: body copy ${res.maxSimilarity} similar to ${res.mostSimilarTo} (unique share ${res.uniqueShare}) — keep in review`);
+        }
+      }
+    }
+    similaritySummary = `${high} of ${cityPages.length} city pages at high doorway risk (see npm run report)`;
+  }
+}
 
 // ---------- No JavaScript files in the build ----------
 for (const f of allFiles.filter((x) => /\.(m?js)$/.test(x))) error("/" + relative(OUT, f), "JavaScript file in build output");
@@ -358,11 +478,12 @@ writeFileSync(
   JSON.stringify({ stage, siteUrl, pages: pagePaths, sitemap: sitemapUrls, issues }, null, 2),
 );
 
+console.log(`Info: similarity — ${similaritySummary}.`);
 const unapprovedCtas = [...ctaUsage.keys()].filter((k) => ctas[k as keyof typeof ctas]?.wording !== "approved");
 if (unapprovedCtas.length > 0) {
   console.log(`\nInfo: CTA wording still "proposed" (needs business approval): ${unapprovedCtas.map((k) => `${k} ×${ctaUsage.get(k)}`).join(", ")}`);
 }
-console.log(`Info: prices ${pricesPublishable ? "shown" : "hidden"} on this build (priceNote ${stage === "production" ? "gate applies" : "gate applies on production only"}).`);
+console.log(`Info: prices ${pricesPublishable ? "shown" : "hidden"} on this build (publishPrices gate${stage === "production" ? "" : " applies on production only"}).`);
 
 console.log(`\n${errors.length} error(s), ${warnings.length} warning(s). Report: reports/seo-report.json`);
 process.exit(errors.length > 0 ? 1 : 0);

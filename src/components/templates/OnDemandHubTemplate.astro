@@ -1,0 +1,144 @@
+---
+/** On-demand service hub (/hourly-maid/): book help by the hour in the app — now (where the app offers it) or scheduled. */
+import { schemaSettings } from "@/data/business";
+import { onDemandSteps, scheduledOnlySteps } from "@/data/how-it-works";
+import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
+import BookingTypes from "@/components/content/BookingTypes.astro";
+import BulletList from "@/components/content/BulletList.astro";
+import CareScope from "@/components/content/CareScope.astro";
+import CheckList from "@/components/content/CheckList.astro";
+import CityCoverage from "@/components/content/CityCoverage.astro";
+import { publishedScope } from "@/data/care-scope";
+import CrossLink from "@/components/content/CrossLink.astro";
+import Cta from "@/components/content/Cta.astro";
+import FaqList from "@/components/content/FaqList.astro";
+import Icon from "@/components/content/Icon.astro";
+import LinkList from "@/components/content/LinkList.astro";
+import ProductFacts from "@/components/content/ProductFacts.astro";
+import { factsFor } from "@/data/product-facts";
+import Section from "@/components/content/Section.astro";
+import Steps from "@/components/content/Steps.astro";
+import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
+import JsonLd from "@/components/seo/JsonLd.astro";
+import Safeguards from "@/components/trust/Safeguards.astro";
+import VerificationSummary from "@/components/trust/VerificationSummary.astro";
+import { productPath, products } from "@/data/products";
+import { getServiceCategories, isHubBuilt, isProductBuilt } from "@/lib/content";
+import { servicePath } from "@/lib/content/paths";
+import type { ResolvedRoute } from "@/lib/content/resolve";
+import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
+
+interface Props {
+  route: Extract<ResolvedRoute, { kind: "service" }>;
+}
+
+const { service } = Astro.props.route;
+const od = service.onDemand;
+const path = servicePath(service.slug, "onDemand");
+const related = getServiceCategories(undefined, "onDemand").filter((c) => c.service.slug !== service.slug && c.href);
+const marketplaceBuilt = isHubBuilt(service, "marketplace");
+const appFacts = factsFor(service.slug, "onDemand");
+// Link to a sibling product page (e.g. /one-time-cleaning/) only when it is built for this stage.
+const alternativeProduct = od.alternative && products.find((p) => productPath(p.slug) === od.alternative!.href);
+const alternative = alternativeProduct && isProductBuilt(alternativeProduct) ? od.alternative : undefined;
+const schema = [
+  ...(schemaSettings.service ? [serviceSchema({ service, path, name: od.name, description: od.seo.description })] : []),
+  ...(schemaSettings.faqPage ? [faqPageSchema(od.faqs)] : []),
+];
+---
+
+<Breadcrumbs items={[{ name: "Home", path: "/" }, { name: od.name, path }]} />
+<JsonLd data={schema} />
+
+<div data-model="onDemand">
+  <section class="hero hero--compact">
+    <div class="container">
+      <span class="hero__icon"><Icon name={service.icon} size={36} /></span>
+      <p class="eyebrow">Book by the hour</p>
+      <h1>{od.headline}</h1>
+      {od.description.map((p) => <p class="lead">{p}</p>)}
+      <div class="cta-row">
+        {od.bookNow ? <Cta ctaKey="bookNow" placement={`${od.slug}_hero`} /> : null}
+        <Cta ctaKey="scheduleHelp" placement={`${od.slug}_hero_schedule`} variant={od.bookNow ? "secondary" : undefined} />
+      </div>
+    </div>
+  </section>
+
+  <Section id="booking-types" title={od.bookNow ? "Book now or schedule ahead" : "Schedule ahead, for the hours you need"} tone="tint">
+    <BookingTypes service={service} />
+    <h3>How it works in the app</h3>
+    <ProductFacts facts={appFacts} />
+  </Section>
+
+  <Section id="use-cases" title={`When people book ${od.bookingNoun}`}>
+    <BulletList items={od.useCases} />
+  </Section>
+
+  <Section id="tasks" title="What can be done in a booking" tone="tint">
+    <div class="two-col">
+      <div>
+        <h3>Usually included</h3>
+        {publishedScope(service.slug) ? <CareScope service={service.slug} /> : <CheckList items={od.tasksIncluded} />}
+      </div>
+      <div>
+        <h3>Usually not included</h3>
+        <CheckList items={od.tasksExcluded} variant="cross" />
+      </div>
+    </div>
+    <p class="note">Tell the helper the tasks you want done first when they arrive.</p>
+  </Section>
+
+  <Section id="how-booking-works" title="How booking works">
+    <Steps steps={od.bookNow ? onDemandSteps : scheduledOnlySteps} />
+  </Section>
+
+  <Section id="cities" title={`Where you can book ${od.bookingNoun}`} tone="warm">
+    <p>Bookings are available in all eight of these cities. Whether someone is free at a particular time depends on who is near you.</p>
+    <CityCoverage service={service.slug} model="onDemand" linkPrefix={`${od.shortName} in`} />
+  </Section>
+
+  <Section id="safety" title="Booking safely">
+    <VerificationSummary />
+    <h3>Tips for your booking</h3>
+    <Safeguards extra={od.safeguards} kind="booking" />
+  </Section>
+
+  {
+    alternative ? (
+      <Section id="one-time-or-hourly" title={alternative.heading}>
+        <p>{alternative.body}</p>
+        <p>
+          <a href={alternative.href}>{alternative.label}</a>
+        </p>
+      </Section>
+    ) : null
+  }
+
+  <Section id="faqs" title={`${od.name}: frequently asked questions`} tone="tint">
+    <FaqList faqs={od.faqs} />
+  </Section>
+</div>
+
+{
+  marketplaceBuilt ? (
+    <CrossLink
+      targetModel="marketplace"
+      href={servicePath(service.slug)}
+      heading="Want the same person every week?"
+      body={`If you'd like the same person every day or every week, you can find ${service.roleWithArticle} on MeeHelp and agree the arrangement with them directly.`}
+      label={`${service.name}: find and hire`}
+    />
+  ) : null
+}
+
+<div data-model="onDemand">
+  <AppDownloadSection model="onDemand" placement={`${od.slug}_app_section`} title={`Book ${od.bookingNoun} in the MeeHelp app`} />
+
+  {
+    related.length > 0 ? (
+      <Section id="related" title="Other help you can book by the hour" boilerplate>
+        <LinkList links={related.map((c) => ({ href: c.href!, label: c.service.onDemand.name }))} />
+      </Section>
+    ) : null
+  }
+</div>

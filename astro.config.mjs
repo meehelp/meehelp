@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import { deploymentProblems } from "./deploy-guard.mjs";
 
 /**
  * Static build: every route is pre-rendered to plain HTML at build time and
@@ -11,6 +12,10 @@ import { defineConfig } from "astro/config";
  * (see docs/DEPLOYMENT.md).
  */
 const site = (process.env.SITE_URL || "https://meehelp.in").replace(/\/+$/, "");
+
+// Refuse unsafe hosted builds (see deploy-guard.mjs and docs/DEPLOYMENT-REVIEW.md).
+const problems = deploymentProblems(process.env);
+if (problems.length > 0) throw new Error(`Deployment guard:\n- ${problems.join("\n- ")}`);
 
 export default defineConfig({
   site,

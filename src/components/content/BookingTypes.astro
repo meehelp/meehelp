@@ -1,0 +1,29 @@
+---
+/** Instant / scheduled / hourly booking explained (on-demand sections only). */
+import { bookingTypes } from "@/data/how-it-works";
+import type { Service } from "@/lib/content/types";
+
+interface Props {
+  service?: Service;
+}
+
+const { service } = Astro.props;
+const types = bookingTypes.filter(
+  (t) =>
+    !service ||
+    (t.key === "instant" && service.models.instantBooking === true && service.onDemand.bookNow) ||
+    (t.key === "scheduled" && service.models.scheduledBooking === true) ||
+    (t.key === "hourly" && service.models.hourlyBooking === true),
+);
+---
+
+<ul class="cards cards--3">
+  {
+    types.map((t) => (
+      <li class="card">
+        <h3 class="card__title">{t.name}</h3>
+        <p>{t.body}</p>
+      </li>
+    ))
+  }
+</ul>

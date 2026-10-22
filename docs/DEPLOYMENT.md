@@ -1,5 +1,8 @@
 # Deployment notes (NOT done in this phase)
 
+> The protected Vercel review deployment of the 15-page `release-review` build is documented in
+> **`docs/DEPLOYMENT-REVIEW.md`**; its headers live in `vercel.json` (the block below is kept in sync).
+
 Nothing has been deployed, and no DNS, redirect or hosting configuration has been changed.
 
 ## Hosting
@@ -78,15 +81,16 @@ Longer term, move the admin to its own subdomain and add `X-Robots-Tag: noindex`
 /*.html, /        Cache-Control: public, max-age=0, must-revalidate
 /*                X-Content-Type-Options: nosniff
                   Referrer-Policy: strict-origin-when-cross-origin
-                  Permissions-Policy: camera=(), microphone=(), geolocation=()
-                  X-Frame-Options: SAMEORIGIN
+                  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+                  X-Frame-Options: DENY
 ```
 
 The site runs no JavaScript (JSON-LD blocks are data, not executed), so a strict policy works today:
 
 ```
 Content-Security-Policy: default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline';
-  img-src 'self' data:; font-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'
+  img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self';
+  form-action 'none'; frame-ancestors 'none'
 ```
 
 `style-src 'unsafe-inline'` is needed because the stylesheet is inlined into each page. If GA4/GTM is enabled

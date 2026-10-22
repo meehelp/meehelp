@@ -1,0 +1,1515 @@
+{
+  "note": "Phase 4.5 quality report v2 (commit 593e8ae), kept as a BEFORE baseline for Phase 4.6. Unsupported counts use the Phase 4.5 guards.",
+  "pages": [
+    {
+      "path": "/",
+      "kind": "home",
+      "model": "both",
+      "doorway": null,
+      "overlap": null,
+      "evidence": 0,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/pricing/",
+      "kind": "pricing",
+      "model": "marketplace",
+      "doorway": null,
+      "overlap": null,
+      "evidence": 0,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/maid/",
+      "kind": "service",
+      "model": "marketplace",
+      "doorway": null,
+      "overlap": {
+        "max": 0.442,
+        "risk": "medium"
+      },
+      "evidence": 12,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/cook/",
+      "kind": "service",
+      "model": "marketplace",
+      "doorway": null,
+      "overlap": {
+        "max": 0.442,
+        "risk": "medium"
+      },
+      "evidence": 12,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/babysitter-nanny/",
+      "kind": "service",
+      "model": "marketplace",
+      "doorway": null,
+      "overlap": {
+        "max": 0.475,
+        "risk": "medium"
+      },
+      "evidence": 12,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/elder-care/",
+      "kind": "service",
+      "model": "marketplace",
+      "doorway": null,
+      "overlap": {
+        "max": 0.331,
+        "risk": "low"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/patient-care/",
+      "kind": "service",
+      "model": "marketplace",
+      "doorway": null,
+      "overlap": {
+        "max": 0.475,
+        "risk": "medium"
+      },
+      "evidence": 12,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/hourly-maid/",
+      "kind": "service",
+      "model": "onDemand",
+      "doorway": null,
+      "overlap": {
+        "max": 0.304,
+        "risk": "low"
+      },
+      "evidence": 11,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/hourly-cook/",
+      "kind": "service",
+      "model": "onDemand",
+      "doorway": null,
+      "overlap": {
+        "max": 0.411,
+        "risk": "medium"
+      },
+      "evidence": 8,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/hourly-babysitter/",
+      "kind": "service",
+      "model": "onDemand",
+      "doorway": null,
+      "overlap": {
+        "max": 0.411,
+        "risk": "medium"
+      },
+      "evidence": 8,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-elder-care/",
+      "kind": "service",
+      "model": "onDemand",
+      "doorway": null,
+      "overlap": {
+        "max": 0.393,
+        "risk": "low"
+      },
+      "evidence": 8,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-patient-care/",
+      "kind": "service",
+      "model": "onDemand",
+      "doorway": null,
+      "overlap": {
+        "max": 0.393,
+        "risk": "low"
+      },
+      "evidence": 8,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/maid/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.332,
+        "unique": 0.559,
+        "risk": "low"
+      },
+      "overlap": {
+        "max": 0.415,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/maid/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.348,
+        "unique": 0.539,
+        "risk": "low"
+      },
+      "overlap": {
+        "max": 0.426,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/maid/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.817,
+        "unique": 0.102,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.703,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/maid/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.821,
+        "unique": 0.127,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.615,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/maid/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.817,
+        "unique": 0.045,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.679,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/maid/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.771,
+        "unique": 0.19,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.572,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/maid/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.798,
+        "unique": 0.141,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.623,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/maid/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.821,
+        "unique": 0.036,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.675,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/cook/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.358,
+        "unique": 0.546,
+        "risk": "low"
+      },
+      "overlap": {
+        "max": 0.468,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "READY"
+    },
+    {
+      "path": "/cook/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.765,
+        "unique": 0.16,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.686,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/cook/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.817,
+        "unique": 0.12,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.692,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/cook/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.887,
+        "unique": 0.058,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.651,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/cook/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.817,
+        "unique": 0.045,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.667,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/cook/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.895,
+        "unique": 0.052,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.65,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/cook/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.873,
+        "unique": 0.054,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.656,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/cook/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.895,
+        "unique": 0.036,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.663,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/babysitter-nanny/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.719,
+        "unique": 0.224,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.626,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/babysitter-nanny/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.768,
+        "unique": 0.159,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.689,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/babysitter-nanny/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.819,
+        "unique": 0.118,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.703,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/babysitter-nanny/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.888,
+        "unique": 0.058,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.654,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/babysitter-nanny/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.819,
+        "unique": 0.044,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.679,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/babysitter-nanny/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.897,
+        "unique": 0.051,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.653,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/babysitter-nanny/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.875,
+        "unique": 0.035,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.656,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/babysitter-nanny/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.897,
+        "unique": 0.035,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.675,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.678,
+        "unique": 0.258,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.6,
+        "risk": "high"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.787,
+        "unique": 0.132,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.53,
+        "risk": "medium"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.904,
+        "unique": 0.041,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.508,
+        "risk": "medium"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.869,
+        "unique": 0.068,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.564,
+        "risk": "medium"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.904,
+        "unique": 0.052,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.57,
+        "risk": "medium"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.879,
+        "unique": 0.061,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.563,
+        "risk": "medium"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.75,
+        "unique": 0.09,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.604,
+        "risk": "high"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/elder-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.879,
+        "unique": 0.041,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.565,
+        "risk": "medium"
+      },
+      "evidence": 1,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/patient-care/mumbai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.662,
+        "unique": 0.273,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.626,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/patient-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.763,
+        "unique": 0.157,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.689,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/patient-care/bengaluru/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.819,
+        "unique": 0.118,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.686,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/patient-care/hyderabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.889,
+        "unique": 0.057,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.654,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/patient-care/chennai/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.819,
+        "unique": 0.044,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.66,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/patient-care/pune/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.898,
+        "unique": 0.051,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.653,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/patient-care/kolkata/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.783,
+        "unique": 0.077,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.604,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/patient-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "marketplace",
+      "doorway": {
+        "max": 0.898,
+        "unique": 0.035,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.657,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-maid/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.661,
+        "unique": 0.22,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.483,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-maid/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.644,
+        "unique": 0.255,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.442,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-maid/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.82,
+        "unique": 0.118,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.509,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-maid/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.772,
+        "unique": 0.168,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.462,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-maid/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.837,
+        "unique": 0.034,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.461,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-maid/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.807,
+        "unique": 0.163,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.409,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-maid/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.777,
+        "unique": 0.121,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.432,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-maid/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.837,
+        "unique": 0.015,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.474,
+        "risk": "medium"
+      },
+      "evidence": 4,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.786,
+        "unique": 0.127,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.643,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.808,
+        "unique": 0.094,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.64,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.84,
+        "unique": 0.105,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.622,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.873,
+        "unique": 0.076,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.619,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.862,
+        "unique": 0.03,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.584,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.968,
+        "unique": 0.013,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.594,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.877,
+        "unique": 0.029,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.594,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-cook/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.968,
+        "unique": 0.013,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.594,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.778,
+        "unique": 0.132,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.643,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.8,
+        "unique": 0.098,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.64,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.832,
+        "unique": 0.11,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.622,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.868,
+        "unique": 0.079,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.619,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.849,
+        "unique": 0.032,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.584,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.966,
+        "unique": 0.014,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.594,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.872,
+        "unique": 0.031,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.594,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-babysitter/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.966,
+        "unique": 0.014,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.594,
+        "risk": "medium"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-elder-care/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.712,
+        "unique": 0.195,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.712,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-elder-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.808,
+        "unique": 0.093,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.672,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-elder-care/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.84,
+        "unique": 0.105,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.655,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-elder-care/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.874,
+        "unique": 0.076,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.652,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-elder-care/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.853,
+        "unique": 0.03,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.62,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-elder-care/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.968,
+        "unique": 0.013,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.63,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-elder-care/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.782,
+        "unique": 0.074,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.659,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-elder-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.968,
+        "unique": 0.013,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.63,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-patient-care/mumbai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.715,
+        "unique": 0.193,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.712,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-patient-care/delhi-ncr/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.811,
+        "unique": 0.092,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.672,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-patient-care/bengaluru/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.842,
+        "unique": 0.103,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.655,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-patient-care/hyderabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.875,
+        "unique": 0.075,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.652,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-patient-care/chennai/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.855,
+        "unique": 0.03,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.62,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-patient-care/pune/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.968,
+        "unique": 0.013,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.63,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    },
+    {
+      "path": "/hourly-patient-care/kolkata/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.785,
+        "unique": 0.073,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.659,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "REVIEW"
+    },
+    {
+      "path": "/hourly-patient-care/ahmedabad/",
+      "kind": "service-city",
+      "model": "onDemand",
+      "doorway": {
+        "max": 0.968,
+        "unique": 0.013,
+        "risk": "high"
+      },
+      "overlap": {
+        "max": 0.63,
+        "risk": "high"
+      },
+      "evidence": 5,
+      "unsupported": 0,
+      "readiness": "HOLD"
+    }
+  ]
+}

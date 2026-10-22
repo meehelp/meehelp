@@ -1,8 +1,11 @@
 ---
 /**
- * The home page introduces BOTH propositions. Each proposition has its own
- * sections, marked with data-model, and the SEO validator checks that their
- * wording and CTAs never mix.
+ * The home page introduces BOTH propositions and makes the choice obvious:
+ * find and hire a helper directly (marketplace) or book help by the hour
+ * (on-demand). Each proposition's sections are marked with data-model; the
+ * SEO validator checks that their wording and CTAs never mix.
+ *
+ * Links appear only for pages built for the current stage.
  */
 import { businessModels } from "@/data/business-models";
 import { schemaSettings } from "@/data/business";
@@ -11,11 +14,11 @@ import { home } from "@/data/home";
 import { marketplaceSteps, onDemandSteps } from "@/data/how-it-works";
 import AppDownloadSection from "@/components/app/AppDownloadSection.astro";
 import StoreButtons from "@/components/app/StoreButtons.astro";
+import BookingTypes from "@/components/content/BookingTypes.astro";
 import Cta from "@/components/content/Cta.astro";
 import FaqList from "@/components/content/FaqList.astro";
 import Icon from "@/components/content/Icon.astro";
 import Section from "@/components/content/Section.astro";
-import ServiceCards from "@/components/content/ServiceCards.astro";
 import Steps from "@/components/content/Steps.astro";
 import PlansSummary from "@/components/pricing/PlansSummary.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
@@ -25,22 +28,28 @@ import Testimonials from "@/components/trust/Testimonials.astro";
 import TrustMetrics from "@/components/trust/TrustMetrics.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getBuiltServiceCities, getService, getServiceCategories } from "@/lib/content";
-import { serviceCityPath } from "@/lib/content/paths";
+import { getBuiltProducts, getServiceCategories } from "@/lib/content";
+import { productPath } from "@/data/products";
 import { isIndexable } from "@/lib/content/publishing";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { faqPageSchema, organizationSchema, websiteSchema } from "@/lib/seo/schema";
 
 const meta = buildPageMetadata({ ...home.seo, path: "/", indexable: isIndexable(home.publishStatus) });
 
-const bookingTypeNames = { instant: "Instant", scheduled: "Scheduled", hourly: "Hourly" } as const;
-const categories = getServiceCategories();
-const cityPages = getBuiltServiceCities();
+const hire = getServiceCategories(undefined, "marketplace");
+const book = getServiceCategories(undefined, "onDemand");
+const categories = hire.map((h, i) => ({ service: h.service, hireHref: h.href, bookHref: book[i]?.href ?? null }));
+// On-demand product pages (e.g. /one-time-cleaning/) built for this stage.
+const productLinks = getBuiltProducts().map((p) => ({ href: productPath(p.slug), label: p.shortName }));
 const activeCities = cities.filter((c) => c.marketActive === true);
 const { marketplace, onDemand } = businessModels;
-const bookingTypes = (Object.keys(bookingTypeNames) as (keyof typeof bookingTypeNames)[]).filter(
-  (k) => onDemand.bookingTypes[k] === true,
-);
+
+/**
+ * Phase 4.5 linking review: the home page links to the 10 hubs (path cards
+ * and category grid), pricing and the on-demand product pages (SEO batch 1:
+ * /one-time-cleaning/ for the one-time clean intent, /hourly-maid/ for hourly help). City pages are reached from their hub, so
+ * no single category is promoted city by city from the home page.
+ */
 const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPage ? [faqPageSchema(home.faqs)] : [])];
 ---
 
@@ -58,6 +67,15 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
             <li class="path" data-model="marketplace">
               <h2 class="path__title">{marketplace.name}</h2>
               <p>{marketplace.summary}</p>
+              {hire.some((c) => c.href) ? (
+                <ul class="path__links" aria-label="Find and hire">
+                  {hire.filter((c) => c.href).map((c) => (
+                    <li>
+                      <a href={c.href!}>{c.service.shortName}</a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
               <Cta ctaKey="findHelpers" placement="home_hero_marketplace" />
             </li>
           ) : null
@@ -67,7 +85,21 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
             <li class="path path--alt" data-model="onDemand">
               <h2 class="path__title">{onDemand.name}</h2>
               <p>{onDemand.summary}</p>
-              <Cta ctaKey="bookNow" placement="home_hero_on_demand" />
+              {book.some((c) => c.href) || productLinks.length > 0 ? (
+                <ul class="path__links" aria-label="Book in the app">
+                  {productLinks.map((l) => (
+                    <li>
+                      <a href={l.href}>{l.label}</a>
+                    </li>
+                  ))}
+                  {book.filter((c) => c.href).map((c) => (
+                    <li>
+                      <a href={c.href!}>{c.service.onDemand.shortName}</a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <Cta ctaKey="bookHourly" placement="home_hero_on_demand" />
             </li>
           ) : null
         }
@@ -76,17 +108,45 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
     </div>
   </section>
 
-  <Section
-    id="helpers"
-    title="Helpers you can find on MeeHelp"
-    intro="Review profiles, contact helpers directly and hire the person who fits your home."
-    model="marketplace"
-  >
-    <ServiceCards items={categories} />
+  <Section id="categories" title="Choose the help you need" intro="Every category can be hired directly or booked by the hour.">
+    <ul class="category-grid">
+      {
+        categories.map(({ service, hireHref, bookHref }) => (
+          <li class="category">
+            <span class="service-card__icon">
+              <Icon name={service.icon} size={28} />
+            </span>
+            <h3 class="category__title">{service.name}</h3>
+            <p class="category__text">{service.summary}</p>
+            {hireHref || bookHref ? (
+              <ul class="category__links">
+                {hireHref ? (
+                  <li>
+                    <a href={hireHref}>
+                      Find and hire<span class="visually-hidden"> {service.roleWithArticle}</span>
+                    </a>
+                  </li>
+                ) : null}
+                {bookHref ? (
+                  <li>
+                    <a href={bookHref}>
+                      Book by the hour<span class="visually-hidden">: {service.onDemand.name}</span>
+                    </a>
+                  </li>
+                ) : null}
+              </ul>
+            ) : null}
+          </li>
+        ))
+      }
+    </ul>
   </Section>
 
   <Section id="how-hiring-works" title="How finding and hiring a helper works" tone="tint" model="marketplace">
     <Steps steps={marketplaceSteps} />
+    <div class="cta-row">
+      <Cta ctaKey="findHelpers" placement="home_how_hiring_works" />
+    </div>
   </Section>
 
   <Section id="plans" title="Plans for contacting helpers" tone="warm" model="marketplace">
@@ -96,73 +156,44 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
 
   {
     onDemand.confirmed ? (
-      <Section id="on-demand" title={onDemand.name} intro={onDemand.summary} model="onDemand">
-        {bookingTypes.length > 0 ? (
-          <ul class="tags" aria-label="Booking types">
-            {bookingTypes.map((k) => (
-              <li>{bookingTypeNames[k]}</li>
-            ))}
-          </ul>
-        ) : null}
+      <Section id="on-demand" title="How booking by the hour works" intro={onDemand.summary} model="onDemand">
+        <BookingTypes />
         <Steps steps={onDemandSteps} />
-        <p class="note">The kinds of help you can book depend on your area. Check in the MeeHelp app.</p>
+        {productLinks.map((l) => (
+          <p>
+            Only need one cleaning visit? <a href={l.href}>Book a one-time clean</a>
+          </p>
+        ))}
         <div class="cta-row">
-          <Cta ctaKey="bookNow" placement="home_on_demand" />
+          <Cta ctaKey="bookHourly" placement="home_on_demand" />
         </div>
       </Section>
     ) : null
   }
 
-  <Section id="who-we-help" title="Who MeeHelp helps" tone="warm">
-    <ul class="cards cards--4">
-      {
-        home.audiences.map((a) => (
-          <li class="card">
-            <h3 class="card__title">{a.title}</h3>
-            <p>{a.body}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
-
-  <Section id="safety" title="Helper verification and safety">
-    <TrustMetrics />
-    <VerificationSummary />
-    <h3>Tips for hiring</h3>
-    <Safeguards />
-  </Section>
-
   {
     activeCities.length > 0 ? (
       <Section id="coverage" title="Cities where MeeHelp operates" tone="tint">
         <ul class="city-list">
-          {activeCities.map((city) => {
-            const pages = cityPages.filter((p) => p.city === city.slug);
-            return (
-              <li class="city-list__item">
-                <h3 class="city-list__name">
-                  <Icon name="arrow" size={16} class="city-list__icon" /> {city.displayName}
-                </h3>
-                {pages.length > 0 ? (
-                  <ul>
-                    {pages.map((p) => (
-                      <li>
-                        <a href={serviceCityPath(p.service, p.city)}>
-                          {getService(p.service)?.shortName} in {city.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </li>
-            );
-          })}
+          {activeCities.map((city) => (
+            <li class="city-list__item">
+              <h3 class="city-list__name">
+                <Icon name="arrow" size={16} class="city-list__icon" /> {city.displayName}
+              </h3>
+            </li>
+          ))}
         </ul>
-        <p>What is available depends on your exact area and the kind of help you need. Check in the MeeHelp app.</p>
+        <p>Every category is available in all eight cities. The app checks your address when you search or book, so you see the help that is available where you live.</p>
       </Section>
     ) : null
   }
+
+  <Section id="safety" title="Helper verification and safety">
+    <TrustMetrics />
+    <VerificationSummary />
+    <h3>Tips for hiring a helper</h3>
+    <Safeguards />
+  </Section>
 
   <Testimonials />
 
@@ -175,7 +206,7 @@ const schema = [organizationSchema(), websiteSchema(), ...(schemaSettings.faqPag
   <section class="cta-band" aria-labelledby="final-cta-heading">
     <div class="container">
       <h2 id="final-cta-heading">Get help at home with MeeHelp</h2>
-      <p>Find and hire a helper directly, or book on-demand help — both in the MeeHelp app.</p>
+      <p>Find and hire a helper directly, or book help by the hour — both in the MeeHelp app.</p>
       <StoreButtons placement="home_final_cta" align="center" />
     </div>
   </section>

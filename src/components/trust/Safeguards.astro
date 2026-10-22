@@ -1,13 +1,15 @@
 ---
 /** Practical advice for hiring safely. Makes no claims about MeeHelp checks. */
-import { sharedSafeguards } from "@/data/how-it-works";
+import { bookingSafeguards, sharedSafeguards } from "@/data/how-it-works";
 import BulletList from "@/components/content/BulletList.astro";
 
 interface Props {
   extra?: string[];
+  /** "booking" for on-demand pages: no salary, notice period or trial advice. */
+  kind?: "hiring" | "booking";
 }
 
-const { extra = [] } = Astro.props;
+const { extra = [], kind = "hiring" } = Astro.props;
 ---
 
-<BulletList items={[...extra, ...sharedSafeguards]} />
+<BulletList items={[...extra, ...(kind === "booking" ? bookingSafeguards : sharedSafeguards)]} />

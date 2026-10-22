@@ -306,8 +306,9 @@ code {
 }
 
 .site-header__logo img {
-  width: 124px;
-  height: auto;
+  display: block;
+  height: 48px;
+  width: auto;
 }
 
 .site-header__cta {
@@ -1005,7 +1006,9 @@ code {
 }
 
 .site-footer__logo {
-  width: 124px;
+  display: block;
+  height: 56px;
+  width: auto;
   margin-bottom: 0.75rem;
 }
 
@@ -1317,4 +1320,227 @@ code {
   .steps {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+/* ---------- Phase 4: cross-model links, navigation groups, category links ---------- */
+
+.cross-link {
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+
+.cross-link__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.cross-link p {
+  color: var(--ink-muted);
+  max-width: 44rem;
+  margin-bottom: 0.25rem;
+}
+
+.site-nav__group {
+  margin: 0;
+  padding: 0.75rem var(--gutter) 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border-top: 1px solid var(--line);
+}
+
+.category-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 40rem) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 60rem) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.category__title {
+  font-size: 1.15rem;
+  margin: 0.4rem 0 0;
+}
+
+.category__text {
+  color: var(--ink-muted);
+  margin: 0;
+}
+
+.category__links {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 0.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.category__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 600;
+}
+
+.path__links {
+  list-style: none;
+  margin: 0.5rem 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.path__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.city-list__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.city-list__links a {
+  display: inline-block;
+  padding: 0.3rem 0;
+}
+
+.faq-group + .faq-group {
+  margin-top: 1.5rem;
+}
+
+.steps-inline {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.35rem;
+  max-width: 44rem;
+}
+
+@media (min-width: 48rem) {
+  .steps-inline {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2rem;
+  }
+}
+
+.verification--compact .tags {
+  margin-bottom: 0.75rem;
+}
+
+/* Business-approved care scope (grouped checklist) */
+.care-scope__group + .care-scope__group {
+  margin-top: 1rem;
+}
+.care-scope__group h4 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+.care-scope__group .note {
+  margin: 0 0 0.5rem;
+}
+
+/* City coverage on hubs: every active city named, built city pages linked */
+.city-coverage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin: 0.75rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Small screens: both propositions above the fold. The hero intro already
+   explains each path, so the card summaries are shown from tablet width up. */
+@media (max-width: 47.99rem) {
+  .paths {
+    margin-top: 1rem;
+  }
+  .path {
+    padding: 1rem;
+  }
+  .path p {
+    display: none;
+  }
+  .path__links {
+    margin: 0.25rem 0 0.5rem;
+  }
+}
+
+/* Salary guide (/maid-salary/mumbai/): indicative ranges table and range callouts */
+.salary-table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0 0;
+}
+.salary-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+}
+.salary-table caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.salary-table th,
+.salary-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.salary-table td:last-child,
+.salary-table thead th:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+.salary-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.salary-range {
+  display: inline-block;
+  font-weight: 600;
+  background: var(--brand-tint);
+  color: var(--brand-ink-strong);
+  border-radius: var(--radius-small);
+  padding: 0.35rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.sources {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+.sources li + li {
+  margin-top: 0.5rem;
 }

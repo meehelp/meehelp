@@ -1,23 +1,39 @@
 import type { ModelSupport, Service, ServiceSlug } from "@/lib/content/types";
+import { cityFrames } from "./city-frames";
+import { onDemandContent } from "./on-demand";
 
 /**
  * Helper categories. Each hub page (/maid/ etc.) is a MARKETPLACE page:
  * the customer finds helpers, contacts them directly and hires them directly.
  * Copy must not describe on-demand booking (see data/business-models.ts).
  *
- * `models` is NOT CONFIRMED for any service yet (null). A hub page is built on
- * production only once `models.marketplace` is true — see lib/content.
- * Prices never appear in this file; they come from data/plans.ts.
+ * `models`: CONFIRMED in the Phase 4 brief (2026-10-17) — every category
+ * supports both the marketplace and on-demand models with scheduled, hourly
+ * booking. Phase 4.6 (biz.instant-scope): instant booking applies ONLY to the
+ * one-time cleaning flow, i.e. the maid category; cook and care are scheduled.
+ *
+ * `publishStatus` is "published" for the five first-release marketplace hubs after\n * business review. City pages remain independently gated.
+ *
+ * Phase 4.5: task lists describe the role in general terms — the app's own
+ * task names live in the admin panel (evidence cat.task-names-server) and
+ * need business approval (Q-TASKS). App mechanics come from
+ * src/data/product-facts.ts. Elder care has no marketplace helper category in
+ * the product code (Q-ELDER), so its marketplace pages are held. Confirming the
+ * models must not publish unreviewed copy as a side effect.
+ * Prices never appear in this file; they come from src/data/plans.ts.
  */
-const unconfirmed: ModelSupport = {
-  marketplace: null,
-  onDemand: null,
-  instantBooking: null,
-  scheduledBooking: null,
-  hourlyBooking: null,
+const confirmedBothModels: ModelSupport = {
+  marketplace: true,
+  onDemand: true,
+  instantBooking: false,
+  scheduledBooking: true,
+  hourlyBooking: true,
 };
+/** One-time cleaning ("On the go") is the only flow with Book Now. */
+const withOneTimeCleaning: ModelSupport = { ...confirmedBothModels, instantBooking: true };
 
-export const services: Service[] = [
+/** Marketplace (find & hire directly) content per category. */
+const marketplaceContent: Omit<Service, "onDemand" | "cityPage">[] = [
   {
     slug: "maid",
     name: "Maid / House Help",
@@ -25,11 +41,11 @@ export const services: Service[] = [
     icon: "maid",
     roleWithArticle: "a maid",
     summary: "Find house help for daily cleaning, dishes and laundry, and hire them directly.",
-    models: { ...unconfirmed },
+    models: { ...withOneTimeCleaning },
     headline: "Find a maid or house help near you",
     description: [
-      "Looking for someone to handle sweeping and mopping, dishes and laundry every day? On MeeHelp you review profiles of house help near you, contact the helpers you like, and hire them directly.",
-      "You decide the tasks and the hours, and agree the salary with the helper yourself — so the arrangement fits your home and your routine.",
+      "Hire house help for daily sweeping and mopping, dishes, bathrooms and laundry: part-time for a few hours each day, or full-time help who lives in. On MeeHelp you see profiles of helpers near your address, contact the ones you like and hire them directly.",
+      "You decide the tasks and the hours, and agree the salary with the helper yourself. MeeHelp doesn't place the helper or take a cut of their salary.",
     ],
     customerProblems: [
       "Your regular maid has left and you need someone new.",
@@ -65,7 +81,7 @@ export const services: Service[] = [
       {
         question: "Can I hire a maid for just a few hours a day?",
         answer:
-          "Yes. Many households hire house help for a fixed number of hours each morning or evening, or only on certain days of the week. Discuss the hours you need when you speak to helpers.",
+          "Yes. Part-time help can be hired for 2 to 12 hours a day — choose the hours when you search, then agree the exact time slot with the helper.",
       },
       {
         question: "Who decides the maid's salary?",
@@ -75,7 +91,7 @@ export const services: Service[] = [
       {
         question: "Can I try a maid before hiring?",
         answer:
-          "Yes. Once you have contacted a helper, you can call them for a trial before you decide whether to hire them.",
+          "Yes, if you agree it with the helper. The app doesn't arrange trials: once you've spoken to a helper, agree a trial day with them directly and agree what you'll pay for it.",
       },
       {
         question: "What if it doesn't work out?",
@@ -98,11 +114,11 @@ export const services: Service[] = [
     icon: "cook",
     roleWithArticle: "a cook",
     summary: "Find a home cook who cooks the way your family likes, and hire them directly.",
-    models: { ...unconfirmed },
+    models: { ...confirmedBothModels },
     headline: "Find a home cook near you",
     description: [
-      "Home-cooked food every day, without spending your evenings in the kitchen. On MeeHelp you review profiles of cooks near you and contact the ones you want to speak to — vegetarian or non-vegetarian, regional or everyday cooking.",
-      "Talk to the cook about how many people you cook for, which meals you need and your food preferences, and agree the salary with them directly.",
+      "Hire a cook for the meals your family eats every day — part-time for one or two meals, or a full-time cook who lives in. On MeeHelp you tell the app how many people the cook will be cooking for, see cooks near your address and contact the ones you want to speak to.",
+      "Profiles don't list food preferences, so talk to each cook about the food you eat, your rules in the kitchen and the meal times you need, and agree the salary with them directly.",
     ],
     customerProblems: [
       "You want healthy home food instead of ordering in.",
@@ -137,7 +153,7 @@ export const services: Service[] = [
       {
         question: "Can I find a cook for vegetarian-only or Jain food?",
         answer:
-          "Yes. Look for cooks whose profiles match your food preference, and discuss specific rules — such as Jain food or no onion and garlic — with the cook before they start.",
+          "Profiles don't show food preferences, so ask about it on your first call. Explain your rules — such as Jain food or no onion and garlic — and ask for a trial meal before you decide.",
       },
       {
         question: "How is a cook's salary decided?",
@@ -152,13 +168,13 @@ export const services: Service[] = [
       {
         question: "How do I know a cook will suit my family's taste?",
         answer:
-          "Call the cook for a trial before you decide, and give honest feedback on spice, salt and oil in the first week.",
+          "Agree a trial meal with the cook before you decide, and give honest feedback on spice, salt and oil in the first week.",
       },
     ],
     seo: {
       title: "Cook Near You – Find & Hire a Home Cook | MeeHelp",
       description:
-        "Find a home cook near you for daily meals and tiffins — veg, non-veg or Jain. Contact cooks directly, try them out and hire the right one with MeeHelp.",
+        "Hire a home cook near you for daily meals and tiffins, part-time or live-in. Contact cooks directly, agree a trial meal and the salary yourself on MeeHelp.",
     },
     publishStatus: "published",
     updatedAt: "2026-10-17",
@@ -170,11 +186,11 @@ export const services: Service[] = [
     icon: "nanny",
     roleWithArticle: "a babysitter or nanny",
     summary: "Find a babysitter or nanny, speak to them and meet them before you decide.",
-    models: { ...unconfirmed },
+    models: { ...confirmedBothModels },
     headline: "Find a babysitter or nanny near you",
     description: [
       "Leaving your child with someone new is a big decision. On MeeHelp you review profiles of babysitters and nannies near you, contact the ones you like, and take your time to speak to them and meet them before you decide.",
-      "Whether you need someone part-time while you work from home or a nanny for the whole day, you agree the schedule, responsibilities and salary directly with them.",
+      "Hire part-time for the hours you work, or a full-time nanny who lives in. You agree the schedule, the responsibilities and the salary directly with them.",
     ],
     customerProblems: [
       "You are going back to work and need dependable care at home.",
@@ -183,18 +199,17 @@ export const services: Service[] = [
       "You need an extra pair of hands with a newborn or a toddler.",
     ],
     tasksIncluded: [
-      "Supervising and playing with your child",
-      "Feeding your child and preparing simple meals for them",
-      "Bathing, dressing and changing diapers",
-      "Following the nap and meal routine you set",
-      "Walking your child to the park, school bus or nearby classes",
-      "Keeping your child's room, toys and clothes tidy",
+      "Bathing, dressing, diaper changes and keeping your baby clean",
+      "Bottles, formula and feeding at the times you set",
+      "Keeping to the nap and bedtime routine you set",
+      "Age-appropriate play, reading and outings you approve",
+      "Keeping the nursery and play area tidy",
     ],
     tasksExcluded: [
+      "Medical care or advice — always ask your paediatrician",
       "Giving medicines without your clear written instructions",
       "Housework for the whole family, unless agreed in advance",
       "Driving your child, unless agreed and the person holds a valid licence",
-      "Staying alone with your child before you have met them in person",
     ],
     arrangements: ["part-time", "full-time"],
     safeguards: [
@@ -220,7 +235,7 @@ export const services: Service[] = [
       {
         question: "Can a nanny help with a newborn?",
         answer:
-          "Some nannies have experience with infants — ask about it directly when you speak to them. For medical questions about your newborn, always speak to your paediatrician.",
+          "Yes — bathing, diaper changes, bottles and formula, warming expressed milk and keeping to the sleep routine you set are all part of baby care. Ask each nanny about their experience with infants, and take medical questions to your paediatrician.",
       },
     ],
     seo: {
@@ -237,66 +252,65 @@ export const services: Service[] = [
     shortName: "Elder care",
     icon: "elder",
     roleWithArticle: "an elder care attendant",
-    summary: "Find an attendant for company, mobility help and daily routines at home.",
-    models: { ...unconfirmed },
+    summary: "Find a care attendant for an older parent: daily living, moving around, routine and company.",
+    models: { ...confirmedBothModels },
     headline: "Elder care at home for your parents",
     description: [
-      "Many older people want to stay in their own homes, but need someone around for daily routines, company and safety. On MeeHelp you review profiles of elder care attendants near you, contact them directly and choose who to hire.",
-      "This is non-medical, day-to-day support. If your parent needs nursing or medical care, speak to their doctor about qualified nursing help.",
+      "Many older people want to stay in their own homes but need a hand with bathing and dressing, moving around safely, meals and their daily routine — and someone to talk to. On MeeHelp you find a care attendant near you, contact them directly and agree the hours, the tasks and the salary yourself.",
+      "In the app, elder care and patient care attendants come from the same pool of care helpers. What makes it elder care is what your parent needs, so describe their routine, health and mobility when you speak to each attendant.",
     ],
     customerProblems: [
-      "Your parents live alone and you worry about them during the day.",
-      "You live in another city and want someone dependable with them at home.",
-      "An elderly family member needs help walking, bathing or getting dressed.",
-      "You have been caring for a parent full-time and need a break.",
+      "Your parents live alone and need someone with them during the day.",
+      "A parent needs help getting up, bathing or walking safely.",
+      "You live in another city and want a steady person at home with them.",
+      "You have been the main carer for a parent and need regular help.",
     ],
     tasksIncluded: [
-      "Companionship and conversation",
-      "Help with walking and moving around the home safely",
-      "Help with bathing, grooming and dressing",
-      "Preparing simple meals and helping at mealtimes",
-      "Reminding them to take medicines at the right time",
-      "Going with them on walks, errands or visits to the doctor",
+      "Help with bathing, grooming, dressing and toileting",
+      "Support when walking and moving from bed to wheelchair",
+      "Preparing meals and help at mealtimes",
+      "Light housekeeping around the senior and changing bed linen",
+      "Company, reading together, short walks and going along to appointments",
     ],
     tasksExcluded: [
-      "Medical procedures such as injections, IV drips or wound dressing — these need a qualified nurse",
+      "Injections, insulin, IV lines or any other invasive procedure",
+      "Wound dressing, bed-sore or catheter care",
       "Diagnosing illness or changing medicines",
-      "Housework for the whole household, unless agreed in advance",
-      "Handling money or bank transactions",
+      "Handling money or bank work",
     ],
     arrangements: ["part-time", "full-time"],
     safeguards: [
-      "Set up a daily check-in call with the attendant and your parent, especially if you live in another city.",
+      "Write down your parent's routine, medicines, mobility needs and emergency contacts, and go through them with the attendant on the first day.",
     ],
     faqs: [
       {
+        question: "Is elder care a separate category from patient care in the app?",
+        answer:
+          "No. Both are served by the same pool of care attendants. The difference is your parent's needs — explain them when you call, so you choose someone whose experience fits.",
+      },
+      {
         question: "What does an elder care attendant do?",
         answer:
-          "An attendant helps with everyday life: company, moving around safely, bathing and dressing, meals, medicine reminders and going out with your parent. They do not provide medical treatment.",
+          "Help with personal care, moving around safely, meals and the daily routine, light housekeeping around your parent, errands, and company — reading, conversation, short walks and going along to appointments.",
       },
       {
-        question: "Is an elder care attendant the same as a nurse?",
+        question: "Can the attendant check my parent's blood pressure or sugar?",
         answer:
-          "No. A nurse is trained to carry out medical procedures. An attendant gives non-medical, day-to-day support. If your parent needs both, speak to their doctor about nursing care alongside an attendant.",
+          "Only where the assigned caregiver is trained to, and as monitoring that they report to you — not diagnosis. Ask about it before you hire, and follow your doctor's advice.",
       },
       {
-        question: "How can I keep track of my parent's care from another city?",
+        question: "Is an elder care attendant a nurse?",
         answer:
-          "Agree a daily check-in call, ask a neighbour or relative to drop in from time to time, and keep a written routine and list of emergency contacts at home.",
-      },
-      {
-        question: "What should I discuss with an attendant before hiring?",
-        answer:
-          "Share your parent's health conditions, medicine schedule, mobility needs, diet and daily routine, and agree the hours and salary directly. A trial helps you see whether they are the right fit.",
+          "No. Attendants give daily-living support. Injections, IV lines and other medical procedures are not part of the service — ask your parent's doctor about a qualified nurse for those.",
       },
     ],
     seo: {
-      title: "Elder Care at Home – Find an Attendant | MeeHelp",
+      title: "Elder Care at Home – Find a Care Attendant | MeeHelp",
       description:
-        "Find an elder care attendant for your parents at home — company, mobility help, personal care and medicine reminders. Contact attendants directly on MeeHelp.",
+        "Find a care attendant for an older parent at home: help with bathing, moving around, meals, routine and company. Contact attendants directly on MeeHelp.",
     },
     publishStatus: "published",
-    updatedAt: "2026-10-17",
+    updatedAt: "2026-10-18",
   },
   {
     slug: "patient-care",
@@ -304,29 +318,28 @@ export const services: Service[] = [
     shortName: "Patient care",
     icon: "patient",
     roleWithArticle: "a patient care attendant",
-    summary: "Find a non-medical attendant for recovery at home or for bedridden patients.",
-    models: { ...unconfirmed },
+    summary: "Find an attendant for someone unwell, recovering or bedridden at home.",
+    models: { ...confirmedBothModels },
     headline: "Patient care attendants at home",
     description: [
-      "Recovering at home after a hospital stay, surgery or illness often means needing someone by your side through the day. On MeeHelp you review profiles of patient care attendants near you, contact them directly and choose who to hire.",
-      "An attendant helps with personal care, moving around and daily routines, following your doctor's advice. Medical procedures should always be done by a qualified nurse.",
+      "When someone at home is unwell, recovering from surgery or bedridden, they may need an attendant by their side for most of the day — or night. On MeeHelp you see care attendants near your address, contact them directly and hire part-time or a full-time attendant who lives in.",
+      "Patient care is attendant support, not nursing: personal care, moving and turning, food and water, reminders for prescribed oral medicines and, where the caregiver is trained, basic monitoring reported to the family.",
     ],
     customerProblems: [
-      "A family member has just come home from hospital and needs help.",
-      "Someone at home is bedridden or has limited mobility.",
-      "A patient needs support while they recover from surgery.",
-      "Family members can't be at home through the day.",
+      "A family member has come home from hospital and needs help through the day.",
+      "Someone at home is bedridden and needs turning, washing and changing.",
+      "A patient needs help to move safely while they recover.",
+      "Family members can't be at home through the day or night.",
     ],
     tasksIncluded: [
-      "Helping the patient sit up, turn in bed, move and walk safely",
-      "Bathing, sponge baths, toileting and diaper changes",
-      "Feeding and helping at mealtimes",
-      "Medicine reminders as per the doctor's schedule",
-      "Keeping the patient's room and bed clean",
-      "Noticing changes in the patient's condition and telling the family",
+      "Sponge baths, grooming, dressing, adult diapers and bedpans",
+      "Moving from bed to wheelchair, supported walking and repositioning",
+      "Help with eating and drinking enough",
+      "Reminders for prescribed oral medicines",
+      "Keeping the patient's area, linen and washroom clean",
     ],
     tasksExcluded: [
-      "Injections, IV lines, catheter or wound care — these need a qualified nurse",
+      "Injections, IV drips and other invasive medical procedures",
       "Medical advice, diagnosis or changing prescriptions",
       "Housework for the whole family, unless agreed in advance",
       "Emergency medical response — in an emergency, call 108 or your doctor",
@@ -339,32 +352,39 @@ export const services: Service[] = [
       {
         question: "What is the difference between a patient attendant and a nurse?",
         answer:
-          "A patient attendant helps with personal care, mobility, meals and routines. A nurse is qualified to give injections, manage IV lines and dress wounds. Many families use an attendant for daily care and a nurse for scheduled medical visits.",
+          "An attendant helps with personal care, moving, food and medicine reminders. Injections, IV drips and other medical procedures need a qualified nurse and are not part of patient care on MeeHelp.",
       },
       {
-        question: "Can I find an attendant for a bedridden patient?",
+        question: "Can an attendant look after a bedridden patient?",
         answer:
-          "Yes. When you speak to attendants, describe the patient's condition, how much they can move and any equipment at home — such as a hospital bed or wheelchair — so you can choose someone with relevant experience.",
+          "Yes — turning and repositioning, sponge baths, adult diapers and bedpans are part of patient care. Describe the patient's condition and any equipment at home, such as a hospital bed or wheelchair, when you speak to attendants.",
       },
       {
-        question: "Can an attendant work long shifts?",
+        question: "Can the attendant monitor temperature or blood pressure?",
         answer:
-          "Discuss the hours you need with the attendant. For long shifts, agree rest breaks, meals and a place for the attendant to rest before they start.",
+          "Where the assigned caregiver is trained to, they can take readings and tell you or the doctor. They do not diagnose or change treatment.",
       },
       {
         question: "Is patient care the same as elder care?",
         answer:
-          "They overlap. Patient care focuses on someone recovering from an illness, injury or surgery. Elder care is day-to-day support for an older person who may not be unwell.",
+          "They overlap, and the same care attendants do both. Patient care is for someone who is ill, recovering or bedridden, at any age; elder care is daily-living support and company for an older person.",
       },
     ],
     seo: {
       title: "Patient Care at Home – Find a Patient Attendant | MeeHelp",
       description:
-        "Find a patient care attendant for recovery after hospital, or for bedridden and limited-mobility patients. Contact attendants directly and hire on MeeHelp.",
+        "Find a patient care attendant for someone unwell, recovering or bedridden: personal care, moving, meals and medicine reminders. Hire directly on MeeHelp.",
     },
     publishStatus: "published",
-    updatedAt: "2026-10-17",
+    updatedAt: "2026-10-18",
   },
 ];
+
+/** Each category with its marketplace content, its separate on-demand content and its city-page frames. */
+export const services: Service[] = marketplaceContent.map((s) => ({
+  ...s,
+  onDemand: onDemandContent[s.slug],
+  cityPage: cityFrames[s.slug],
+}));
 
 export const serviceSlugs = services.map((s) => s.slug) as ServiceSlug[];

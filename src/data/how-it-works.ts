@@ -1,33 +1,40 @@
 import type { HiringArrangement, Step } from "@/lib/content/types";
 
 /**
- * MARKETPLACE journey (confirmed in the Phase 3 brief): find → review profiles
- * → choose a contact plan → contact directly → discuss/negotiate/trial → hire.
- * The free profile view count is NOT written here; it comes from data/plans.ts.
+ * MARKETPLACE journey (confirmed in the Phase 4 brief): search → choose a
+ * contact plan → get contact details → contact directly → discuss and
+ * negotiate → trial → hire directly. The arrangement is between customer and
+ * helper. Promotions (e.g. free profile views) are never part of this copy.
  */
 export const marketplaceSteps: Step[] = [
-  { title: "Register on MeeHelp", body: "Download the app and sign up with your mobile number." },
-  { title: "Review helper profiles", body: "Browse profiles of helpers near you who match what you need." },
-  { title: "Choose a contact plan", body: "Pick a plan based on how many helpers you want to contact." },
-  { title: "Contact helpers directly", body: "Call the helpers you would like to speak to." },
-  {
-    title: "Discuss, agree and try",
-    body: "Talk through the work, timings and salary with the helper directly, and call them for a trial.",
-  },
-  {
-    title: "Hire directly",
-    body: "Decide whether to hire. If it doesn't work out, you can stop and speak to other helpers.",
-  },
+  { title: "Search for helpers", body: "Browse helpers near you in the MeeHelp app." },
+  { title: "Choose a contact plan", body: "Pick a plan for the number of helpers you want to contact." },
+  { title: "Contact helpers directly", body: "Use your plan to get helpers' contact details, and call the ones you like." },
+  { title: "Discuss and agree terms", body: "Talk through the work, timings and salary with the helper directly." },
+  { title: "Arrange a trial", body: "Invite the helper for a trial before you decide." },
+  { title: "Hire directly", body: "Choose whom to hire. The working arrangement is between you and the helper." },
 ];
 
-/**
- * ON-DEMAND journey — business-level only. Which services support it is not
- * yet confirmed, so this is used only in clearly separated on-demand sections.
- */
+/** ON-DEMAND journey for the one-time cleaning flow (Book Now or schedule). Hourly/care flows use scheduledOnlySteps. */
 export const onDemandSteps: Step[] = [
   { title: "Choose the help you need", body: "Pick the type of help in the MeeHelp app." },
-  { title: "Pick a time", body: "Book instantly, schedule for later, or book by the hour." },
+  { title: "Book now or schedule", body: "Book now where the app offers it, or choose a date and time that suits you." },
+  { title: "Choose the hours", body: "Book for as many hours as the work needs." },
   { title: "Confirm in the app", body: "Review the details and confirm your booking." },
+];
+
+/** Steps for a category whose bookings are scheduled only (evidence impl.instant-scope). */
+export const scheduledOnlySteps: Step[] = [
+  onDemandSteps[0]!,
+  { title: "Schedule the visit", body: "Choose a date and a start time, at least 2 hours ahead." },
+  ...onDemandSteps.slice(2),
+];
+
+/** The three booking types of the on-demand model. */
+export const bookingTypes: { key: "instant" | "scheduled" | "hourly"; name: string; body: string }[] = [
+  { key: "instant", name: "Book now", body: "For a one-time clean, book for now when you need help as soon as possible." },
+  { key: "scheduled", name: "Scheduled", body: "Pick a date and time that suits you." },
+  { key: "hourly", name: "Hourly", body: "Choose how many hours the visit should last." },
 ];
 
 /** Arrangements a customer can agree directly with a helper they hire. */
@@ -41,6 +48,13 @@ export const hiringArrangements: Record<HiringArrangement, { name: string; body:
     body: "A helper for most of the day, with hours, meal breaks and a weekly off agreed with them.",
   },
 };
+
+/** Practical advice for a one-off booking (on-demand pages). Makes no claims about MeeHelp checks. */
+export const bookingSafeguards: string[] = [
+  "Check the helper's details in the app before they arrive, and share the start PIN only when they're at your door.",
+  "Approve the helper's entry with your society or building security before the booked time.",
+  "Keep cash, jewellery and important documents locked away during the visit.",
+];
 
 /** Practical hiring advice for customers. Makes no claims about MeeHelp checks. */
 export const sharedSafeguards: string[] = [

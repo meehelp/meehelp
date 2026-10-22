@@ -1,7 +1,8 @@
 # Recommended URL architecture
 
-Status: **recommendation**. Only the marketplace routes below exist in code today.
-No on-demand, B2B or locality pages are built.
+Status: **implemented on preview** (Phase 4): 92 pages — home, `/pricing/`, 5 marketplace hubs, 5 on-demand hubs,
+40 marketplace city pages and 40 on-demand city pages, all in review (noindex, not in the production sitemap).
+No B2B, locality, blog, competitor or synonym pages are built.
 
 ## Principles
 
@@ -19,12 +20,12 @@ No on-demand, B2B or locality pages are built.
 | Intent | Pattern | Examples | Status |
 |---|---|---|---|
 | Brand / both propositions | `/` | `/` | built |
-| **Marketplace** — find & hire, by category | `/{service}/` | `/maid/`, `/cook/`, `/babysitter-nanny/`, `/elder-care/`, `/patient-care/` | built (held in review until `models.marketplace` is confirmed) |
-| Marketplace × city | `/{service}/{city}/` | `/maid/mumbai/`, `/cook/bengaluru/` | 4 drafts in review |
+| **Marketplace** — find & hire, by category | `/{service}/` | `/maid/`, `/cook/`, `/babysitter-nanny/`, `/elder-care/`, `/patient-care/` | built on preview (review) |
+| Marketplace × city | `/{service}/{city}/` | `/maid/mumbai/`, `/cook/bengaluru/` | 40 built on preview (review) |
 | Marketplace × city × locality | `/{service}/{city}/{locality}/` | `/maid/mumbai/andheri-west/` | model only, never auto-generated |
-| Marketplace plans | `/pricing/` | `/pricing/` | built, held until the price note is confirmed |
-| **On-demand** — book, by category | `/hourly-{service}/` | `/hourly-maid/`, `/hourly-cook/` (only if supported) | not built |
-| On-demand × city | `/hourly-{service}/{city}/` | `/hourly-maid/mumbai/` | not built |
+| Marketplace plans | `/pricing/` | `/pricing/` | built on preview (review) |
+| **On-demand** — book, by category | `/hourly-{service}/` | `/hourly-maid/`, `/hourly-cook/`, `/hourly-babysitter/`, `/hourly-elder-care/`, `/hourly-patient-care/` | 5 built on preview (review) |
+| On-demand × city | `/hourly-{service}/{city}/` | `/hourly-maid/mumbai/` | 40 built on preview (review) |
 | On-demand × city × locality | `/hourly-{service}/{city}/{locality}/` | `/hourly-maid/mumbai/powai/` | not built |
 | B2B (Office/Business plans) | `/office-staff/`, `/business-staff/` (names to be validated with keyword data) | — | not built |
 
@@ -54,15 +55,22 @@ No on-demand, B2B or locality pages are built.
 | patient care at home, patient attendant | `/patient-care/` |
 | domestic helper app | `/` |
 | hourly maid near me, instant maid, maid for 2 hours, book maid, on demand maid, same day maid service, scheduled maid service | `/hourly-maid/` (and `/hourly-maid/{city}/`) |
-| hourly cook | `/hourly-cook/` (only if confirmed) |
-| book home help today | `/` on-demand section, or an on-demand hub once 3+ categories support it |
+| hourly cook, cook for a party, cook for one day | `/hourly-cook/` |
+| hourly babysitter, babysitter for a few hours | `/hourly-babysitter/` |
+| hourly elder care, attendant for a few hours | `/hourly-elder-care/` |
+| hourly patient care, patient attendant for a few hours | `/hourly-patient-care/` |
+| book home help today | `/` (on-demand path card) |
 
 ## Internal linking
 
-- Home → marketplace hubs, `/pricing/`, and (later) on-demand hubs, in separate sections.
-- Marketplace hub → its city pages → their locality pages, plus breadcrumbs back up.
-- `/maid/mumbai/` ↔ `/hourly-maid/mumbai/`: one clearly separated cross-link block
-  ("Need help for a few hours instead?"), not mixed into the page's main content.
+- Home → all 10 hubs (two path cards and the category grid) and `/pricing/`. Since Phase 4.5 the home page lists the
+  8 cities **without** per-city links: it used to link only maid pages in every city, which overweighted one category.
+  City pages are reached from their hub (topical cluster: hub → its 8 cities).
+- Hub → its 8 city pages, plus one cross-link to the same service's hub in the other model.
+- City page → parent hub (breadcrumb and body), the same service in the other model for the same city
+  (one `aside[data-cross-model]` block, outside the main content), and the other services in the same city and model.
+- `/pricing/` → the marketplace hubs, in a "What you can use a plan for" paragraph (contacts work for any category).
+- Header: "Find and hire" / "Book by the hour" groups plus Plans. Footer: no city links.
 - Office/Business plans are linked only from `/pricing/` and the future B2B pages.
 
 ## How the code supports this
@@ -70,7 +78,8 @@ No on-demand, B2B or locality pages are built.
 - `ServiceCity.model` and `LocalityServiceContent.model` record the proposition for every page entry.
 - `src/lib/content/index.ts` requires `services[].models[model] === true` and
   `cities[].availability[service][model]` to be `available`/`limited` before a page can be published.
-- On-demand entries are rejected (`serviceCityStatus` → `draft`) until their own route and template exist.
+- On-demand entries use their own route (`/hourly-{service}/{city}/`) and template (`OnDemandCityTemplate`, no plans or prices).
+- Each page's canonical is itself; marketplace and on-demand pages never canonicalise to each other.
 - The route registry (`getSiteRoutes`) drives `getStaticPaths` (src/pages/[service]/[...rest].astro), the sitemap and the validator, so a new route family
   is added in one place.
 - `npm run seo` fails if marketplace pages contain on-demand wording or CTAs (and vice versa).

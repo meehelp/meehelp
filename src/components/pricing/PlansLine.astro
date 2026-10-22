@@ -1,0 +1,33 @@
+---
+/**
+ * One-line Home plan summary for city pages (prices from src/data/plans.ts),
+ * linking to the full plans. Office/Business plans are never shown here.
+ */
+import { isPricingBuilt } from "@/lib/content";
+import { pricingPath } from "@/lib/content/paths";
+import { arePricesPublishable, formatInr, formatValidity, getActivePlans } from "@/lib/pricing";
+
+interface Props {
+  /** Fallback link when the pricing page isn't built (e.g. the hub's #plans). */
+  fallbackHref: string;
+}
+
+const home = getActivePlans("home");
+const first = home[0];
+const showPrices = arePricesPublishable();
+const href = isPricingBuilt() ? pricingPath : Astro.props.fallbackHref;
+---
+
+{
+  first ? (
+    <p>
+      Home plans give you {home.map((p) => p.contacts).join(", ")} helper contacts
+      {showPrices ? (
+        <>
+          {" "}— from {formatInr(first.currentPrice)} for {first.contacts} contacts, valid for {formatValidity(first.validity)}
+        </>
+      ) : null}
+      . You pay the helper's salary to them directly. <a href={href}>See all plans</a>
+    </p>
+  ) : null
+}

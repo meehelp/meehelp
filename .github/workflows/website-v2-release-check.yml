@@ -1,0 +1,62 @@
+name: Website V2 release checks
+
+on:
+  push:
+    branches:
+      - seo/phase-4-content-preview
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  release-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install
+        run: npm ci
+      - name: Full checks
+        run: npm run check
+      - name: Production build
+        env:
+          GA4_MEASUREMENT_ID: G-07TZPSFJ8Y
+        run: npm run build:production
+      - name: Production release assertions
+        run: |
+          test -f dist/.htaccess
+          grep -q 'G-07TZPSFJ8Y' dist/index.html
+          grep -q 'Allow: /' dist/robots.txt
+          test "$(grep -c '<loc>https://meehelp.in/' dist/sitemap.xml)" = "17"
+          test -f dist/privacy-policy/index.html
+          grep -q '<meta name="robots" content="noindex, follow">' dist/privacy-policy/index.html
+          grep -q 'Personal information we obtain' dist/privacy-policy/index.html
+          grep -q 'contact@meehelp.in' dist/privacy-policy/index.html
+          ! grep -q 'Last Updated on 22 Nov 2022' dist/privacy-policy/index.html
+          ! grep -q '<loc>https://meehelp.in/privacy-policy/' dist/sitemap.xml
+          test -f dist/app-ads.txt
+          grep -qx 'google.com, pub-4715682715981020, DIRECT, f08c47fec0942fa0' dist/app-ads.txt
+          grep -qx 'facebook.com, 794439829037414, DIRECT, c3e20eee3f780d68' dist/app-ads.txt
+          ! grep -Rqi 'noindex' dist/index.html dist/pricing/index.html dist/maid/index.html
+      - name: Zero local application-JS check
+        run: |
+          count=$(find dist -type f \( -name '*.js' -o -name '*.mjs' \) | wc -l | tr -d ' ')
+          echo "Local JavaScript files in dist: $count"
+          test "$count" = "0"
+      - name: Upload Apache production artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meehelp-website-production
+          path: dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

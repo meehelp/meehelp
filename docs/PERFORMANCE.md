@@ -1,5 +1,39 @@
 # Performance
 
+## Phase 5 release-review build (15 pages)
+
+Lighthouse mobile (simulated throttling, median of 3 runs), Chromium 141, `SITE_STAGE=release-review` served with gzip.
+
+| Page | Perf. | A11y | BP | FCP | LCP | TBT | CLS | JS |
+|---|---|---|---|---|---|---|---|---|
+| `/` | 100 | 100 | 100 | 718 ms | 1206 ms | 0 ms | 0 | 0 KB |
+| `/pricing/` | 100 | 100 | 100 | 672 ms | 1356 ms | 0 ms | 0 | 0 KB |
+| `/maid/` | 100 | 100 | 100 | 679 ms | 1357 ms | 0 ms | 0 | 0 KB |
+| `/maid/mumbai/` | 100 | 100 | 100 | 664 ms | 1354 ms | 0 ms | 0 | 0 KB |
+| `/hourly-maid/` | 100 | 100 | 100 | 691 ms | 1355 ms | 0 ms | 0 | 0 KB |
+| `/elder-care/` | 100 | 100 | 100 | 681 ms | 1355 ms | 0 ms | 0 | 0 KB |
+| `/hourly-patient-care/` | 100 | 100 | 100 | 670 ms | 1355 ms | 0 ms | 0 | 0 KB |
+
+Lighthouse SEO reads 69 only because the build is deliberately `noindex` (is-crawlable audit).
+
+## Phase 4 content preview (92 pages)
+
+Same method as below: Lighthouse performance (mobile, simulated throttling, median of 3 runs), Chromium 141,
+preview build served by `scripts/serve-static.mjs` with gzip.
+
+| Page | Score | FCP | LCP | TBT | CLS | JS | Total transfer |
+|---|---|---|---|---|---|---|---|
+| `/` | 100 | 691 ms | 1359 ms | 0 ms | 0 | 0 KB | 73.4 KB |
+| `/maid/` | 100 | 683 ms | 1358 ms | 0 ms | 0 | 0 KB | 73.5 KB |
+| `/maid/mumbai/` | 100 | 678 ms | 1355 ms | 0 ms | 0 | 0 KB | 71.7 KB |
+| `/hourly-maid/` | 100 | 670 ms | 1355 ms | 0 ms | 0 | 0 KB | 72.3 KB |
+| `/hourly-maid/mumbai/` | 100 | 668 ms | 1352 ms | 0 ms | 0 | 0 KB | 71.5 KB |
+| `/pricing/` | 100 | 671 ms | 1358 ms | 0 ms | 0 | 0 KB | 71.4 KB |
+
+Accessibility and Best Practices: 100 on all six. Lighthouse SEO shows 69 on preview only because every preview
+page is deliberately `noindex` (the `is-crawlable` audit). `npm run measure:js`: 0 bytes of JS on all 93 built pages;
+the only `<script>` tags are JSON-LD.
+
 ## Astro migration result (migration phase, before Phase 4)
 
 Same method as Phase 3:
