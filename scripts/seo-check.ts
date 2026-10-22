@@ -86,7 +86,7 @@ if (stage === "release-review") {
   const built = new Set(pagePaths);
   for (const p of releaseReviewPaths) if (!built.has(p)) error(p, "Approved release page missing from the release-review build");
   for (const p of pagePaths) if (!utilityPaths.has(p) && !releaseReviewPaths.has(p)) error(p, "Page outside the approved release set leaked into the release-review build");
-  if (releaseReviewPaths.size !== 16) error("/", `Release set must contain exactly 16 pages (has ${releaseReviewPaths.size})`);
+  if (releaseReviewPaths.size !== 17) error("/", `Release set must contain exactly 17 pages (has ${releaseReviewPaths.size})`);
 }
 
 // ---------- Utility pages: in every artifact, never indexed, never in the sitemap ----------
@@ -113,6 +113,10 @@ const priceStrings = allowedPriceStrings();
 const homePrices = new Set(priceStrings.home);
 const allPrices = new Set([...priceStrings.home, ...priceStrings.office, ...priceStrings.business]);
 const pricesPublishable = arePricesPublishable();
+// Salary guides may show their own market ranges — and no other rupee figure (never MeeHelp plan prices).
+const { salaryGuides, salaryFigures } = await import("@/data/salary-guides");
+const { rupees, salaryGuidePath, salaryGuideProblems } = await import("@/lib/content/salary-guides");
+const guideByPath = new Map(salaryGuides.map((g) => [salaryGuidePath(g), g]));
 const ctaUsage = new Map<string, number>();
 
 /** Visible text of an element: scripts/styles removed, and optionally nested [data-model] blocks removed. */
@@ -293,7 +297,19 @@ function checkPage(page: string, html: string, expectIndexable: boolean, isNotFo
   const asterisk = visible.match(guards.pricedAsteriskPattern);
   if (asterisk) error(page, `Price shown with an asterisk: "${asterisk[0]}"`);
   for (const el of body.querySelectorAll(".plan__price")) if (el.text.includes("*")) error(page, "Asterisk inside a plan price");
-  const prices = visible.match(guards.priceStringPattern) ?? [];
+  const guide = guideByPath.get(page);
+  if (guide) {
+    const figures = new Set(salaryFigures(guide).map(rupees));
+    for (const figure of visible.match(guards.priceStringPattern) ?? []) {
+      if (!figures.has(figure.replace(/\s/g, ""))) error(page, `Rupee figure "${figure}" is not one of this guide's salary ranges`);
+    }
+    const claim = visible.match(guards.salaryGuideClaimPattern);
+    if (claim) error(page, `Salary guide wording not allowed (average/legal/government/MeeHelp rate): "${claim[0]}"`);
+    if (!visible.includes(guide.disclosure)) error(page, "Salary guide is missing its indicative-range disclosure");
+    if (!body.querySelector("[data-salary-disclosure]")) error(page, "Salary disclosure must be rendered below the table");
+    if (stage === "production") for (const problem of salaryGuideProblems(guide)) error(page, `Salary guide cannot be published: ${problem}`);
+  }
+  const prices = guide ? [] : (visible.match(guards.priceStringPattern) ?? []);
   for (const price of prices) {
     const normalised = price.replace(/\s/g, "");
     if (!allPrices.has(normalised)) error(page, `Price "${price}" is not from src/data/plans.ts`);

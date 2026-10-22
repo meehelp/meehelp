@@ -128,6 +128,65 @@ export interface OnDemandProduct {
   updatedAt: string;
 }
 
+/** One row of a salary guide's table: an indicative monthly range in rupees. */
+export interface SalaryRange {
+  key: "part-time" | "full-time-live-out" | "live-in";
+  arrangement: string;
+  min: number;
+  max: number;
+  /** "₹28,000+": the top of the range is open-ended. */
+  openEnded?: boolean;
+}
+
+/** A section of a salary guide. Text may use {range:<key>}, {year} and {reviewed} tokens. */
+export interface SalaryGuideSection {
+  id: string;
+  title: string;
+  /** Shows that row's indicative range above the text. */
+  rangeKey?: SalaryRange["key"];
+  paragraphs: string[];
+  bullets?: string[];
+}
+
+export interface SalarySource {
+  name: string;
+  /** What the source publishes and what it was used for (our wording, not theirs). */
+  usedFor: string;
+  /** Only pages that were checked to exist; omitted where no stable page was confirmed. */
+  links?: { href: string; label: string }[];
+}
+
+/**
+ * An informational salary guide for one service in one city, e.g.
+ * /maid-salary/mumbai/. Market salary ranges only — never MeeHelp prices,
+ * never legal or government rates. Ranges, year and review date live here so
+ * they can be refreshed without touching the template.
+ */
+export interface SalaryGuide {
+  /** Route slug: /maid-salary/mumbai/. */
+  slug: "maid-salary";
+  service: ServiceSlug;
+  city: CitySlug;
+  /** The year the guide speaks for: used in title, description and H1 via {year}. */
+  year: number;
+  /** When the ranges were last checked against the sources (YYYY-MM-DD). Publishing requires a current date. */
+  evidenceReviewedOn: string;
+  /** Breadcrumb / short name. */
+  name: string;
+  headline: string;
+  intro: string[];
+  ranges: SalaryRange[];
+  /** Shown immediately below the table. */
+  disclosure: string;
+  sections: SalaryGuideSection[];
+  methodology: string[];
+  sources: SalarySource[];
+  faqs: Faq[];
+  seo: Seo;
+  publishStatus: PublishStatus;
+  updatedAt: string;
+}
+
 /** The on-demand (book by the hour) proposition for a service — its own hub and city pages. */
 export interface OnDemandContent {
   /** Route slug, e.g. "hourly-maid" → /hourly-maid/ and /hourly-maid/mumbai/. */

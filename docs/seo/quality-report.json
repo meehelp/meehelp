@@ -66,10 +66,10 @@
         "median": 0.658,
         "max": 0.747
       },
-      "evidence": 566,
+      "evidence": 569,
       "unsupported": 0,
       "readiness": {
-        "READY": 16,
+        "READY": 17,
         "REVIEW": 24,
         "HOLD": 53
       }
@@ -620,6 +620,36 @@
       "reasons": []
     },
     {
+      "path": "/maid-salary/mumbai/",
+      "kind": "guide",
+      "proposition": "marketplace",
+      "service": "maid",
+      "city": "mumbai",
+      "status": "published",
+      "title": "Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In | MeeHelp",
+      "h1": "Maid salary in Mumbai: what families may pay in 2026",
+      "metaDescription": "See indicative maid salary and charges in Mumbai for part-time, full-time and live-in help in 2026, plus the factors that affect what families may pay.",
+      "uniqueTitle": true,
+      "uniqueMeta": true,
+      "wordCount": 1504,
+      "factualEvidenceCount": 3,
+      "evidenceIds": [
+        "mkt.contact",
+        "mkt.no-advance",
+        "mkt.profile-fields"
+      ],
+      "unsupportedClaimCount": 0,
+      "unsupportedClaims": [],
+      "localNotes": null,
+      "handWritten": null,
+      "differentiationNotes": [],
+      "internalLinks": 4,
+      "sameServiceCrossCity": null,
+      "sameCityCrossService": null,
+      "readiness": "READY",
+      "reasons": []
+    },
+    {
       "path": "/maid/mumbai/",
       "kind": "service-city",
       "proposition": "marketplace",
@@ -631,7 +661,7 @@
       "metaDescription": "Find a part-time or live-in maid in Mumbai, Thane or Navi Mumbai for cleaning, dishes and laundry. See helpers near your building on MeeHelp.",
       "uniqueTitle": true,
       "uniqueMeta": true,
-      "wordCount": 653,
+      "wordCount": 663,
       "factualEvidenceCount": 5,
       "evidenceIds": [
         "cat.helper-categories",
@@ -650,19 +680,19 @@
         "Flats are often compact, so say exactly how many rooms and bathrooms there are — a 1 BH…",
         "Thane, Navi Mumbai and the island city are a long commute apart. The app shows each hel…"
       ],
-      "internalLinks": 16,
+      "internalLinks": 17,
       "sameServiceCrossCity": {
-        "shingles": 521,
-        "maxSimilarity": 0.342,
+        "shingles": 531,
+        "maxSimilarity": 0.328,
         "mostSimilarTo": "/maid/ahmedabad/",
-        "uniqueShare": 0.557,
+        "uniqueShare": 0.573,
         "risk": "low"
       },
       "sameCityCrossService": {
-        "shingles": 515,
-        "maxSimilarity": 0.426,
+        "shingles": 525,
+        "maxSimilarity": 0.41,
         "mostSimilarTo": "/babysitter-nanny/mumbai/",
-        "uniqueShare": 0.47,
+        "uniqueShare": 0.488,
         "risk": "medium"
       },
       "readiness": "READY",

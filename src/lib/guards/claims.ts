@@ -264,3 +264,12 @@ export function clinicalClaimFindings(text: string): string[] {
 /** Cancellation wording must stay as narrow as the app's policy (evidence shot.cancellation). */
 export const broadRefundPattern =
   /\b(?:all|any|every)\s+cancell?ations?\b[^.]*\brefund|\bfree\s+cancell?ation\b|\bcancel\s+(?:any\s?time|for\s+free)\b|\bfull\s+refund\s+(?:on|for)\s+(?:all|any)\b|\brefund(?:ed)?\s+if\s+you\s+cancel\b/i;
+
+/**
+ * Salary guides (/maid-salary/mumbai/) publish indicative MARKET ranges only.
+ * They must never present them as averages, legal/government/minimum rates or
+ * prescribed rates (checked on guide pages by `npm run seo`). The required
+ * disclosure itself says they are "not fixed MeeHelp rates", so that phrase is allowed.
+ */
+export const salaryGuideClaimPattern =
+  /\baverages?\b|\bminimum (?:wages?|salary|salaries|pay|rates?)\b|\bgovernment(?:-| )?(?:rates?|fixed|approved|notified|mandated)\b|\b(?:legal|statutory|official|prescribed|recommended) (?:rates?|salary|salaries|wages?|minimum)\b|\blegally (?:required|must|obliged)\b|\byou must (?:legally )?pay\b/i;

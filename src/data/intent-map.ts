@@ -115,6 +115,28 @@ export const productIntents = {
   },
 } as const;
 
+/**
+ * Salary guides (src/data/salary-guides.ts), keyed "<slug>/<city>". One page owns the whole
+ * salary/cost cluster for the city — no separate page per variation. Informational intent that
+ * hands over to the marketplace city page (/maid/mumbai/), which keeps "maid in Mumbai".
+ */
+export const guideIntents: Record<string, { primaryIntent: string; primaryKeyword: string; supportingKeywords: readonly string[]; proposition: string }> = {
+  "maid-salary/mumbai": {
+    primaryIntent: "Find out what a maid costs in Mumbai before hiring (salary guide)",
+    primaryKeyword: "maid salary in Mumbai",
+    supportingKeywords: [
+      "maid charges in Mumbai",
+      "part time maid salary Mumbai",
+      "part time maid charges Mumbai",
+      "full time maid salary Mumbai",
+      "live in maid salary Mumbai",
+      "24 hour maid salary Mumbai",
+      "how much does a maid cost in Mumbai",
+    ],
+    proposition: "Indicative Mumbai market salary ranges by arrangement, what changes them and what to agree; then find maids on /maid/mumbai/",
+  },
+};
+
 export const siteIntents = {
   home: {
     primaryIntent: "Understand MeeHelp: hire a helper directly or book help by the hour",

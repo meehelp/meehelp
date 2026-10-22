@@ -1496,3 +1496,51 @@ code {
     margin: 0.25rem 0 0.5rem;
   }
 }
+
+/* Salary guide (/maid-salary/mumbai/): indicative ranges table and range callouts */
+.salary-table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0 0;
+}
+.salary-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+}
+.salary-table caption {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.salary-table th,
+.salary-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.salary-table td:last-child,
+.salary-table thead th:last-child {
+  text-align: right;
+  white-space: nowrap;
+}
+.salary-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.salary-range {
+  display: inline-block;
+  font-weight: 600;
+  background: var(--brand-tint);
+  color: var(--brand-ink-strong);
+  border-radius: var(--radius-small);
+  padding: 0.35rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.sources {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+.sources li + li {
+  margin-top: 0.5rem;
+}

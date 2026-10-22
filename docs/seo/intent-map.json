@@ -306,6 +306,32 @@
       "h1": "Book a one-time home clean when you need it"
     },
     {
+      "path": "/maid-salary/mumbai/",
+      "canonical": "https://meehelp.in/maid-salary/mumbai/",
+      "kind": "guide",
+      "model": "marketplace",
+      "title": "Maid Salary in Mumbai 2026: Part-Time, Full-Time & Live-In | MeeHelp",
+      "metaDescription": "See indicative maid salary and charges in Mumbai for part-time, full-time and live-in help in 2026, plus the factors that affect what families may pay.",
+      "status": "published",
+      "indexable": false,
+      "note": "intent targets — not search-volume estimates",
+      "service": "maid",
+      "city": "mumbai",
+      "primaryIntent": "Find out what a maid costs in Mumbai before hiring (salary guide)",
+      "primaryKeyword": "maid salary in Mumbai",
+      "supportingKeywords": [
+        "maid charges in Mumbai",
+        "part time maid salary Mumbai",
+        "part time maid charges Mumbai",
+        "full time maid salary Mumbai",
+        "live in maid salary Mumbai",
+        "24 hour maid salary Mumbai",
+        "how much does a maid cost in Mumbai"
+      ],
+      "proposition": "Indicative Mumbai market salary ranges by arrangement, what changes them and what to agree; then find maids on /maid/mumbai/",
+      "h1": "Maid salary in Mumbai: what families may pay in 2026"
+    },
+    {
       "path": "/maid/mumbai/",
       "canonical": "https://meehelp.in/maid/mumbai/",
       "kind": "service-city",

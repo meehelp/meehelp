@@ -1,5 +1,5 @@
 /**
- * Phase 4 content architecture: business configuration, the 92-page preview (93 since SEO batch 1)
+ * Phase 4 content architecture: business configuration, the 92-page preview (93 with /one-time-cleaning/, 94 with /maid-salary/mumbai/)
  * inventory, wording guards, intent map, canonical separation and the
  * similarity analyser used by npm run seo and npm run report.
  */
@@ -116,9 +116,10 @@ test("no 'free hiring' or guarantee claims in evergreen copy", () => {
   }
 });
 
-test("city route inventory is complete: 5 + 5 hubs, 40 + 40 city pages, home, pricing and /one-time-cleaning/ = 93", () => {
+test("city route inventory is complete: 5 + 5 hubs, 40 + 40 city pages, home, pricing, /one-time-cleaning/ and /maid-salary/mumbai/ = 94", () => {
   const routes = getSiteRoutes("preview");
-  assert.equal(routes.length, 93);
+  assert.equal(routes.length, 94);
+  assert.ok(routes.some((r) => r.path === "/maid-salary/mumbai/" && r.kind === "guide"));
   assert.ok(routes.some((r) => r.path === "/one-time-cleaning/" && r.kind === "product"));
   const paths = new Set(routes.map((r) => r.path));
   for (const s of services) {
@@ -130,7 +131,7 @@ test("city route inventory is complete: 5 + 5 hubs, 40 + 40 city pages, home, pr
   assert.ok(paths.has("/") && paths.has("/pricing/"));
   assert.equal(serviceCities.length, 80);
   // No locality, blog, competitor or synonym routes in the preview inventory.
-  for (const r of routes) assert.ok(["home", "service", "service-city", "pricing", "product"].includes(r.kind), r.path);
+  for (const r of routes) assert.ok(["home", "service", "service-city", "pricing", "product", "guide"].includes(r.kind), r.path);
   assert.deepEqual(
     services.map((s) => s.onDemand.slug),
     ["hourly-maid", "hourly-cook", "hourly-babysitter", "hourly-elder-care", "hourly-patient-care"],

@@ -37,7 +37,7 @@ GA4_MEASUREMENT_ID=G-07TZPSFJ8Y npm run build:production
 
 The deployable output is `dist/`.
 
-The production build must contain exactly the 16 approved release URLs (15 from Phase 5 + `/one-time-cleaning/`, SEO batch 1) plus `404.html`, with an indexable `robots.txt` and `sitemap.xml`.
+The production build must contain exactly the 17 approved release URLs (15 from Phase 5 + `/one-time-cleaning/`, SEO batch 1 + `/maid-salary/mumbai/`, SEO batch 1B) plus `404.html`, with an indexable `robots.txt` and `sitemap.xml`.
 
 ## Mandatory pre-cutover gates
 
@@ -184,7 +184,7 @@ Expected:
 - HTTPS valid
 - canonicals point to `https://meehelp.in/...`
 - `robots.txt` allows crawling
-- sitemap contains only the 16 approved SEO URLs
+- sitemap contains only the 17 approved SEO URLs
 - GA4 tag uses `G-07TZPSFJ8Y`
 - no `noindex` on production pages
 - no Vercel hostname in HTML

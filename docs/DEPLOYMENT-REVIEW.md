@@ -7,7 +7,7 @@ change has been made. This document is the exact procedure for a person with acc
 > Do not add any domain, do not click "Promote to Production", and do not create a production deployment.
 > The review build is for authorised reviewers only.
 
-The deployment serves the `release-review` build: exactly the 16 approved first-release pages plus the footer utility page `/privacy-policy/` (`noindex, follow, noarchive`, never in the sitemap) and `404.html`,
+The deployment serves the `release-review` build: exactly the 17 approved first-release pages plus the footer utility page `/privacy-policy/` (`noindex, follow, noarchive`, never in the sitemap) and `404.html`,
 `robots.txt` (`Disallow: /`) and an empty `sitemap.xml`. Every page is `noindex, nofollow, noarchive`, and
 canonicals point at the future `https://meehelp.in/...` URLs on purpose (see section I).
 
@@ -116,7 +116,7 @@ owner). Others see Vercel's login / "request access" page and must be approved b
 | robots.txt | `/robots.txt` | `User-Agent: *` / `Disallow: /` |
 | Sitemap | `/sitemap.xml` | a `<urlset>` with **no** `<loc>` entries |
 | Canonical | View source | `https://meehelp.in/<path>/` — **intentionally** the future production URL, never the vercel.app host |
-| Inventory | Try `/maid/bengaluru/`, `/hourly-maid/mumbai/` | 404 page (only the 16 release pages and `/privacy-policy/` exist) |
+| Inventory | Try `/maid/bengaluru/`, `/hourly-maid/mumbai/` | 404 page (only the 17 release pages and `/privacy-policy/` exist) |
 | Trailing slash | `/maid` | 308 → `/maid/` |
 | Security headers | DevTools → Headers | `Content-Security-Policy`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy` |
 | JavaScript | DevTools → Network → JS filter | nothing from the site (Vercel's own toolbar script, if any, is blocked by the CSP — expected) |

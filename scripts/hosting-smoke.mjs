@@ -22,7 +22,7 @@ const DIST = join(ROOT, "dist");
 const RELEASE = [
   "/", "/pricing/", "/maid/", "/cook/", "/babysitter-nanny/", "/elder-care/", "/patient-care/",
   "/hourly-maid/", "/hourly-cook/", "/hourly-babysitter/", "/hourly-elder-care/", "/hourly-patient-care/",
-  "/maid/mumbai/", "/maid/delhi-ncr/", "/cook/mumbai/", "/one-time-cleaning/",
+  "/maid/mumbai/", "/maid/delhi-ncr/", "/cook/mumbai/", "/one-time-cleaning/", "/maid-salary/mumbai/",
 ];
 // Footer utility pages: part of the artifact (so the footer link resolves) but noindex, follow and never in
 // the sitemap. Copy of utilityPagePaths in src/lib/content/release-scope.ts (kept in sync by a unit test).

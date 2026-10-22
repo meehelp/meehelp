@@ -1,5 +1,6 @@
 import { siteStage, type SiteStage } from "@/lib/site";
 import { products } from "@/data/products";
+import { salaryGuides } from "@/data/salary-guides";
 import { services } from "@/data/services";
 import {
   pricingPageStatus,
@@ -10,17 +11,20 @@ import {
   getService,
   getSiteRoutes,
   productStatus,
+  salaryGuideStatus,
   serviceCityStatus,
   serviceHubStatus,
   type LocalityPage,
 } from "./index";
 import { isBuilt } from "./publishing";
 import { inStageScope } from "./release-scope";
-import type { BusinessModel, City, OnDemandProduct, PublishStatus, Service, ServiceCity, ServiceCityContent } from "./types";
+import { salaryGuidePath } from "./salary-guides";
+import type { BusinessModel, City, OnDemandProduct, PublishStatus, SalaryGuide, Service, ServiceCity, ServiceCityContent } from "./types";
 
 export type ResolvedRoute =
   | { kind: "pricing"; status: PublishStatus }
   | { kind: "product"; model: "onDemand"; product: OnDemandProduct; service: Service; status: PublishStatus }
+  | { kind: "guide"; model: "marketplace"; guide: SalaryGuide; service: Service; city: City; status: PublishStatus }
   | { kind: "service"; model: BusinessModel; service: Service; status: PublishStatus }
   | {
       kind: "service-city";
@@ -47,6 +51,7 @@ function serviceForSlug(slug: string): { service: Service; model: BusinessModel 
  *   /maid/, /maid/mumbai/, /maid/mumbai/andheri-west/       marketplace
  *   /hourly-maid/, /hourly-maid/mumbai/                      on-demand
  *   /one-time-cleaning/                                      on-demand product page
+ *   /maid-salary/mumbai/                                     salary guide (no /maid-salary/ index yet)
  */
 export function resolveRoute(segments: string[], stage: SiteStage = siteStage): ResolvedRoute | null {
   const [serviceSlug, citySlug, localitySlug, ...extra] = segments;
@@ -66,6 +71,17 @@ export function resolveRoute(segments: string[], stage: SiteStage = siteStage): 
     if (citySlug || !service) return null;
     const status = productStatus(product);
     return isBuilt(status, stage) && inStageScope(`/${serviceSlug}/`, stage) ? { kind: "product", model: "onDemand", product, service, status } : null;
+  }
+
+  // Salary guides exist per city only: /maid-salary/mumbai/ (there is no /maid-salary/ page).
+  if (salaryGuides.some((g) => g.slug === serviceSlug)) {
+    const guide = salaryGuides.find((g) => g.slug === serviceSlug && g.city === citySlug);
+    if (!guide || localitySlug) return null;
+    const service = getService(guide.service);
+    const city = getCity(guide.city);
+    if (!service || !city) return null;
+    const status = salaryGuideStatus(guide);
+    return isBuilt(status, stage) && inStageScope(salaryGuidePath(guide), stage) ? { kind: "guide", model: "marketplace", guide, service, city, status } : null;
   }
 
   const match = serviceForSlug(serviceSlug);

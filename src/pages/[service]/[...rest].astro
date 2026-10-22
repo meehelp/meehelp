@@ -8,6 +8,7 @@
  *   /maid/mumbai/andheri-west/  locality (explicitly "published" only — none today)
  *   /pricing/                   marketplace plans
  *   /one-time-cleaning/         on-demand product page (src/data/products.ts)
+ *   /maid-salary/mumbai/        salary guide (src/data/salary-guides.ts)
  *
  * Only paths returned by getStaticPaths are built — the same registry that
  * produces the sitemap. An empty list (e.g. production today) builds nothing.
@@ -17,6 +18,7 @@ import LocalityTemplate from "@/components/templates/LocalityTemplate.astro";
 import OnDemandCityTemplate from "@/components/templates/OnDemandCityTemplate.astro";
 import OnDemandHubTemplate from "@/components/templates/OnDemandHubTemplate.astro";
 import OnDemandProductTemplate from "@/components/templates/OnDemandProductTemplate.astro";
+import SalaryGuideTemplate from "@/components/templates/SalaryGuideTemplate.astro";
 import PricingTemplate from "@/components/templates/PricingTemplate.astro";
 import ServiceCityTemplate from "@/components/templates/ServiceCityTemplate.astro";
 import ServiceTemplate from "@/components/templates/ServiceTemplate.astro";
@@ -37,6 +39,7 @@ const route: ResolvedRoute = resolved;
 
 <BaseLayout meta={routeMetadata(route)}>
   {route.kind === "pricing" ? <PricingTemplate /> : null}
+  {route.kind === "guide" ? <SalaryGuideTemplate route={route} /> : null}
   {route.kind === "product" ? <OnDemandProductTemplate route={route} /> : null}
   {route.kind === "service" && route.model === "marketplace" ? <ServiceTemplate route={route} /> : null}
   {route.kind === "service" && route.model === "onDemand" ? <OnDemandHubTemplate route={route} /> : null}

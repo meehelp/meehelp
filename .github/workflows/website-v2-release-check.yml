@@ -36,7 +36,7 @@ jobs:
           test -f dist/.htaccess
           grep -q 'G-07TZPSFJ8Y' dist/index.html
           grep -q 'Allow: /' dist/robots.txt
-          test "$(grep -c '<loc>https://meehelp.in/' dist/sitemap.xml)" = "16"
+          test "$(grep -c '<loc>https://meehelp.in/' dist/sitemap.xml)" = "17"
           test -f dist/privacy-policy/index.html
           grep -q '<meta name="robots" content="noindex, follow">' dist/privacy-policy/index.html
           grep -q 'Personal information we obtain' dist/privacy-policy/index.html

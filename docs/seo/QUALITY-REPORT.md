@@ -5,8 +5,8 @@ Every page is still `publishStatus: review`; readiness is a content judgement to
 
 ## Summary
 
-- Pages: **93** — READY **16** · REVIEW **24** · HOLD **53**
-- READY: `/`, `/pricing/`, `/maid/`, `/cook/`, `/babysitter-nanny/`, `/elder-care/`, `/patient-care/`, `/hourly-maid/`, `/hourly-cook/`, `/hourly-babysitter/`, `/hourly-elder-care/`, `/hourly-patient-care/`, `/one-time-cleaning/`, `/maid/mumbai/`, `/maid/delhi-ncr/`, `/cook/mumbai/`
+- Pages: **94** — READY **17** · REVIEW **24** · HOLD **53**
+- READY: `/`, `/pricing/`, `/maid/`, `/cook/`, `/babysitter-nanny/`, `/elder-care/`, `/patient-care/`, `/hourly-maid/`, `/hourly-cook/`, `/hourly-babysitter/`, `/hourly-elder-care/`, `/hourly-patient-care/`, `/one-time-cleaning/`, `/maid-salary/mumbai/`, `/maid/mumbai/`, `/maid/delhi-ncr/`, `/cook/mumbai/`
 - Unsupported claims found: **0**
 - Evidence-backed facts: hubs average 12 distinct evidence items; city pages 5
 
@@ -16,9 +16,9 @@ Every page is still `publishStatus: review`; readiness is a content judgement to
 |---|---|---|---|
 | Doorway similarity — 80 city pages | low 4 · medium 46 · high 30 (median 0.556, max 0.719) | low 3 · medium 0 · high 77 (median 0.832, max 0.968) | low 3 · medium 0 · high 77 (median 0.836, max 0.969) |
 | Same-city service overlap — 80 city pages | low 3 · medium 41 · high 36 (median 0.564, max 0.78) | low 0 · medium 26 · high 54 (median 0.63, max 0.712) | low 0 · medium 12 · high 68 (median 0.658, max 0.747) |
-| Evidence-backed claims (distinct evidence items per page, summed over 93 pages) | 0 (not tracked) | 452 | 566 |
+| Evidence-backed claims (distinct evidence items per page, summed over 94 pages) | 0 (not tracked) | 452 | 569 |
 | Unsupported claims found | not measured | 0 (Phase 4.5 guards) | 0 (Phase 4.6 guards) |
-| Readiness | — | READY 11 · REVIEW 25 · HOLD 56 | READY 16 · REVIEW 24 · HOLD 53 |
+| Readiness | — | READY 11 · REVIEW 25 · HOLD 56 | READY 17 · REVIEW 24 · HOLD 53 |
 | Elder/patient care city pages with high overlap | 31 | — | 32 |
 
 Thresholds are unchanged from Phase 4.5. The new care scopes are **service** facts, so they live on the hubs, not on
@@ -135,12 +135,13 @@ city pages: city-page similarity is essentially unchanged, and near-duplicate ci
 | `/hourly-elder-care/` | onDemand | 1094 | 12 | 0 | — | — | 0.347 (low) | yes | 14 | **READY** |
 | `/hourly-patient-care/` | onDemand | 1052 | 11 | 0 | — | — | 0.36 (low) | yes | 14 | **READY** |
 | `/one-time-cleaning/` | onDemand | 1089 | 15 | 0 | — | — | — | yes | 11 | **READY** |
+| `/maid-salary/mumbai/` | marketplace | 1504 | 3 | 0 | — | — | — | yes | 4 | **READY** |
 
 ## City pages
 
 | Page | Prop. | Words | Evidence | Unsupported | Local notes | Cross-city sim. | Cross-service sim. | Title/meta unique | Links | Readiness |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `/maid/mumbai/` | marketplace | 653 | 5 | 0 | 3 + hand-written | 0.342 (low) | 0.426 (medium) | yes | 16 | **READY** |
+| `/maid/mumbai/` | marketplace | 663 | 5 | 0 | 3 + hand-written | 0.328 (low) | 0.41 (medium) | yes | 17 | **READY** |
 | `/maid/delhi-ncr/` | marketplace | 640 | 5 | 0 | 3 + hand-written | 0.355 (low) | 0.435 (medium) | yes | 16 | **READY** |
 | `/maid/bengaluru/` | marketplace | 479 | 5 | 0 | 2 | 0.82 (high) | 0.708 (high) | yes | 16 | **REVIEW** |
 | `/maid/hyderabad/` | marketplace | 472 | 5 | 0 | 2 | 0.824 (high) | 0.622 (high) | yes | 16 | **REVIEW** |

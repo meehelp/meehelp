@@ -6,6 +6,7 @@ import { cities } from "@/data/cities";
 import { home } from "@/data/home";
 import { pricingPage } from "@/data/plans";
 import { productPath, products } from "@/data/products";
+import { salaryGuides } from "@/data/salary-guides";
 import { localities } from "@/data/localities";
 import { serviceCities } from "@/data/service-cities";
 import { services } from "@/data/services";
@@ -16,6 +17,7 @@ import { composeServiceCity } from "./compose";
 import { homePath, localityPath, pricingPath, serviceCityPath, servicePath } from "./paths";
 import { availabilityStatus, combineStatus, confirmedStatus, isBuilt, isIndexable } from "./publishing";
 import { inStageScope } from "./release-scope";
+import { guideSeo, salaryGuidePath } from "./salary-guides";
 import type {
   BusinessModel,
   City,
@@ -24,6 +26,7 @@ import type {
   LocalityServiceContent,
   OnDemandProduct,
   PublishStatus,
+  SalaryGuide,
   Service,
   ServiceCity,
   ServiceCityContent,
@@ -159,7 +162,7 @@ export function getVisibleTestimonials(stage: SiteStage = siteStage): Testimonia
   return testimonials;
 }
 
-export type RouteKind = "home" | "service" | "service-city" | "locality" | "pricing" | "product";
+export type RouteKind = "home" | "service" | "service-city" | "locality" | "pricing" | "product" | "guide";
 
 /** The pricing page is held in review until prices may be shown on production. */
 export function pricingPageStatus(stage: SiteStage = siteStage): PublishStatus {
@@ -182,6 +185,24 @@ export function isProductBuilt(p: OnDemandProduct, stage: SiteStage = siteStage)
 
 export function getBuiltProducts(stage: SiteStage = siteStage): OnDemandProduct[] {
   return products.filter((p) => isProductBuilt(p, stage));
+}
+
+/**
+ * A salary guide (/maid-salary/mumbai/) is only as published as its own copy
+ * AND the marketplace city page it sends readers to (/maid/mumbai/).
+ */
+export function salaryGuideStatus(g: SalaryGuide): PublishStatus {
+  const target = getServiceCity(g.service, g.city, "marketplace");
+  if (!target) return "draft";
+  return combineStatus(g.publishStatus, serviceCityStatus(target));
+}
+
+export function isSalaryGuideBuilt(g: SalaryGuide, stage: SiteStage = siteStage): boolean {
+  return isBuilt(salaryGuideStatus(g), stage) && inStageScope(salaryGuidePath(g), stage);
+}
+
+export function getBuiltSalaryGuides(stage: SiteStage = siteStage): SalaryGuide[] {
+  return salaryGuides.filter((g) => isSalaryGuideBuilt(g, stage));
 }
 
 /** Whether /pricing/ is built for the stage. */
@@ -228,6 +249,9 @@ export function getSiteRoutes(stage: SiteStage = siteStage): SiteRoute[] {
   }
   for (const p of getBuiltProducts(stage)) {
     add({ path: productPath(p.slug), kind: "product", model: p.model, ...p.seo, status: productStatus(p), updatedAt: p.updatedAt });
+  }
+  for (const g of getBuiltSalaryGuides(stage)) {
+    add({ path: salaryGuidePath(g), kind: "guide", model: "marketplace", ...guideSeo(g), status: salaryGuideStatus(g), updatedAt: g.updatedAt });
   }
   for (const sc of getBuiltServiceCities(stage)) {
     add({

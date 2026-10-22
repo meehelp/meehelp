@@ -1,5 +1,6 @@
 /** Joins the intent map with the route registry: one entry per built page. */
-import { intentTargets, productIntents, siteIntents } from "@/data/intent-map";
+import { guideIntents, intentTargets, productIntents, siteIntents } from "@/data/intent-map";
+import { fillGuideText } from "./salary-guides";
 import { home } from "@/data/home";
 import { pricingPage } from "@/data/plans";
 import { siteStage, absoluteUrl, type SiteStage } from "@/lib/site";
@@ -46,6 +47,11 @@ export function buildIntentMap(stage: SiteStage = siteStage): IntentEntry[] {
     if (route.kind === "product") {
       const t = productIntents[route.product.slug];
       return { ...base, service: route.service.slug, city: null, ...t, supportingKeywords: [...t.supportingKeywords], h1: route.product.headline };
+    }
+    if (route.kind === "guide") {
+      const t = guideIntents[`${route.guide.slug}/${route.guide.city}`];
+      if (!t) throw new Error(`No intent target for ${r.path}`);
+      return { ...base, service: route.service.slug, city: route.city.slug, ...t, supportingKeywords: [...t.supportingKeywords], h1: fillGuideText(route.guide, route.guide.headline) };
     }
     const target = intentTargets[route.service.slug][route.model];
     if (route.kind === "service") {

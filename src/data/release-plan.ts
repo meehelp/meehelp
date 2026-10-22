@@ -6,7 +6,7 @@
  * Chosen from docs/seo/QUALITY-REPORT.md (v3) — the home page,
  * pricing, the 10 hubs now backed by business truth, the only 3 city
  * pages with genuinely local, hand-written content and (SEO batch 1)
- * /one-time-cleaning/. Tests fail if a page here
+ * /one-time-cleaning/, and (SEO batch 1B) /maid-salary/mumbai/. Tests fail if a page here
  * is not READY. docs/seo/FIRST-RELEASE-REVIEW.md is generated from this list.
  */
 export interface ReleaseEntry {
@@ -35,5 +35,6 @@ export const firstRelease: ReleaseEntry[] = [
   { path: "/hourly-patient-care/", when: "now", why: "Scheduled patient care by the hour; approved scope; injections and IV excluded.", risk: "Cancellation terms for hourly bookings are not stated (Q-CANCEL)." },
   { path: "/maid/mumbai/", when: "now", why: "Hand-written: society registration, compact flats, Thane/Navi Mumbai distances; low doorway risk.", risk: "Local guidance is general practical advice; areas served are not listed (none confirmed)." },
   { path: "/maid/delhi-ncr/", when: "now", why: "Hand-written: independent floors vs gated societies, distances across Delhi/Gurugram/Noida; low doorway risk.", risk: "Local guidance is general practical advice; areas served are not listed (none confirmed)." },
+  { path: "/maid-salary/mumbai/", when: "now", why: "SEO batch 1B: owns the Mumbai maid salary/charges cluster (part-time, full-time, live-in, '24-hour'); indicative market ranges with disclosure and sources; hands readers on to /maid/mumbai/.", risk: "Ranges are third-party market figures approved by the business, not MeeHelp data; three of the named sources could not be re-checked from this environment (no stable page linked). Ranges must be re-reviewed within 12 months (validator)." },
   { path: "/cook/mumbai/", when: "now", why: "Hand-written: commute-driven meal timing and small kitchens; low doorway risk.", risk: "Local guidance is general practical advice; areas served are not listed (none confirmed)." },
 ];

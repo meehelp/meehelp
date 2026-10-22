@@ -20,7 +20,8 @@ import Breadcrumbs from "@/components/layout/Breadcrumbs.astro";
 import PlansLine from "@/components/pricing/PlansLine.astro";
 import JsonLd from "@/components/seo/JsonLd.astro";
 import VerificationSummary from "@/components/trust/VerificationSummary.astro";
-import { cityName, getBuiltServiceCities, getService, getServiceCity, isServiceCityBuilt } from "@/lib/content";
+import { cityName, getBuiltSalaryGuides, getBuiltServiceCities, getService, getServiceCity, isServiceCityBuilt } from "@/lib/content";
+import { salaryGuidePath } from "@/lib/content/salary-guides";
 import { serviceCityPath, servicePath } from "@/lib/content/paths";
 import type { ResolvedRoute } from "@/lib/content/resolve";
 import { faqPageSchema, serviceSchema } from "@/lib/seo/schema";
@@ -37,6 +38,8 @@ const sameServiceElsewhere = built.filter((sc) => sc.service === service.slug &&
 const counterpart = getServiceCity(service.slug, city.slug, "onDemand");
 const counterpartBuilt = counterpart ? isServiceCityBuilt(counterpart) : false;
 const placement = `${service.slug}_${city.slug}`;
+// Salary guide for this service and city (e.g. /maid-salary/mumbai/), linked when built.
+const salaryGuide = getBuiltSalaryGuides().find((g) => g.service === service.slug && g.city === city.slug);
 const facts = factsFor(service.slug, "marketplace");
 const keyFacts = facts.filter((f) => ["m.hours", "m.contact"].includes(f.id));
 const coverage = facts.filter((f) => f.id === "b.coverage");
@@ -80,6 +83,13 @@ const schema = [
     <p class="note">
       For what {service.roleWithArticle} usually does and doesn't do, see <a href={servicePath(service.slug)}>{service.name.toLowerCase()}</a>.
     </p>
+    {
+      salaryGuide ? (
+        <p class="note">
+          Wondering what to pay? <a href={salaryGuidePath(salaryGuide)}>See our {city.name} {service.shortName.toLowerCase()} salary guide</a>.
+        </p>
+      ) : null
+    }
   </Section>
 
   {

@@ -37,6 +37,7 @@ const { getSiteRoutes, getServiceCity, getServiceCityContent } = await import("@
 const { cities } = await import("@/data/cities");
 const { services } = await import("@/data/services");
 const { products } = await import("@/data/products");
+const { salaryGuides } = await import("@/data/salary-guides");
 const { serviceModelEvidence, openQuestions } = await import("@/data/evidence");
 const guards = await import("@/lib/guards/claims");
 
@@ -130,7 +131,8 @@ for (const r of routes) {
   }
   const segments = r.path.split("/").filter(Boolean);
   const product = products.find((p) => p.slug === segments[0]);
-  const service = services.find((s) => s.slug === segments[0] || s.onDemand.slug === segments[0] || s.slug === product?.service) ?? null;
+  const guide = salaryGuides.find((g) => g.slug === segments[0] && g.city === segments[1]);
+  const service = services.find((s) => s.slug === segments[0] || s.onDemand.slug === segments[0] || s.slug === product?.service || s.slug === guide?.service) ?? null;
   const city = segments[1] ? cities.find((c) => c.slug === segments[1]) ?? null : null;
   let localNotes: number | null = null;
   let handWritten: boolean | null = null;
